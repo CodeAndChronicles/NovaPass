@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NovaPass • لوحة التحكم</title>
+    <title>NovaPass • Dashboard</title>
     
     <!-- Iconify Icons -->
     <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
@@ -101,7 +101,29 @@
         }
 
         /* ===== TYPOGRAPHY ===== */
-        .h1 { font-size: 2.5rem; font-weight: 700; line-height: 1.2; }
+        .h1 { 
+            font-size: 2.5rem; 
+            font-weight: 700; 
+            line-height: 1.2;
+            background: linear-gradient(135deg, var(--mint-300), var(--mint-400));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+            display: inline-block;
+        }
+
+        .h1::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            right: 0;
+            width: 60%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--mint-300));
+            border-radius: 2px;
+        }
+
         .h2 { font-size: 2rem; font-weight: 700; line-height: 1.3; }
         .h3 { font-size: 1.5rem; font-weight: 600; line-height: 1.4; }
         .h4 { font-size: 1.25rem; font-weight: 600; line-height: 1.4; }
@@ -122,12 +144,13 @@
         .navbar {
             background: var(--bg-secondary);
             border-bottom: 1px solid var(--border-color);
-            padding: 1rem 0;
+            padding: 1.25rem 0;
             position: sticky;
             top: 0;
             z-index: 100;
             backdrop-filter: blur(10px);
             background: rgba(255, 255, 255, 0.95);
+            box-shadow: var(--shadow-sm);
         }
 
         body.dark-mode .navbar {
@@ -150,24 +173,60 @@
             text-decoration: none;
         }
 
-        .logo-icon {
-            width: 40px;
-            height: 40px;
+        .logo-text {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo-text::after {
+            content: '•';
+            color: var(--mint-300);
+            font-size: 1.8rem;
+            line-height: 1;
+        }
+
+        .logo-dashboard {
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        /* ===== FLOATING ADD BUTTON ===== */
+        .floating-add-btn {
+            position: fixed;
+            bottom: 2rem;
+            left: 2rem;
+            width: 56px;
+            height: 56px;
             background: linear-gradient(135deg, var(--mint-300), var(--mint-400));
-            border-radius: 12px;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-mint);
+            border: none;
+            z-index: 90;
         }
 
-        .logo-text {
-            font-weight: 700;
-            font-size: 1.5rem;
-            background: linear-gradient(135deg, var(--mint-300), var(--mint-400));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+        .floating-add-btn:hover {
+            transform: translateY(-4px) scale(1.1);
+            box-shadow: 0 8px 25px rgba(62, 180, 137, 0.3);
+        }
+
+        .floating-add-btn:active {
+            transform: translateY(-1px) scale(0.98);
         }
 
         /* ===== USER PROFILE ===== */
@@ -292,74 +351,6 @@
             background: rgba(239, 68, 68, 0.1);
         }
 
-        /* ===== THEME TOGGLE ===== */
-        .theme-toggle {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            padding: 0.5rem;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: background 0.2s ease;
-        }
-
-        .theme-toggle:hover {
-            background: var(--mint-50);
-        }
-
-        body.dark-mode .theme-toggle:hover {
-            background: rgba(62, 180, 137, 0.1);
-        }
-
-        .toggle-switch {
-            position: relative;
-            width: 48px;
-            height: 24px;
-        }
-
-        .toggle-switch input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
-
-        .toggle-slider {
-            position: absolute;
-            cursor: pointer;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: var(--gray-300);
-            border-radius: 24px;
-            transition: 0.3s ease;
-        }
-
-        body.dark-mode .toggle-slider {
-            background: var(--gray-600);
-        }
-
-        .toggle-slider:before {
-            position: absolute;
-            content: "";
-            height: 18px;
-            width: 18px;
-            left: 3px;
-            bottom: 3px;
-            background: white;
-            border-radius: 50%;
-            transition: transform 0.3s ease;
-            box-shadow: var(--shadow-sm);
-        }
-
-        input:checked + .toggle-slider {
-            background: var(--mint-300);
-        }
-
-        input:checked + .toggle-slider:before {
-            transform: translateX(24px);
-        }
-
         /* ===== SEGMENTED CONTROL ===== */
         .segmented-control {
             display: flex;
@@ -372,7 +363,7 @@
 
         .segmented-option {
             flex: 1;
-            padding: 0.5rem 0.75rem;
+            padding: 0.75rem 1rem;
             text-align: center;
             cursor: pointer;
             border-radius: 8px;
@@ -385,7 +376,7 @@
             align-items: center;
             justify-content: center;
             gap: 0.5rem;
-            min-height: 40px;
+            min-height: 44px;
         }
 
         .segmented-option:hover {
@@ -396,163 +387,151 @@
             background: var(--mint-100);
             color: var(--mint-400);
             border-color: var(--mint-200);
+            box-shadow: var(--shadow-sm);
         }
 
-        /* ===== DEBUG PANEL ===== */
-        .debug-panel {
-            background: var(--bg-primary);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 1.5rem;
-            margin-top: 1rem;
-            display: none;
-        }
-
-        .debug-panel.active {
-            display: block;
-            animation: fadeIn 0.3s ease;
-        }
-
-        .debug-item {
+        /* ===== RADIO SELECTOR ===== */
+        .radio-selector {
             display: flex;
-            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .radio-option {
+            display: flex;
+            flex-direction: column;
             align-items: center;
-            padding: 0.75rem 0;
-            border-bottom: 1px solid var(--border-color);
+            gap: 0.5rem;
+            cursor: pointer;
         }
 
-        .debug-item:last-child {
-            border-bottom: none;
+        .radio-circle {
+            width: 56px;
+            height: 56px;
+            border-radius: 16px;
+            transition: all 0.3s ease;
+            border: 3px solid transparent;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.25rem;
         }
 
-        .debug-label {
-            font-size: 0.875rem;
-            color: var(--text-secondary);
+        .radio-circle:hover {
+            transform: scale(1.1);
+            box-shadow: var(--shadow-md);
+        }
+
+        .radio-circle.selected {
+            border-color: var(--text-primary);
+            transform: scale(1.05);
+            box-shadow: 0 0 0 4px rgba(62, 180, 137, 0.2);
+        }
+
+        .radio-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-align: center;
             font-weight: 500;
         }
 
-        .debug-value {
-            font-family: 'Courier New', monospace;
+        /* ===== ADVANCED PASSWORD STRENGTH ===== */
+        .password-strength-advanced {
+            margin-top: 1rem;
+        }
+
+        .strength-meter {
+            height: 6px;
+            background: var(--gray-200);
+            border-radius: 3px;
+            overflow: hidden;
+            margin-bottom: 0.5rem;
+            position: relative;
+        }
+
+        .strength-fill {
+            height: 100%;
+            border-radius: 3px;
+            transition: width 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            background: linear-gradient(90deg, 
+                #EF4444 0%, 
+                #F59E0B 25%, 
+                #10B981 50%, 
+                var(--mint-300) 75%, 
+                var(--mint-400) 100%);
+            width: 0%;
+        }
+
+        .strength-details {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-top: 0.75rem;
+        }
+
+        .strength-criteria {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.8125rem;
+            color: var(--text-muted);
+        }
+
+        .strength-criteria.valid {
+            color: var(--success);
+        }
+
+        .strength-criteria iconify-icon {
+            font-size: 1rem;
+        }
+
+        .strength-score {
             font-size: 0.875rem;
-            color: var(--text-primary);
-            direction: ltr;
-            text-align: left;
-            background: var(--bg-secondary);
-            padding: 0.25rem 0.5rem;
-            border-radius: 6px;
-            border: 1px solid var(--border-color);
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-top: 0.5rem;
         }
 
         /* ===== MAIN CONTENT ===== */
         .main-content {
             max-width: 1280px;
             margin: 0 auto;
-            padding: 3rem 1.5rem;
-            min-height: calc(100vh - 73px);
-        }
-
-        .hero-section {
-            text-align: center;
-            margin-bottom: 3rem;
-            animation: fadeInUp 0.6s ease;
-        }
-
-        .hero-title {
-            margin-bottom: 1rem;
-        }
-
-        .hero-subtitle {
-            color: var(--text-secondary);
-            max-width: 600px;
-            margin: 0 auto 2rem;
-        }
-
-        /* ===== VAULT SECTION ===== */
-        .vault-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2rem;
-        }
-
-        .section-title {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-        }
-
-        .section-badge {
-            background: var(--mint-50);
-            color: var(--mint-400);
-            padding: 0.25rem 0.75rem;
-            border-radius: 20px;
-            font-size: 0.875rem;
-            font-weight: 600;
-        }
-
-        body.dark-mode .section-badge {
-            background: rgba(62, 180, 137, 0.2);
-            color: var(--mint-300);
-        }
-
-        /* ===== ADD BOARD BUTTON ===== */
-        .add-board-btn {
-            background: linear-gradient(135deg, var(--mint-300), var(--mint-400));
-            color: white;
-            border: none;
-            padding: 0.875rem 1.5rem;
-            border-radius: 12px;
-            font-weight: 600;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            transition: all 0.3s ease;
-            box-shadow: var(--shadow-mint);
-            min-height: 44px;
-        }
-
-        .add-board-btn:hover:not(:disabled) {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(62, 180, 137, 0.3);
-        }
-
-        .add-board-btn:active:not(:disabled) {
-            transform: translateY(0);
-        }
-
-        .add-board-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
+            padding: 2.5rem 1.5rem;
+            min-height: calc(100vh - 88px);
         }
 
         /* ===== BOARDS GRID ===== */
         .boards-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
             gap: 1.5rem;
-            margin-bottom: 3rem;
+            margin-top: 2rem;
         }
 
         /* ===== BOARD CARD ===== */
         .board-card {
             background: var(--bg-card);
-            border-radius: 16px;
-            padding: 1.5rem;
+            border-radius: 20px;
+            padding: 1.75rem;
             border: 1px solid var(--border-color);
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
             display: flex;
             flex-direction: column;
-            gap: 1.25rem;
+            gap: 1.5rem;
             animation: fadeIn 0.5s ease;
-            min-height: 260px;
+            min-height: 280px;
+            box-shadow: var(--shadow-md);
         }
 
         .board-card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-lg);
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-xl);
             border-color: var(--border-hover);
         }
 
@@ -568,14 +547,14 @@
         }
 
         .board-icon {
-            width: 56px;
-            height: 56px;
+            width: 64px;
+            height: 64px;
             background: var(--mint-50);
-            border-radius: 14px;
+            border-radius: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.75rem;
+            font-size: 2rem;
             color: var(--mint-400);
             transition: all 0.3s ease;
             border: 2px solid transparent;
@@ -595,27 +574,28 @@
             background: rgba(62, 180, 137, 0.2);
         }
 
-        .color-label {
+        .color-dot {
             position: absolute;
-            top: -6px;
-            right: -6px;
-            width: 24px;
-            height: 24px;
-            border-radius: 8px;
+            top: -8px;
+            right: -8px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
             border: 3px solid var(--bg-card);
             transition: all 0.3s ease;
+            box-shadow: var(--shadow-sm);
         }
 
-        .color-label:hover {
-            transform: scale(1.2);
+        .color-dot:hover {
+            transform: scale(1.3);
         }
 
-        .color-label.personal { background: var(--mint-300); }
-        .color-label.work { background: #4ECDC4; }
-        .color-label.important { background: #FF6B6B; }
-        .color-label.social { background: #9D4EDD; }
-        .color-label.finance { background: #FFD166; }
-        .color-label.other { background: #118AB2; }
+        .color-dot.personal { background: var(--mint-300); }
+        .color-dot.work { background: #4ECDC4; }
+        .color-dot.important { background: #FF6B6B; }
+        .color-dot.social { background: #9D4EDD; }
+        .color-dot.finance { background: #FFD166; }
+        .color-dot.other { background: #118AB2; }
 
         .board-info {
             flex: 1;
@@ -624,20 +604,23 @@
 
         .board-name {
             font-weight: 700;
-            font-size: 1.125rem;
-            margin-bottom: 0.375rem;
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
             color: var(--text-primary);
-            white-space: nowrap;
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
             overflow: hidden;
-            text-overflow: ellipsis;
         }
 
         .board-username {
             color: var(--text-secondary);
-            font-size: 0.875rem;
-            white-space: nowrap;
+            font-size: 0.9375rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
             overflow: hidden;
-            text-overflow: ellipsis;
         }
 
         /* ===== PASSWORD SECTION ===== */
@@ -649,7 +632,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.75rem;
         }
 
         .password-field {
@@ -657,8 +640,8 @@
             align-items: center;
             gap: 0.5rem;
             background: var(--bg-primary);
-            border-radius: 10px;
-            padding: 0.75rem;
+            border-radius: 12px;
+            padding: 1rem;
             border: 1px solid var(--border-color);
             transition: border-color 0.2s ease;
         }
@@ -673,7 +656,7 @@
             border: none;
             color: var(--text-primary);
             font-family: 'Inter', monospace;
-            font-size: 0.9375rem;
+            font-size: 1rem;
             letter-spacing: 0.05em;
             min-width: 0;
             outline: none;
@@ -687,6 +670,8 @@
             transform: translateY(10px);
             transition: all 0.3s ease;
             margin-top: auto;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-color);
         }
 
         .board-card:hover .card-actions {
@@ -696,7 +681,7 @@
 
         /* ===== ACTION BUTTONS ===== */
         .action-btn {
-            width: 40px;
+            flex: 1;
             height: 40px;
             border-radius: 10px;
             border: 1px solid var(--border-color);
@@ -707,6 +692,9 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 500;
         }
 
         .action-btn:hover {
@@ -736,53 +724,6 @@
             background: rgba(239, 68, 68, 0.1);
         }
 
-        /* ===== INLINE EDIT ===== */
-        .inline-edit {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            width: 100%;
-        }
-
-        .inline-edit input {
-            flex: 1;
-            background: none;
-            border: none;
-            color: var(--text-primary);
-            font-size: 0.875rem;
-            outline: none;
-            padding: 0.25rem 0;
-            border-bottom: 1px solid transparent;
-            transition: border-color 0.2s ease;
-            font-family: 'Inter', sans-serif;
-        }
-
-        .inline-edit input:focus {
-            border-bottom-color: var(--mint-300);
-        }
-
-        .edit-icon {
-            opacity: 0;
-            transition: opacity 0.2s ease;
-            cursor: pointer;
-            color: var(--text-muted);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 28px;
-            height: 28px;
-            border-radius: 6px;
-        }
-
-        .edit-icon:hover {
-            background: var(--mint-50);
-            color: var(--mint-400);
-        }
-
-        .setting-item:hover .edit-icon {
-            opacity: 1;
-        }
-
         /* ===== MODALS ===== */
         .modal {
             display: none;
@@ -806,8 +747,8 @@
 
         .modal-content {
             background: var(--bg-card);
-            border-radius: 20px;
-            padding: 2rem;
+            border-radius: 24px;
+            padding: 2.5rem;
             width: 100%;
             max-width: 520px;
             animation: modalSlideUp 0.3s ease;
@@ -821,14 +762,14 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 1.5rem;
-            padding-bottom: 1rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
             border-bottom: 1px solid var(--border-color);
         }
 
         .close-btn {
-            width: 36px;
-            height: 36px;
+            width: 40px;
+            height: 40px;
             border-radius: 10px;
             border: 1px solid var(--border-color);
             background: var(--bg-primary);
@@ -846,7 +787,11 @@
             border-color: var(--mint-300);
         }
 
-        /* ===== SETTINGS MODAL STYLES ===== */
+        /* ===== SETTINGS MODAL ===== */
+        .settings-modal .modal-content {
+            max-width: 600px;
+        }
+
         .settings-sections {
             display: flex;
             flex-direction: column;
@@ -860,7 +805,7 @@
             border: 1px solid var(--border-color);
         }
 
-        .settings-title {
+        .settings-header {
             display: flex;
             align-items: center;
             gap: 0.75rem;
@@ -869,18 +814,18 @@
             border-bottom: 1px solid var(--border-color);
         }
 
-        .settings-title iconify-icon {
+        .settings-header iconify-icon {
             color: var(--mint-400);
-            font-size: 1.25rem;
+            font-size: 1.5rem;
         }
 
-        .settings-group {
+        .settings-items {
             display: flex;
             flex-direction: column;
             gap: 1rem;
         }
 
-        .setting-item {
+        .settings-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -892,26 +837,26 @@
             min-height: 60px;
         }
 
-        .setting-item:hover {
+        .settings-item:hover {
             border-color: var(--border-hover);
             transform: translateY(-2px);
             box-shadow: var(--shadow-sm);
         }
 
-        .setting-label {
+        .settings-label {
             display: flex;
             flex-direction: column;
             gap: 0.25rem;
             flex: 1;
         }
 
-        .setting-name {
+        .settings-name {
             font-weight: 600;
             color: var(--text-primary);
             font-size: 0.9375rem;
         }
 
-        .setting-description {
+        .settings-description {
             font-size: 0.8125rem;
             color: var(--text-muted);
             line-height: 1.4;
@@ -941,22 +886,22 @@
 
         /* ===== FORM CONTROLS ===== */
         .form-group {
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.75rem;
         }
 
         .form-label {
             display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
+            margin-bottom: 0.75rem;
+            font-weight: 600;
             color: var(--text-primary);
-            font-size: 0.875rem;
+            font-size: 0.9375rem;
         }
 
         .form-control {
             width: 100%;
-            padding: 0.75rem 1rem;
+            padding: 1rem 1.25rem;
             border: 1px solid var(--border-color);
-            border-radius: 10px;
+            border-radius: 12px;
             font-size: 1rem;
             transition: all 0.2s ease;
             background: var(--bg-primary);
@@ -967,16 +912,15 @@
         .form-control:focus {
             outline: none;
             border-color: var(--border-hover);
-            box-shadow: 0 0 0 3px rgba(62, 180, 137, 0.1);
+            box-shadow: 0 0 0 4px rgba(62, 180, 137, 0.1);
         }
 
         .form-control:hover {
             border-color: var(--border-hover);
         }
 
-        .form-control:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
+        .form-control::placeholder {
+            color: var(--text-muted);
         }
 
         .form-control.error {
@@ -986,7 +930,7 @@
         .error-message {
             color: var(--danger);
             font-size: 0.875rem;
-            margin-top: 0.25rem;
+            margin-top: 0.5rem;
             display: none;
         }
 
@@ -996,22 +940,54 @@
 
         /* ===== ICON SELECTOR ===== */
         .icon-selector {
+            margin-bottom: 2rem;
+        }
+
+        .icon-search-container {
             margin-bottom: 1.5rem;
         }
 
-        .icon-search {
+        .icon-categories {
+            display: flex;
+            gap: 0.5rem;
             margin-bottom: 1rem;
+            overflow-x: auto;
+            padding-bottom: 0.5rem;
+        }
+
+        .category-btn {
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-primary);
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-size: 0.875rem;
+            font-weight: 500;
+            white-space: nowrap;
+            transition: all 0.2s ease;
+        }
+
+        .category-btn:hover {
+            background: var(--mint-50);
+            color: var(--mint-400);
+        }
+
+        .category-btn.active {
+            background: var(--mint-100);
+            color: var(--mint-400);
+            border-color: var(--mint-200);
         }
 
         .icon-grid {
             display: grid;
-            grid-template-columns: repeat(5, 1fr);
+            grid-template-columns: repeat(6, 1fr);
             gap: 0.75rem;
             max-height: 200px;
             overflow-y: auto;
-            padding: 0.5rem;
+            padding: 1rem;
             border: 1px solid var(--border-color);
-            border-radius: 10px;
+            border-radius: 12px;
             background: var(--bg-primary);
         }
 
@@ -1034,6 +1010,7 @@
             transform: scale(1.1);
             background: var(--mint-50);
             color: var(--mint-400);
+            border-color: var(--mint-200);
         }
 
         .icon-option.selected {
@@ -1041,73 +1018,19 @@
             color: var(--mint-400);
             border-color: var(--mint-300);
             transform: scale(1.05);
-        }
-
-        /* ===== COLOR SELECTOR ===== */
-        .color-selector {
-            margin-bottom: 2rem;
-        }
-
-        .color-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1rem;
-            margin-top: 0.5rem;
-        }
-
-        .color-option {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.5rem;
-            cursor: pointer;
-        }
-
-        .color-circle {
-            width: 48px;
-            height: 48px;
-            border-radius: 12px;
-            transition: all 0.3s ease;
-            border: 3px solid transparent;
-            position: relative;
-        }
-
-        .color-circle:hover {
-            transform: scale(1.1);
-        }
-
-        .color-circle.selected {
-            border-color: var(--text-primary);
-            transform: scale(1.05);
-        }
-
-        .color-circle.selected::after {
-            content: '✓';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: white;
-            font-weight: bold;
-            font-size: 1rem;
-        }
-
-        .color-label-text {
-            font-size: 0.75rem;
-            color: var(--text-muted);
-            text-align: center;
+            box-shadow: 0 0 0 3px rgba(62, 180, 137, 0.2);
         }
 
         /* ===== MODAL ACTIONS ===== */
         .modal-actions {
             display: flex;
-            gap: 0.75rem;
-            margin-top: 2rem;
+            gap: 1rem;
+            margin-top: 2.5rem;
         }
 
         .btn {
-            padding: 0.875rem 1.5rem;
-            border-radius: 10px;
+            padding: 1rem 2rem;
+            border-radius: 12px;
             font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
@@ -1117,8 +1040,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 0.5rem;
-            min-height: 44px;
+            gap: 0.75rem;
+            min-height: 48px;
         }
 
         .btn-primary {
@@ -1129,6 +1052,10 @@
         .btn-primary:hover:not(:disabled) {
             transform: translateY(-2px);
             box-shadow: 0 8px 25px rgba(62, 180, 137, 0.3);
+        }
+
+        .btn-primary:active:not(:disabled) {
+            transform: translateY(0);
         }
 
         .btn-primary:disabled {
@@ -1164,8 +1091,8 @@
         /* ===== TOAST NOTIFICATIONS ===== */
         .toast-container {
             position: fixed;
-            bottom: 1.5rem;
-            right: 1.5rem;
+            bottom: 2rem;
+            right: 2rem;
             z-index: 3000;
             display: flex;
             flex-direction: column;
@@ -1175,10 +1102,10 @@
         .toast {
             background: var(--bg-card);
             border-radius: 12px;
-            padding: 1rem 1.25rem;
+            padding: 1rem 1.5rem;
             display: flex;
             align-items: center;
-            gap: 0.75rem;
+            gap: 1rem;
             box-shadow: var(--shadow-lg);
             border: 1px solid var(--border-color);
             animation: toastSlideIn 0.3s ease;
@@ -1191,8 +1118,8 @@
         }
 
         .toast-icon {
-            width: 24px;
-            height: 24px;
+            width: 28px;
+            height: 28px;
             border-radius: 8px;
             display: flex;
             align-items: center;
@@ -1219,21 +1146,34 @@
         .empty-state {
             grid-column: 1 / -1;
             text-align: center;
-            padding: 4rem 2rem;
+            padding: 6rem 2rem;
             animation: fadeIn 0.6s ease;
         }
 
         .empty-icon {
-            font-size: 4rem;
+            font-size: 5rem;
             color: var(--mint-100);
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
             animation: float 3s ease-in-out infinite;
+        }
+
+        .empty-state .h3 {
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .empty-state .body {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         /* ===== ANIMATIONS ===== */
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         @keyframes fadeInUp {
@@ -1313,6 +1253,10 @@
                 padding: 0 1rem;
             }
             
+            .logo-text {
+                font-size: 1.25rem;
+            }
+            
             .main-content {
                 padding: 2rem 1rem;
             }
@@ -1321,28 +1265,13 @@
                 grid-template-columns: 1fr;
             }
             
-            .vault-header {
-                flex-direction: column;
-                gap: 1rem;
-                align-items: stretch;
-            }
-            
-            .add-board-btn {
-                width: 100%;
-                justify-content: center;
-            }
-            
             .modal-content {
-                padding: 1.5rem;
+                padding: 2rem 1.5rem;
                 margin: 0 1rem;
             }
             
             .icon-grid {
                 grid-template-columns: repeat(4, 1fr);
-            }
-            
-            .color-grid {
-                grid-template-columns: repeat(2, 1fr);
             }
             
             .modal-actions {
@@ -1358,26 +1287,34 @@
             }
             
             .segmented-option {
-                padding: 0.75rem;
+                padding: 1rem;
+            }
+            
+            .floating-add-btn {
+                bottom: 1.5rem;
+                left: 1.5rem;
+                width: 52px;
+                height: 52px;
+            }
+            
+            .action-btn {
+                font-size: 0.8125rem;
+                padding: 0 0.5rem;
             }
             
             .settings-section {
                 padding: 1.25rem;
             }
             
-            .setting-item {
+            .settings-item {
                 flex-direction: column;
                 align-items: flex-start;
                 gap: 1rem;
             }
-            
-            .debug-panel {
-                padding: 1rem;
-            }
         }
 
         @media (max-width: 480px) {
-            .logo-text {
+            .logo-dashboard {
                 display: none;
             }
             
@@ -1390,7 +1327,7 @@
             }
             
             .board-card {
-                padding: 1.25rem;
+                padding: 1.5rem;
             }
             
             .icon-grid {
@@ -1407,14 +1344,17 @@
                 max-width: none;
             }
             
-            .settings-title h4 {
-                font-size: 1rem;
+            .radio-selector {
+                gap: 0.75rem;
             }
             
-            .debug-item {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 0.5rem;
+            .radio-circle {
+                width: 48px;
+                height: 48px;
+            }
+            
+            .settings-header h4 {
+                font-size: 1rem;
             }
         }
     </style>
@@ -1423,23 +1363,11 @@
     <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
-            <a href="#" class="logo">
-                <div class="logo-icon">
-                    <iconify-icon icon="material-symbols:lock"></iconify-icon>
-                </div>
-                <span class="logo-text">NovaPass</span>
-            </a>
+            <div class="logo">
+                <span class="logo-text">NovaPass<span class="logo-dashboard">Dashboard</span></span>
+            </div>
             
-            <div style="display: flex; align-items: center; gap: 1rem;">
-                <!-- Theme Toggle -->
-                <div class="theme-toggle" id="themeToggleBtn">
-                    <div class="toggle-switch">
-                        <input type="checkbox" id="themeToggle">
-                        <span class="toggle-slider"></span>
-                    </div>
-                    <span class="body-sm" id="themeLabel">داكن</span>
-                </div>
-                
+            <div class="nav-actions">
                 <!-- User Profile -->
                 <div class="user-profile">
                     <button class="profile-trigger" id="profileBtn">
@@ -1474,48 +1402,38 @@
         </div>
     </nav>
 
+    <!-- Floating Add Button -->
+    <button class="floating-add-btn" id="floatingAddBtn">
+        <iconify-icon icon="mdi:plus" style="font-size: 1.5rem;"></iconify-icon>
+    </button>
+
     <!-- Main Content -->
     <main class="main-content">
-        <!-- Hero Section -->
-        <section class="hero-section">
-            <h1 class="h1 hero-title text-gradient" id="welcomeMessage">مرحباً محمد! 👋</h1>
-            <p class="body-lg hero-subtitle">
+        <!-- Welcome Section -->
+        <div class="welcome-section">
+            <h1 class="h1" id="welcomeMessage">مرحباً محمد!</h1>
+            <p class="body-lg" style="color: var(--text-secondary); margin-top: 1rem; max-width: 600px;">
                 إدارة كلمات المرور الخاصة بك أصبحت أسهل وأكثر أماناً. كل شيء في مكان واحد.
             </p>
-        </section>
+        </div>
 
-        <!-- Vault Section -->
-        <section class="vault-section">
-            <div class="vault-header">
-                <div class="section-title">
-                    <h2 class="h2">قبو كلمات المرور</h2>
-                    <span class="section-badge" id="boardsCount">0 حساب</span>
+        <!-- Boards Grid -->
+        <div class="boards-grid" id="boardsContainer">
+            <!-- Empty State -->
+            <div class="empty-state" id="emptyState">
+                <div class="empty-icon">
+                    <iconify-icon icon="mdi:lock-outline"></iconify-icon>
                 </div>
-                
-                <button class="add-board-btn" id="addBoardBtn">
+                <h3 class="h3">لا توجد حسابات بعد</h3>
+                <p class="body">
+                    ابدأ بحفظ أول حساب لتجربة أمان NovaPass
+                </p>
+                <button class="btn btn-primary" id="firstBoardBtn" style="margin-top: 1.5rem;">
                     <iconify-icon icon="mdi:plus"></iconify-icon>
-                    <span>إضافة حساب</span>
+                    <span>ابدأ بإضافة حساب</span>
                 </button>
             </div>
-
-            <!-- Boards Grid -->
-            <div class="boards-grid" id="boardsContainer">
-                <!-- Empty State -->
-                <div class="empty-state" id="emptyState">
-                    <div class="empty-icon">
-                        <iconify-icon icon="mdi:lock-outline"></iconify-icon>
-                    </div>
-                    <h3 class="h3" style="margin-bottom: 0.5rem;">لا توجد حسابات بعد</h3>
-                    <p class="body" style="color: var(--text-secondary); margin-bottom: 1.5rem;">
-                        ابدأ بحفظ أول حساب لتجربة أمان NovaPass
-                    </p>
-                    <button class="add-board-btn" id="firstBoardBtn">
-                        <iconify-icon icon="mdi:plus"></iconify-icon>
-                        <span>ابدأ بإضافة حساب</span>
-                    </button>
-                </div>
-            </div>
-        </section>
+        </div>
     </main>
 
     <!-- Board Modal (Add/Edit) -->
@@ -1553,15 +1471,32 @@
                            placeholder="أدخل كلمة المرور"
                            required>
                     <div class="error-message" id="passwordError"></div>
+                    
+                    <!-- Advanced Password Strength Meter -->
+                    <div class="password-strength-advanced">
+                        <div class="strength-meter">
+                            <div class="strength-fill" id="strengthFill"></div>
+                        </div>
+                        <div class="strength-details" id="strengthDetails">
+                            <!-- Will be populated by JavaScript -->
+                        </div>
+                        <div class="strength-score" id="strengthScore">0%</div>
+                    </div>
                 </div>
                 
                 <!-- Icon Selector -->
                 <div class="icon-selector">
                     <label class="form-label">اختر الأيقونة</label>
-                    <div class="icon-search">
+                    
+                    <div class="icon-search-container">
                         <input type="text" id="iconSearch" class="form-control" 
                                placeholder="ابحث عن أيقونة...">
                     </div>
+                    
+                    <div class="icon-categories" id="iconCategories">
+                        <!-- Categories will be populated by JavaScript -->
+                    </div>
+                    
                     <div class="icon-grid" id="iconGrid">
                         <!-- Icons will be populated by JavaScript -->
                     </div>
@@ -1570,7 +1505,7 @@
                 <!-- Color Selector -->
                 <div class="color-selector">
                     <label class="form-label">اختر التصنيف</label>
-                    <div class="color-grid" id="colorGrid">
+                    <div class="radio-selector" id="colorSelector">
                         <!-- Color options will be populated by JavaScript -->
                     </div>
                 </div>
@@ -1588,41 +1523,8 @@
         </div>
     </div>
 
-    <!-- Confirm Delete Modal -->
-    <div class="modal" id="confirmModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="h3">تأكيد الحذف</h3>
-                <button class="close-btn" id="closeConfirmModal">
-                    <iconify-icon icon="mdi:close"></iconify-icon>
-                </button>
-            </div>
-            
-            <div style="text-align: center; padding: 1rem 0 2rem;">
-                <div style="width: 64px; height: 64px; background: var(--danger-light); border-radius: 16px; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; color: var(--danger);">
-                    <iconify-icon icon="mdi:alert-circle" style="font-size: 2rem;"></iconify-icon>
-                </div>
-                
-                <h4 class="h3" style="margin-bottom: 0.75rem;" id="confirmTitle">هل أنت متأكد؟</h4>
-                <p class="body" style="color: var(--text-secondary); margin-bottom: 0.5rem;" id="confirmMessage">
-                    هذا الإجراء لا يمكن التراجع عنه.
-                </p>
-            </div>
-            
-            <div class="modal-actions">
-                <button type="button" class="btn btn-secondary" id="cancelDeleteBtn">
-                    إلغاء
-                </button>
-                <button type="button" class="btn btn-danger" id="confirmDeleteBtn">
-                    <iconify-icon icon="mdi:delete"></iconify-icon>
-                    <span>نعم، احذف</span>
-                </button>
-            </div>
-        </div>
-    </div>
-
     <!-- Settings Modal -->
-    <div class="modal" id="settingsModal">
+    <div class="modal settings-modal" id="settingsModal">
         <div class="modal-content">
             <div class="modal-header">
                 <h3 class="h3">الإعدادات</h3>
@@ -1634,48 +1536,35 @@
             <div class="settings-sections">
                 <!-- Profile Section -->
                 <div class="settings-section">
-                    <div class="settings-title">
+                    <div class="settings-header">
                         <iconify-icon icon="mdi:account-circle"></iconify-icon>
                         <h4 class="body" style="font-weight: 600;">الملف الشخصي</h4>
                     </div>
                     
-                    <div class="settings-group">
-                        <div class="setting-item">
-                            <div class="setting-label">
-                                <span class="setting-name">الاسم الكامل</span>
-                                <span class="setting-description" id="currentNameDisplay">محمد</span>
+                    <div class="settings-items">
+                        <div class="settings-item">
+                            <div class="settings-label">
+                                <span class="settings-name">الاسم الكامل</span>
+                                <span class="settings-description" id="settingsName">محمد</span>
                             </div>
-                            <div class="inline-edit">
-                                <input type="text" id="nameInput" value="محمد" style="display: none;">
-                                <span id="nameDisplay">محمد</span>
-                                <iconify-icon icon="mdi:pencil" class="edit-icon" id="editNameIcon"></iconify-icon>
-                                <iconify-icon icon="mdi:check" class="edit-icon" id="saveNameIcon" style="display: none; color: var(--success);"></iconify-icon>
-                                <iconify-icon icon="mdi:close" class="edit-icon" id="cancelNameIcon" style="display: none; color: var(--danger);"></iconify-icon>
-                            </div>
-                        </div>
-                        
-                        <div class="setting-item">
-                            <div class="setting-label">
-                                <span class="setting-name">البريد الإلكتروني</span>
-                                <span class="setting-description" id="currentEmail">mohamed@example.com</span>
-                            </div>
-                            <span class="caption" style="color: var(--text-muted);">لا يمكن التعديل</span>
-                        </div>
-                        
-                        <div class="setting-item">
-                            <div class="setting-label">
-                                <span class="setting-name">رقم العضو</span>
-                                <span class="setting-description" id="userUid">جاري التحميل...</span>
-                            </div>
-                            <button class="action-btn copy" id="copyUidBtn" title="نسخ الرقم">
-                                <iconify-icon icon="mdi:content-copy"></iconify-icon>
+                            <button class="action-btn edit" id="editNameBtn">
+                                <iconify-icon icon="mdi:pencil"></iconify-icon>
+                                <span>تعديل</span>
                             </button>
                         </div>
                         
-                        <div class="setting-item">
-                            <div class="setting-label">
-                                <span class="setting-name">تاريخ الإنشاء</span>
-                                <span class="setting-description" id="createdDate">جاري التحميل...</span>
+                        <div class="settings-item">
+                            <div class="settings-label">
+                                <span class="settings-name">البريد الإلكتروني</span>
+                                <span class="settings-description" id="settingsEmail">mohamed@example.com</span>
+                            </div>
+                            <span class="caption" style="color: var(--text-muted);">ثابت</span>
+                        </div>
+                        
+                        <div class="settings-item">
+                            <div class="settings-label">
+                                <span class="settings-name">تاريخ الإنشاء</span>
+                                <span class="settings-description" id="settingsCreatedAt">25 ديسمبر 2024</span>
                             </div>
                         </div>
                     </div>
@@ -1683,55 +1572,19 @@
                 
                 <!-- Appearance Section -->
                 <div class="settings-section">
-                    <div class="settings-title">
+                    <div class="settings-header">
                         <iconify-icon icon="mdi:palette"></iconify-icon>
                         <h4 class="body" style="font-weight: 600;">المظهر</h4>
                     </div>
                     
-                    <div class="settings-group">
-                        <div class="setting-item">
-                            <div class="setting-label">
-                                <span class="setting-name">الوضع</span>
-                                <span class="setting-description">اختر المظهر المناسب لك</span>
+                    <div class="settings-items">
+                        <div class="settings-item">
+                            <div class="settings-label">
+                                <span class="settings-name">الوضع</span>
+                                <span class="settings-description">اختر المظهر المناسب لك</span>
                             </div>
                             <div class="segmented-control" id="themeSelector">
-                                <div class="segmented-option selected" data-theme="light">
-                                    <iconify-icon icon="mdi:weather-sunny"></iconify-icon>
-                                    <span>فاتح</span>
-                                </div>
-                                <div class="segmented-option" data-theme="dark">
-                                    <iconify-icon icon="mdi:weather-night"></iconify-icon>
-                                    <span>داكن</span>
-                                </div>
-                                <div class="segmented-option" data-theme="system">
-                                    <iconify-icon icon="mdi:laptop"></iconify-icon>
-                                    <span>النظام</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Plan Section -->
-                <div class="settings-section">
-                    <div class="settings-title">
-                        <iconify-icon icon="mdi:crown"></iconify-icon>
-                        <h4 class="body" style="font-weight: 600;">الخطة</h4>
-                    </div>
-                    
-                    <div class="settings-group">
-                        <div class="setting-item">
-                            <div class="setting-label">
-                                <span class="setting-name">الخطة الحالية</span>
-                                <span class="setting-description">استمتع بميزات NovaPass الأساسية</span>
-                            </div>
-                            <span class="plan-badge" id="currentPlan">مجانية</span>
-                        </div>
-                        
-                        <div class="setting-item">
-                            <div class="setting-label">
-                                <span class="setting-name">عدد الحسابات</span>
-                                <span class="setting-description" id="boardsLimit">غير محدود</span>
+                                <!-- Will be populated by JavaScript -->
                             </div>
                         </div>
                     </div>
@@ -1739,16 +1592,16 @@
                 
                 <!-- Security Section -->
                 <div class="settings-section">
-                    <div class="settings-title">
+                    <div class="settings-header">
                         <iconify-icon icon="mdi:shield-lock"></iconify-icon>
                         <h4 class="body" style="font-weight: 600;">الأمان</h4>
                     </div>
                     
-                    <div class="settings-group">
-                        <div class="setting-item">
-                            <div class="setting-label">
-                                <span class="setting-name">الحالة</span>
-                                <span class="setting-description">جلسة نشطة</span>
+                    <div class="settings-items">
+                        <div class="settings-item">
+                            <div class="settings-label">
+                                <span class="settings-name">جلسة المستخدم</span>
+                                <span class="settings-description">حالة الاتصال الحالية</span>
                             </div>
                             <span class="caption" style="color: var(--success); display: flex; align-items: center; gap: 0.25rem;">
                                 <iconify-icon icon="mdi:check-circle"></iconify-icon>
@@ -1756,56 +1609,39 @@
                             </span>
                         </div>
                         
-                        <div class="setting-item">
-                            <div class="setting-label">
-                                <span class="setting-name">آخر تحديث</span>
-                                <span class="setting-description" id="lastSync">جاري التحميل...</span>
+                        <div class="settings-item">
+                            <div class="settings-label">
+                                <span class="settings-name">إظهار كلمة المرور</span>
+                                <span class="settings-description">طريقة إظهار كلمات المرور</span>
+                            </div>
+                            <div class="segmented-control" id="passwordVisibilitySelector">
+                                <!-- Will be populated by JavaScript -->
                             </div>
                         </div>
                     </div>
                 </div>
                 
-                <!-- Advanced Settings -->
+                <!-- Plan Section -->
                 <div class="settings-section">
-                    <div class="settings-title">
-                        <iconify-icon icon="mdi:code-braces"></iconify-icon>
-                        <h4 class="body" style="font-weight: 600;">متقدم</h4>
+                    <div class="settings-header">
+                        <iconify-icon icon="mdi:crown"></iconify-icon>
+                        <h4 class="body" style="font-weight: 600;">الخطة</h4>
                     </div>
                     
-                    <div class="settings-group">
-                        <div class="setting-item">
-                            <div class="setting-label">
-                                <span class="setting-name">وضع التصحيح</span>
-                                <span class="setting-description">عرض معلومات تطويرية</span>
+                    <div class="settings-items">
+                        <div class="settings-item">
+                            <div class="settings-label">
+                                <span class="settings-name">الخطة الحالية</span>
+                                <span class="settings-description">استمتع بميزات NovaPass الأساسية</span>
                             </div>
-                            <div class="toggle-switch">
-                                <input type="checkbox" id="debugToggle">
-                                <span class="toggle-slider"></span>
+                            <span class="plan-badge" id="currentPlan">مجانية</span>
+                        </div>
+                        
+                        <div class="settings-item">
+                            <div class="settings-label">
+                                <span class="settings-name">عدد الحسابات</span>
+                                <span class="settings-description" id="boardsLimit">غير محدود</span>
                             </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Debug Panel -->
-                    <div class="debug-panel" id="debugPanel">
-                        <div class="debug-item">
-                            <span class="debug-label">المستخدم:</span>
-                            <span class="debug-value" id="debugUid">-</span>
-                        </div>
-                        <div class="debug-item">
-                            <span class="debug-label">الحسابات:</span>
-                            <span class="debug-value" id="debugBoardsCount">0</span>
-                        </div>
-                        <div class="debug-item">
-                            <span class="debug-label">الوضع:</span>
-                            <span class="debug-value" id="debugTheme">light</span>
-                        </div>
-                        <div class="debug-item">
-                            <span class="debug-label">آخر مزامنة:</span>
-                            <span class="debug-value" id="debugLastSync">-</span>
-                        </div>
-                        <div class="debug-item">
-                            <span class="debug-label">Firestore:</span>
-                            <span class="debug-value" id="debugFirestore">متصل ✓</span>
                         </div>
                     </div>
                 </div>
@@ -1815,6 +1651,39 @@
                 <button type="button" class="btn btn-danger" id="logoutSettingsBtn">
                     <iconify-icon icon="mdi:logout"></iconify-icon>
                     <span>تسجيل الخروج</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirm Delete Modal -->
+    <div class="modal" id="confirmModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="h3">تأكيد الحذف</h3>
+                <button class="close-btn" id="closeConfirmModal">
+                    <iconify-icon icon="mdi:close"></iconify-icon>
+                </button>
+            </div>
+            
+            <div style="text-align: center; padding: 2rem 0;">
+                <div style="width: 80px; height: 80px; background: var(--danger-light); border-radius: 20px; display: flex; align-items: center; justify-content: center; margin: 0 auto 2rem; color: var(--danger);">
+                    <iconify-icon icon="mdi:alert-circle" style="font-size: 2.5rem;"></iconify-icon>
+                </div>
+                
+                <h4 class="h3" style="margin-bottom: 1rem;" id="confirmTitle">هل أنت متأكد؟</h4>
+                <p class="body" style="color: var(--text-secondary); margin-bottom: 1rem; line-height: 1.6;" id="confirmMessage">
+                    هذا الإجراء لا يمكن التراجع عنه.
+                </p>
+            </div>
+            
+            <div class="modal-actions">
+                <button type="button" class="btn btn-secondary" id="cancelDeleteBtn">
+                    إلغاء
+                </button>
+                <button type="button" class="btn btn-danger" id="confirmDeleteBtn">
+                    <iconify-icon icon="mdi:delete"></iconify-icon>
+                    <span>نعم، احذف</span>
                 </button>
             </div>
         </div>
@@ -1844,6 +1713,7 @@
         let currentEditingBoard = null;
         let boardToDelete = null;
         let userData = {};
+        let userSettings = {};
 
         // Icon Categories
         const iconCategories = {
@@ -1880,7 +1750,10 @@
                 { icon: 'mdi:lock', name: 'Lock' },
                 { icon: 'mdi:key', name: 'Key' },
                 { icon: 'mdi:account', name: 'Account' },
-                { icon: 'mdi:shield-lock', name: 'Shield' }
+                { icon: 'mdi:shield-lock', name: 'Shield' },
+                { icon: 'mdi:email', name: 'Email' },
+                { icon: 'mdi:cloud', name: 'Cloud' },
+                { icon: 'mdi:database', name: 'Database' }
             ]
         };
 
@@ -1893,14 +1766,14 @@
             ...iconCategories.generic
         ];
 
-        // Color options with labels
+        // Color options with labels and icons
         const colorOptions = [
-            { color: '#3EB489', label: 'شخصي', class: 'personal' },
-            { color: '#4ECDC4', label: 'عمل', class: 'work' },
-            { color: '#FF6B6B', label: 'مهم', class: 'important' },
-            { color: '#9D4EDD', label: 'اجتماعي', class: 'social' },
-            { color: '#FFD166', label: 'مالي', class: 'finance' },
-            { color: '#118AB2', label: 'أخرى', class: 'other' }
+            { color: '#3EB489', label: 'شخصي', class: 'personal', icon: 'mdi:account' },
+            { color: '#4ECDC4', label: 'عمل', class: 'work', icon: 'mdi:briefcase' },
+            { color: '#FF6B6B', label: 'مهم', class: 'important', icon: 'mdi:star' },
+            { color: '#9D4EDD', label: 'اجتماعي', class: 'social', icon: 'mdi:account-group' },
+            { color: '#FFD166', label: 'مالي', class: 'finance', icon: 'mdi:currency-usd' },
+            { color: '#118AB2', label: 'أخرى', class: 'other', icon: 'mdi:dots-horizontal' }
         ];
 
         // Theme options
@@ -1910,10 +1783,37 @@
             { value: 'system', label: 'النظام', icon: 'mdi:laptop' }
         ];
 
+        // Password visibility options
+        const passwordVisibilityOptions = [
+            { value: 'hold', label: 'الضغط المطول', icon: 'mdi:timer-outline' },
+            { value: 'click', label: 'النقر', icon: 'mdi:cursor-click' },
+            { value: 'always', label: 'دائماً', icon: 'mdi:eye-outline' }
+        ];
+
+        // Category names for filter
+        const categoryNames = {
+            social: 'اجتماعي',
+            google: 'جوجل',
+            work: 'عمل',
+            finance: 'مالي',
+            generic: 'عام'
+        };
+
+        // Password strength criteria
+        const passwordCriteria = [
+            { id: 'length', label: '8 أحرف على الأقل', test: (p) => p.length >= 8, weight: 20 },
+            { id: 'lowercase', label: 'حرف صغير', test: (p) => /[a-z]/.test(p), weight: 15 },
+            { id: 'uppercase', label: 'حرف كبير', test: (p) => /[A-Z]/.test(p), weight: 15 },
+            { id: 'numbers', label: 'رقم', test: (p) => /[0-9]/.test(p), weight: 15 },
+            { id: 'special', label: 'رمز خاص', test: (p) => /[^A-Za-z0-9]/.test(p), weight: 15 },
+            { id: 'length12', label: '12 حرف أو أكثر', test: (p) => p.length >= 12, weight: 10 },
+            { id: 'unique', label: 'أحرف متنوعة', test: (p) => new Set(p).size >= 8, weight: 10 }
+        ];
+
         // ===== INITIALIZATION =====
         document.addEventListener('DOMContentLoaded', () => {
             initializeUI();
-            loadSavedTheme();
+            loadSavedSettings();
             setupEventListeners();
             checkAuth();
         });
@@ -1922,7 +1822,6 @@
         async function checkAuth() {
             onAuthStateChanged(auth, async (user) => {
                 if (!user) {
-                    // Redirect to auth page if not logged in
                     window.location.href = 'auth.html';
                     return;
                 }
@@ -1934,10 +1833,37 @@
 
         // ===== UI INITIALIZATION =====
         function initializeUI() {
+            setupIconCategories();
             populateIconGrid();
-            populateColorGrid();
+            setupColorSelector();
+            setupPasswordStrength();
             setupThemeSelector();
-            setupDebugToggle();
+            setupPasswordVisibilitySelector();
+        }
+
+        function setupIconCategories() {
+            const categoriesContainer = document.getElementById('iconCategories');
+            if (!categoriesContainer) return;
+            
+            categoriesContainer.innerHTML = '';
+            
+            // Add "الكل" category
+            const allBtn = document.createElement('button');
+            allBtn.className = 'category-btn active';
+            allBtn.textContent = 'الكل';
+            allBtn.setAttribute('data-category', 'all');
+            allBtn.addEventListener('click', (e) => filterIconsByCategory('all', e.target));
+            categoriesContainer.appendChild(allBtn);
+            
+            // Add other categories
+            Object.keys(categoryNames).forEach(categoryKey => {
+                const btn = document.createElement('button');
+                btn.className = 'category-btn';
+                btn.textContent = categoryNames[categoryKey];
+                btn.setAttribute('data-category', categoryKey);
+                btn.addEventListener('click', (e) => filterIconsByCategory(categoryKey, e.target));
+                categoriesContainer.appendChild(btn);
+            });
         }
 
         function populateIconGrid() {
@@ -1947,59 +1873,161 @@
             iconGrid.innerHTML = '';
             
             allIcons.forEach((iconData, index) => {
-                const iconElement = document.createElement('div');
-                iconElement.className = 'icon-option';
-                iconElement.setAttribute('data-icon', iconData.icon);
-                iconElement.setAttribute('data-name', iconData.name);
-                iconElement.setAttribute('title', iconData.name);
-                
-                try {
-                    iconElement.innerHTML = `<iconify-icon icon="${iconData.icon}"></iconify-icon>`;
-                } catch (error) {
-                    iconElement.innerHTML = `<iconify-icon icon="mdi:web"></iconify-icon>`;
-                }
-                
-                iconElement.addEventListener('click', () => {
-                    selectIcon(iconElement);
-                });
-                
-                if (index === 0) {
-                    iconElement.classList.add('selected');
-                }
-                
+                const iconElement = createIconElement(iconData, index === 0);
                 iconGrid.appendChild(iconElement);
             });
         }
 
-        function populateColorGrid() {
-            const colorGrid = document.getElementById('colorGrid');
-            if (!colorGrid) return;
+        function createIconElement(iconData, isSelected = false) {
+            const iconElement = document.createElement('div');
+            iconElement.className = `icon-option ${isSelected ? 'selected' : ''}`;
+            iconElement.setAttribute('data-icon', iconData.icon);
+            iconElement.setAttribute('data-name', iconData.name);
+            iconElement.setAttribute('title', iconData.name);
             
-            colorGrid.innerHTML = '';
+            // Determine category
+            let category = 'generic';
+            if (iconCategories.social.includes(iconData)) category = 'social';
+            else if (iconCategories.google.includes(iconData)) category = 'google';
+            else if (iconCategories.work.includes(iconData)) category = 'work';
+            else if (iconCategories.finance.includes(iconData)) category = 'finance';
+            
+            iconElement.setAttribute('data-category', category);
+            
+            try {
+                iconElement.innerHTML = `<iconify-icon icon="${iconData.icon}"></iconify-icon>`;
+            } catch (error) {
+                iconElement.innerHTML = `<iconify-icon icon="mdi:web"></iconify-icon>`;
+            }
+            
+            iconElement.addEventListener('click', () => {
+                selectIcon(iconElement);
+            });
+            
+            return iconElement;
+        }
+
+        function filterIconsByCategory(category, button) {
+            // Update active category button
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            button.classList.add('active');
+            
+            // Filter icons
+            const iconOptions = document.querySelectorAll('.icon-option');
+            iconOptions.forEach(icon => {
+                if (category === 'all') {
+                    icon.style.display = 'flex';
+                } else {
+                    icon.style.display = icon.getAttribute('data-category') === category ? 'flex' : 'none';
+                }
+            });
+        }
+
+        function setupColorSelector() {
+            const colorSelector = document.getElementById('colorSelector');
+            if (!colorSelector) return;
+            
+            colorSelector.innerHTML = '';
             
             colorOptions.forEach((colorData, index) => {
                 const colorElement = document.createElement('div');
-                colorElement.className = 'color-option';
+                colorElement.className = 'radio-option';
                 
                 colorElement.innerHTML = `
-                    <div class="color-circle" style="background: ${colorData.color};" 
+                    <div class="radio-circle" style="background: ${colorData.color};" 
                          data-color="${colorData.color}" 
                          data-class="${colorData.class}"
-                         title="${colorData.label}"></div>
-                    <span class="color-label-text">${colorData.label}</span>
+                         data-label="${colorData.label}"
+                         title="${colorData.label}">
+                        <iconify-icon icon="${colorData.icon}"></iconify-icon>
+                    </div>
+                    <span class="radio-label">${colorData.label}</span>
                 `;
                 
-                const colorCircle = colorElement.querySelector('.color-circle');
-                colorCircle.addEventListener('click', () => {
-                    selectColor(colorCircle);
+                const radioCircle = colorElement.querySelector('.radio-circle');
+                radioCircle.addEventListener('click', () => {
+                    selectColor(radioCircle);
                 });
                 
                 if (index === 0) {
-                    colorCircle.classList.add('selected');
+                    radioCircle.classList.add('selected');
                 }
                 
-                colorGrid.appendChild(colorElement);
+                colorSelector.appendChild(colorElement);
             });
+        }
+
+        function setupPasswordStrength() {
+            const passwordInput = document.getElementById('boardPassword');
+            if (!passwordInput) return;
+            
+            passwordInput.addEventListener('input', updatePasswordStrength);
+            
+            // Initial update
+            updatePasswordStrength();
+        }
+
+        function updatePasswordStrength() {
+            const password = document.getElementById('boardPassword').value;
+            const strengthFill = document.getElementById('strengthFill');
+            const strengthDetails = document.getElementById('strengthDetails');
+            const strengthScore = document.getElementById('strengthScore');
+            
+            if (!strengthFill || !strengthDetails || !strengthScore) return;
+            
+            let totalScore = 0;
+            let totalWeight = 0;
+            
+            // Calculate score for each criteria
+            const criteriaResults = passwordCriteria.map(criteria => {
+                const passes = criteria.test(password);
+                const score = passes ? criteria.weight : 0;
+                totalScore += score;
+                totalWeight += criteria.weight;
+                
+                return {
+                    ...criteria,
+                    passes,
+                    score
+                };
+            });
+            
+            // Add bonus for length (progressive)
+            const lengthBonus = Math.min(password.length * 2, 20);
+            totalScore += lengthBonus;
+            totalWeight += 20;
+            
+            // Calculate percentage
+            const percentage = Math.min(Math.round((totalScore / totalWeight) * 100), 100);
+            
+            // Update strength meter
+            strengthFill.style.width = `${percentage}%`;
+            
+            // Update score text
+            strengthScore.textContent = `${percentage}%`;
+            
+            // Update criteria details
+            strengthDetails.innerHTML = '';
+            criteriaResults.forEach(criteria => {
+                const criteriaElement = document.createElement('div');
+                criteriaElement.className = `strength-criteria ${criteria.passes ? 'valid' : ''}`;
+                criteriaElement.innerHTML = `
+                    <iconify-icon icon="${criteria.passes ? 'mdi:check-circle' : 'mdi:close-circle'}"></iconify-icon>
+                    <span>${criteria.label}</span>
+                `;
+                strengthDetails.appendChild(criteriaElement);
+            });
+            
+            // Add length bonus criteria
+            const lengthElement = document.createElement('div');
+            lengthElement.className = 'strength-criteria valid';
+            lengthElement.innerHTML = `
+                <iconify-icon icon="mdi:check-circle"></iconify-icon>
+                <span>${password.length} حرف (${lengthBonus}%)</span>
+            `;
+            strengthDetails.appendChild(lengthElement);
         }
 
         function setupThemeSelector() {
@@ -2025,11 +2053,27 @@
             });
         }
 
-        function setupDebugToggle() {
-            const debugToggle = document.getElementById('debugToggle');
-            if (!debugToggle) return;
+        function setupPasswordVisibilitySelector() {
+            const selector = document.getElementById('passwordVisibilitySelector');
+            if (!selector) return;
             
-            debugToggle.addEventListener('change', toggleDebugMode);
+            selector.innerHTML = '';
+            
+            passwordVisibilityOptions.forEach(option => {
+                const optionElement = document.createElement('div');
+                optionElement.className = 'segmented-option';
+                optionElement.setAttribute('data-value', option.value);
+                optionElement.innerHTML = `
+                    <iconify-icon icon="${option.icon}"></iconify-icon>
+                    <span>${option.label}</span>
+                `;
+                
+                optionElement.addEventListener('click', () => {
+                    selectPasswordVisibility(optionElement);
+                });
+                
+                selector.appendChild(optionElement);
+            });
         }
 
         function selectIcon(iconElement) {
@@ -2045,12 +2089,12 @@
         }
 
         function selectColor(colorCircle) {
-            document.querySelectorAll('.color-circle').forEach(circle => {
+            document.querySelectorAll('.radio-circle').forEach(circle => {
                 circle.classList.remove('selected');
             });
             colorCircle.classList.add('selected');
             
-            colorCircle.style.boxShadow = `0 0 0 4px ${colorCircle.dataset.color}20`;
+            colorCircle.style.boxShadow = '0 0 0 4px rgba(62, 180, 137, 0.2)';
             setTimeout(() => {
                 colorCircle.style.boxShadow = '';
             }, 300);
@@ -2059,14 +2103,25 @@
         function selectTheme(option) {
             const theme = option.getAttribute('data-theme');
             
-            document.querySelectorAll('.segmented-option').forEach(opt => {
+            document.querySelectorAll('#themeSelector .segmented-option').forEach(opt => {
                 opt.classList.remove('selected');
             });
             option.classList.add('selected');
             
             applyTheme(theme);
-            saveThemePreference(theme);
-            updateDebugInfo();
+            saveSettings({ theme: theme });
+        }
+
+        function selectPasswordVisibility(option) {
+            const value = option.getAttribute('data-value');
+            
+            document.querySelectorAll('#passwordVisibilitySelector .segmented-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            option.classList.add('selected');
+            
+            saveSettings({ passwordVisibility: value });
+            showToast('تم حفظ التفضيل', 'success');
         }
 
         // ===== THEME MANAGEMENT =====
@@ -2080,32 +2135,15 @@
             }
             
             document.body.classList.toggle('dark-mode', isDark);
-            
-            // Update toggle switch
-            const themeToggle = document.getElementById('themeToggle');
-            const themeLabel = document.getElementById('themeLabel');
-            if (themeToggle && themeLabel) {
-                themeToggle.checked = isDark;
-                themeLabel.textContent = isDark ? 'فاتح' : 'داكن';
-            }
-            
-            // Update debug info
-            updateDebugInfo();
+            showToast(`تم التبديل إلى الوضع ${isDark ? 'الداكن' : 'الفاتح'}`, 'info');
         }
 
-        function saveThemePreference(theme) {
-            localStorage.setItem('themePreference', theme);
+        function loadSavedSettings() {
+            const savedTheme = userSettings.theme || localStorage.getItem('theme') || 'light';
+            const savedPasswordVisibility = userSettings.passwordVisibility || 'hold';
             
-            // Save to Firestore if user is logged in
-            if (currentUser) {
-                saveUserSettings({ theme: theme });
-            }
-        }
-
-        function loadSavedTheme() {
-            const savedTheme = localStorage.getItem('themePreference') || 'system';
+            // Apply theme
             const themeSelector = document.getElementById('themeSelector');
-            
             if (themeSelector) {
                 const options = themeSelector.querySelectorAll('.segmented-option');
                 options.forEach(option => {
@@ -2114,14 +2152,25 @@
                     }
                 });
             }
+            
+            // Apply password visibility
+            const visibilitySelector = document.getElementById('passwordVisibilitySelector');
+            if (visibilitySelector) {
+                const options = visibilitySelector.querySelectorAll('.segmented-option');
+                options.forEach(option => {
+                    if (option.getAttribute('data-value') === savedPasswordVisibility) {
+                        selectPasswordVisibility(option);
+                    }
+                });
+            }
         }
 
         // ===== EVENT LISTENERS =====
         function setupEventListeners() {
-            // Theme toggle in navbar
-            const themeToggle = document.getElementById('themeToggle');
-            if (themeToggle) {
-                themeToggle.addEventListener('change', handleNavbarThemeToggle);
+            // Floating add button
+            const floatingAddBtn = document.getElementById('floatingAddBtn');
+            if (floatingAddBtn) {
+                floatingAddBtn.addEventListener('click', () => openBoardModal('add'));
             }
 
             // Profile dropdown
@@ -2138,7 +2187,6 @@
             }
 
             // Modals
-            const addBoardBtn = document.getElementById('addBoardBtn');
             const firstBoardBtn = document.getElementById('firstBoardBtn');
             const closeModal = document.getElementById('closeModal');
             const cancelBtn = document.getElementById('cancelBtn');
@@ -2146,7 +2194,6 @@
             const cancelDeleteBtn = document.getElementById('cancelDeleteBtn');
             const closeSettings = document.getElementById('closeSettings');
             
-            if (addBoardBtn) addBoardBtn.addEventListener('click', () => openBoardModal('add'));
             if (firstBoardBtn) firstBoardBtn.addEventListener('click', () => openBoardModal('add'));
             if (closeModal) closeModal.addEventListener('click', closeAllModals);
             if (cancelBtn) cancelBtn.addEventListener('click', closeAllModals);
@@ -2168,21 +2215,14 @@
             
             // Settings
             const settingsBtn = document.getElementById('settingsBtn');
+            const logoutBtn = document.getElementById('logoutBtn');
             const logoutSettingsBtn = document.getElementById('logoutSettingsBtn');
-            const copyUidBtn = document.getElementById('copyUidBtn');
+            const editNameBtn = document.getElementById('editNameBtn');
             
             if (settingsBtn) settingsBtn.addEventListener('click', openSettingsModal);
+            if (logoutBtn) logoutBtn.addEventListener('click', handleLogout);
             if (logoutSettingsBtn) logoutSettingsBtn.addEventListener('click', handleLogout);
-            if (copyUidBtn) copyUidBtn.addEventListener('click', copyUserId);
-            
-            // Inline edit for name
-            setupInlineEdit();
-            
-            // Logout from dropdown
-            const logoutBtn = document.getElementById('logoutBtn');
-            if (logoutBtn) {
-                logoutBtn.addEventListener('click', handleLogout);
-            }
+            if (editNameBtn) editNameBtn.addEventListener('click', editUserName);
             
             // Keyboard shortcuts
             document.addEventListener('keydown', (e) => {
@@ -2195,134 +2235,10 @@
 
             // Listen for system theme changes
             window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-                const currentTheme = localStorage.getItem('themePreference') || 'system';
-                if (currentTheme === 'system') {
+                if (userSettings.theme === 'system') {
                     applyTheme('system');
                 }
             });
-        }
-
-        function handleNavbarThemeToggle() {
-            const themeToggle = document.getElementById('themeToggle');
-            if (!themeToggle) return;
-            
-            const isDark = themeToggle.checked;
-            const theme = isDark ? 'dark' : 'light';
-            
-            // Update segmented control
-            const themeSelector = document.getElementById('themeSelector');
-            if (themeSelector) {
-                const options = themeSelector.querySelectorAll('.segmented-option');
-                options.forEach(option => {
-                    option.classList.remove('selected');
-                    if (option.getAttribute('data-theme') === theme) {
-                        option.classList.add('selected');
-                    }
-                });
-                
-                selectTheme(themeSelector.querySelector(`[data-theme="${theme}"]`));
-            }
-        }
-
-        function setupInlineEdit() {
-            const editNameIcon = document.getElementById('editNameIcon');
-            const saveNameIcon = document.getElementById('saveNameIcon');
-            const cancelNameIcon = document.getElementById('cancelNameIcon');
-            const nameDisplay = document.getElementById('nameDisplay');
-            const nameInput = document.getElementById('nameInput');
-            
-            if (!editNameIcon || !saveNameIcon || !cancelNameIcon || !nameDisplay || !nameInput) return;
-            
-            let originalName = '';
-            
-            editNameIcon.addEventListener('click', () => {
-                originalName = nameDisplay.textContent;
-                nameInput.value = originalName;
-                nameDisplay.style.display = 'none';
-                nameInput.style.display = 'inline-block';
-                editNameIcon.style.display = 'none';
-                saveNameIcon.style.display = 'inline-block';
-                cancelNameIcon.style.display = 'inline-block';
-                nameInput.focus();
-            });
-            
-            saveNameIcon.addEventListener('click', saveUserName);
-            cancelNameIcon.addEventListener('click', cancelEditName);
-            
-            nameInput.addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') {
-                    saveUserName();
-                }
-            });
-            
-            nameInput.addEventListener('blur', cancelEditName);
-        }
-
-        async function saveUserName() {
-            const nameInput = document.getElementById('nameInput');
-            const nameDisplay = document.getElementById('nameDisplay');
-            const currentNameDisplay = document.getElementById('currentNameDisplay');
-            const saveNameIcon = document.getElementById('saveNameIcon');
-            const cancelNameIcon = document.getElementById('cancelNameIcon');
-            const editNameIcon = document.getElementById('editNameIcon');
-            
-            if (!nameInput || !nameDisplay || !currentNameDisplay) return;
-            
-            const newName = nameInput.value.trim();
-            if (!newName) {
-                showToast('الاسم لا يمكن أن يكون فارغاً', 'error');
-                return;
-            }
-            
-            // Show loading
-            saveNameIcon.innerHTML = '<iconify-icon icon="mdi:loading" style="animation: spin 1s linear infinite;"></iconify-icon>';
-            
-            try {
-                // Update in Firebase Auth
-                await updateProfile(currentUser, {
-                    displayName: newName
-                });
-                
-                // Update user document in Firestore
-                const userRef = doc(db, 'users', currentUser.uid);
-                await updateDoc(userRef, {
-                    name: newName,
-                    updatedAt: serverTimestamp()
-                }, { merge: true });
-                
-                // Update UI
-                nameDisplay.textContent = newName;
-                currentNameDisplay.textContent = newName;
-                updateUserUI(newName, currentUser?.email);
-                showToast('تم تحديث الاسم بنجاح', 'success');
-            } catch (error) {
-                console.error('Error updating name:', error);
-                showToast('حدث خطأ أثناء تحديث الاسم', 'error');
-            } finally {
-                // Reset UI
-                nameDisplay.style.display = 'inline-block';
-                nameInput.style.display = 'none';
-                editNameIcon.style.display = 'inline-block';
-                saveNameIcon.style.display = 'none';
-                cancelNameIcon.style.display = 'none';
-                saveNameIcon.innerHTML = '<iconify-icon icon="mdi:check"></iconify-icon>';
-            }
-        }
-
-        function cancelEditName() {
-            const nameInput = document.getElementById('nameInput');
-            const nameDisplay = document.getElementById('nameDisplay');
-            const saveNameIcon = document.getElementById('saveNameIcon');
-            const cancelNameIcon = document.getElementById('cancelNameIcon');
-            const editNameIcon = document.getElementById('editNameIcon');
-            
-            if (!nameInput || !nameDisplay) return;
-            
-            nameDisplay.style.display = 'inline-block';
-            nameInput.style.display = 'none';
-            editNameIcon.style.display = 'inline-block';
-            saveNameIcon.style.display = 'none';
-            cancelNameIcon.style.display = 'none';
         }
 
         function searchIcons(e) {
@@ -2368,6 +2284,7 @@
                 document.getElementById('boardName').value = board.name;
                 document.getElementById('boardEmail').value = board.email;
                 document.getElementById('boardPassword').value = board.password;
+                updatePasswordStrength();
                 
                 const iconToSelect = document.querySelector(`.icon-option[data-icon="${board.icon}"]`);
                 if (iconToSelect) {
@@ -2375,9 +2292,9 @@
                     iconToSelect.classList.add('selected');
                 }
                 
-                const colorToSelect = document.querySelector(`.color-circle[data-color="${board.color}"]`);
+                const colorToSelect = document.querySelector(`.radio-circle[data-color="${board.color}"]`);
                 if (colorToSelect) {
-                    document.querySelectorAll('.color-circle').forEach(circle => circle.classList.remove('selected'));
+                    document.querySelectorAll('.radio-circle').forEach(circle => circle.classList.remove('selected'));
                     colorToSelect.classList.add('selected');
                 }
                 
@@ -2397,8 +2314,11 @@
                 boardForm.reset();
                 document.getElementById('boardId').value = '';
                 document.getElementById('iconSearch').value = '';
+                document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('active'));
+                document.querySelector('.category-btn[data-category="all"]').classList.add('active');
                 showAllIcons();
                 currentEditingBoard = null;
+                updatePasswordStrength();
             }
         }
 
@@ -2407,6 +2327,92 @@
             iconOptions.forEach(icon => {
                 icon.style.display = 'flex';
             });
+        }
+
+        // ===== SETTINGS MODAL =====
+        function openSettingsModal() {
+            if (!currentUser) {
+                showToast('يجب تسجيل الدخول أولاً', 'error');
+                return;
+            }
+            
+            updateSettingsUI();
+            openModal('settingsModal');
+        }
+
+        function updateSettingsUI() {
+            if (!currentUser) return;
+            
+            // Profile
+            const displayName = currentUser.displayName || userData.name || currentUser.email?.split('@')[0] || 'المستخدم';
+            const email = currentUser.email || userData.email || 'غير محدد';
+            const createdAt = userData.createdAt ? formatDate(userData.createdAt.toDate()) : formatDate(new Date());
+            
+            document.getElementById('settingsName').textContent = displayName;
+            document.getElementById('settingsEmail').textContent = email;
+            document.getElementById('settingsCreatedAt').textContent = createdAt;
+            
+            // Plan
+            const plan = userData.plan || 'مجانية';
+            document.getElementById('currentPlan').textContent = plan;
+            document.getElementById('currentPlan').className = `plan-badge ${plan === 'مجانية' ? '' : 'pro'}`;
+            
+            // Boards limit
+            document.getElementById('boardsLimit').textContent = plan === 'مجانية' ? '10 حسابات' : 'غير محدود';
+            
+            // Theme selector
+            const currentTheme = userSettings.theme || 'light';
+            const themeOptions = document.querySelectorAll('#themeSelector .segmented-option');
+            themeOptions.forEach(option => {
+                option.classList.remove('selected');
+                if (option.getAttribute('data-theme') === currentTheme) {
+                    option.classList.add('selected');
+                }
+            });
+            
+            // Password visibility selector
+            const currentVisibility = userSettings.passwordVisibility || 'hold';
+            const visibilityOptions = document.querySelectorAll('#passwordVisibilitySelector .segmented-option');
+            visibilityOptions.forEach(option => {
+                option.classList.remove('selected');
+                if (option.getAttribute('data-value') === currentVisibility) {
+                    option.classList.add('selected');
+                }
+            });
+        }
+
+        function editUserName() {
+            const currentName = document.getElementById('settingsName').textContent;
+            const newName = prompt('أدخل اسمك الجديد:', currentName);
+            
+            if (newName && newName.trim() && newName !== currentName) {
+                const trimmedName = newName.trim();
+                updateUserName(trimmedName);
+            }
+        }
+
+        async function updateUserName(name) {
+            try {
+                // Update in Firebase Auth
+                await updateProfile(currentUser, {
+                    displayName: name
+                });
+                
+                // Update user document in Firestore
+                const userRef = doc(db, 'users', currentUser.uid);
+                await updateDoc(userRef, {
+                    name: name,
+                    updatedAt: serverTimestamp()
+                }, { merge: true });
+                
+                // Update UI
+                updateUserUI(name, currentUser?.email);
+                updateSettingsUI();
+                showToast('تم تحديث الاسم بنجاح', 'success');
+            } catch (error) {
+                console.error('Error updating name:', error);
+                showToast('حدث خطأ أثناء تحديث الاسم', 'error');
+            }
         }
 
         // ===== PROFILE DROPDOWN =====
@@ -2424,117 +2430,6 @@
                 if (dropdown) {
                     dropdown.classList.remove('active');
                 }
-            }
-        }
-
-        // ===== SETTINGS MODAL =====
-        function openSettingsModal() {
-            if (!currentUser) {
-                showToast('يجب تسجيل الدخول أولاً', 'error');
-                return;
-            }
-            
-            // Load user data
-            loadSettingsData();
-            openModal('settingsModal');
-        }
-
-        async function loadSettingsData() {
-            if (!currentUser) return;
-            
-            try {
-                // Load user document
-                const userRef = doc(db, 'users', currentUser.uid);
-                const userDoc = await getDoc(userRef);
-                
-                if (userDoc.exists()) {
-                    userData = userDoc.data();
-                    
-                    // Update UI
-                    updateSettingsUI();
-                }
-                
-                // Update debug info
-                updateDebugInfo();
-            } catch (error) {
-                console.error('Error loading settings:', error);
-                showToast('حدث خطأ أثناء تحميل الإعدادات', 'error');
-            }
-        }
-
-        function updateSettingsUI() {
-            if (!currentUser) return;
-            
-            // Profile
-            const displayName = currentUser.displayName || userData.name || currentUser.email?.split('@')[0] || 'المستخدم';
-            const email = currentUser.email || userData.email || 'غير محدد';
-            const uid = currentUser.uid || 'غير متوفر';
-            const createdAt = userData.createdAt ? formatDate(userData.createdAt.toDate()) : formatDate(new Date());
-            
-            document.getElementById('currentNameDisplay').textContent = displayName;
-            document.getElementById('nameDisplay').textContent = displayName;
-            document.getElementById('nameInput').value = displayName;
-            document.getElementById('currentEmail').textContent = email;
-            document.getElementById('userUid').textContent = uid.substring(0, 8) + '...';
-            document.getElementById('createdDate').textContent = createdAt;
-            document.getElementById('lastSync').textContent = formatDate(new Date());
-            
-            // Plan
-            const plan = userData.plan || 'مجانية';
-            document.getElementById('currentPlan').textContent = plan;
-            document.getElementById('currentPlan').className = `plan-badge ${plan === 'مجانية' ? '' : 'pro'}`;
-            
-            // Theme
-            const savedTheme = localStorage.getItem('themePreference') || 'system';
-            const themeSelector = document.getElementById('themeSelector');
-            if (themeSelector) {
-                const options = themeSelector.querySelectorAll('.segmented-option');
-                options.forEach(option => {
-                    option.classList.remove('selected');
-                    if (option.getAttribute('data-theme') === savedTheme) {
-                        option.classList.add('selected');
-                    }
-                });
-            }
-            
-            // Update debug info
-            updateDebugInfo();
-        }
-
-        function toggleDebugMode() {
-            const debugToggle = document.getElementById('debugToggle');
-            const debugPanel = document.getElementById('debugPanel');
-            
-            if (!debugToggle || !debugPanel) return;
-            
-            if (debugToggle.checked) {
-                debugPanel.classList.add('active');
-                updateDebugInfo();
-                showToast('تم تفعيل وضع التصحيح', 'info');
-            } else {
-                debugPanel.classList.remove('active');
-            }
-        }
-
-        function updateDebugInfo() {
-            const debugToggle = document.getElementById('debugToggle');
-            const debugPanel = document.getElementById('debugPanel');
-            
-            if (!debugToggle || !debugPanel) return;
-            
-            if (debugToggle.checked) {
-                document.getElementById('debugUid').textContent = currentUser?.uid?.substring(0, 12) + '...' || '-';
-                document.getElementById('debugBoardsCount').textContent = userBoards.length;
-                document.getElementById('debugTheme').textContent = localStorage.getItem('themePreference') || 'system';
-                document.getElementById('debugLastSync').textContent = new Date().toLocaleTimeString('ar-SA');
-                document.getElementById('debugFirestore').textContent = currentUser ? 'متصل ✓' : 'غير متصل';
-            }
-        }
-
-        function copyUserId() {
-            if (currentUser?.uid) {
-                copyToClipboard(currentUser.uid);
-                showToast('تم نسخ رقم العضو', 'success');
             }
         }
 
@@ -2575,7 +2470,7 @@
             }
             
             const selectedIcon = document.querySelector('.icon-option.selected');
-            const selectedColor = document.querySelector('.color-circle.selected');
+            const selectedColor = document.querySelector('.radio-circle.selected');
             
             if (!selectedIcon || !selectedColor) {
                 showToast('الرجاء اختيار أيقونة وتصنيف', 'error');
@@ -2585,6 +2480,7 @@
             const boardIcon = selectedIcon.getAttribute('data-icon');
             const boardColor = selectedColor.getAttribute('data-color');
             const boardColorClass = selectedColor.getAttribute('data-class');
+            const boardColorLabel = selectedColor.getAttribute('data-label');
             
             const saveBtn = document.getElementById('saveBoardBtn');
             const originalContent = saveBtn.innerHTML;
@@ -2600,6 +2496,7 @@
                     icon: boardIcon,
                     color: boardColor,
                     colorClass: boardColorClass,
+                    colorLabel: boardColorLabel,
                     updatedAt: new Date().toISOString(),
                     createdAt: currentEditingBoard ? 
                         userBoards.find(b => b.id === currentEditingBoard)?.createdAt || new Date().toISOString() : 
@@ -2676,9 +2573,18 @@
         }
 
         // ===== COPY FUNCTIONALITY =====
-        function copyToClipboard(text) {
+        function copyToClipboard(text, button) {
             navigator.clipboard.writeText(text).then(() => {
                 showToast('تم النسخ إلى الحافظة!', 'success');
+                
+                if (button) {
+                    const originalIcon = button.innerHTML;
+                    button.innerHTML = '<iconify-icon icon="mdi:check" style="color: var(--success);"></iconify-icon>';
+                    
+                    setTimeout(() => {
+                        button.innerHTML = originalIcon;
+                    }, 2000);
+                }
             }).catch(err => {
                 console.error('Failed to copy:', err);
                 showToast('حدث خطأ أثناء النسخ', 'error');
@@ -2689,13 +2595,8 @@
         function renderBoards() {
             const container = document.getElementById('boardsContainer');
             const emptyState = document.getElementById('emptyState');
-            const countBadge = document.getElementById('boardsCount');
             
             if (!container) return;
-            
-            if (countBadge) {
-                countBadge.textContent = `${userBoards.length} حساب${userBoards.length !== 1 ? 'ات' : ''}`;
-            }
             
             container.innerHTML = '';
             
@@ -2717,13 +2618,29 @@
                     container.appendChild(boardElement);
                 }
             });
-            
-            updateDebugInfo();
         }
 
         function createBoardElement(board) {
             const element = document.createElement('div');
             element.className = 'board-card';
+            
+            // Calculate password strength
+            const password = board.password;
+            let strength = 0;
+            let totalWeight = 0;
+            
+            passwordCriteria.forEach(criteria => {
+                if (criteria.test(password)) {
+                    strength += criteria.weight;
+                }
+                totalWeight += criteria.weight;
+            });
+            
+            const lengthBonus = Math.min(password.length * 2, 20);
+            strength += lengthBonus;
+            totalWeight += 20;
+            
+            const percentage = Math.min(Math.round((strength / totalWeight) * 100), 100);
             
             element.innerHTML = `
                 <div class="card-header">
@@ -2731,7 +2648,7 @@
                         <div class="board-icon">
                             <iconify-icon icon="${board.icon || 'mdi:web'}"></iconify-icon>
                         </div>
-                        <div class="color-label ${board.colorClass || 'personal'}"></div>
+                        <div class="color-dot ${board.colorClass || 'personal'}" title="${board.colorLabel || 'شخصي'}"></div>
                     </div>
                     
                     <div class="board-info">
@@ -2743,7 +2660,7 @@
                 <div class="password-section">
                     <div class="password-label">
                         <span class="caption">كلمة المرور</span>
-                        <span class="caption" style="color: var(--warning);">• إظهار بالضغط المطول</span>
+                        <span class="caption" style="color: var(--text-muted);">• إظهار بالضغط المطول</span>
                     </div>
                     
                     <div class="password-field">
@@ -2759,101 +2676,117 @@
                             </button>
                             <button class="action-btn copy" 
                                     type="button"
-                                    aria-label="نسخ كلمة المرور"
-                                    data-value="${escapeHtml(board.password)}">
+                                    aria-label="نسخ كلمة المرور">
                                 <iconify-icon icon="mdi:content-copy"></iconify-icon>
                             </button>
                         </div>
+                    </div>
+                    
+                    <div class="password-strength-advanced">
+                        <div class="strength-meter">
+                            <div class="strength-fill" style="width: ${percentage}%"></div>
+                        </div>
+                        <div class="strength-score">${percentage}%</div>
                     </div>
                 </div>
                 
                 <div class="card-actions">
                     <button class="action-btn copy" 
                             type="button"
-                            aria-label="نسخ البريد الإلكتروني"
-                            data-value="${escapeHtml(board.email)}">
+                            aria-label="نسخ البريد الإلكتروني">
                         <iconify-icon icon="mdi:email"></iconify-icon>
+                        <span>نسخ البريد</span>
                     </button>
                     <button class="action-btn edit" 
                             type="button"
                             aria-label="تعديل الحساب"
                             data-id="${board.id}">
                         <iconify-icon icon="mdi:pencil"></iconify-icon>
+                        <span>تعديل</span>
                     </button>
                     <button class="action-btn delete" 
                             type="button"
                             aria-label="حذف الحساب"
                             data-id="${board.id}">
                         <iconify-icon icon="mdi:delete"></iconify-icon>
+                        <span>حذف</span>
                     </button>
                 </div>
             `;
             
-            const copyButtons = element.querySelectorAll('.action-btn.copy');
+            const copyEmailBtn = element.querySelector('.action-btn.copy');
+            const copyPasswordBtn = element.querySelector('.password-field .action-btn.copy');
             const editButton = element.querySelector('.action-btn.edit');
             const deleteButton = element.querySelector('.action-btn.delete');
             const toggleButton = element.querySelector('.action-btn.toggle');
             const passwordInput = element.querySelector('.password-input');
             
-            copyButtons.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const value = btn.getAttribute('data-value');
-                    copyToClipboard(value);
-                    
-                    btn.style.animation = 'copyPulse 0.6s';
-                    setTimeout(() => {
-                        btn.style.animation = '';
-                    }, 600);
-                });
+            copyEmailBtn.addEventListener('click', () => {
+                copyToClipboard(board.email, copyEmailBtn);
             });
             
-            if (editButton) {
-                editButton.addEventListener('click', () => {
-                    const boardToEdit = userBoards.find(b => b.id === board.id);
-                    if (boardToEdit) openBoardModal('edit', boardToEdit);
-                });
-            }
+            copyPasswordBtn.addEventListener('click', () => {
+                copyToClipboard(board.password, copyPasswordBtn);
+            });
             
-            if (deleteButton) {
-                deleteButton.addEventListener('click', () => {
-                    showDeleteConfirmation(board);
-                });
-            }
+            editButton.addEventListener('click', () => {
+                const boardToEdit = userBoards.find(b => b.id === board.id);
+                if (boardToEdit) openBoardModal('edit', boardToEdit);
+            });
+            
+            deleteButton.addEventListener('click', () => {
+                showDeleteConfirmation(board);
+            });
             
             if (toggleButton && passwordInput) {
-                let holdTimer;
+                const visibilityMode = userSettings.passwordVisibility || 'hold';
                 
-                toggleButton.addEventListener('mousedown', () => {
-                    holdTimer = setTimeout(() => {
+                if (visibilityMode === 'always') {
+                    passwordInput.type = 'text';
+                    toggleButton.innerHTML = '<iconify-icon icon="mdi:eye-off"></iconify-icon>';
+                    toggleButton.addEventListener('click', () => {
+                        passwordInput.type = passwordInput.type === 'password' ? 'text' : 'password';
+                        toggleButton.innerHTML = passwordInput.type === 'password' ? 
+                            '<iconify-icon icon="mdi:eye"></iconify-icon>' : 
+                            '<iconify-icon icon="mdi:eye-off"></iconify-icon>';
+                    });
+                } else if (visibilityMode === 'click') {
+                    toggleButton.addEventListener('click', () => {
+                        passwordInput.type = passwordInput.type === 'password' ? 'text' : 'password';
+                        toggleButton.innerHTML = passwordInput.type === 'password' ? 
+                            '<iconify-icon icon="mdi:eye"></iconify-icon>' : 
+                            '<iconify-icon icon="mdi:eye-off"></iconify-icon>';
+                    });
+                } else {
+                    // Default: hold to show
+                    let holdTimer;
+                    
+                    const showPassword = () => {
                         passwordInput.type = 'text';
                         toggleButton.innerHTML = '<iconify-icon icon="mdi:eye-off"></iconify-icon>';
-                    }, 500);
-                });
-                
-                toggleButton.addEventListener('mouseup', () => {
-                    clearTimeout(holdTimer);
-                    passwordInput.type = 'password';
-                    toggleButton.innerHTML = '<iconify-icon icon="mdi:eye"></iconify-icon>';
-                });
-                
-                toggleButton.addEventListener('mouseleave', () => {
-                    clearTimeout(holdTimer);
-                    passwordInput.type = 'password';
-                    toggleButton.innerHTML = '<iconify-icon icon="mdi:eye"></iconify-icon>';
-                });
-                
-                toggleButton.addEventListener('touchstart', () => {
-                    holdTimer = setTimeout(() => {
-                        passwordInput.type = 'text';
-                        toggleButton.innerHTML = '<iconify-icon icon="mdi:eye-off"></iconify-icon>';
-                    }, 500);
-                });
-                
-                toggleButton.addEventListener('touchend', () => {
-                    clearTimeout(holdTimer);
-                    passwordInput.type = 'password';
-                    toggleButton.innerHTML = '<iconify-icon icon="mdi:eye"></iconify-icon>';
-                });
+                    };
+                    
+                    const hidePassword = () => {
+                        clearTimeout(holdTimer);
+                        passwordInput.type = 'password';
+                        toggleButton.innerHTML = '<iconify-icon icon="mdi:eye"></iconify-icon>';
+                    };
+                    
+                    toggleButton.addEventListener('mousedown', () => {
+                        holdTimer = setTimeout(showPassword, 500);
+                    });
+                    
+                    toggleButton.addEventListener('mouseup', hidePassword);
+                    toggleButton.addEventListener('mouseleave', hidePassword);
+                    
+                    toggleButton.addEventListener('touchstart', (e) => {
+                        e.preventDefault();
+                        holdTimer = setTimeout(showPassword, 500);
+                    });
+                    
+                    toggleButton.addEventListener('touchend', hidePassword);
+                    toggleButton.addEventListener('touchcancel', hidePassword);
+                }
             }
             
             return element;
@@ -2882,15 +2815,20 @@
             }
         }
 
-        async function saveUserSettings(settings) {
+        async function saveSettings(settings) {
             try {
                 if (!currentUser) return;
                 
+                userSettings = { ...userSettings, ...settings };
+                
                 const userRef = doc(db, 'users', currentUser.uid);
                 await updateDoc(userRef, {
-                    settings: settings,
+                    settings: userSettings,
                     updatedAt: serverTimestamp()
                 }, { merge: true });
+                
+                // Also save to localStorage for quick access
+                localStorage.setItem('userSettings', JSON.stringify(userSettings));
             } catch (error) {
                 console.error('Error saving settings:', error);
             }
@@ -2903,31 +2841,29 @@
                 const userDoc = await getDoc(userRef);
                 
                 if (userDoc.exists()) {
-                    const userData = userDoc.data();
-                    updateUserUI(userData.name || currentUser.displayName || currentUser.email?.split('@')[0], userData.email || currentUser.email);
+                    userData = userDoc.data();
+                    userSettings = userData.settings || {};
                     
-                    // Load user settings
-                    if (userData.settings?.theme) {
-                        const themeSelector = document.getElementById('themeSelector');
-                        if (themeSelector) {
-                            const options = themeSelector.querySelectorAll('.segmented-option');
-                            options.forEach(option => {
-                                if (option.getAttribute('data-theme') === userData.settings.theme) {
-                                    selectTheme(option);
-                                }
-                            });
-                        }
+                    // Load from localStorage if available
+                    const savedSettings = localStorage.getItem('userSettings');
+                    if (savedSettings) {
+                        userSettings = { ...userSettings, ...JSON.parse(savedSettings) };
                     }
+                    
+                    updateUserUI(userData.name || currentUser.displayName || currentUser.email?.split('@')[0], userData.email || currentUser.email);
                 } else {
                     // Create user document if it doesn't exist
+                    userSettings = {
+                        theme: 'light',
+                        passwordVisibility: 'hold'
+                    };
+                    
                     await setDoc(userRef, {
                         name: currentUser.displayName || currentUser.email?.split('@')[0],
                         email: currentUser.email,
                         createdAt: serverTimestamp(),
                         plan: 'مجانية',
-                        settings: {
-                            theme: 'system'
-                        }
+                        settings: userSettings
                     });
                 }
                 
@@ -2941,6 +2877,8 @@
                     userBoards = [];
                 }
                 
+                // Apply saved settings
+                loadSavedSettings();
                 renderBoards();
                 updateSettingsUI();
             } catch (error) {
@@ -2955,25 +2893,10 @@
             const displayEmail = email || 'user@example.com';
             const initial = displayName.charAt(0).toUpperCase();
             
-            const elements = {
-                'userName': displayName,
-                'dropdownName': displayName,
-                'currentNameDisplay': displayName,
-                'nameDisplay': displayName,
-                'nameInput': displayName,
-                'userEmail': displayEmail,
-                'currentEmail': displayEmail,
-                'welcomeMessage': `مرحباً ${displayName}! 👋`
-            };
-            
-            Object.entries(elements).forEach(([id, value]) => {
-                const element = document.getElementById(id);
-                if (element && element.value !== undefined) {
-                    element.value = value;
-                } else if (element) {
-                    element.textContent = value;
-                }
-            });
+            document.getElementById('userName').textContent = displayName;
+            document.getElementById('dropdownName').textContent = displayName;
+            document.getElementById('userEmail').textContent = displayEmail;
+            document.getElementById('welcomeMessage').textContent = `مرحباً ${displayName}!`;
             
             const avatar = document.getElementById('userAvatar');
             if (avatar) {
@@ -3005,9 +2928,7 @@
             return new Date(date).toLocaleDateString('ar-SA', {
                 year: 'numeric',
                 month: 'long',
-                day: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit'
+                day: 'numeric'
             });
         }
 
