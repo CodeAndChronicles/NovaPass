@@ -1,0 +1,2513 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NovaPass • لوحة التحكم</title>
+    
+    <!-- Iconify Icons -->
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ===== DESIGN SYSTEM ===== */
+        :root {
+            /* Primary Mint Green System */
+            --mint-50: #E8F8F2;
+            --mint-100: #D4F1E9;
+            --mint-200: #B4E6D6;
+            --mint-300: #3EB489;
+            --mint-400: #1F7A5A;
+            --mint-500: #165C46;
+            
+            /* Neutral Palette */
+            --gray-50: #F9FFFC;
+            --gray-100: #F3F4F6;
+            --gray-200: #E5E7EB;
+            --gray-300: #D1D5DB;
+            --gray-400: #9CA3AF;
+            --gray-500: #6B7280;
+            --gray-600: #4B5563;
+            --gray-700: #374151;
+            --gray-800: #1F2937;
+            --gray-900: #111827;
+            
+            /* Semantic Colors */
+            --success: #10B981;
+            --warning: #F59E0B;
+            --danger: #EF4444;
+            --info: #3B82F6;
+            --danger-light: #FEE2E2;
+            --danger-dark: #DC2626;
+            
+            /* Shadows */
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            --shadow-mint: 0 4px 20px rgba(62, 180, 137, 0.15);
+            
+            /* Light Theme (Default) */
+            --bg-primary: var(--gray-50);
+            --bg-secondary: #FFFFFF;
+            --bg-card: #FFFFFF;
+            --text-primary: var(--gray-900);
+            --text-secondary: var(--gray-600);
+            --text-muted: var(--gray-500);
+            --border-color: var(--gray-200);
+            --border-hover: var(--mint-300);
+            
+            /* Dark Theme Variables */
+            --dark-bg-primary: #0F172A;
+            --dark-bg-secondary: #1E293B;
+            --dark-bg-card: #1E293B;
+            --dark-text-primary: #E5E7EB;
+            --dark-text-secondary: #94A3B8;
+            --dark-text-muted: #64748B;
+            --dark-border-color: #334155;
+            --dark-border-hover: #4ADE80;
+        }
+
+        /* Apply Dark Theme */
+        body.dark-mode {
+            --bg-primary: var(--dark-bg-primary);
+            --bg-secondary: var(--dark-bg-secondary);
+            --bg-card: var(--dark-bg-card);
+            --text-primary: var(--dark-text-primary);
+            --text-secondary: var(--dark-text-secondary);
+            --text-muted: var(--dark-text-muted);
+            --border-color: var(--dark-border-color);
+            --border-hover: var(--dark-border-hover);
+        }
+
+        /* ===== BASE RESET ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            transition: background-color 0.3s ease, color 0.3s ease;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* ===== TYPOGRAPHY ===== */
+        .h1 { font-size: 2.5rem; font-weight: 700; line-height: 1.2; }
+        .h2 { font-size: 2rem; font-weight: 700; line-height: 1.3; }
+        .h3 { font-size: 1.5rem; font-weight: 600; line-height: 1.4; }
+        .h4 { font-size: 1.25rem; font-weight: 600; line-height: 1.4; }
+        
+        .body-lg { font-size: 1.125rem; line-height: 1.7; }
+        .body { font-size: 1rem; line-height: 1.6; }
+        .body-sm { font-size: 0.875rem; line-height: 1.5; }
+        .caption { font-size: 0.75rem; line-height: 1.4; color: var(--text-muted); }
+        
+        .text-gradient {
+            background: linear-gradient(135deg, var(--mint-300), var(--mint-400));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* ===== NAVBAR ===== */
+        .navbar {
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        body.dark-mode .navbar {
+            background: rgba(30, 41, 59, 0.95);
+        }
+
+        .nav-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--mint-300), var(--mint-400));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .logo-text {
+            font-weight: 700;
+            font-size: 1.5rem;
+            background: linear-gradient(135deg, var(--mint-300), var(--mint-400));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* ===== USER PROFILE ===== */
+        .user-profile {
+            position: relative;
+        }
+
+        .profile-trigger {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: none;
+            border: none;
+            padding: 0.5rem 0.75rem;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            min-height: 44px;
+        }
+
+        .profile-trigger:hover {
+            background: var(--mint-50);
+        }
+
+        body.dark-mode .profile-trigger:hover {
+            background: rgba(62, 180, 137, 0.1);
+        }
+
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .user-info {
+            text-align: right;
+        }
+
+        .user-name {
+            font-weight: 600;
+            font-size: 0.875rem;
+            color: var(--text-primary);
+        }
+
+        .user-status {
+            font-size: 0.75rem;
+            color: var(--success);
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .profile-dropdown {
+            position: absolute;
+            top: calc(100% + 0.5rem);
+            left: 0;
+            background: var(--bg-secondary);
+            border-radius: 16px;
+            box-shadow: var(--shadow-xl);
+            padding: 1rem;
+            min-width: 280px;
+            display: none;
+            flex-direction: column;
+            gap: 0.5rem;
+            animation: slideDown 0.2s ease;
+            border: 1px solid var(--border-color);
+            z-index: 1000;
+        }
+
+        .profile-dropdown.active {
+            display: flex;
+        }
+
+        .dropdown-header {
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: var(--text-secondary);
+            text-decoration: none;
+            min-height: 44px;
+        }
+
+        .dropdown-item:hover {
+            background: var(--mint-50);
+            color: var(--mint-400);
+        }
+
+        body.dark-mode .dropdown-item:hover {
+            background: rgba(62, 180, 137, 0.1);
+        }
+
+        .dropdown-item.danger {
+            color: var(--danger);
+            margin-top: 0.5rem;
+            border-top: 1px solid var(--border-color);
+            padding-top: 0.875rem;
+        }
+
+        .dropdown-item.danger:hover {
+            background: var(--danger-light);
+            color: var(--danger-dark);
+        }
+
+        body.dark-mode .dropdown-item.danger:hover {
+            background: rgba(239, 68, 68, 0.1);
+        }
+
+        /* ===== THEME TOGGLE ===== */
+        .theme-toggle {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.5rem;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .theme-toggle:hover {
+            background: var(--mint-50);
+        }
+
+        body.dark-mode .theme-toggle:hover {
+            background: rgba(62, 180, 137, 0.1);
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 48px;
+            height: 24px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--gray-300);
+            border-radius: 24px;
+            transition: 0.3s ease;
+        }
+
+        body.dark-mode .toggle-slider {
+            background: var(--gray-600);
+        }
+
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background: white;
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+            box-shadow: var(--shadow-sm);
+        }
+
+        input:checked + .toggle-slider {
+            background: var(--mint-300);
+        }
+
+        input:checked + .toggle-slider:before {
+            transform: translateX(24px);
+        }
+
+        /* ===== MAIN CONTENT ===== */
+        .main-content {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 3rem 1.5rem;
+            min-height: calc(100vh - 73px);
+        }
+
+        .hero-section {
+            text-align: center;
+            margin-bottom: 3rem;
+            animation: fadeInUp 0.6s ease;
+        }
+
+        .hero-title {
+            margin-bottom: 1rem;
+        }
+
+        .hero-subtitle {
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+
+        /* ===== VAULT SECTION ===== */
+        .vault-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .section-badge {
+            background: var(--mint-50);
+            color: var(--mint-400);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        body.dark-mode .section-badge {
+            background: rgba(62, 180, 137, 0.2);
+            color: var(--mint-300);
+        }
+
+        /* ===== ADD BOARD BUTTON ===== */
+        .add-board-btn {
+            background: linear-gradient(135deg, var(--mint-300), var(--mint-400));
+            color: white;
+            border: none;
+            padding: 0.875rem 1.5rem;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-mint);
+            min-height: 44px;
+        }
+
+        .add-board-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(62, 180, 137, 0.3);
+        }
+
+        .add-board-btn:active:not(:disabled) {
+            transform: translateY(0);
+        }
+
+        .add-board-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* ===== BOARDS GRID ===== */
+        .boards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        /* ===== BOARD CARD ===== */
+        .board-card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 1.5rem;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+            animation: fadeIn 0.5s ease;
+            min-height: 260px;
+        }
+
+        .board-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--border-hover);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .board-icon-wrapper {
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .board-icon {
+            width: 56px;
+            height: 56px;
+            background: var(--mint-50);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.75rem;
+            color: var(--mint-400);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .board-card:hover .board-icon {
+            transform: scale(1.05);
+            background: var(--mint-100);
+            border-color: var(--mint-200);
+        }
+
+        body.dark-mode .board-icon {
+            background: rgba(62, 180, 137, 0.1);
+        }
+
+        body.dark-mode .board-card:hover .board-icon {
+            background: rgba(62, 180, 137, 0.2);
+        }
+
+        .color-label {
+            position: absolute;
+            top: -6px;
+            right: -6px;
+            width: 24px;
+            height: 24px;
+            border-radius: 8px;
+            border: 3px solid var(--bg-card);
+            transition: all 0.3s ease;
+        }
+
+        .color-label:hover {
+            transform: scale(1.2);
+        }
+
+        .color-label.personal { background: var(--mint-300); }
+        .color-label.work { background: #4ECDC4; }
+        .color-label.important { background: #FF6B6B; }
+        .color-label.social { background: #9D4EDD; }
+        .color-label.finance { background: #FFD166; }
+        .color-label.other { background: #118AB2; }
+
+        .board-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .board-name {
+            font-weight: 700;
+            font-size: 1.125rem;
+            margin-bottom: 0.375rem;
+            color: var(--text-primary);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .board-username {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* ===== PASSWORD SECTION ===== */
+        .password-section {
+            margin-top: 0.5rem;
+        }
+
+        .password-label {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .password-field {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--bg-primary);
+            border-radius: 10px;
+            padding: 0.75rem;
+            border: 1px solid var(--border-color);
+            transition: border-color 0.2s ease;
+        }
+
+        .password-field:hover {
+            border-color: var(--border-hover);
+        }
+
+        .password-input {
+            flex: 1;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-family: 'Inter', monospace;
+            font-size: 0.9375rem;
+            letter-spacing: 0.05em;
+            min-width: 0;
+            outline: none;
+        }
+
+        /* ===== CARD ACTIONS ===== */
+        .card-actions {
+            display: flex;
+            gap: 0.5rem;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+            margin-top: auto;
+        }
+
+        .board-card:hover .card-actions {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ===== ACTION BUTTONS ===== */
+        .action-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-primary);
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .action-btn.copy:hover {
+            background: var(--mint-50);
+            color: var(--mint-400);
+            border-color: var(--mint-300);
+        }
+
+        .action-btn.edit:hover {
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--info);
+            border-color: var(--info);
+        }
+
+        .action-btn.delete:hover {
+            background: var(--danger-light);
+            color: var(--danger-dark);
+            border-color: var(--danger);
+        }
+
+        body.dark-mode .action-btn.delete:hover {
+            background: rgba(239, 68, 68, 0.1);
+        }
+
+        /* ===== MODALS ===== */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+            backdrop-filter: blur(4px);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--bg-card);
+            border-radius: 20px;
+            padding: 2rem;
+            width: 100%;
+            max-width: 500px;
+            animation: modalSlideUp 0.3s ease;
+            box-shadow: var(--shadow-xl);
+            border: 1px solid var(--border-color);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .close-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-primary);
+            color: var(--text-secondary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .close-btn:hover {
+            background: var(--mint-50);
+            color: var(--mint-400);
+            border-color: var(--mint-300);
+        }
+
+        /* ===== FORM CONTROLS ===== */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            font-size: 0.875rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.2s ease;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--border-hover);
+            box-shadow: 0 0 0 3px rgba(62, 180, 137, 0.1);
+        }
+
+        .form-control:hover {
+            border-color: var(--border-hover);
+        }
+
+        .form-control:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .form-control.error {
+            border-color: var(--danger);
+        }
+
+        .error-message {
+            color: var(--danger);
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        /* ===== ICON SELECTOR ===== */
+        .icon-selector {
+            margin-bottom: 1.5rem;
+        }
+
+        .icon-search {
+            margin-bottom: 1rem;
+        }
+
+        .icon-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 0.75rem;
+            max-height: 200px;
+            overflow-y: auto;
+            padding: 0.5rem;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            background: var(--bg-primary);
+        }
+
+        .icon-option {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: var(--bg-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: 2px solid transparent;
+        }
+
+        .icon-option:hover {
+            transform: scale(1.1);
+            background: var(--mint-50);
+            color: var(--mint-400);
+        }
+
+        .icon-option.selected {
+            background: var(--mint-100);
+            color: var(--mint-400);
+            border-color: var(--mint-300);
+            transform: scale(1.05);
+        }
+
+        /* ===== COLOR SELECTOR ===== */
+        .color-selector {
+            margin-bottom: 2rem;
+        }
+
+        .color-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .color-option {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+        }
+
+        .color-circle {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            border: 3px solid transparent;
+            position: relative;
+        }
+
+        .color-circle:hover {
+            transform: scale(1.1);
+        }
+
+        .color-circle.selected {
+            border-color: var(--text-primary);
+            transform: scale(1.05);
+        }
+
+        .color-circle.selected::after {
+            content: '✓';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        .color-label-text {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-align: center;
+        }
+
+        /* ===== MODAL ACTIONS ===== */
+        .modal-actions {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            padding: 0.875rem 1.5rem;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: none;
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            min-height: 44px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--mint-300), var(--mint-400));
+            color: white;
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(62, 180, 137, 0.3);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .btn-secondary {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            background: var(--mint-50);
+            border-color: var(--mint-300);
+        }
+
+        body.dark-mode .btn-secondary:hover {
+            background: rgba(62, 180, 137, 0.1);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, var(--danger), var(--danger-dark));
+            color: white;
+        }
+
+        .btn-danger:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(239, 68, 68, 0.3);
+        }
+
+        /* ===== TOAST NOTIFICATIONS ===== */
+        .toast-container {
+            position: fixed;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            z-index: 3000;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .toast {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 1rem 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border-color);
+            animation: toastSlideIn 0.3s ease;
+            transform-origin: bottom right;
+            max-width: 320px;
+        }
+
+        .toast.hiding {
+            animation: toastSlideOut 0.3s ease forwards;
+        }
+
+        .toast-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .toast.success .toast-icon {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+
+        .toast.error .toast-icon {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--danger);
+        }
+
+        .toast.info .toast-icon {
+            background: rgba(62, 180, 137, 0.1);
+            color: var(--mint-400);
+        }
+
+        /* ===== EMPTY STATE ===== */
+        .empty-state {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 4rem 2rem;
+            animation: fadeIn 0.6s ease;
+        }
+
+        .empty-icon {
+            font-size: 4rem;
+            color: var(--mint-100);
+            margin-bottom: 1.5rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        /* ===== SETTINGS MODAL ===== */
+        .settings-section {
+            margin-bottom: 2rem;
+        }
+
+        .settings-title {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .settings-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .setting-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem;
+            border-radius: 12px;
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            transition: border-color 0.2s ease;
+        }
+
+        .setting-item:hover {
+            border-color: var(--border-hover);
+        }
+
+        .setting-label {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .setting-name {
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .setting-description {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .plan-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            background: var(--mint-50);
+            color: var(--mint-400);
+        }
+
+        .plan-badge.pro {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .plan-badge.premium {
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+            color: white;
+        }
+
+        /* ===== ANIMATIONS ===== */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes modalSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        @keyframes toastSlideIn {
+            from {
+                opacity: 0;
+                transform: translateX(100px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0) scale(1);
+            }
+        }
+
+        @keyframes toastSlideOut {
+            from {
+                opacity: 1;
+                transform: translateX(0) scale(1);
+            }
+            to {
+                opacity: 0;
+                transform: translateX(100px) scale(0.9);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes copyPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        /* ===== RESPONSIVE DESIGN ===== */
+        @media (max-width: 768px) {
+            .nav-container {
+                padding: 0 1rem;
+            }
+            
+            .main-content {
+                padding: 2rem 1rem;
+            }
+            
+            .boards-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .vault-header {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: stretch;
+            }
+            
+            .add-board-btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .modal-content {
+                padding: 1.5rem;
+                margin: 0 1rem;
+            }
+            
+            .icon-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            
+            .color-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .modal-actions {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo-text {
+                display: none;
+            }
+            
+            .user-info {
+                display: none;
+            }
+            
+            .profile-trigger {
+                padding: 0.5rem;
+            }
+            
+            .board-card {
+                padding: 1.25rem;
+            }
+            
+            .icon-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .toast-container {
+                left: 1rem;
+                right: 1rem;
+                bottom: 1rem;
+            }
+            
+            .toast {
+                max-width: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <div class="logo-icon">
+                    <iconify-icon icon="material-symbols:lock"></iconify-icon>
+                </div>
+                <span class="logo-text">NovaPass</span>
+            </a>
+            
+            <div style="display: flex; align-items: center; gap: 1rem;">
+                <!-- Theme Toggle -->
+                <div class="theme-toggle" id="themeToggleBtn">
+                    <div class="toggle-switch">
+                        <input type="checkbox" id="themeToggle">
+                        <span class="toggle-slider"></span>
+                    </div>
+                    <span class="body-sm" id="themeLabel">داكن</span>
+                </div>
+                
+                <!-- User Profile -->
+                <div class="user-profile">
+                    <button class="profile-trigger" id="profileBtn">
+                        <div class="avatar" id="userAvatar">M</div>
+                        <div class="user-info">
+                            <div class="user-name" id="userName">محمد</div>
+                            <div class="user-status">
+                                <iconify-icon icon="mdi:check-circle" style="font-size: 0.75rem;"></iconify-icon>
+                                <span>متصلة</span>
+                            </div>
+                        </div>
+                    </button>
+                    
+                    <div class="profile-dropdown" id="profileDropdown">
+                        <div class="dropdown-header">
+                            <div class="user-name" id="dropdownName">محمد</div>
+                            <div class="body-sm" style="color: var(--text-muted);" id="userEmail">mohamed@example.com</div>
+                        </div>
+                        
+                        <a href="#" class="dropdown-item" id="settingsBtn">
+                            <iconify-icon icon="mdi:cog"></iconify-icon>
+                            <span>الإعدادات</span>
+                        </a>
+                        
+                        <a href="#" class="dropdown-item danger" id="logoutBtn">
+                            <iconify-icon icon="mdi:logout"></iconify-icon>
+                            <span>تسجيل الخروج</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <h1 class="h1 hero-title text-gradient" id="welcomeMessage">مرحباً محمد! 👋</h1>
+            <p class="body-lg hero-subtitle">
+                إدارة كلمات المرور الخاصة بك أصبحت أسهل وأكثر أماناً. كل شيء في مكان واحد.
+            </p>
+        </section>
+
+        <!-- Vault Section -->
+        <section class="vault-section">
+            <div class="vault-header">
+                <div class="section-title">
+                    <h2 class="h2">قبو كلمات المرور</h2>
+                    <span class="section-badge" id="boardsCount">0 حساب</span>
+                </div>
+                
+                <button class="add-board-btn" id="addBoardBtn">
+                    <iconify-icon icon="mdi:plus"></iconify-icon>
+                    <span>إضافة حساب</span>
+                </button>
+            </div>
+
+            <!-- Boards Grid -->
+            <div class="boards-grid" id="boardsContainer">
+                <!-- Empty State -->
+                <div class="empty-state" id="emptyState">
+                    <div class="empty-icon">
+                        <iconify-icon icon="mdi:lock-outline"></iconify-icon>
+                    </div>
+                    <h3 class="h3" style="margin-bottom: 0.5rem;">لا توجد حسابات بعد</h3>
+                    <p class="body" style="color: var(--text-secondary); margin-bottom: 1.5rem;">
+                        ابدأ بحفظ أول حساب لتجربة أمان NovaPass
+                    </p>
+                    <button class="add-board-btn" id="firstBoardBtn">
+                        <iconify-icon icon="mdi:plus"></iconify-icon>
+                        <span>ابدأ بإضافة حساب</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Board Modal (Add/Edit) -->
+    <div class="modal" id="boardModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="h3" id="modalTitle">إضافة حساب جديد</h3>
+                <button class="close-btn" id="closeModal">
+                    <iconify-icon icon="mdi:close"></iconify-icon>
+                </button>
+            </div>
+            
+            <form id="boardForm">
+                <input type="hidden" id="boardId">
+                
+                <div class="form-group">
+                    <label class="form-label">اسم الحساب *</label>
+                    <input type="text" id="boardName" class="form-control" 
+                           placeholder="مثال: Facebook, Gmail, Instagram"
+                           required>
+                    <div class="error-message" id="nameError"></div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">البريد الإلكتروني / اسم المستخدم *</label>
+                    <input type="text" id="boardEmail" class="form-control" 
+                           placeholder="user@example.com أو اسم المستخدم"
+                           required>
+                    <div class="error-message" id="emailError"></div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">كلمة المرور *</label>
+                    <input type="password" id="boardPassword" class="form-control" 
+                           placeholder="أدخل كلمة المرور"
+                           required>
+                    <div class="error-message" id="passwordError"></div>
+                </div>
+                
+                <!-- Icon Selector -->
+                <div class="icon-selector">
+                    <label class="form-label">اختر الأيقونة</label>
+                    <div class="icon-search">
+                        <input type="text" id="iconSearch" class="form-control" 
+                               placeholder="ابحث عن أيقونة...">
+                    </div>
+                    <div class="icon-grid" id="iconGrid">
+                        <!-- Icons will be populated by JavaScript -->
+                    </div>
+                </div>
+                
+                <!-- Color Selector -->
+                <div class="color-selector">
+                    <label class="form-label">اختر التصنيف</label>
+                    <div class="color-grid" id="colorGrid">
+                        <!-- Color options will be populated by JavaScript -->
+                    </div>
+                </div>
+                
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary" id="cancelBtn">
+                        إلغاء
+                    </button>
+                    <button type="submit" class="btn btn-primary" id="saveBoardBtn">
+                        <iconify-icon icon="mdi:check"></iconify-icon>
+                        <span>حفظ الحساب</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Confirm Delete Modal -->
+    <div class="modal" id="confirmModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="h3">تأكيد الحذف</h3>
+                <button class="close-btn" id="closeConfirmModal">
+                    <iconify-icon icon="mdi:close"></iconify-icon>
+                </button>
+            </div>
+            
+            <div style="text-align: center; padding: 1rem 0 2rem;">
+                <div style="width: 64px; height: 64px; background: var(--danger-light); border-radius: 16px; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; color: var(--danger);">
+                    <iconify-icon icon="mdi:alert-circle" style="font-size: 2rem;"></iconify-icon>
+                </div>
+                
+                <h4 class="h3" style="margin-bottom: 0.75rem;" id="confirmTitle">هل أنت متأكد؟</h4>
+                <p class="body" style="color: var(--text-secondary); margin-bottom: 0.5rem;" id="confirmMessage">
+                    هذا الإجراء لا يمكن التراجع عنه.
+                </p>
+            </div>
+            
+            <div class="modal-actions">
+                <button type="button" class="btn btn-secondary" id="cancelDeleteBtn">
+                    إلغاء
+                </button>
+                <button type="button" class="btn btn-danger" id="confirmDeleteBtn">
+                    <iconify-icon icon="mdi:delete"></iconify-icon>
+                    <span>نعم، احذف</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div class="modal" id="settingsModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="h3">الإعدادات</h3>
+                <button class="close-btn" id="closeSettings">
+                    <iconify-icon icon="mdi:close"></iconify-icon>
+                </button>
+            </div>
+            
+            <div class="settings-sections">
+                <!-- Profile Section -->
+                <div class="settings-section">
+                    <div class="settings-title">
+                        <iconify-icon icon="mdi:account"></iconify-icon>
+                        <h4 class="body" style="font-weight: 600;">الملف الشخصي</h4>
+                    </div>
+                    
+                    <div class="settings-group">
+                        <div class="setting-item">
+                            <div class="setting-label">
+                                <span class="setting-name">الاسم الكامل</span>
+                                <span class="setting-description" id="currentName">محمد</span>
+                            </div>
+                            <button class="action-btn edit" id="editNameBtn">
+                                <iconify-icon icon="mdi:pencil"></iconify-icon>
+                            </button>
+                        </div>
+                        
+                        <div class="setting-item">
+                            <div class="setting-label">
+                                <span class="setting-name">البريد الإلكتروني</span>
+                                <span class="setting-description" id="currentEmail">mohamed@example.com</span>
+                            </div>
+                            <span class="caption">لا يمكن التعديل</span>
+                        </div>
+                        
+                        <div class="setting-item">
+                            <div class="setting-label">
+                                <span class="setting-name">تاريخ الإنشاء</span>
+                                <span class="setting-description" id="createdDate">25 ديسمبر 2024</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Plan Section -->
+                <div class="settings-section">
+                    <div class="settings-title">
+                        <iconify-icon icon="mdi:crown"></iconify-icon>
+                        <h4 class="body" style="font-weight: 600;">الخطة</h4>
+                    </div>
+                    
+                    <div class="settings-group">
+                        <div class="setting-item">
+                            <div class="setting-label">
+                                <span class="setting-name">الخطة الحالية</span>
+                                <span class="setting-description">استمتع بميزات NovaPass الأساسية</span>
+                            </div>
+                            <span class="plan-badge" id="currentPlan">مجانية</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Preferences Section -->
+                <div class="settings-section">
+                    <div class="settings-title">
+                        <iconify-icon icon="mdi:cog"></iconify-icon>
+                        <h4 class="body" style="font-weight: 600;">التفضيلات</h4>
+                    </div>
+                    
+                    <div class="settings-group">
+                        <div class="setting-item">
+                            <div class="setting-label">
+                                <span class="setting-name">الوضع الداكن</span>
+                                <span class="setting-description">تبديل بين الوضع الفاتح والداكن</span>
+                            </div>
+                            <div class="toggle-switch">
+                                <input type="checkbox" id="settingsDarkMode">
+                                <span class="toggle-slider"></span>
+                            </div>
+                        </div>
+                        
+                        <div class="setting-item">
+                            <div class="setting-label">
+                                <span class="setting-name">تحديث تلقائي</span>
+                                <span class="setting-description">تحديث البيانات تلقائياً كل 30 ثانية</span>
+                            </div>
+                            <div class="toggle-switch">
+                                <input type="checkbox" id="autoRefreshToggle" checked>
+                                <span class="toggle-slider"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="modal-actions">
+                <button type="button" class="btn btn-primary" id="saveSettingsBtn">
+                    <iconify-icon icon="mdi:check"></iconify-icon>
+                    <span>حفظ التغييرات</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script type="module">
+        // ===== FIREBASE IMPORTS =====
+        import { 
+            auth, 
+            db,
+            onAuthStateChanged,
+            doc, 
+            setDoc,
+            serverTimestamp
+        } from './firebase-config.js';
+        
+        import { signOut } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
+        import { getDoc } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-firestore.js";
+
+        // ===== GLOBAL VARIABLES =====
+        let currentUser = null;
+        let userBoards = [];
+        let currentEditingBoard = null;
+        let boardToDelete = null;
+
+        // Icon Categories
+        const iconCategories = {
+            social: [
+                { icon: 'logos:facebook', name: 'Facebook' },
+                { icon: 'logos:instagram-icon', name: 'Instagram' },
+                { icon: 'logos:telegram', name: 'Telegram' },
+                { icon: 'logos:twitter', name: 'Twitter' },
+                { icon: 'logos:linkedin-icon', name: 'LinkedIn' },
+                { icon: 'logos:discord-icon', name: 'Discord' },
+                { icon: 'logos:snapchat', name: 'Snapchat' }
+            ],
+            google: [
+                { icon: 'logos:google-gmail', name: 'Gmail' },
+                { icon: 'logos:google-drive', name: 'Google Drive' },
+                { icon: 'logos:google', name: 'Google' },
+                { icon: 'logos:outlook-icon', name: 'Outlook' }
+            ],
+            work: [
+                { icon: 'logos:github-icon', name: 'GitHub' },
+                { icon: 'logos:gitlab', name: 'GitLab' },
+                { icon: 'logos:bitbucket', name: 'Bitbucket' },
+                { icon: 'logos:slack-icon', name: 'Slack' },
+                { icon: 'logos:notion-icon', name: 'Notion' }
+            ],
+            finance: [
+                { icon: 'logos:paypal', name: 'PayPal' },
+                { icon: 'logos:visa', name: 'Visa' },
+                { icon: 'logos:mastercard', name: 'Mastercard' },
+                { icon: 'logos:stripe', name: 'Stripe' }
+            ],
+            generic: [
+                { icon: 'mdi:web', name: 'Website' },
+                { icon: 'mdi:lock', name: 'Lock' },
+                { icon: 'mdi:key', name: 'Key' },
+                { icon: 'mdi:account', name: 'Account' },
+                { icon: 'mdi:shield-lock', name: 'Shield' }
+            ]
+        };
+
+        // Flatten icons array
+        const allIcons = [
+            ...iconCategories.social,
+            ...iconCategories.google,
+            ...iconCategories.work,
+            ...iconCategories.finance,
+            ...iconCategories.generic
+        ];
+
+        // Color options with labels
+        const colorOptions = [
+            { color: '#3EB489', label: 'شخصي', class: 'personal' },
+            { color: '#4ECDC4', label: 'عمل', class: 'work' },
+            { color: '#FF6B6B', label: 'مهم', class: 'important' },
+            { color: '#9D4EDD', label: 'اجتماعي', class: 'social' },
+            { color: '#FFD166', label: 'مالي', class: 'finance' },
+            { color: '#118AB2', label: 'أخرى', class: 'other' }
+        ];
+
+        // ===== INITIALIZATION =====
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeUI();
+            loadSavedTheme();
+            setupEventListeners();
+        });
+
+        // ===== UI INITIALIZATION =====
+        function initializeUI() {
+            populateIconGrid();
+            populateColorGrid();
+        }
+
+        function populateIconGrid() {
+            const iconGrid = document.getElementById('iconGrid');
+            if (!iconGrid) return;
+            
+            iconGrid.innerHTML = '';
+            
+            allIcons.forEach((iconData, index) => {
+                const iconElement = document.createElement('div');
+                iconElement.className = 'icon-option';
+                iconElement.setAttribute('data-icon', iconData.icon);
+                iconElement.setAttribute('data-name', iconData.name);
+                iconElement.setAttribute('title', iconData.name);
+                
+                try {
+                    iconElement.innerHTML = `<iconify-icon icon="${iconData.icon}"></iconify-icon>`;
+                } catch (error) {
+                    iconElement.innerHTML = `<iconify-icon icon="mdi:web"></iconify-icon>`;
+                }
+                
+                iconElement.addEventListener('click', () => {
+                    selectIcon(iconElement);
+                });
+                
+                // Select first icon by default
+                if (index === 0) {
+                    iconElement.classList.add('selected');
+                }
+                
+                iconGrid.appendChild(iconElement);
+            });
+        }
+
+        function populateColorGrid() {
+            const colorGrid = document.getElementById('colorGrid');
+            if (!colorGrid) return;
+            
+            colorGrid.innerHTML = '';
+            
+            colorOptions.forEach((colorData, index) => {
+                const colorElement = document.createElement('div');
+                colorElement.className = 'color-option';
+                
+                colorElement.innerHTML = `
+                    <div class="color-circle" style="background: ${colorData.color};" 
+                         data-color="${colorData.color}" 
+                         data-class="${colorData.class}"
+                         title="${colorData.label}"></div>
+                    <span class="color-label-text">${colorData.label}</span>
+                `;
+                
+                const colorCircle = colorElement.querySelector('.color-circle');
+                colorCircle.addEventListener('click', () => {
+                    selectColor(colorCircle);
+                });
+                
+                // Select first color by default
+                if (index === 0) {
+                    colorCircle.classList.add('selected');
+                }
+                
+                colorGrid.appendChild(colorElement);
+            });
+        }
+
+        function selectIcon(iconElement) {
+            document.querySelectorAll('.icon-option').forEach(icon => {
+                icon.classList.remove('selected');
+            });
+            iconElement.classList.add('selected');
+            
+            // Add micro-interaction
+            iconElement.style.animation = 'copyPulse 0.6s';
+            setTimeout(() => {
+                iconElement.style.animation = '';
+            }, 600);
+        }
+
+        function selectColor(colorCircle) {
+            document.querySelectorAll('.color-circle').forEach(circle => {
+                circle.classList.remove('selected');
+            });
+            colorCircle.classList.add('selected');
+            
+            // Add glow effect
+            colorCircle.style.boxShadow = `0 0 0 4px ${colorCircle.dataset.color}20`;
+            setTimeout(() => {
+                colorCircle.style.boxShadow = '';
+            }, 300);
+        }
+
+        // ===== EVENT LISTENERS =====
+        function setupEventListeners() {
+            // Theme toggles
+            const themeToggle = document.getElementById('themeToggle');
+            const settingsDarkMode = document.getElementById('settingsDarkMode');
+            
+            if (themeToggle) {
+                themeToggle.addEventListener('change', handleThemeToggle);
+            }
+            
+            if (settingsDarkMode) {
+                settingsDarkMode.addEventListener('change', handleThemeToggle);
+            }
+
+            // Profile dropdown
+            const profileBtn = document.getElementById('profileBtn');
+            if (profileBtn) {
+                profileBtn.addEventListener('click', toggleProfileDropdown);
+            }
+            document.addEventListener('click', closeProfileDropdown);
+
+            // Icon search
+            const iconSearch = document.getElementById('iconSearch');
+            if (iconSearch) {
+                iconSearch.addEventListener('input', searchIcons);
+            }
+
+            // Modals
+            const addBoardBtn = document.getElementById('addBoardBtn');
+            const firstBoardBtn = document.getElementById('firstBoardBtn');
+            const closeModal = document.getElementById('closeModal');
+            const cancelBtn = document.getElementById('cancelBtn');
+            const closeConfirmModal = document.getElementById('closeConfirmModal');
+            const cancelDeleteBtn = document.getElementById('cancelDeleteBtn');
+            const closeSettings = document.getElementById('closeSettings');
+            
+            if (addBoardBtn) addBoardBtn.addEventListener('click', () => openBoardModal('add'));
+            if (firstBoardBtn) firstBoardBtn.addEventListener('click', () => openBoardModal('add'));
+            if (closeModal) closeModal.addEventListener('click', closeAllModals);
+            if (cancelBtn) cancelBtn.addEventListener('click', closeAllModals);
+            if (closeConfirmModal) closeConfirmModal.addEventListener('click', closeAllModals);
+            if (cancelDeleteBtn) cancelDeleteBtn.addEventListener('click', closeAllModals);
+            if (closeSettings) closeSettings.addEventListener('click', closeAllModals);
+
+            // Board form
+            const boardForm = document.getElementById('boardForm');
+            if (boardForm) {
+                boardForm.addEventListener('submit', handleBoardSubmit);
+            }
+            
+            // Delete confirmation
+            const confirmDeleteBtn = document.getElementById('confirmDeleteBtn');
+            if (confirmDeleteBtn) {
+                confirmDeleteBtn.addEventListener('click', confirmDelete);
+            }
+            
+            // Settings
+            const settingsBtn = document.getElementById('settingsBtn');
+            const saveSettingsBtn = document.getElementById('saveSettingsBtn');
+            const editNameBtn = document.getElementById('editNameBtn');
+            
+            if (settingsBtn) settingsBtn.addEventListener('click', openSettingsModal);
+            if (saveSettingsBtn) saveSettingsBtn.addEventListener('click', saveSettings);
+            if (editNameBtn) editNameBtn.addEventListener('click', editUserName);
+            
+            // Logout
+            const logoutBtn = document.getElementById('logoutBtn');
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', handleLogout);
+            }
+            
+            // Keyboard shortcuts
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') closeAllModals();
+                if (e.key === 'n' && (e.ctrlKey || e.metaKey)) {
+                    e.preventDefault();
+                    openBoardModal('add');
+                }
+            });
+        }
+
+        function searchIcons(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            const iconOptions = document.querySelectorAll('.icon-option');
+            
+            iconOptions.forEach(icon => {
+                const iconName = icon.getAttribute('data-name').toLowerCase();
+                if (iconName.includes(searchTerm)) {
+                    icon.style.display = 'flex';
+                } else {
+                    icon.style.display = 'none';
+                }
+            });
+        }
+
+        // ===== THEME MANAGEMENT =====
+        function handleThemeToggle() {
+            const themeToggle = document.getElementById('themeToggle');
+            const themeLabel = document.getElementById('themeLabel');
+            const settingsDarkMode = document.getElementById('settingsDarkMode');
+            
+            if (!themeToggle || !themeLabel) return;
+            
+            const isDark = themeToggle.checked;
+            document.body.classList.toggle('dark-mode', isDark);
+            themeLabel.textContent = isDark ? 'فاتح' : 'داكن';
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            
+            // Sync settings toggle
+            if (settingsDarkMode) {
+                settingsDarkMode.checked = isDark;
+            }
+        }
+
+        function loadSavedTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            const isDark = savedTheme === 'dark';
+            const themeToggle = document.getElementById('themeToggle');
+            const themeLabel = document.getElementById('themeLabel');
+            const settingsDarkMode = document.getElementById('settingsDarkMode');
+            
+            if (!themeToggle || !themeLabel) return;
+            
+            document.body.classList.toggle('dark-mode', isDark);
+            themeToggle.checked = isDark;
+            themeLabel.textContent = isDark ? 'فاتح' : 'داكن';
+            
+            // Sync settings toggle
+            if (settingsDarkMode) {
+                settingsDarkMode.checked = isDark;
+            }
+        }
+
+        // ===== PROFILE DROPDOWN =====
+        function toggleProfileDropdown(e) {
+            e.stopPropagation();
+            const dropdown = document.getElementById('profileDropdown');
+            if (!dropdown) return;
+            
+            dropdown.classList.toggle('active');
+        }
+
+        function closeProfileDropdown(e) {
+            if (!e.target.closest('.user-profile')) {
+                const dropdown = document.getElementById('profileDropdown');
+                if (dropdown) {
+                    dropdown.classList.remove('active');
+                }
+            }
+        }
+
+        // ===== MODAL MANAGEMENT =====
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (!modal) return;
+            
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeAllModals() {
+            document.querySelectorAll('.modal').forEach(modal => {
+                modal.classList.remove('active');
+            });
+            document.body.style.overflow = 'auto';
+            resetBoardForm();
+        }
+
+        function openBoardModal(mode, board = null) {
+            const modal = document.getElementById('boardModal');
+            const title = document.getElementById('modalTitle');
+            
+            if (!modal || !title) return;
+            
+            if (mode === 'edit' && board) {
+                title.textContent = 'تعديل الحساب';
+                document.getElementById('boardId').value = board.id;
+                document.getElementById('boardName').value = board.name;
+                document.getElementById('boardEmail').value = board.email;
+                document.getElementById('boardPassword').value = board.password;
+                
+                // Select icon
+                const iconToSelect = document.querySelector(`.icon-option[data-icon="${board.icon}"]`);
+                if (iconToSelect) {
+                    document.querySelectorAll('.icon-option').forEach(icon => icon.classList.remove('selected'));
+                    iconToSelect.classList.add('selected');
+                }
+                
+                // Select color
+                const colorToSelect = document.querySelector(`.color-circle[data-color="${board.color}"]`);
+                if (colorToSelect) {
+                    document.querySelectorAll('.color-circle').forEach(circle => circle.classList.remove('selected'));
+                    colorToSelect.classList.add('selected');
+                }
+                
+                currentEditingBoard = board.id;
+            } else {
+                title.textContent = 'إضافة حساب جديد';
+                currentEditingBoard = null;
+            }
+            
+            openModal('boardModal');
+            document.getElementById('boardName').focus();
+        }
+
+        function resetBoardForm() {
+            const boardForm = document.getElementById('boardForm');
+            if (boardForm) {
+                boardForm.reset();
+                document.getElementById('boardId').value = '';
+                document.getElementById('iconSearch').value = '';
+                showAllIcons();
+                currentEditingBoard = null;
+            }
+        }
+
+        function showAllIcons() {
+            const iconOptions = document.querySelectorAll('.icon-option');
+            iconOptions.forEach(icon => {
+                icon.style.display = 'flex';
+            });
+        }
+
+        // ===== BOARD OPERATIONS =====
+        async function handleBoardSubmit(e) {
+            e.preventDefault();
+            
+            const boardName = document.getElementById('boardName').value.trim();
+            const boardEmail = document.getElementById('boardEmail').value.trim();
+            const boardPassword = document.getElementById('boardPassword').value.trim();
+            
+            // Validate inputs
+            let isValid = true;
+            
+            if (!boardName) {
+                showError('nameError', 'اسم الحساب مطلوب');
+                isValid = false;
+            } else {
+                hideError('nameError');
+            }
+            
+            if (!boardEmail) {
+                showError('emailError', 'البريد الإلكتروني مطلوب');
+                isValid = false;
+            } else {
+                hideError('emailError');
+            }
+            
+            if (!boardPassword) {
+                showError('passwordError', 'كلمة المرور مطلوبة');
+                isValid = false;
+            } else {
+                hideError('passwordError');
+            }
+            
+            if (!isValid) {
+                showToast('الرجاء ملء جميع الحقول المطلوبة', 'error');
+                return;
+            }
+            
+            // Get selected icon and color
+            const selectedIcon = document.querySelector('.icon-option.selected');
+            const selectedColor = document.querySelector('.color-circle.selected');
+            
+            if (!selectedIcon || !selectedColor) {
+                showToast('الرجاء اختيار أيقونة وتصنيف', 'error');
+                return;
+            }
+            
+            const boardIcon = selectedIcon.getAttribute('data-icon');
+            const boardColor = selectedColor.getAttribute('data-color');
+            const boardColorClass = selectedColor.getAttribute('data-class');
+            
+            // Show loading state
+            const saveBtn = document.getElementById('saveBoardBtn');
+            const originalContent = saveBtn.innerHTML;
+            saveBtn.innerHTML = '<iconify-icon icon="mdi:loading" style="animation: spin 1s linear infinite;"></iconify-icon> جاري الحفظ...';
+            saveBtn.disabled = true;
+            
+            try {
+                const boardData = {
+                    id: currentEditingBoard || generateId(),
+                    name: boardName,
+                    email: boardEmail,
+                    password: boardPassword,
+                    icon: boardIcon,
+                    color: boardColor,
+                    colorClass: boardColorClass,
+                    updatedAt: new Date().toISOString(),
+                    createdAt: currentEditingBoard ? 
+                        userBoards.find(b => b.id === currentEditingBoard)?.createdAt || new Date().toISOString() : 
+                        new Date().toISOString()
+                };
+                
+                if (currentEditingBoard) {
+                    // Update existing board
+                    const index = userBoards.findIndex(b => b.id === currentEditingBoard);
+                    if (index !== -1) {
+                        userBoards[index] = boardData;
+                        showToast('تم تحديث الحساب بنجاح!', 'success');
+                    }
+                } else {
+                    // Add new board
+                    userBoards.push(boardData);
+                    showToast('تم إضافة الحساب بنجاح!', 'success');
+                }
+                
+                // Save to Firestore
+                await saveBoardsToFirestore();
+                
+                // Update UI
+                renderBoards();
+                closeAllModals();
+            } catch (error) {
+                console.error('Error saving board:', error);
+                showToast('حدث خطأ أثناء حفظ الحساب', 'error');
+            } finally {
+                saveBtn.innerHTML = originalContent;
+                saveBtn.disabled = false;
+            }
+        }
+
+        function showError(errorId, message) {
+            const errorElement = document.getElementById(errorId);
+            if (errorElement) {
+                errorElement.textContent = message;
+                errorElement.classList.add('show');
+                const input = document.getElementById(errorId.replace('Error', ''));
+                if (input) {
+                    input.classList.add('error');
+                }
+            }
+        }
+
+        function hideError(errorId) {
+            const errorElement = document.getElementById(errorId);
+            if (errorElement) {
+                errorElement.classList.remove('show');
+                const input = document.getElementById(errorId.replace('Error', ''));
+                if (input) {
+                    input.classList.remove('error');
+                }
+            }
+        }
+
+        function showDeleteConfirmation(board) {
+            boardToDelete = board;
+            document.getElementById('confirmTitle').textContent = `حذف ${board.name}`;
+            document.getElementById('confirmMessage').textContent = 
+                `سيتم حذف حساب "${board.name}" نهائياً. لا يمكن التراجع عن هذا الإجراء.`;
+            openModal('confirmModal');
+        }
+
+        async function confirmDelete() {
+            if (!boardToDelete) return;
+            
+            try {
+                // Remove from local array
+                userBoards = userBoards.filter(b => b.id !== boardToDelete.id);
+                
+                // Save to Firestore
+                await saveBoardsToFirestore();
+                
+                // Update UI
+                renderBoards();
+                showToast('تم حذف الحساب بنجاح', 'success');
+                closeAllModals();
+            } catch (error) {
+                console.error('Error deleting board:', error);
+                showToast('حدث خطأ أثناء حذف الحساب', 'error');
+            }
+        }
+
+        // ===== COPY FUNCTIONALITY =====
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                showToast('تم النسخ إلى الحافظة!', 'success');
+            }).catch(err => {
+                console.error('Failed to copy:', err);
+                showToast('حدث خطأ أثناء النسخ', 'error');
+            });
+        }
+
+        // ===== RENDER BOARDS =====
+        function renderBoards() {
+            const container = document.getElementById('boardsContainer');
+            const emptyState = document.getElementById('emptyState');
+            const countBadge = document.getElementById('boardsCount');
+            
+            if (!container) return;
+            
+            // Update count
+            if (countBadge) {
+                countBadge.textContent = `${userBoards.length} حساب${userBoards.length !== 1 ? 'ات' : ''}`;
+            }
+            
+            // Clear container
+            container.innerHTML = '';
+            
+            if (userBoards.length === 0) {
+                if (emptyState) {
+                    emptyState.style.display = 'block';
+                    container.appendChild(emptyState);
+                }
+                return;
+            }
+            
+            if (emptyState) {
+                emptyState.style.display = 'none';
+            }
+            
+            // Render each board
+            userBoards.forEach(board => {
+                const boardElement = createBoardElement(board);
+                if (boardElement) {
+                    container.appendChild(boardElement);
+                }
+            });
+        }
+
+        function createBoardElement(board) {
+            const element = document.createElement('div');
+            element.className = 'board-card';
+            
+            element.innerHTML = `
+                <div class="card-header">
+                    <div class="board-icon-wrapper">
+                        <div class="board-icon">
+                            <iconify-icon icon="${board.icon || 'mdi:web'}"></iconify-icon>
+                        </div>
+                        <div class="color-label ${board.colorClass || 'personal'}"></div>
+                    </div>
+                    
+                    <div class="board-info">
+                        <h4 class="board-name">${escapeHtml(board.name)}</h4>
+                        <div class="board-username">${escapeHtml(board.email)}</div>
+                    </div>
+                </div>
+                
+                <div class="password-section">
+                    <div class="password-label">
+                        <span class="caption">كلمة المرور</span>
+                        <span class="caption" style="color: var(--warning);">• إظهار بالضغط المطول</span>
+                    </div>
+                    
+                    <div class="password-field">
+                        <input type="password" 
+                               class="password-input" 
+                               value="${escapeHtml(board.password)}" 
+                               readonly>
+                        <div style="display: flex; gap: 0.25rem;">
+                            <button class="action-btn toggle" 
+                                    type="button"
+                                    aria-label="إظهار كلمة المرور">
+                                <iconify-icon icon="mdi:eye"></iconify-icon>
+                            </button>
+                            <button class="action-btn copy" 
+                                    type="button"
+                                    aria-label="نسخ كلمة المرور"
+                                    data-value="${escapeHtml(board.password)}">
+                                <iconify-icon icon="mdi:content-copy"></iconify-icon>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card-actions">
+                    <button class="action-btn copy" 
+                            type="button"
+                            aria-label="نسخ البريد الإلكتروني"
+                            data-value="${escapeHtml(board.email)}">
+                        <iconify-icon icon="mdi:email"></iconify-icon>
+                    </button>
+                    <button class="action-btn edit" 
+                            type="button"
+                            aria-label="تعديل الحساب"
+                            data-id="${board.id}">
+                        <iconify-icon icon="mdi:pencil"></iconify-icon>
+                    </button>
+                    <button class="action-btn delete" 
+                            type="button"
+                            aria-label="حذف الحساب"
+                            data-id="${board.id}">
+                        <iconify-icon icon="mdi:delete"></iconify-icon>
+                    </button>
+                </div>
+            `;
+            
+            // Add event listeners
+            const copyButtons = element.querySelectorAll('.action-btn.copy');
+            const editButton = element.querySelector('.action-btn.edit');
+            const deleteButton = element.querySelector('.action-btn.delete');
+            const toggleButton = element.querySelector('.action-btn.toggle');
+            const passwordInput = element.querySelector('.password-input');
+            
+            copyButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const value = btn.getAttribute('data-value');
+                    copyToClipboard(value);
+                    
+                    // Add visual feedback
+                    btn.style.animation = 'copyPulse 0.6s';
+                    setTimeout(() => {
+                        btn.style.animation = '';
+                    }, 600);
+                });
+            });
+            
+            if (editButton) {
+                editButton.addEventListener('click', () => {
+                    const boardToEdit = userBoards.find(b => b.id === board.id);
+                    if (boardToEdit) openBoardModal('edit', boardToEdit);
+                });
+            }
+            
+            if (deleteButton) {
+                deleteButton.addEventListener('click', () => {
+                    showDeleteConfirmation(board);
+                });
+            }
+            
+            // Press & hold to show password
+            if (toggleButton && passwordInput) {
+                let holdTimer;
+                
+                toggleButton.addEventListener('mousedown', () => {
+                    holdTimer = setTimeout(() => {
+                        passwordInput.type = 'text';
+                        toggleButton.innerHTML = '<iconify-icon icon="mdi:eye-off"></iconify-icon>';
+                    }, 500);
+                });
+                
+                toggleButton.addEventListener('mouseup', () => {
+                    clearTimeout(holdTimer);
+                    passwordInput.type = 'password';
+                    toggleButton.innerHTML = '<iconify-icon icon="mdi:eye"></iconify-icon>';
+                });
+                
+                toggleButton.addEventListener('mouseleave', () => {
+                    clearTimeout(holdTimer);
+                    passwordInput.type = 'password';
+                    toggleButton.innerHTML = '<iconify-icon icon="mdi:eye"></iconify-icon>';
+                });
+                
+                // Touch events for mobile
+                toggleButton.addEventListener('touchstart', () => {
+                    holdTimer = setTimeout(() => {
+                        passwordInput.type = 'text';
+                        toggleButton.innerHTML = '<iconify-icon icon="mdi:eye-off"></iconify-icon>';
+                    }, 500);
+                });
+                
+                toggleButton.addEventListener('touchend', () => {
+                    clearTimeout(holdTimer);
+                    passwordInput.type = 'password';
+                    toggleButton.innerHTML = '<iconify-icon icon="mdi:eye"></iconify-icon>';
+                });
+            }
+            
+            return element;
+        }
+
+        function escapeHtml(text) {
+            if (!text) return '';
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // ===== SETTINGS =====
+        function openSettingsModal() {
+            // Load current user data
+            const currentName = document.getElementById('currentName');
+            const currentEmail = document.getElementById('currentEmail');
+            const welcomeMessage = document.getElementById('welcomeMessage');
+            
+            if (currentName && welcomeMessage) {
+                const name = currentName.textContent;
+                currentName.textContent = name;
+                welcomeMessage.textContent = `مرحباً ${name}! 👋`;
+            }
+            
+            if (currentEmail) {
+                currentEmail.textContent = currentUser?.email || 'غير محدد';
+            }
+            
+            openModal('settingsModal');
+        }
+
+        function editUserName() {
+            const currentName = document.getElementById('currentName');
+            const welcomeMessage = document.getElementById('welcomeMessage');
+            
+            if (!currentName) return;
+            
+            const currentNameText = currentName.textContent;
+            const newName = prompt('أدخل اسمك الجديد:', currentNameText);
+            
+            if (newName && newName.trim() && newName !== currentNameText) {
+                const trimmedName = newName.trim();
+                currentName.textContent = trimmedName;
+                document.getElementById('userName').textContent = trimmedName;
+                document.getElementById('dropdownName').textContent = trimmedName;
+                
+                if (welcomeMessage) {
+                    welcomeMessage.textContent = `مرحباً ${trimmedName}! 👋`;
+                }
+                
+                // Update avatar
+                const avatar = document.getElementById('userAvatar');
+                if (avatar) {
+                    avatar.textContent = trimmedName.charAt(0).toUpperCase();
+                }
+                
+                showToast('تم تحديث الاسم بنجاح', 'success');
+            }
+        }
+
+        function saveSettings() {
+            const autoRefreshToggle = document.getElementById('autoRefreshToggle');
+            
+            if (autoRefreshToggle) {
+                localStorage.setItem('autoRefresh', autoRefreshToggle.checked);
+            }
+            
+            showToast('تم حفظ الإعدادات بنجاح', 'success');
+            closeAllModals();
+        }
+
+        // ===== TOAST NOTIFICATIONS =====
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toastContainer');
+            if (!container) return;
+            
+            const toast = document.createElement('div');
+            
+            const icon = {
+                success: 'mdi:check-circle',
+                error: 'mdi:alert-circle',
+                info: 'mdi:information'
+            }[type];
+            
+            toast.className = `toast ${type}`;
+            toast.innerHTML = `
+                <div class="toast-icon">
+                    <iconify-icon icon="${icon}"></iconify-icon>
+                </div>
+                <span class="body-sm">${message}</span>
+            `;
+            
+            container.appendChild(toast);
+            
+            // Auto remove after 3 seconds
+            setTimeout(() => {
+                toast.classList.add('hiding');
+                setTimeout(() => {
+                    if (toast.parentNode) {
+                        toast.remove();
+                    }
+                }, 300);
+            }, 3000);
+        }
+
+        // ===== FIREBASE OPERATIONS =====
+        async function saveBoardsToFirestore() {
+            try {
+                if (!currentUser) return;
+                
+                const userDataRef = doc(db, 'data', currentUser.uid);
+                await setDoc(userDataRef, {
+                    boards: userBoards,
+                    lastUpdated: serverTimestamp()
+                }, { merge: true });
+            } catch (error) {
+                console.error('Error saving boards:', error);
+                throw error;
+            }
+        }
+
+        async function loadUserData(uid) {
+            try {
+                // Load user profile
+                const userRef = doc(db, 'users', uid);
+                const userDoc = await getDoc(userRef);
+                
+                if (userDoc.exists()) {
+                    const userData = userDoc.data();
+                    updateUserUI(userData.name || currentUser.email?.split('@')[0], userData.email || currentUser.email);
+                } else {
+                    // Create user document if it doesn't exist
+                    await setDoc(userRef, {
+                        name: currentUser.displayName || currentUser.email?.split('@')[0],
+                        email: currentUser.email,
+                        createdAt: serverTimestamp(),
+                        plan: 'مجانية'
+                    });
+                }
+                
+                // Load user boards
+                const dataRef = doc(db, 'data', uid);
+                const dataDoc = await getDoc(dataRef);
+                
+                if (dataDoc.exists() && dataDoc.data().boards) {
+                    userBoards = dataDoc.data().boards;
+                } else {
+                    userBoards = [];
+                }
+                
+                renderBoards();
+            } catch (error) {
+                console.error('Error loading user data:', error);
+                showToast('حدث خطأ أثناء تحميل البيانات', 'error');
+            }
+        }
+
+        // ===== USER MANAGEMENT =====
+        function updateUserUI(name, email) {
+            const displayName = name || email?.split('@')[0] || 'المستخدم';
+            const displayEmail = email || 'user@example.com';
+            const initial = displayName.charAt(0).toUpperCase();
+            
+            // Update UI elements
+            const elements = {
+                'userName': displayName,
+                'dropdownName': displayName,
+                'currentName': displayName,
+                'userEmail': displayEmail,
+                'currentEmail': displayEmail,
+                'welcomeMessage': `مرحباً ${displayName}! 👋`
+            };
+            
+            Object.entries(elements).forEach(([id, value]) => {
+                const element = document.getElementById(id);
+                if (element) element.textContent = value;
+            });
+            
+            // Update avatar
+            const avatar = document.getElementById('userAvatar');
+            if (avatar) {
+                avatar.textContent = initial;
+            }
+        }
+
+        // ===== LOGOUT =====
+        async function handleLogout(e) {
+            e.preventDefault();
+            
+            try {
+                await signOut(auth);
+                window.location.href = 'auth.html';
+            } catch (error) {
+                console.error('Error signing out:', error);
+                showToast('حدث خطأ أثناء تسجيل الخروج', 'error');
+            }
+        }
+
+        // ===== UTILITY FUNCTIONS =====
+        function generateId() {
+            return Date.now().toString(36) + Math.random().toString(36).substr(2, 9);
+        }
+
+        // ===== AUTH STATE OBSERVER =====
+        onAuthStateChanged(auth, async (user) => {
+            if (!user) {
+                window.location.href = 'auth.html';
+                return;
+            }
+            
+            currentUser = user;
+            updateUserUI(user.displayName, user.email);
+            
+            // Load user data
+            await loadUserData(user.uid);
+            
+            // Setup auto-refresh if enabled
+            try {
+                const autoRefresh = localStorage.getItem('autoRefresh') !== 'false';
+                if (autoRefresh) {
+                    setInterval(async () => {
+                        if (currentUser) {
+                            await loadUserData(currentUser.uid);
+                        }
+                    }, 30000);
+                }
+            } catch (error) {
+                console.error('Error setting up auto-refresh:', error);
+            }
+        });
+    </script>
+</body>
+</html>
