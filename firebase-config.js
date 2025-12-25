@@ -1,28 +1,31 @@
 // firebase-config.js
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-app.js";
 import { 
-  getAuth, 
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  fetchSignInMethodsForEmail,
-  onAuthStateChanged,
-  signOut // ← أضف هذا
+    getAuth, 
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    fetchSignInMethodsForEmail,
+    onAuthStateChanged,
+    signOut,
+    updateProfile
 } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
 import { 
-  getFirestore, 
-  doc, 
-  setDoc,
-  serverTimestamp
+    getFirestore, 
+    doc, 
+    setDoc,
+    getDoc,
+    updateDoc,
+    serverTimestamp
 } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-firestore.js";
 
 // Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyDIGMq-_pffTwF7wOmNcDdYuufSNC_G2yY",
-  authDomain: "novapass-7ac68.firebaseapp.com",
-  projectId: "novapass-7ac68",
-  storageBucket: "novapass-7ac68.firebasestorage.app",
-  messagingSenderId: "100478066092",
-  appId: "1:100478066092:web:f7eed061c19ec119b62e09"
+    apiKey: "AIzaSyDIGMq-_pffTwF7wOmNcDdYuufSNC_G2yY",
+    authDomain: "novapass-7ac68.firebaseapp.com",
+    projectId: "novapass-7ac68",
+    storageBucket: "novapass-7ac68.firebasestorage.app",
+    messagingSenderId: "100478066092",
+    appId: "1:100478066092:web:f7eed061c19ec119b62e09"
 };
 
 // Initialize Firebase
@@ -32,15 +35,18 @@ const db = getFirestore(app);
 
 // Export everything
 export { 
-  app, 
-  auth, 
-  db,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  fetchSignInMethodsForEmail,
-  onAuthStateChanged,
-  signOut, // ← أضف هذا
-  doc, 
-  setDoc,
-  serverTimestamp
+    app, 
+    auth, 
+    db,
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    fetchSignInMethodsForEmail,
+    onAuthStateChanged,
+    signOut,
+    updateProfile,
+    doc, 
+    setDoc,
+    getDoc,
+    updateDoc,
+    serverTimestamp
 };
