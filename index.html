@@ -360,6 +360,89 @@
             transform: translateX(24px);
         }
 
+        /* ===== SEGMENTED CONTROL ===== */
+        .segmented-control {
+            display: flex;
+            background: var(--bg-primary);
+            border-radius: 12px;
+            padding: 4px;
+            border: 1px solid var(--border-color);
+            gap: 4px;
+        }
+
+        .segmented-option {
+            flex: 1;
+            padding: 0.5rem 0.75rem;
+            text-align: center;
+            cursor: pointer;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            color: var(--text-secondary);
+            border: 1px solid transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            min-height: 40px;
+        }
+
+        .segmented-option:hover {
+            background: var(--mint-50);
+        }
+
+        .segmented-option.selected {
+            background: var(--mint-100);
+            color: var(--mint-400);
+            border-color: var(--mint-200);
+        }
+
+        /* ===== DEBUG PANEL ===== */
+        .debug-panel {
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-top: 1rem;
+            display: none;
+        }
+
+        .debug-panel.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .debug-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .debug-item:last-child {
+            border-bottom: none;
+        }
+
+        .debug-label {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .debug-value {
+            font-family: 'Courier New', monospace;
+            font-size: 0.875rem;
+            color: var(--text-primary);
+            direction: ltr;
+            text-align: left;
+            background: var(--bg-secondary);
+            padding: 0.25rem 0.5rem;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+        }
+
         /* ===== MAIN CONTENT ===== */
         .main-content {
             max-width: 1280px;
@@ -653,6 +736,53 @@
             background: rgba(239, 68, 68, 0.1);
         }
 
+        /* ===== INLINE EDIT ===== */
+        .inline-edit {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            width: 100%;
+        }
+
+        .inline-edit input {
+            flex: 1;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 0.875rem;
+            outline: none;
+            padding: 0.25rem 0;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.2s ease;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .inline-edit input:focus {
+            border-bottom-color: var(--mint-300);
+        }
+
+        .edit-icon {
+            opacity: 0;
+            transition: opacity 0.2s ease;
+            cursor: pointer;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
+        }
+
+        .edit-icon:hover {
+            background: var(--mint-50);
+            color: var(--mint-400);
+        }
+
+        .setting-item:hover .edit-icon {
+            opacity: 1;
+        }
+
         /* ===== MODALS ===== */
         .modal {
             display: none;
@@ -679,11 +809,11 @@
             border-radius: 20px;
             padding: 2rem;
             width: 100%;
-            max-width: 500px;
+            max-width: 520px;
             animation: modalSlideUp 0.3s ease;
             box-shadow: var(--shadow-xl);
             border: 1px solid var(--border-color);
-            max-height: 90vh;
+            max-height: 85vh;
             overflow-y: auto;
         }
 
@@ -714,6 +844,99 @@
             background: var(--mint-50);
             color: var(--mint-400);
             border-color: var(--mint-300);
+        }
+
+        /* ===== SETTINGS MODAL STYLES ===== */
+        .settings-sections {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .settings-section {
+            background: var(--bg-primary);
+            border-radius: 16px;
+            padding: 1.5rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .settings-title {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .settings-title iconify-icon {
+            color: var(--mint-400);
+            font-size: 1.25rem;
+        }
+
+        .settings-group {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .setting-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            border-radius: 12px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            transition: all 0.2s ease;
+            min-height: 60px;
+        }
+
+        .setting-item:hover {
+            border-color: var(--border-hover);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .setting-label {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+            flex: 1;
+        }
+
+        .setting-name {
+            font-weight: 600;
+            color: var(--text-primary);
+            font-size: 0.9375rem;
+        }
+
+        .setting-description {
+            font-size: 0.8125rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        .plan-badge {
+            padding: 0.375rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8125rem;
+            font-weight: 600;
+            background: var(--mint-50);
+            color: var(--mint-400);
+            border: 1px solid var(--mint-200);
+        }
+
+        .plan-badge.pro {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+        }
+
+        .plan-badge.premium {
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+            color: white;
+            border: none;
         }
 
         /* ===== FORM CONTROLS ===== */
@@ -1007,75 +1230,6 @@
             animation: float 3s ease-in-out infinite;
         }
 
-        /* ===== SETTINGS MODAL ===== */
-        .settings-section {
-            margin-bottom: 2rem;
-        }
-
-        .settings-title {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
-            color: var(--text-primary);
-        }
-
-        .settings-group {
-            display: flex;
-            flex-direction: column;
-            gap: 0.75rem;
-        }
-
-        .setting-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0.75rem;
-            border-radius: 12px;
-            background: var(--bg-primary);
-            border: 1px solid var(--border-color);
-            transition: border-color 0.2s ease;
-        }
-
-        .setting-item:hover {
-            border-color: var(--border-hover);
-        }
-
-        .setting-label {
-            display: flex;
-            flex-direction: column;
-            gap: 0.25rem;
-        }
-
-        .setting-name {
-            font-weight: 500;
-            color: var(--text-primary);
-        }
-
-        .setting-description {
-            font-size: 0.75rem;
-            color: var(--text-muted);
-        }
-
-        .plan-badge {
-            padding: 0.25rem 0.75rem;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            background: var(--mint-50);
-            color: var(--mint-400);
-        }
-
-        .plan-badge.pro {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-        }
-
-        .plan-badge.premium {
-            background: linear-gradient(135deg, #f093fb, #f5576c);
-            color: white;
-        }
-
         /* ===== ANIMATIONS ===== */
         @keyframes fadeIn {
             from { opacity: 0; }
@@ -1148,6 +1302,11 @@
             100% { transform: scale(1); }
         }
 
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
         /* ===== RESPONSIVE DESIGN ===== */
         @media (max-width: 768px) {
             .nav-container {
@@ -1193,6 +1352,28 @@
             .btn {
                 width: 100%;
             }
+            
+            .segmented-control {
+                flex-direction: column;
+            }
+            
+            .segmented-option {
+                padding: 0.75rem;
+            }
+            
+            .settings-section {
+                padding: 1.25rem;
+            }
+            
+            .setting-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            
+            .debug-panel {
+                padding: 1rem;
+            }
         }
 
         @media (max-width: 480px) {
@@ -1224,6 +1405,16 @@
             
             .toast {
                 max-width: none;
+            }
+            
+            .settings-title h4 {
+                font-size: 1rem;
+            }
+            
+            .debug-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
             }
         }
     </style>
@@ -1444,7 +1635,7 @@
                 <!-- Profile Section -->
                 <div class="settings-section">
                     <div class="settings-title">
-                        <iconify-icon icon="mdi:account"></iconify-icon>
+                        <iconify-icon icon="mdi:account-circle"></iconify-icon>
                         <h4 class="body" style="font-weight: 600;">الملف الشخصي</h4>
                     </div>
                     
@@ -1452,11 +1643,15 @@
                         <div class="setting-item">
                             <div class="setting-label">
                                 <span class="setting-name">الاسم الكامل</span>
-                                <span class="setting-description" id="currentName">محمد</span>
+                                <span class="setting-description" id="currentNameDisplay">محمد</span>
                             </div>
-                            <button class="action-btn edit" id="editNameBtn">
-                                <iconify-icon icon="mdi:pencil"></iconify-icon>
-                            </button>
+                            <div class="inline-edit">
+                                <input type="text" id="nameInput" value="محمد" style="display: none;">
+                                <span id="nameDisplay">محمد</span>
+                                <iconify-icon icon="mdi:pencil" class="edit-icon" id="editNameIcon"></iconify-icon>
+                                <iconify-icon icon="mdi:check" class="edit-icon" id="saveNameIcon" style="display: none; color: var(--success);"></iconify-icon>
+                                <iconify-icon icon="mdi:close" class="edit-icon" id="cancelNameIcon" style="display: none; color: var(--danger);"></iconify-icon>
+                            </div>
                         </div>
                         
                         <div class="setting-item">
@@ -1464,13 +1659,54 @@
                                 <span class="setting-name">البريد الإلكتروني</span>
                                 <span class="setting-description" id="currentEmail">mohamed@example.com</span>
                             </div>
-                            <span class="caption">لا يمكن التعديل</span>
+                            <span class="caption" style="color: var(--text-muted);">لا يمكن التعديل</span>
+                        </div>
+                        
+                        <div class="setting-item">
+                            <div class="setting-label">
+                                <span class="setting-name">رقم العضو</span>
+                                <span class="setting-description" id="userUid">جاري التحميل...</span>
+                            </div>
+                            <button class="action-btn copy" id="copyUidBtn" title="نسخ الرقم">
+                                <iconify-icon icon="mdi:content-copy"></iconify-icon>
+                            </button>
                         </div>
                         
                         <div class="setting-item">
                             <div class="setting-label">
                                 <span class="setting-name">تاريخ الإنشاء</span>
-                                <span class="setting-description" id="createdDate">25 ديسمبر 2024</span>
+                                <span class="setting-description" id="createdDate">جاري التحميل...</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Appearance Section -->
+                <div class="settings-section">
+                    <div class="settings-title">
+                        <iconify-icon icon="mdi:palette"></iconify-icon>
+                        <h4 class="body" style="font-weight: 600;">المظهر</h4>
+                    </div>
+                    
+                    <div class="settings-group">
+                        <div class="setting-item">
+                            <div class="setting-label">
+                                <span class="setting-name">الوضع</span>
+                                <span class="setting-description">اختر المظهر المناسب لك</span>
+                            </div>
+                            <div class="segmented-control" id="themeSelector">
+                                <div class="segmented-option selected" data-theme="light">
+                                    <iconify-icon icon="mdi:weather-sunny"></iconify-icon>
+                                    <span>فاتح</span>
+                                </div>
+                                <div class="segmented-option" data-theme="dark">
+                                    <iconify-icon icon="mdi:weather-night"></iconify-icon>
+                                    <span>داكن</span>
+                                </div>
+                                <div class="segmented-option" data-theme="system">
+                                    <iconify-icon icon="mdi:laptop"></iconify-icon>
+                                    <span>النظام</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -1491,46 +1727,94 @@
                             </div>
                             <span class="plan-badge" id="currentPlan">مجانية</span>
                         </div>
+                        
+                        <div class="setting-item">
+                            <div class="setting-label">
+                                <span class="setting-name">عدد الحسابات</span>
+                                <span class="setting-description" id="boardsLimit">غير محدود</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 
-                <!-- Preferences Section -->
+                <!-- Security Section -->
                 <div class="settings-section">
                     <div class="settings-title">
-                        <iconify-icon icon="mdi:cog"></iconify-icon>
-                        <h4 class="body" style="font-weight: 600;">التفضيلات</h4>
+                        <iconify-icon icon="mdi:shield-lock"></iconify-icon>
+                        <h4 class="body" style="font-weight: 600;">الأمان</h4>
                     </div>
                     
                     <div class="settings-group">
                         <div class="setting-item">
                             <div class="setting-label">
-                                <span class="setting-name">الوضع الداكن</span>
-                                <span class="setting-description">تبديل بين الوضع الفاتح والداكن</span>
+                                <span class="setting-name">الحالة</span>
+                                <span class="setting-description">جلسة نشطة</span>
                             </div>
-                            <div class="toggle-switch">
-                                <input type="checkbox" id="settingsDarkMode">
-                                <span class="toggle-slider"></span>
-                            </div>
+                            <span class="caption" style="color: var(--success); display: flex; align-items: center; gap: 0.25rem;">
+                                <iconify-icon icon="mdi:check-circle"></iconify-icon>
+                                نشط
+                            </span>
                         </div>
                         
                         <div class="setting-item">
                             <div class="setting-label">
-                                <span class="setting-name">تحديث تلقائي</span>
-                                <span class="setting-description">تحديث البيانات تلقائياً كل 30 ثانية</span>
+                                <span class="setting-name">آخر تحديث</span>
+                                <span class="setting-description" id="lastSync">جاري التحميل...</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Advanced Settings -->
+                <div class="settings-section">
+                    <div class="settings-title">
+                        <iconify-icon icon="mdi:code-braces"></iconify-icon>
+                        <h4 class="body" style="font-weight: 600;">متقدم</h4>
+                    </div>
+                    
+                    <div class="settings-group">
+                        <div class="setting-item">
+                            <div class="setting-label">
+                                <span class="setting-name">وضع التصحيح</span>
+                                <span class="setting-description">عرض معلومات تطويرية</span>
                             </div>
                             <div class="toggle-switch">
-                                <input type="checkbox" id="autoRefreshToggle" checked>
+                                <input type="checkbox" id="debugToggle">
                                 <span class="toggle-slider"></span>
                             </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Debug Panel -->
+                    <div class="debug-panel" id="debugPanel">
+                        <div class="debug-item">
+                            <span class="debug-label">المستخدم:</span>
+                            <span class="debug-value" id="debugUid">-</span>
+                        </div>
+                        <div class="debug-item">
+                            <span class="debug-label">الحسابات:</span>
+                            <span class="debug-value" id="debugBoardsCount">0</span>
+                        </div>
+                        <div class="debug-item">
+                            <span class="debug-label">الوضع:</span>
+                            <span class="debug-value" id="debugTheme">light</span>
+                        </div>
+                        <div class="debug-item">
+                            <span class="debug-label">آخر مزامنة:</span>
+                            <span class="debug-value" id="debugLastSync">-</span>
+                        </div>
+                        <div class="debug-item">
+                            <span class="debug-label">Firestore:</span>
+                            <span class="debug-value" id="debugFirestore">متصل ✓</span>
                         </div>
                     </div>
                 </div>
             </div>
             
             <div class="modal-actions">
-                <button type="button" class="btn btn-primary" id="saveSettingsBtn">
-                    <iconify-icon icon="mdi:check"></iconify-icon>
-                    <span>حفظ التغييرات</span>
+                <button type="button" class="btn btn-danger" id="logoutSettingsBtn">
+                    <iconify-icon icon="mdi:logout"></iconify-icon>
+                    <span>تسجيل الخروج</span>
                 </button>
             </div>
         </div>
@@ -1547,17 +1831,19 @@
             onAuthStateChanged,
             doc, 
             setDoc,
-            serverTimestamp
+            getDoc,
+            updateDoc,
+            serverTimestamp,
+            signOut,
+            updateProfile
         } from './firebase-config.js';
-        
-        import { signOut } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
-        import { getDoc } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-firestore.js";
 
         // ===== GLOBAL VARIABLES =====
         let currentUser = null;
         let userBoards = [];
         let currentEditingBoard = null;
         let boardToDelete = null;
+        let userData = {};
 
         // Icon Categories
         const iconCategories = {
@@ -1617,17 +1903,41 @@
             { color: '#118AB2', label: 'أخرى', class: 'other' }
         ];
 
+        // Theme options
+        const themeOptions = [
+            { value: 'light', label: 'فاتح', icon: 'mdi:weather-sunny' },
+            { value: 'dark', label: 'داكن', icon: 'mdi:weather-night' },
+            { value: 'system', label: 'النظام', icon: 'mdi:laptop' }
+        ];
+
         // ===== INITIALIZATION =====
         document.addEventListener('DOMContentLoaded', () => {
             initializeUI();
             loadSavedTheme();
             setupEventListeners();
+            checkAuth();
         });
+
+        // ===== AUTH CHECK =====
+        async function checkAuth() {
+            onAuthStateChanged(auth, async (user) => {
+                if (!user) {
+                    // Redirect to auth page if not logged in
+                    window.location.href = 'auth.html';
+                    return;
+                }
+                
+                currentUser = user;
+                await loadUserData(user.uid);
+            });
+        }
 
         // ===== UI INITIALIZATION =====
         function initializeUI() {
             populateIconGrid();
             populateColorGrid();
+            setupThemeSelector();
+            setupDebugToggle();
         }
 
         function populateIconGrid() {
@@ -1653,7 +1963,6 @@
                     selectIcon(iconElement);
                 });
                 
-                // Select first icon by default
                 if (index === 0) {
                     iconElement.classList.add('selected');
                 }
@@ -1685,7 +1994,6 @@
                     selectColor(colorCircle);
                 });
                 
-                // Select first color by default
                 if (index === 0) {
                     colorCircle.classList.add('selected');
                 }
@@ -1694,13 +2002,42 @@
             });
         }
 
+        function setupThemeSelector() {
+            const themeSelector = document.getElementById('themeSelector');
+            if (!themeSelector) return;
+            
+            themeSelector.innerHTML = '';
+            
+            themeOptions.forEach(theme => {
+                const option = document.createElement('div');
+                option.className = 'segmented-option';
+                option.setAttribute('data-theme', theme.value);
+                option.innerHTML = `
+                    <iconify-icon icon="${theme.icon}"></iconify-icon>
+                    <span>${theme.label}</span>
+                `;
+                
+                option.addEventListener('click', () => {
+                    selectTheme(option);
+                });
+                
+                themeSelector.appendChild(option);
+            });
+        }
+
+        function setupDebugToggle() {
+            const debugToggle = document.getElementById('debugToggle');
+            if (!debugToggle) return;
+            
+            debugToggle.addEventListener('change', toggleDebugMode);
+        }
+
         function selectIcon(iconElement) {
             document.querySelectorAll('.icon-option').forEach(icon => {
                 icon.classList.remove('selected');
             });
             iconElement.classList.add('selected');
             
-            // Add micro-interaction
             iconElement.style.animation = 'copyPulse 0.6s';
             setTimeout(() => {
                 iconElement.style.animation = '';
@@ -1713,25 +2050,78 @@
             });
             colorCircle.classList.add('selected');
             
-            // Add glow effect
             colorCircle.style.boxShadow = `0 0 0 4px ${colorCircle.dataset.color}20`;
             setTimeout(() => {
                 colorCircle.style.boxShadow = '';
             }, 300);
         }
 
-        // ===== EVENT LISTENERS =====
-        function setupEventListeners() {
-            // Theme toggles
-            const themeToggle = document.getElementById('themeToggle');
-            const settingsDarkMode = document.getElementById('settingsDarkMode');
+        function selectTheme(option) {
+            const theme = option.getAttribute('data-theme');
             
-            if (themeToggle) {
-                themeToggle.addEventListener('change', handleThemeToggle);
+            document.querySelectorAll('.segmented-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            option.classList.add('selected');
+            
+            applyTheme(theme);
+            saveThemePreference(theme);
+            updateDebugInfo();
+        }
+
+        // ===== THEME MANAGEMENT =====
+        function applyTheme(theme) {
+            let isDark = false;
+            
+            if (theme === 'system') {
+                isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            } else {
+                isDark = theme === 'dark';
             }
             
-            if (settingsDarkMode) {
-                settingsDarkMode.addEventListener('change', handleThemeToggle);
+            document.body.classList.toggle('dark-mode', isDark);
+            
+            // Update toggle switch
+            const themeToggle = document.getElementById('themeToggle');
+            const themeLabel = document.getElementById('themeLabel');
+            if (themeToggle && themeLabel) {
+                themeToggle.checked = isDark;
+                themeLabel.textContent = isDark ? 'فاتح' : 'داكن';
+            }
+            
+            // Update debug info
+            updateDebugInfo();
+        }
+
+        function saveThemePreference(theme) {
+            localStorage.setItem('themePreference', theme);
+            
+            // Save to Firestore if user is logged in
+            if (currentUser) {
+                saveUserSettings({ theme: theme });
+            }
+        }
+
+        function loadSavedTheme() {
+            const savedTheme = localStorage.getItem('themePreference') || 'system';
+            const themeSelector = document.getElementById('themeSelector');
+            
+            if (themeSelector) {
+                const options = themeSelector.querySelectorAll('.segmented-option');
+                options.forEach(option => {
+                    if (option.getAttribute('data-theme') === savedTheme) {
+                        selectTheme(option);
+                    }
+                });
+            }
+        }
+
+        // ===== EVENT LISTENERS =====
+        function setupEventListeners() {
+            // Theme toggle in navbar
+            const themeToggle = document.getElementById('themeToggle');
+            if (themeToggle) {
+                themeToggle.addEventListener('change', handleNavbarThemeToggle);
             }
 
             // Profile dropdown
@@ -1778,14 +2168,17 @@
             
             // Settings
             const settingsBtn = document.getElementById('settingsBtn');
-            const saveSettingsBtn = document.getElementById('saveSettingsBtn');
-            const editNameBtn = document.getElementById('editNameBtn');
+            const logoutSettingsBtn = document.getElementById('logoutSettingsBtn');
+            const copyUidBtn = document.getElementById('copyUidBtn');
             
             if (settingsBtn) settingsBtn.addEventListener('click', openSettingsModal);
-            if (saveSettingsBtn) saveSettingsBtn.addEventListener('click', saveSettings);
-            if (editNameBtn) editNameBtn.addEventListener('click', editUserName);
+            if (logoutSettingsBtn) logoutSettingsBtn.addEventListener('click', handleLogout);
+            if (copyUidBtn) copyUidBtn.addEventListener('click', copyUserId);
             
-            // Logout
+            // Inline edit for name
+            setupInlineEdit();
+            
+            // Logout from dropdown
             const logoutBtn = document.getElementById('logoutBtn');
             if (logoutBtn) {
                 logoutBtn.addEventListener('click', handleLogout);
@@ -1799,6 +2192,137 @@
                     openBoardModal('add');
                 }
             });
+
+            // Listen for system theme changes
+            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+                const currentTheme = localStorage.getItem('themePreference') || 'system';
+                if (currentTheme === 'system') {
+                    applyTheme('system');
+                }
+            });
+        }
+
+        function handleNavbarThemeToggle() {
+            const themeToggle = document.getElementById('themeToggle');
+            if (!themeToggle) return;
+            
+            const isDark = themeToggle.checked;
+            const theme = isDark ? 'dark' : 'light';
+            
+            // Update segmented control
+            const themeSelector = document.getElementById('themeSelector');
+            if (themeSelector) {
+                const options = themeSelector.querySelectorAll('.segmented-option');
+                options.forEach(option => {
+                    option.classList.remove('selected');
+                    if (option.getAttribute('data-theme') === theme) {
+                        option.classList.add('selected');
+                    }
+                });
+                
+                selectTheme(themeSelector.querySelector(`[data-theme="${theme}"]`));
+            }
+        }
+
+        function setupInlineEdit() {
+            const editNameIcon = document.getElementById('editNameIcon');
+            const saveNameIcon = document.getElementById('saveNameIcon');
+            const cancelNameIcon = document.getElementById('cancelNameIcon');
+            const nameDisplay = document.getElementById('nameDisplay');
+            const nameInput = document.getElementById('nameInput');
+            
+            if (!editNameIcon || !saveNameIcon || !cancelNameIcon || !nameDisplay || !nameInput) return;
+            
+            let originalName = '';
+            
+            editNameIcon.addEventListener('click', () => {
+                originalName = nameDisplay.textContent;
+                nameInput.value = originalName;
+                nameDisplay.style.display = 'none';
+                nameInput.style.display = 'inline-block';
+                editNameIcon.style.display = 'none';
+                saveNameIcon.style.display = 'inline-block';
+                cancelNameIcon.style.display = 'inline-block';
+                nameInput.focus();
+            });
+            
+            saveNameIcon.addEventListener('click', saveUserName);
+            cancelNameIcon.addEventListener('click', cancelEditName);
+            
+            nameInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    saveUserName();
+                }
+            });
+            
+            nameInput.addEventListener('blur', cancelEditName);
+        }
+
+        async function saveUserName() {
+            const nameInput = document.getElementById('nameInput');
+            const nameDisplay = document.getElementById('nameDisplay');
+            const currentNameDisplay = document.getElementById('currentNameDisplay');
+            const saveNameIcon = document.getElementById('saveNameIcon');
+            const cancelNameIcon = document.getElementById('cancelNameIcon');
+            const editNameIcon = document.getElementById('editNameIcon');
+            
+            if (!nameInput || !nameDisplay || !currentNameDisplay) return;
+            
+            const newName = nameInput.value.trim();
+            if (!newName) {
+                showToast('الاسم لا يمكن أن يكون فارغاً', 'error');
+                return;
+            }
+            
+            // Show loading
+            saveNameIcon.innerHTML = '<iconify-icon icon="mdi:loading" style="animation: spin 1s linear infinite;"></iconify-icon>';
+            
+            try {
+                // Update in Firebase Auth
+                await updateProfile(currentUser, {
+                    displayName: newName
+                });
+                
+                // Update user document in Firestore
+                const userRef = doc(db, 'users', currentUser.uid);
+                await updateDoc(userRef, {
+                    name: newName,
+                    updatedAt: serverTimestamp()
+                }, { merge: true });
+                
+                // Update UI
+                nameDisplay.textContent = newName;
+                currentNameDisplay.textContent = newName;
+                updateUserUI(newName, currentUser?.email);
+                showToast('تم تحديث الاسم بنجاح', 'success');
+            } catch (error) {
+                console.error('Error updating name:', error);
+                showToast('حدث خطأ أثناء تحديث الاسم', 'error');
+            } finally {
+                // Reset UI
+                nameDisplay.style.display = 'inline-block';
+                nameInput.style.display = 'none';
+                editNameIcon.style.display = 'inline-block';
+                saveNameIcon.style.display = 'none';
+                cancelNameIcon.style.display = 'none';
+                saveNameIcon.innerHTML = '<iconify-icon icon="mdi:check"></iconify-icon>';
+            }
+        }
+
+        function cancelEditName() {
+            const nameInput = document.getElementById('nameInput');
+            const nameDisplay = document.getElementById('nameDisplay');
+            const saveNameIcon = document.getElementById('saveNameIcon');
+            const cancelNameIcon = document.getElementById('cancelNameIcon');
+            const editNameIcon = document.getElementById('editNameIcon');
+            
+            if (!nameInput || !nameDisplay) return;
+            
+            nameDisplay.style.display = 'inline-block';
+            nameInput.style.display = 'none';
+            editNameIcon.style.display = 'inline-block';
+            saveNameIcon.style.display = 'none';
+            cancelNameIcon.style.display = 'none';
         }
 
         function searchIcons(e) {
@@ -1813,62 +2337,6 @@
                     icon.style.display = 'none';
                 }
             });
-        }
-
-        // ===== THEME MANAGEMENT =====
-        function handleThemeToggle() {
-            const themeToggle = document.getElementById('themeToggle');
-            const themeLabel = document.getElementById('themeLabel');
-            const settingsDarkMode = document.getElementById('settingsDarkMode');
-            
-            if (!themeToggle || !themeLabel) return;
-            
-            const isDark = themeToggle.checked;
-            document.body.classList.toggle('dark-mode', isDark);
-            themeLabel.textContent = isDark ? 'فاتح' : 'داكن';
-            localStorage.setItem('theme', isDark ? 'dark' : 'light');
-            
-            // Sync settings toggle
-            if (settingsDarkMode) {
-                settingsDarkMode.checked = isDark;
-            }
-        }
-
-        function loadSavedTheme() {
-            const savedTheme = localStorage.getItem('theme');
-            const isDark = savedTheme === 'dark';
-            const themeToggle = document.getElementById('themeToggle');
-            const themeLabel = document.getElementById('themeLabel');
-            const settingsDarkMode = document.getElementById('settingsDarkMode');
-            
-            if (!themeToggle || !themeLabel) return;
-            
-            document.body.classList.toggle('dark-mode', isDark);
-            themeToggle.checked = isDark;
-            themeLabel.textContent = isDark ? 'فاتح' : 'داكن';
-            
-            // Sync settings toggle
-            if (settingsDarkMode) {
-                settingsDarkMode.checked = isDark;
-            }
-        }
-
-        // ===== PROFILE DROPDOWN =====
-        function toggleProfileDropdown(e) {
-            e.stopPropagation();
-            const dropdown = document.getElementById('profileDropdown');
-            if (!dropdown) return;
-            
-            dropdown.classList.toggle('active');
-        }
-
-        function closeProfileDropdown(e) {
-            if (!e.target.closest('.user-profile')) {
-                const dropdown = document.getElementById('profileDropdown');
-                if (dropdown) {
-                    dropdown.classList.remove('active');
-                }
-            }
         }
 
         // ===== MODAL MANAGEMENT =====
@@ -1901,14 +2369,12 @@
                 document.getElementById('boardEmail').value = board.email;
                 document.getElementById('boardPassword').value = board.password;
                 
-                // Select icon
                 const iconToSelect = document.querySelector(`.icon-option[data-icon="${board.icon}"]`);
                 if (iconToSelect) {
                     document.querySelectorAll('.icon-option').forEach(icon => icon.classList.remove('selected'));
                     iconToSelect.classList.add('selected');
                 }
                 
-                // Select color
                 const colorToSelect = document.querySelector(`.color-circle[data-color="${board.color}"]`);
                 if (colorToSelect) {
                     document.querySelectorAll('.color-circle').forEach(circle => circle.classList.remove('selected'));
@@ -1943,6 +2409,135 @@
             });
         }
 
+        // ===== PROFILE DROPDOWN =====
+        function toggleProfileDropdown(e) {
+            e.stopPropagation();
+            const dropdown = document.getElementById('profileDropdown');
+            if (!dropdown) return;
+            
+            dropdown.classList.toggle('active');
+        }
+
+        function closeProfileDropdown(e) {
+            if (!e.target.closest('.user-profile')) {
+                const dropdown = document.getElementById('profileDropdown');
+                if (dropdown) {
+                    dropdown.classList.remove('active');
+                }
+            }
+        }
+
+        // ===== SETTINGS MODAL =====
+        function openSettingsModal() {
+            if (!currentUser) {
+                showToast('يجب تسجيل الدخول أولاً', 'error');
+                return;
+            }
+            
+            // Load user data
+            loadSettingsData();
+            openModal('settingsModal');
+        }
+
+        async function loadSettingsData() {
+            if (!currentUser) return;
+            
+            try {
+                // Load user document
+                const userRef = doc(db, 'users', currentUser.uid);
+                const userDoc = await getDoc(userRef);
+                
+                if (userDoc.exists()) {
+                    userData = userDoc.data();
+                    
+                    // Update UI
+                    updateSettingsUI();
+                }
+                
+                // Update debug info
+                updateDebugInfo();
+            } catch (error) {
+                console.error('Error loading settings:', error);
+                showToast('حدث خطأ أثناء تحميل الإعدادات', 'error');
+            }
+        }
+
+        function updateSettingsUI() {
+            if (!currentUser) return;
+            
+            // Profile
+            const displayName = currentUser.displayName || userData.name || currentUser.email?.split('@')[0] || 'المستخدم';
+            const email = currentUser.email || userData.email || 'غير محدد';
+            const uid = currentUser.uid || 'غير متوفر';
+            const createdAt = userData.createdAt ? formatDate(userData.createdAt.toDate()) : formatDate(new Date());
+            
+            document.getElementById('currentNameDisplay').textContent = displayName;
+            document.getElementById('nameDisplay').textContent = displayName;
+            document.getElementById('nameInput').value = displayName;
+            document.getElementById('currentEmail').textContent = email;
+            document.getElementById('userUid').textContent = uid.substring(0, 8) + '...';
+            document.getElementById('createdDate').textContent = createdAt;
+            document.getElementById('lastSync').textContent = formatDate(new Date());
+            
+            // Plan
+            const plan = userData.plan || 'مجانية';
+            document.getElementById('currentPlan').textContent = plan;
+            document.getElementById('currentPlan').className = `plan-badge ${plan === 'مجانية' ? '' : 'pro'}`;
+            
+            // Theme
+            const savedTheme = localStorage.getItem('themePreference') || 'system';
+            const themeSelector = document.getElementById('themeSelector');
+            if (themeSelector) {
+                const options = themeSelector.querySelectorAll('.segmented-option');
+                options.forEach(option => {
+                    option.classList.remove('selected');
+                    if (option.getAttribute('data-theme') === savedTheme) {
+                        option.classList.add('selected');
+                    }
+                });
+            }
+            
+            // Update debug info
+            updateDebugInfo();
+        }
+
+        function toggleDebugMode() {
+            const debugToggle = document.getElementById('debugToggle');
+            const debugPanel = document.getElementById('debugPanel');
+            
+            if (!debugToggle || !debugPanel) return;
+            
+            if (debugToggle.checked) {
+                debugPanel.classList.add('active');
+                updateDebugInfo();
+                showToast('تم تفعيل وضع التصحيح', 'info');
+            } else {
+                debugPanel.classList.remove('active');
+            }
+        }
+
+        function updateDebugInfo() {
+            const debugToggle = document.getElementById('debugToggle');
+            const debugPanel = document.getElementById('debugPanel');
+            
+            if (!debugToggle || !debugPanel) return;
+            
+            if (debugToggle.checked) {
+                document.getElementById('debugUid').textContent = currentUser?.uid?.substring(0, 12) + '...' || '-';
+                document.getElementById('debugBoardsCount').textContent = userBoards.length;
+                document.getElementById('debugTheme').textContent = localStorage.getItem('themePreference') || 'system';
+                document.getElementById('debugLastSync').textContent = new Date().toLocaleTimeString('ar-SA');
+                document.getElementById('debugFirestore').textContent = currentUser ? 'متصل ✓' : 'غير متصل';
+            }
+        }
+
+        function copyUserId() {
+            if (currentUser?.uid) {
+                copyToClipboard(currentUser.uid);
+                showToast('تم نسخ رقم العضو', 'success');
+            }
+        }
+
         // ===== BOARD OPERATIONS =====
         async function handleBoardSubmit(e) {
             e.preventDefault();
@@ -1951,7 +2546,6 @@
             const boardEmail = document.getElementById('boardEmail').value.trim();
             const boardPassword = document.getElementById('boardPassword').value.trim();
             
-            // Validate inputs
             let isValid = true;
             
             if (!boardName) {
@@ -1980,7 +2574,6 @@
                 return;
             }
             
-            // Get selected icon and color
             const selectedIcon = document.querySelector('.icon-option.selected');
             const selectedColor = document.querySelector('.color-circle.selected');
             
@@ -1993,7 +2586,6 @@
             const boardColor = selectedColor.getAttribute('data-color');
             const boardColorClass = selectedColor.getAttribute('data-class');
             
-            // Show loading state
             const saveBtn = document.getElementById('saveBoardBtn');
             const originalContent = saveBtn.innerHTML;
             saveBtn.innerHTML = '<iconify-icon icon="mdi:loading" style="animation: spin 1s linear infinite;"></iconify-icon> جاري الحفظ...';
@@ -2015,22 +2607,17 @@
                 };
                 
                 if (currentEditingBoard) {
-                    // Update existing board
                     const index = userBoards.findIndex(b => b.id === currentEditingBoard);
                     if (index !== -1) {
                         userBoards[index] = boardData;
                         showToast('تم تحديث الحساب بنجاح!', 'success');
                     }
                 } else {
-                    // Add new board
                     userBoards.push(boardData);
                     showToast('تم إضافة الحساب بنجاح!', 'success');
                 }
                 
-                // Save to Firestore
                 await saveBoardsToFirestore();
-                
-                // Update UI
                 renderBoards();
                 closeAllModals();
             } catch (error) {
@@ -2077,13 +2664,8 @@
             if (!boardToDelete) return;
             
             try {
-                // Remove from local array
                 userBoards = userBoards.filter(b => b.id !== boardToDelete.id);
-                
-                // Save to Firestore
                 await saveBoardsToFirestore();
-                
-                // Update UI
                 renderBoards();
                 showToast('تم حذف الحساب بنجاح', 'success');
                 closeAllModals();
@@ -2111,12 +2693,10 @@
             
             if (!container) return;
             
-            // Update count
             if (countBadge) {
                 countBadge.textContent = `${userBoards.length} حساب${userBoards.length !== 1 ? 'ات' : ''}`;
             }
             
-            // Clear container
             container.innerHTML = '';
             
             if (userBoards.length === 0) {
@@ -2131,13 +2711,14 @@
                 emptyState.style.display = 'none';
             }
             
-            // Render each board
             userBoards.forEach(board => {
                 const boardElement = createBoardElement(board);
                 if (boardElement) {
                     container.appendChild(boardElement);
                 }
             });
+            
+            updateDebugInfo();
         }
 
         function createBoardElement(board) {
@@ -2208,7 +2789,6 @@
                 </div>
             `;
             
-            // Add event listeners
             const copyButtons = element.querySelectorAll('.action-btn.copy');
             const editButton = element.querySelector('.action-btn.edit');
             const deleteButton = element.querySelector('.action-btn.delete');
@@ -2220,7 +2800,6 @@
                     const value = btn.getAttribute('data-value');
                     copyToClipboard(value);
                     
-                    // Add visual feedback
                     btn.style.animation = 'copyPulse 0.6s';
                     setTimeout(() => {
                         btn.style.animation = '';
@@ -2241,7 +2820,6 @@
                 });
             }
             
-            // Press & hold to show password
             if (toggleButton && passwordInput) {
                 let holdTimer;
                 
@@ -2264,7 +2842,6 @@
                     toggleButton.innerHTML = '<iconify-icon icon="mdi:eye"></iconify-icon>';
                 });
                 
-                // Touch events for mobile
                 toggleButton.addEventListener('touchstart', () => {
                     holdTimer = setTimeout(() => {
                         passwordInput.type = 'text';
@@ -2289,64 +2866,149 @@
             return div.innerHTML;
         }
 
-        // ===== SETTINGS =====
-        function openSettingsModal() {
-            // Load current user data
-            const currentName = document.getElementById('currentName');
-            const currentEmail = document.getElementById('currentEmail');
-            const welcomeMessage = document.getElementById('welcomeMessage');
-            
-            if (currentName && welcomeMessage) {
-                const name = currentName.textContent;
-                currentName.textContent = name;
-                welcomeMessage.textContent = `مرحباً ${name}! 👋`;
-            }
-            
-            if (currentEmail) {
-                currentEmail.textContent = currentUser?.email || 'غير محدد';
-            }
-            
-            openModal('settingsModal');
-        }
-
-        function editUserName() {
-            const currentName = document.getElementById('currentName');
-            const welcomeMessage = document.getElementById('welcomeMessage');
-            
-            if (!currentName) return;
-            
-            const currentNameText = currentName.textContent;
-            const newName = prompt('أدخل اسمك الجديد:', currentNameText);
-            
-            if (newName && newName.trim() && newName !== currentNameText) {
-                const trimmedName = newName.trim();
-                currentName.textContent = trimmedName;
-                document.getElementById('userName').textContent = trimmedName;
-                document.getElementById('dropdownName').textContent = trimmedName;
+        // ===== FIREBASE OPERATIONS =====
+        async function saveBoardsToFirestore() {
+            try {
+                if (!currentUser) return;
                 
-                if (welcomeMessage) {
-                    welcomeMessage.textContent = `مرحباً ${trimmedName}! 👋`;
-                }
-                
-                // Update avatar
-                const avatar = document.getElementById('userAvatar');
-                if (avatar) {
-                    avatar.textContent = trimmedName.charAt(0).toUpperCase();
-                }
-                
-                showToast('تم تحديث الاسم بنجاح', 'success');
+                const userDataRef = doc(db, 'data', currentUser.uid);
+                await setDoc(userDataRef, {
+                    boards: userBoards,
+                    lastUpdated: serverTimestamp()
+                }, { merge: true });
+            } catch (error) {
+                console.error('Error saving boards:', error);
+                throw error;
             }
         }
 
-        function saveSettings() {
-            const autoRefreshToggle = document.getElementById('autoRefreshToggle');
-            
-            if (autoRefreshToggle) {
-                localStorage.setItem('autoRefresh', autoRefreshToggle.checked);
+        async function saveUserSettings(settings) {
+            try {
+                if (!currentUser) return;
+                
+                const userRef = doc(db, 'users', currentUser.uid);
+                await updateDoc(userRef, {
+                    settings: settings,
+                    updatedAt: serverTimestamp()
+                }, { merge: true });
+            } catch (error) {
+                console.error('Error saving settings:', error);
             }
+        }
+
+        async function loadUserData(uid) {
+            try {
+                // Load user profile
+                const userRef = doc(db, 'users', uid);
+                const userDoc = await getDoc(userRef);
+                
+                if (userDoc.exists()) {
+                    const userData = userDoc.data();
+                    updateUserUI(userData.name || currentUser.displayName || currentUser.email?.split('@')[0], userData.email || currentUser.email);
+                    
+                    // Load user settings
+                    if (userData.settings?.theme) {
+                        const themeSelector = document.getElementById('themeSelector');
+                        if (themeSelector) {
+                            const options = themeSelector.querySelectorAll('.segmented-option');
+                            options.forEach(option => {
+                                if (option.getAttribute('data-theme') === userData.settings.theme) {
+                                    selectTheme(option);
+                                }
+                            });
+                        }
+                    }
+                } else {
+                    // Create user document if it doesn't exist
+                    await setDoc(userRef, {
+                        name: currentUser.displayName || currentUser.email?.split('@')[0],
+                        email: currentUser.email,
+                        createdAt: serverTimestamp(),
+                        plan: 'مجانية',
+                        settings: {
+                            theme: 'system'
+                        }
+                    });
+                }
+                
+                // Load user boards
+                const dataRef = doc(db, 'data', uid);
+                const dataDoc = await getDoc(dataRef);
+                
+                if (dataDoc.exists() && dataDoc.data().boards) {
+                    userBoards = dataDoc.data().boards;
+                } else {
+                    userBoards = [];
+                }
+                
+                renderBoards();
+                updateSettingsUI();
+            } catch (error) {
+                console.error('Error loading user data:', error);
+                showToast('حدث خطأ أثناء تحميل البيانات', 'error');
+            }
+        }
+
+        // ===== USER MANAGEMENT =====
+        function updateUserUI(name, email) {
+            const displayName = name || email?.split('@')[0] || 'المستخدم';
+            const displayEmail = email || 'user@example.com';
+            const initial = displayName.charAt(0).toUpperCase();
             
-            showToast('تم حفظ الإعدادات بنجاح', 'success');
-            closeAllModals();
+            const elements = {
+                'userName': displayName,
+                'dropdownName': displayName,
+                'currentNameDisplay': displayName,
+                'nameDisplay': displayName,
+                'nameInput': displayName,
+                'userEmail': displayEmail,
+                'currentEmail': displayEmail,
+                'welcomeMessage': `مرحباً ${displayName}! 👋`
+            };
+            
+            Object.entries(elements).forEach(([id, value]) => {
+                const element = document.getElementById(id);
+                if (element && element.value !== undefined) {
+                    element.value = value;
+                } else if (element) {
+                    element.textContent = value;
+                }
+            });
+            
+            const avatar = document.getElementById('userAvatar');
+            if (avatar) {
+                avatar.textContent = initial;
+            }
+        }
+
+        // ===== LOGOUT =====
+        async function handleLogout(e) {
+            if (e) e.preventDefault();
+            
+            try {
+                await signOut(auth);
+                window.location.href = 'auth.html';
+            } catch (error) {
+                console.error('Error signing out:', error);
+                showToast('حدث خطأ أثناء تسجيل الخروج', 'error');
+            }
+        }
+
+        // ===== UTILITY FUNCTIONS =====
+        function generateId() {
+            return Date.now().toString(36) + Math.random().toString(36).substr(2, 9);
+        }
+
+        function formatDate(date) {
+            if (!date) return '-';
+            
+            return new Date(date).toLocaleDateString('ar-SA', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
         }
 
         // ===== TOAST NOTIFICATIONS =====
@@ -2372,7 +3034,6 @@
             
             container.appendChild(toast);
             
-            // Auto remove after 3 seconds
             setTimeout(() => {
                 toast.classList.add('hiding');
                 setTimeout(() => {
@@ -2382,132 +3043,6 @@
                 }, 300);
             }, 3000);
         }
-
-        // ===== FIREBASE OPERATIONS =====
-        async function saveBoardsToFirestore() {
-            try {
-                if (!currentUser) return;
-                
-                const userDataRef = doc(db, 'data', currentUser.uid);
-                await setDoc(userDataRef, {
-                    boards: userBoards,
-                    lastUpdated: serverTimestamp()
-                }, { merge: true });
-            } catch (error) {
-                console.error('Error saving boards:', error);
-                throw error;
-            }
-        }
-
-        async function loadUserData(uid) {
-            try {
-                // Load user profile
-                const userRef = doc(db, 'users', uid);
-                const userDoc = await getDoc(userRef);
-                
-                if (userDoc.exists()) {
-                    const userData = userDoc.data();
-                    updateUserUI(userData.name || currentUser.email?.split('@')[0], userData.email || currentUser.email);
-                } else {
-                    // Create user document if it doesn't exist
-                    await setDoc(userRef, {
-                        name: currentUser.displayName || currentUser.email?.split('@')[0],
-                        email: currentUser.email,
-                        createdAt: serverTimestamp(),
-                        plan: 'مجانية'
-                    });
-                }
-                
-                // Load user boards
-                const dataRef = doc(db, 'data', uid);
-                const dataDoc = await getDoc(dataRef);
-                
-                if (dataDoc.exists() && dataDoc.data().boards) {
-                    userBoards = dataDoc.data().boards;
-                } else {
-                    userBoards = [];
-                }
-                
-                renderBoards();
-            } catch (error) {
-                console.error('Error loading user data:', error);
-                showToast('حدث خطأ أثناء تحميل البيانات', 'error');
-            }
-        }
-
-        // ===== USER MANAGEMENT =====
-        function updateUserUI(name, email) {
-            const displayName = name || email?.split('@')[0] || 'المستخدم';
-            const displayEmail = email || 'user@example.com';
-            const initial = displayName.charAt(0).toUpperCase();
-            
-            // Update UI elements
-            const elements = {
-                'userName': displayName,
-                'dropdownName': displayName,
-                'currentName': displayName,
-                'userEmail': displayEmail,
-                'currentEmail': displayEmail,
-                'welcomeMessage': `مرحباً ${displayName}! 👋`
-            };
-            
-            Object.entries(elements).forEach(([id, value]) => {
-                const element = document.getElementById(id);
-                if (element) element.textContent = value;
-            });
-            
-            // Update avatar
-            const avatar = document.getElementById('userAvatar');
-            if (avatar) {
-                avatar.textContent = initial;
-            }
-        }
-
-        // ===== LOGOUT =====
-        async function handleLogout(e) {
-            e.preventDefault();
-            
-            try {
-                await signOut(auth);
-                window.location.href = 'auth.html';
-            } catch (error) {
-                console.error('Error signing out:', error);
-                showToast('حدث خطأ أثناء تسجيل الخروج', 'error');
-            }
-        }
-
-        // ===== UTILITY FUNCTIONS =====
-        function generateId() {
-            return Date.now().toString(36) + Math.random().toString(36).substr(2, 9);
-        }
-
-        // ===== AUTH STATE OBSERVER =====
-        onAuthStateChanged(auth, async (user) => {
-            if (!user) {
-                window.location.href = 'auth.html';
-                return;
-            }
-            
-            currentUser = user;
-            updateUserUI(user.displayName, user.email);
-            
-            // Load user data
-            await loadUserData(user.uid);
-            
-            // Setup auto-refresh if enabled
-            try {
-                const autoRefresh = localStorage.getItem('autoRefresh') !== 'false';
-                if (autoRefresh) {
-                    setInterval(async () => {
-                        if (currentUser) {
-                            await loadUserData(currentUser.uid);
-                        }
-                    }, 30000);
-                }
-            } catch (error) {
-                console.error('Error setting up auto-refresh:', error);
-            }
-        });
     </script>
 </body>
 </html>
