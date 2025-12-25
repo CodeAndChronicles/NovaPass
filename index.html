@@ -200,6 +200,283 @@
             gap: 1rem;
         }
 
+        /* ===== SECTIONS MANAGEMENT ===== */
+        .section {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .back-to-dashboard {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1rem;
+            background: var(--mint-50);
+            color: var(--mint-400);
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            border: 1px solid transparent;
+        }
+
+        .back-to-dashboard:hover {
+            background: var(--mint-100);
+            border-color: var(--mint-200);
+            transform: translateY(-2px);
+        }
+
+        body.dark-mode .back-to-dashboard {
+            background: rgba(62, 180, 137, 0.1);
+        }
+
+        /* ===== DEVICES SECTION ===== */
+        .devices-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .device-card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 1.5rem;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .device-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--mint-200);
+        }
+
+        .device-card.current {
+            border: 2px solid var(--mint-300);
+            background: linear-gradient(135deg, rgba(62, 180, 137, 0.05), rgba(62, 180, 137, 0.02));
+        }
+
+        .device-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 14px;
+            background: var(--mint-50);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--mint-400);
+            font-size: 1.75rem;
+            flex-shrink: 0;
+        }
+
+        body.dark-mode .device-icon {
+            background: rgba(62, 180, 137, 0.1);
+        }
+
+        .device-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .device-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0.5rem;
+        }
+
+        .device-name {
+            font-weight: 600;
+            font-size: 1.125rem;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .device-details {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            line-height: 1.4;
+        }
+
+        .device-badge {
+            padding: 0.375rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            background: var(--mint-50);
+            color: var(--mint-400);
+            border: 1px solid var(--mint-200);
+            white-space: nowrap;
+        }
+
+        body.dark-mode .device-badge {
+            background: rgba(62, 180, 137, 0.2);
+        }
+
+        .device-actions {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .device-action-btn {
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-primary);
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.875rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .device-action-btn:hover {
+            background: var(--danger-light);
+            color: var(--danger);
+            border-color: var(--danger);
+        }
+
+        body.dark-mode .device-action-btn:hover {
+            background: rgba(239, 68, 68, 0.1);
+        }
+
+        .device-action-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            background: var(--gray-100);
+            color: var(--gray-400);
+            border-color: var(--gray-300);
+        }
+
+        /* ===== ACTIVITY LOGS SECTION ===== */
+        .activity-timeline {
+            max-width: 800px;
+            margin: 2rem auto 0;
+        }
+
+        .activity-day-group {
+            margin-bottom: 2.5rem;
+        }
+
+        .day-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .day-label {
+            font-weight: 600;
+            color: var(--text-primary);
+            font-size: 1.125rem;
+        }
+
+        .activity-item {
+            display: flex;
+            gap: 1rem;
+            padding: 1rem;
+            border-radius: 12px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            margin-bottom: 0.75rem;
+            animation: fadeInUp 0.3s ease;
+            transition: all 0.2s ease;
+        }
+
+        .activity-item:hover {
+            border-color: var(--mint-200);
+            transform: translateX(-4px);
+        }
+
+        .activity-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .activity-icon.login { background: rgba(16, 185, 129, 0.1); color: var(--success); }
+        .activity-icon.logout { background: rgba(239, 68, 68, 0.1); color: var(--danger); }
+        .activity-icon.add { background: rgba(62, 180, 137, 0.1); color: var(--mint-400); }
+        .activity-icon.edit { background: rgba(59, 130, 246, 0.1); color: var(--info); }
+        .activity-icon.delete { background: rgba(239, 68, 68, 0.1); color: var(--danger); }
+        .activity-icon.copy { background: rgba(245, 158, 11, 0.1); color: var(--warning); }
+        .activity-icon.theme { background: rgba(139, 92, 246, 0.1); color: #8B5CF6; }
+        .activity-icon.device_logout { background: rgba(239, 68, 68, 0.1); color: var(--danger); }
+
+        .activity-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .activity-description {
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+            line-height: 1.4;
+        }
+
+        .activity-details {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            line-height: 1.4;
+        }
+
+        .activity-time {
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            white-space: nowrap;
+            flex-shrink: 0;
+            margin-top: 0.25rem;
+        }
+
+        /* ===== EMPTY STATES ===== */
+        .empty-state-section {
+            text-align: center;
+            padding: 4rem 2rem;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .empty-state-icon {
+            font-size: 4rem;
+            color: var(--mint-100);
+            margin-bottom: 1.5rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .empty-state-text {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
         /* ===== FLOATING ADD BUTTON ===== */
         .floating-add-btn {
             position: fixed;
@@ -1364,7 +1641,7 @@
     <nav class="navbar">
         <div class="nav-container">
             <div class="logo">
-                <span class="logo-text">NovaPass<span class="logo-dashboard">Dashboard</span></span>
+                <span class="logo-text">NovaPass<span class="logo-dashboard" id="dashboardLabel">Dashboard</span></span>
             </div>
             
             <div class="nav-actions">
@@ -1386,6 +1663,16 @@
                             <div class="user-name" id="dropdownName">محمد</div>
                             <div class="body-sm" style="color: var(--text-muted);" id="userEmail">mohamed@example.com</div>
                         </div>
+                        
+                        <a href="#" class="dropdown-item" id="devicesBtn">
+                            <iconify-icon icon="mdi:devices"></iconify-icon>
+                            <span>الأجهزة</span>
+                        </a>
+                        
+                        <a href="#" class="dropdown-item" id="activityBtn">
+                            <iconify-icon icon="mdi:history"></iconify-icon>
+                            <span>سجلات النشاط</span>
+                        </a>
                         
                         <a href="#" class="dropdown-item" id="settingsBtn">
                             <iconify-icon icon="mdi:cog"></iconify-icon>
@@ -1409,29 +1696,70 @@
 
     <!-- Main Content -->
     <main class="main-content">
-        <!-- Welcome Section -->
-        <div class="welcome-section">
-            <h1 class="h1" id="welcomeMessage">مرحباً محمد!</h1>
-            <p class="body-lg" style="color: var(--text-secondary); margin-top: 1rem; max-width: 600px;">
-                إدارة كلمات المرور الخاصة بك أصبحت أسهل وأكثر أماناً. كل شيء في مكان واحد.
-            </p>
+        <!-- Dashboard Section (Default) -->
+        <div class="section active" id="dashboardSection">
+            <!-- Welcome Section -->
+            <div class="welcome-section">
+                <h1 class="h1" id="welcomeMessage">مرحباً محمد!</h1>
+                <p class="body-lg" style="color: var(--text-secondary); margin-top: 1rem; max-width: 600px;">
+                    إدارة كلمات المرور الخاصة بك أصبحت أسهل وأكثر أماناً. كل شيء في مكان واحد.
+                </p>
+            </div>
+
+            <!-- Boards Grid -->
+            <div class="boards-grid" id="boardsContainer">
+                <!-- Empty State -->
+                <div class="empty-state" id="emptyState">
+                    <div class="empty-icon">
+                        <iconify-icon icon="mdi:lock-outline"></iconify-icon>
+                    </div>
+                    <h3 class="h3">لا توجد حسابات بعد</h3>
+                    <p class="body">
+                        ابدأ بحفظ أول حساب لتجربة أمان NovaPass
+                    </p>
+                    <button class="btn btn-primary" id="firstBoardBtn" style="margin-top: 1.5rem;">
+                        <iconify-icon icon="mdi:plus"></iconify-icon>
+                        <span>ابدأ بإضافة حساب</span>
+                    </button>
+                </div>
+            </div>
         </div>
 
-        <!-- Boards Grid -->
-        <div class="boards-grid" id="boardsContainer">
-            <!-- Empty State -->
-            <div class="empty-state" id="emptyState">
-                <div class="empty-icon">
-                    <iconify-icon icon="mdi:lock-outline"></iconify-icon>
-                </div>
-                <h3 class="h3">لا توجد حسابات بعد</h3>
-                <p class="body">
-                    ابدأ بحفظ أول حساب لتجربة أمان NovaPass
-                </p>
-                <button class="btn btn-primary" id="firstBoardBtn" style="margin-top: 1.5rem;">
-                    <iconify-icon icon="mdi:plus"></iconify-icon>
-                    <span>ابدأ بإضافة حساب</span>
-                </button>
+        <!-- Devices Section -->
+        <div class="section" id="devicesSection">
+            <div class="section-header">
+                <h2 class="h2">الأجهزة المتصلة</h2>
+                <a href="#" class="back-to-dashboard" id="backFromDevices">
+                    <iconify-icon icon="mdi:arrow-left"></iconify-icon>
+                    <span>العودة للرئيسية</span>
+                </a>
+            </div>
+            
+            <p class="body-lg" style="color: var(--text-secondary); margin-bottom: 2rem;">
+                إدارة جميع الأجهزة التي تم تسجيل الدخول منها إلى حسابك. يمكنك تسجيل الخروج من الأجهزة الأخرى.
+            </p>
+            
+            <div class="devices-list" id="devicesList">
+                <!-- Devices will be populated by JavaScript -->
+            </div>
+        </div>
+
+        <!-- Activity Logs Section -->
+        <div class="section" id="activitySection">
+            <div class="section-header">
+                <h2 class="h2">سجلات النشاط</h2>
+                <a href="#" class="back-to-dashboard" id="backFromActivity">
+                    <iconify-icon icon="mdi:arrow-left"></iconify-icon>
+                    <span>العودة للرئيسية</span>
+                </a>
+            </div>
+            
+            <p class="body-lg" style="color: var(--text-secondary); margin-bottom: 2rem;">
+                تتبع جميع الأنشطة المهمة على حسابك للحفاظ على الأمان والخصوصية.
+            </p>
+            
+            <div class="activity-timeline" id="activityTimeline">
+                <!-- Activity logs will be populated by JavaScript -->
             </div>
         </div>
     </main>
@@ -1702,6 +2030,13 @@
             setDoc,
             getDoc,
             updateDoc,
+            deleteDoc,
+            collection,
+            query,
+            where,
+            orderBy,
+            getDocs,
+            addDoc,
             serverTimestamp,
             signOut,
             updateProfile
@@ -1714,6 +2049,7 @@
         let boardToDelete = null;
         let userData = {};
         let userSettings = {};
+        let currentDeviceId = null;
 
         // Icon Categories
         const iconCategories = {
@@ -1810,6 +2146,29 @@
             { id: 'unique', label: 'أحرف متنوعة', test: (p) => new Set(p).size >= 8, weight: 10 }
         ];
 
+        // Activity types
+        const activityIcons = {
+            login: { icon: 'mdi:login', label: 'تسجيل دخول' },
+            logout: { icon: 'mdi:logout', label: 'تسجيل خروج' },
+            add: { icon: 'mdi:plus', label: 'إضافة حساب' },
+            edit: { icon: 'mdi:pencil', label: 'تعديل حساب' },
+            delete: { icon: 'mdi:delete', label: 'حذف حساب' },
+            copy: { icon: 'mdi:content-copy', label: 'نسخ كلمة مرور' },
+            theme: { icon: 'mdi:palette', label: 'تغيير المظهر' },
+            device_logout: { icon: 'mdi:device-off', label: 'تسجيل خروج من جهاز' }
+        };
+
+        const activityDescriptions = {
+            login: (details) => `تم تسجيل الدخول من ${details.deviceName || 'جهاز جديد'}`,
+            logout: () => 'تم تسجيل الخروج',
+            add: (details) => `تم إضافة حساب جديد: ${details.boardName || ''}`,
+            edit: (details) => `تم تعديل حساب: ${details.boardName || ''}`,
+            delete: (details) => `تم حذف حساب: ${details.boardName || ''}`,
+            copy: (details) => `تم نسخ كلمة مرور لحساب: ${details.boardName || ''}`,
+            theme: (details) => `تم تغيير المظهر إلى الوضع ${details.theme === 'dark' ? 'الداكن' : 'الفاتح'}`,
+            device_logout: (details) => `تم تسجيل الخروج من جهاز: ${details.deviceName || ''}`
+        };
+
         // ===== INITIALIZATION =====
         document.addEventListener('DOMContentLoaded', () => {
             initializeUI();
@@ -1827,7 +2186,10 @@
                 }
                 
                 currentUser = user;
+                currentDeviceId = generateDeviceId();
                 await loadUserData(user.uid);
+                await registerCurrentDevice();
+                await logActivity('login', { deviceName: getDeviceInfo().name });
             });
         }
 
@@ -2110,6 +2472,9 @@
             
             applyTheme(theme);
             saveSettings({ theme: theme });
+            
+            // Log activity
+            logActivity('theme', { theme });
         }
 
         function selectPasswordVisibility(option) {
@@ -2165,8 +2530,82 @@
             }
         }
 
-        // ===== EVENT LISTENERS =====
+        // ===== SECTION MANAGEMENT =====
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Show target section
+            const targetSection = document.getElementById(sectionId);
+            if (targetSection) {
+                targetSection.classList.add('active');
+                updateNavLabel(sectionId);
+            }
+            
+            // Hide floating button in non-dashboard sections
+            const floatingBtn = document.getElementById('floatingAddBtn');
+            if (floatingBtn) {
+                floatingBtn.style.display = sectionId === 'dashboardSection' ? 'flex' : 'none';
+            }
+        }
+
+        function updateNavLabel(sectionId) {
+            const dashboardLabel = document.getElementById('dashboardLabel');
+            
+            switch(sectionId) {
+                case 'devicesSection':
+                    dashboardLabel.textContent = 'الأجهزة';
+                    break;
+                case 'activitySection':
+                    dashboardLabel.textContent = 'سجلات النشاط';
+                    break;
+                default:
+                    dashboardLabel.textContent = 'Dashboard';
+            }
+        }
+
+        // ===== EVENT LISTENERS SETUP =====
         function setupEventListeners() {
+            // Navigation buttons
+            const devicesBtn = document.getElementById('devicesBtn');
+            const activityBtn = document.getElementById('activityBtn');
+            const backFromDevices = document.getElementById('backFromDevices');
+            const backFromActivity = document.getElementById('backFromActivity');
+            
+            if (devicesBtn) {
+                devicesBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    showSection('devicesSection');
+                    renderDevices();
+                    closeProfileDropdown();
+                });
+            }
+            
+            if (activityBtn) {
+                activityBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    showSection('activitySection');
+                    renderActivityLogs();
+                    closeProfileDropdown();
+                });
+            }
+            
+            if (backFromDevices) {
+                backFromDevices.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    showSection('dashboardSection');
+                });
+            }
+            
+            if (backFromActivity) {
+                backFromActivity.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    showSection('dashboardSection');
+                });
+            }
+
             // Floating add button
             const floatingAddBtn = document.getElementById('floatingAddBtn');
             if (floatingAddBtn) {
@@ -2253,6 +2692,24 @@
                     icon.style.display = 'none';
                 }
             });
+        }
+
+        // ===== PROFILE DROPDOWN =====
+        function toggleProfileDropdown(e) {
+            e.stopPropagation();
+            const dropdown = document.getElementById('profileDropdown');
+            if (!dropdown) return;
+            
+            dropdown.classList.toggle('active');
+        }
+
+        function closeProfileDropdown(e) {
+            if (!e.target.closest('.user-profile')) {
+                const dropdown = document.getElementById('profileDropdown');
+                if (dropdown) {
+                    dropdown.classList.remove('active');
+                }
+            }
         }
 
         // ===== MODAL MANAGEMENT =====
@@ -2415,22 +2872,376 @@
             }
         }
 
-        // ===== PROFILE DROPDOWN =====
-        function toggleProfileDropdown(e) {
-            e.stopPropagation();
-            const dropdown = document.getElementById('profileDropdown');
-            if (!dropdown) return;
+        // ===== DEVICES MANAGEMENT =====
+        async function registerCurrentDevice() {
+            if (!currentUser) return;
             
-            dropdown.classList.toggle('active');
+            try {
+                const deviceInfo = getDeviceInfo();
+                const deviceRef = doc(db, 'devices', `${currentUser.uid}_${currentDeviceId}`);
+                
+                await setDoc(deviceRef, {
+                    userId: currentUser.uid,
+                    deviceId: currentDeviceId,
+                    deviceName: deviceInfo.name,
+                    browser: deviceInfo.browser,
+                    os: deviceInfo.os,
+                    isCurrent: true,
+                    isActive: true,
+                    lastActive: serverTimestamp(),
+                    createdAt: serverTimestamp(),
+                    updatedAt: serverTimestamp()
+                }, { merge: true });
+                
+                console.log('Device registered:', deviceInfo);
+            } catch (error) {
+                console.error('Error registering device:', error);
+            }
         }
 
-        function closeProfileDropdown(e) {
-            if (!e.target.closest('.user-profile')) {
-                const dropdown = document.getElementById('profileDropdown');
-                if (dropdown) {
-                    dropdown.classList.remove('active');
-                }
+        function getDeviceInfo() {
+            const userAgent = navigator.userAgent;
+            let deviceName = 'Unknown Device';
+            let browser = 'Unknown Browser';
+            let os = 'Unknown OS';
+            
+            // Detect device type
+            if (/mobile/i.test(userAgent)) {
+                deviceName = 'هاتف محمول';
+            } else if (/tablet/i.test(userAgent)) {
+                deviceName = 'تابلت';
+            } else {
+                deviceName = 'حاسوب';
             }
+            
+            // Detect browser
+            if (/edg/i.test(userAgent)) {
+                browser = 'Microsoft Edge';
+            } else if (/chrome/i.test(userAgent)) {
+                browser = 'Google Chrome';
+            } else if (/firefox/i.test(userAgent)) {
+                browser = 'Mozilla Firefox';
+            } else if (/safari/i.test(userAgent)) {
+                browser = 'Safari';
+            } else if (/opera/i.test(userAgent)) {
+                browser = 'Opera';
+            }
+            
+            // Detect OS
+            if (/windows/i.test(userAgent)) {
+                os = 'Windows';
+            } else if (/macintosh/i.test(userAgent)) {
+                os = 'macOS';
+            } else if (/linux/i.test(userAgent)) {
+                os = 'Linux';
+            } else if (/android/i.test(userAgent)) {
+                os = 'Android';
+            } else if (/iphone|ipad|ipod/i.test(userAgent)) {
+                os = 'iOS';
+            }
+            
+            return { name: deviceName, browser, os };
+        }
+
+        function generateDeviceId() {
+            const timestamp = Date.now().toString(36);
+            const random = Math.random().toString(36).substr(2, 6);
+            return `device_${timestamp}_${random}`;
+        }
+
+        async function loadUserDevices() {
+            if (!currentUser) return [];
+            
+            try {
+                const devicesRef = collection(db, 'devices');
+                const q = query(
+                    devicesRef,
+                    where('userId', '==', currentUser.uid),
+                    orderBy('lastActive', 'desc')
+                );
+                
+                const snapshot = await getDocs(q);
+                const devices = [];
+                
+                snapshot.forEach(doc => {
+                    const deviceData = doc.data();
+                    devices.push({
+                        id: doc.id,
+                        ...deviceData,
+                        lastActive: deviceData.lastActive?.toDate?.() || new Date()
+                    });
+                });
+                
+                return devices;
+            } catch (error) {
+                console.error('Error loading devices:', error);
+                return [];
+            }
+        }
+
+        async function renderDevices() {
+            const devicesList = document.getElementById('devicesList');
+            if (!devicesList) return;
+            
+            const devices = await loadUserDevices();
+            
+            if (devices.length === 0) {
+                devicesList.innerHTML = `
+                    <div class="empty-state-section">
+                        <div class="empty-state-icon">
+                            <iconify-icon icon="mdi:devices"></iconify-icon>
+                        </div>
+                        <h3 class="h3">لا توجد أجهزة</h3>
+                        <p class="empty-state-text">
+                            سيظهر هنا أي جهاز تقوم بتسجيل الدخول منه
+                        </p>
+                    </div>
+                `;
+                return;
+            }
+            
+            devicesList.innerHTML = '';
+            
+            devices.forEach(device => {
+                const deviceElement = createDeviceElement(device);
+                devicesList.appendChild(deviceElement);
+            });
+        }
+
+        function createDeviceElement(device) {
+            const isCurrent = device.deviceId === currentDeviceId;
+            const deviceElement = document.createElement('div');
+            deviceElement.className = `device-card ${isCurrent ? 'current' : ''}`;
+            
+            const deviceIcon = getDeviceIcon(device.deviceName);
+            const lastActive = formatTimeAgo(device.lastActive);
+            
+            deviceElement.innerHTML = `
+                <div class="device-icon">
+                    <iconify-icon icon="${deviceIcon}"></iconify-icon>
+                </div>
+                
+                <div class="device-info">
+                    <div class="device-header">
+                        <div>
+                            <div class="device-name">${device.deviceName}</div>
+                            <div class="device-details">
+                                ${device.browser} • ${device.os}
+                                <br>
+                                <span style="color: var(--text-muted); font-size: 0.75rem;">
+                                    آخر نشاط: ${lastActive}
+                                </span>
+                            </div>
+                        </div>
+                        ${isCurrent ? 
+                            `<span class="device-badge">هذا الجهاز</span>` : 
+                            ''
+                        }
+                    </div>
+                </div>
+                
+                ${!isCurrent ? `
+                    <div class="device-actions">
+                        <button class="device-action-btn signout-btn" 
+                                data-device-id="${device.deviceId}"
+                                title="تسجيل الخروج من هذا الجهاز">
+                            <iconify-icon icon="mdi:logout"></iconify-icon>
+                            <span>تسجيل الخروج</span>
+                        </button>
+                    </div>
+                ` : ''}
+            `;
+            
+            if (!isCurrent) {
+                const signoutBtn = deviceElement.querySelector('.signout-btn');
+                signoutBtn.addEventListener('click', () => signOutDevice(device));
+            }
+            
+            return deviceElement;
+        }
+
+        function getDeviceIcon(deviceName) {
+            if (deviceName.includes('هاتف')) return 'mdi:cellphone';
+            if (deviceName.includes('تابلت')) return 'mdi:tablet';
+            if (deviceName.includes('حاسوب')) return 'mdi:laptop';
+            return 'mdi:devices';
+        }
+
+        async function signOutDevice(device) {
+            try {
+                const confirmLogout = confirm(`هل تريد بالتأكيد تسجيل الخروج من ${device.deviceName}؟\n\nسيتم إغلاق الجلسة على ذلك الجهاز.`);
+                
+                if (!confirmLogout) return;
+                
+                // Mark device as inactive in Firestore
+                const deviceRef = doc(db, 'devices', device.id);
+                await updateDoc(deviceRef, {
+                    isActive: false,
+                    isCurrent: false,
+                    updatedAt: serverTimestamp()
+                });
+                
+                // Log the activity
+                await logActivity('device_logout', {
+                    deviceName: device.deviceName,
+                    deviceId: device.deviceId
+                });
+                
+                // Refresh devices list
+                await renderDevices();
+                showToast('تم تسجيل الخروج من الجهاز بنجاح', 'success');
+            } catch (error) {
+                console.error('Error signing out device:', error);
+                showToast('حدث خطأ أثناء تسجيل الخروج من الجهاز', 'error');
+            }
+        }
+
+        // ===== ACTIVITY LOGS MANAGEMENT =====
+        async function logActivity(action, details = {}) {
+            if (!currentUser) return;
+            
+            try {
+                const activityRef = collection(db, 'activityLogs');
+                const deviceInfo = getDeviceInfo();
+                
+                await addDoc(activityRef, {
+                    userId: currentUser.uid,
+                    action: action,
+                    details: details,
+                    deviceId: currentDeviceId,
+                    deviceName: deviceInfo.name,
+                    timestamp: serverTimestamp()
+                });
+                
+                console.log('Activity logged:', action, details);
+            } catch (error) {
+                console.error('Error logging activity:', error);
+            }
+        }
+
+        async function loadActivityLogs() {
+            if (!currentUser) return [];
+            
+            try {
+                const activityRef = collection(db, 'activityLogs');
+                const q = query(
+                    activityRef,
+                    where('userId', '==', currentUser.uid),
+                    orderBy('timestamp', 'desc')
+                );
+                
+                const snapshot = await getDocs(q);
+                const logs = [];
+                
+                snapshot.forEach(doc => {
+                    const logData = doc.data();
+                    logs.push({
+                        id: doc.id,
+                        ...logData,
+                        timestamp: logData.timestamp?.toDate?.() || new Date()
+                    });
+                });
+                
+                return logs;
+            } catch (error) {
+                console.error('Error loading activity logs:', error);
+                return [];
+            }
+        }
+
+        async function renderActivityLogs() {
+            const activityTimeline = document.getElementById('activityTimeline');
+            if (!activityTimeline) return;
+            
+            const logs = await loadActivityLogs();
+            
+            if (logs.length === 0) {
+                activityTimeline.innerHTML = `
+                    <div class="empty-state-section">
+                        <div class="empty-state-icon">
+                            <iconify-icon icon="mdi:history"></iconify-icon>
+                        </div>
+                        <h3 class="h3">لا توجد سجلات نشاط</h3>
+                        <p class="empty-state-text">
+                            سيظهر هنا أي نشاط تقوم به على حسابك
+                        </p>
+                    </div>
+                `;
+                return;
+            }
+            
+            // Group logs by day
+            const logsByDay = groupLogsByDay(logs);
+            
+            activityTimeline.innerHTML = '';
+            
+            Object.keys(logsByDay).forEach(day => {
+                const dayGroup = document.createElement('div');
+                dayGroup.className = 'activity-day-group';
+                
+                const dayHeader = document.createElement('div');
+                dayHeader.className = 'day-header';
+                dayHeader.innerHTML = `
+                    <h3 class="day-label">${day}</h3>
+                    <span class="caption" style="color: var(--text-muted);">${logsByDay[day].length} نشاط</span>
+                `;
+                
+                dayGroup.appendChild(dayHeader);
+                
+                logsByDay[day].forEach(log => {
+                    const activityItem = createActivityItem(log);
+                    dayGroup.appendChild(activityItem);
+                });
+                
+                activityTimeline.appendChild(dayGroup);
+            });
+        }
+
+        function groupLogsByDay(logs) {
+            const groups = {};
+            
+            logs.forEach(log => {
+                const date = log.timestamp.toLocaleDateString('ar-SA', {
+                    weekday: 'long',
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                });
+                
+                if (!groups[date]) {
+                    groups[date] = [];
+                }
+                
+                groups[date].push(log);
+            });
+            
+            return groups;
+        }
+
+        function createActivityItem(log) {
+            const activity = activityIcons[log.action] || { icon: 'mdi:information', label: 'نشاط' };
+            const description = activityDescriptions[log.action]?.(log.details) || 'نشاط جديد';
+            
+            const activityItem = document.createElement('div');
+            activityItem.className = 'activity-item';
+            activityItem.innerHTML = `
+                <div class="activity-icon ${log.action}">
+                    <iconify-icon icon="${activity.icon}"></iconify-icon>
+                </div>
+                
+                <div class="activity-content">
+                    <div class="activity-description">${description}</div>
+                    <div class="activity-details">
+                        ${log.deviceName ? `من ${log.deviceName}` : ''}
+                    </div>
+                </div>
+                
+                <div class="activity-time">
+                    ${formatTime(log.timestamp)}
+                </div>
+            `;
+            
+            return activityItem;
         }
 
         // ===== BOARD OPERATIONS =====
@@ -2515,6 +3326,7 @@
                 }
                 
                 await saveBoardsToFirestore();
+                await logActivity(currentEditingBoard ? 'edit' : 'add', { boardName: boardName });
                 renderBoards();
                 closeAllModals();
             } catch (error) {
@@ -2563,6 +3375,7 @@
             try {
                 userBoards = userBoards.filter(b => b.id !== boardToDelete.id);
                 await saveBoardsToFirestore();
+                await logActivity('delete', { boardName: boardToDelete.name });
                 renderBoards();
                 showToast('تم حذف الحساب بنجاح', 'success');
                 closeAllModals();
@@ -2573,7 +3386,7 @@
         }
 
         // ===== COPY FUNCTIONALITY =====
-        function copyToClipboard(text, button) {
+        function copyToClipboard(text, button, boardName = '') {
             navigator.clipboard.writeText(text).then(() => {
                 showToast('تم النسخ إلى الحافظة!', 'success');
                 
@@ -2584,6 +3397,11 @@
                     setTimeout(() => {
                         button.innerHTML = originalIcon;
                     }, 2000);
+                }
+                
+                // Log activity
+                if (boardName) {
+                    logActivity('copy', { boardName: boardName });
                 }
             }).catch(err => {
                 console.error('Failed to copy:', err);
@@ -2691,7 +3509,7 @@
                 </div>
                 
                 <div class="card-actions">
-                    <button class="action-btn copy" 
+                    <button class="action-btn copy email-copy" 
                             type="button"
                             aria-label="نسخ البريد الإلكتروني">
                         <iconify-icon icon="mdi:email"></iconify-icon>
@@ -2714,7 +3532,7 @@
                 </div>
             `;
             
-            const copyEmailBtn = element.querySelector('.action-btn.copy');
+            const copyEmailBtn = element.querySelector('.email-copy');
             const copyPasswordBtn = element.querySelector('.password-field .action-btn.copy');
             const editButton = element.querySelector('.action-btn.edit');
             const deleteButton = element.querySelector('.action-btn.delete');
@@ -2722,11 +3540,11 @@
             const passwordInput = element.querySelector('.password-input');
             
             copyEmailBtn.addEventListener('click', () => {
-                copyToClipboard(board.email, copyEmailBtn);
+                copyToClipboard(board.email, copyEmailBtn, board.name);
             });
             
             copyPasswordBtn.addEventListener('click', () => {
-                copyToClipboard(board.password, copyPasswordBtn);
+                copyToClipboard(board.password, copyPasswordBtn, board.name);
             });
             
             editButton.addEventListener('click', () => {
@@ -2909,6 +3727,9 @@
             if (e) e.preventDefault();
             
             try {
+                // Log activity before signing out
+                await logActivity('logout');
+                
                 await signOut(auth);
                 window.location.href = 'auth.html';
             } catch (error) {
@@ -2930,6 +3751,32 @@
                 month: 'long',
                 day: 'numeric'
             });
+        }
+
+        function formatTime(date) {
+            if (!date) return '';
+            
+            return date.toLocaleTimeString('ar-SA', {
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+        }
+
+        function formatTimeAgo(date) {
+            if (!date) return 'منذ قليل';
+            
+            const now = new Date();
+            const diffMs = now - date;
+            const diffMins = Math.floor(diffMs / 60000);
+            const diffHours = Math.floor(diffMs / 3600000);
+            const diffDays = Math.floor(diffMs / 86400000);
+            
+            if (diffMins < 1) return 'الآن';
+            if (diffMins < 60) return `منذ ${diffMins} دقيقة`;
+            if (diffHours < 24) return `منذ ${diffHours} ساعة`;
+            if (diffDays < 7) return `منذ ${diffDays} يوم`;
+            
+            return date.toLocaleDateString('ar-SA');
         }
 
         // ===== TOAST NOTIFICATIONS =====
