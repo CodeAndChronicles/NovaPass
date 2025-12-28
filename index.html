@@ -43,6 +43,12 @@
             --info: #3B82F6;
             --danger-light: #FEE2E2;
             --danger-dark: #DC2626;
+            --pending: #F59E0B;
+            --pending-light: #FEF3C7;
+            --blocked: #DC2626;
+            --blocked-light: #FEE2E2;
+            --debug: #8B5CF6;
+            --debug-light: #EDE9FE;
             
             /* Shadows */
             --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
@@ -100,6 +106,77 @@
             line-height: 1.6;
         }
 
+        /* ===== BLOCKED/PENDING OVERLAY ===== */
+        .access-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            animation: fadeIn 0.3s ease;
+        }
+
+        body.dark-mode .access-overlay {
+            background: rgba(15, 23, 42, 0.95);
+        }
+
+        .access-message {
+            background: var(--bg-card);
+            border-radius: 24px;
+            padding: 3rem;
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-xl);
+            animation: modalSlideUp 0.3s ease;
+        }
+
+        .access-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 2rem;
+            font-size: 2.5rem;
+        }
+
+        .access-icon.blocked {
+            background: var(--blocked-light);
+            color: var(--blocked);
+        }
+
+        .access-icon.pending {
+            background: var(--pending-light);
+            color: var(--pending);
+        }
+
+        .access-message .h3 {
+            margin-bottom: 1rem;
+            line-height: 1.4;
+        }
+
+        .access-message .body {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .access-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
         /* ===== TYPOGRAPHY ===== */
         .h1 { 
             font-size: 2.5rem; 
@@ -144,17 +221,17 @@
         .navbar {
             background: var(--bg-secondary);
             border-bottom: 1px solid var(--border-color);
-            padding: 1.25rem 0;
+            padding: 1rem 0;
             position: sticky;
             top: 0;
-            z-index: 100;
+            z-index: 1000;
             backdrop-filter: blur(10px);
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(255, 255, 255, 0.98);
             box-shadow: var(--shadow-sm);
         }
 
         body.dark-mode .navbar {
-            background: rgba(30, 41, 59, 0.95);
+            background: rgba(30, 41, 59, 0.98);
         }
 
         .nav-container {
@@ -200,10 +277,51 @@
             gap: 1rem;
         }
 
+        /* ===== NAV TABS ===== */
+        .nav-tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-left: auto;
+            margin-right: 2rem;
+        }
+
+        .nav-tab {
+            padding: 0.5rem 1rem;
+            border-radius: 10px;
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+        }
+
+        .nav-tab:hover {
+            background: var(--mint-50);
+            color: var(--mint-400);
+        }
+
+        body.dark-mode .nav-tab:hover {
+            background: rgba(62, 180, 137, 0.1);
+        }
+
+        .nav-tab.active {
+            background: var(--mint-100);
+            color: var(--mint-400);
+        }
+
+        body.dark-mode .nav-tab.active {
+            background: rgba(62, 180, 137, 0.2);
+        }
+
         /* ===== SECTIONS MANAGEMENT ===== */
         .section {
             display: none;
-            animation: fadeIn 0.3s ease;
+            animation: fadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .section.active {
@@ -219,36 +337,247 @@
             border-bottom: 1px solid var(--border-color);
         }
 
-        .back-to-dashboard {
+        /* ===== DASHBOARD SECTION ===== */
+        .dashboard-content {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            min-height: calc(100vh - 88px);
+        }
+
+        .welcome-section {
+            margin-bottom: 3rem;
+        }
+
+        .welcome-section .body-lg {
+            color: var(--text-secondary);
+            margin-top: 1rem;
+            max-width: 600px;
+        }
+
+        /* ===== BOARDS GRID ===== */
+        .boards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .board-card {
+            background: var(--bg-card);
+            border-radius: 20px;
+            padding: 1.75rem;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            animation: fadeIn 0.5s ease;
+            min-height: 280px;
+        }
+
+        .board-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-xl);
+            border-color: var(--border-hover);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .board-icon-wrapper {
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .board-icon {
+            width: 64px;
+            height: 64px;
+            background: var(--mint-50);
+            border-radius: 16px;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
-            padding: 0.75rem 1rem;
-            background: var(--mint-50);
+            justify-content: center;
+            font-size: 2rem;
             color: var(--mint-400);
-            border-radius: 10px;
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.2s ease;
-            border: 1px solid transparent;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
         }
 
-        .back-to-dashboard:hover {
+        .board-card:hover .board-icon {
+            transform: scale(1.05);
             background: var(--mint-100);
             border-color: var(--mint-200);
-            transform: translateY(-2px);
         }
 
-        body.dark-mode .back-to-dashboard {
+        body.dark-mode .board-icon {
             background: rgba(62, 180, 137, 0.1);
         }
 
+        .color-dot {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 3px solid var(--bg-card);
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .color-dot:hover {
+            transform: scale(1.3);
+        }
+
+        .color-dot.personal { background: var(--mint-300); }
+        .color-dot.work { background: #4ECDC4; }
+        .color-dot.important { background: #FF6B6B; }
+        .color-dot.social { background: #9D4EDD; }
+        .color-dot.finance { background: #FFD166; }
+        .color-dot.other { background: #118AB2; }
+
+        .board-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .board-name {
+            font-weight: 700;
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .board-username {
+            color: var(--text-secondary);
+            font-size: 0.9375rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .password-section {
+            margin-top: 0.5rem;
+        }
+
+        .password-label {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.75rem;
+        }
+
+        .password-field {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--bg-primary);
+            border-radius: 12px;
+            padding: 1rem;
+            border: 1px solid var(--border-color);
+            transition: border-color 0.2s ease;
+        }
+
+        .password-field:hover {
+            border-color: var(--border-hover);
+        }
+
+        .password-input {
+            flex: 1;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-family: 'Inter', monospace;
+            font-size: 1rem;
+            letter-spacing: 0.05em;
+            min-width: 0;
+            outline: none;
+        }
+
+        .card-actions {
+            display: flex;
+            gap: 0.5rem;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+            margin-top: auto;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .board-card:hover .card-actions {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .action-btn {
+            flex: 1;
+            height: 40px;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-primary);
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .action-btn.copy:hover {
+            background: var(--mint-50);
+            color: var(--mint-400);
+            border-color: var(--mint-300);
+        }
+
+        .action-btn.edit:hover {
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--info);
+            border-color: var(--info);
+        }
+
+        .action-btn.delete:hover {
+            background: var(--danger-light);
+            color: var(--danger-dark);
+            border-color: var(--danger);
+        }
+
         /* ===== DEVICES SECTION ===== */
+        .devices-section {
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        .devices-description {
+            color: var(--text-secondary);
+            margin-bottom: 2.5rem;
+            line-height: 1.7;
+        }
+
         .devices-list {
             display: flex;
             flex-direction: column;
             gap: 1rem;
-            margin-top: 2rem;
         }
 
         .device-card {
@@ -256,10 +585,12 @@
             border-radius: 16px;
             padding: 1.5rem;
             border: 1px solid var(--border-color);
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             display: flex;
             align-items: center;
             gap: 1.5rem;
+            position: relative;
+            overflow: hidden;
         }
 
         .device-card:hover {
@@ -270,7 +601,34 @@
 
         .device-card.current {
             border: 2px solid var(--mint-300);
-            background: linear-gradient(135deg, rgba(62, 180, 137, 0.05), rgba(62, 180, 137, 0.02));
+            background: linear-gradient(135deg, 
+                rgba(62, 180, 137, 0.05), 
+                rgba(62, 180, 137, 0.02));
+        }
+
+        .device-card.current::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--mint-300);
+        }
+
+        .device-card.blocked {
+            border: 2px solid var(--blocked);
+            background: linear-gradient(135deg, 
+                rgba(220, 38, 38, 0.05), 
+                rgba(220, 38, 38, 0.02));
+            opacity: 0.8;
+        }
+
+        .device-card.pending {
+            border: 2px solid var(--pending);
+            background: linear-gradient(135deg, 
+                rgba(245, 158, 11, 0.05), 
+                rgba(245, 158, 11, 0.02));
         }
 
         .device-icon {
@@ -284,10 +642,20 @@
             color: var(--mint-400);
             font-size: 1.75rem;
             flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+
+        .device-card:hover .device-icon {
+            transform: scale(1.05);
+            background: var(--mint-100);
         }
 
         body.dark-mode .device-icon {
             background: rgba(62, 180, 137, 0.1);
+        }
+
+        body.dark-mode .device-card:hover .device-icon {
+            background: rgba(62, 180, 137, 0.2);
         }
 
         .device-info {
@@ -315,24 +683,87 @@
             line-height: 1.4;
         }
 
+        .device-badges {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
         .device-badge {
             padding: 0.375rem 0.75rem;
             border-radius: 20px;
             font-size: 0.75rem;
             font-weight: 600;
-            background: var(--mint-50);
-            color: var(--mint-400);
-            border: 1px solid var(--mint-200);
+            display: flex;
+            align-items: center;
+            gap: 0.375rem;
             white-space: nowrap;
         }
 
-        body.dark-mode .device-badge {
+        .device-badge.current {
+            background: var(--mint-50);
+            color: var(--mint-400);
+            border: 1px solid var(--mint-200);
+        }
+
+        .device-badge.owner {
             background: rgba(62, 180, 137, 0.2);
+            color: var(--mint-400);
+            border: 1px solid rgba(62, 180, 137, 0.3);
+        }
+
+        .device-badge.trusted {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        .device-badge.blocked {
+            background: var(--blocked-light);
+            color: var(--blocked);
+            border: 1px solid var(--blocked);
+        }
+
+        .device-badge.pending {
+            background: var(--pending-light);
+            color: var(--pending);
+            border: 1px solid var(--pending);
+        }
+
+        .device-badge.debug {
+            background: var(--debug-light);
+            color: var(--debug);
+            border: 1px solid var(--debug);
+        }
+
+        body.dark-mode .device-badge.current {
+            background: rgba(62, 180, 137, 0.2);
+        }
+
+        body.dark-mode .device-badge.trusted {
+            background: rgba(16, 185, 129, 0.2);
+        }
+
+        .device-time {
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            margin-top: 0.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
         }
 
         .device-actions {
             display: flex;
             gap: 0.75rem;
+            opacity: 0;
+            transform: translateX(10px);
+            transition: all 0.3s ease;
+        }
+
+        .device-card:hover .device-actions {
+            opacity: 1;
+            transform: translateX(0);
         }
 
         .device-action-btn {
@@ -348,34 +779,120 @@
             display: flex;
             align-items: center;
             gap: 0.5rem;
+            white-space: nowrap;
         }
 
         .device-action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .device-action-btn.logout:hover {
             background: var(--danger-light);
             color: var(--danger);
             border-color: var(--danger);
         }
 
-        body.dark-mode .device-action-btn:hover {
+        .device-action-btn.trust:hover {
+            background: var(--mint-50);
+            color: var(--mint-400);
+            border-color: var(--mint-300);
+        }
+
+        .device-action-btn.approve:hover {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+            border-color: var(--success);
+        }
+
+        .device-action-btn.block:hover {
+            background: var(--danger-light);
+            color: var(--danger);
+            border-color: var(--danger);
+        }
+
+        .device-action-btn.unblock:hover {
+            background: var(--mint-50);
+            color: var(--mint-400);
+            border-color: var(--mint-300);
+        }
+
+        body.dark-mode .device-action-btn.logout:hover {
             background: rgba(239, 68, 68, 0.1);
+        }
+
+        body.dark-mode .device-action-btn.trust:hover {
+            background: rgba(62, 180, 137, 0.1);
         }
 
         .device-action-btn:disabled {
             opacity: 0.5;
             cursor: not-allowed;
-            background: var(--gray-100);
-            color: var(--gray-400);
-            border-color: var(--gray-300);
+            pointer-events: none;
         }
 
         /* ===== ACTIVITY LOGS SECTION ===== */
+        .activity-section {
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        .activity-description {
+            color: var(--text-secondary);
+            margin-bottom: 2.5rem;
+            line-height: 1.7;
+        }
+
+        .activity-filters {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            overflow-x: auto;
+            padding-bottom: 0.5rem;
+        }
+
+        .activity-filter {
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-primary);
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-size: 0.875rem;
+            font-weight: 500;
+            white-space: nowrap;
+            transition: all 0.2s ease;
+        }
+
+        .activity-filter:hover {
+            background: var(--mint-50);
+            color: var(--mint-400);
+        }
+
+        .activity-filter.active {
+            background: var(--mint-100);
+            color: var(--mint-400);
+            border-color: var(--mint-200);
+        }
+
         .activity-timeline {
-            max-width: 800px;
-            margin: 2rem auto 0;
+            position: relative;
+            padding-right: 2rem;
+        }
+
+        .activity-timeline::before {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--border-color);
         }
 
         .activity-day-group {
-            margin-bottom: 2.5rem;
+            margin-bottom: 3rem;
+            position: relative;
         }
 
         .day-header {
@@ -385,12 +902,38 @@
             margin-bottom: 1.5rem;
             padding-bottom: 0.75rem;
             border-bottom: 1px solid var(--border-color);
+            position: relative;
+        }
+
+        .day-header::before {
+            content: '';
+            position: absolute;
+            right: -2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--mint-300);
+            border: 3px solid var(--bg-primary);
+            z-index: 2;
         }
 
         .day-label {
             font-weight: 600;
             color: var(--text-primary);
             font-size: 1.125rem;
+        }
+
+        .day-count {
+            color: var(--text-muted);
+            font-size: 0.875rem;
+        }
+
+        .activity-items {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
         }
 
         .activity-item {
@@ -400,14 +943,15 @@
             border-radius: 12px;
             background: var(--bg-card);
             border: 1px solid var(--border-color);
-            margin-bottom: 0.75rem;
             animation: fadeInUp 0.3s ease;
             transition: all 0.2s ease;
+            position: relative;
         }
 
         .activity-item:hover {
             border-color: var(--mint-200);
             transform: translateX(-4px);
+            box-shadow: var(--shadow-sm);
         }
 
         .activity-icon {
@@ -420,14 +964,20 @@
             flex-shrink: 0;
         }
 
-        .activity-icon.login { background: rgba(16, 185, 129, 0.1); color: var(--success); }
+        .activity-icon.login { background: rgba(62, 180, 137, 0.1); color: var(--mint-400); }
         .activity-icon.logout { background: rgba(239, 68, 68, 0.1); color: var(--danger); }
-        .activity-icon.add { background: rgba(62, 180, 137, 0.1); color: var(--mint-400); }
+        .activity-icon.device_logout { background: rgba(239, 68, 68, 0.1); color: var(--danger); }
+        .activity-icon.add { background: rgba(16, 185, 129, 0.1); color: var(--success); }
         .activity-icon.edit { background: rgba(59, 130, 246, 0.1); color: var(--info); }
         .activity-icon.delete { background: rgba(239, 68, 68, 0.1); color: var(--danger); }
         .activity-icon.copy { background: rgba(245, 158, 11, 0.1); color: var(--warning); }
         .activity-icon.theme { background: rgba(139, 92, 246, 0.1); color: #8B5CF6; }
-        .activity-icon.device_logout { background: rgba(239, 68, 68, 0.1); color: var(--danger); }
+        .activity-icon.trust { background: rgba(62, 180, 137, 0.1); color: var(--mint-400); }
+        .activity-icon.block { background: rgba(239, 68, 68, 0.1); color: var(--danger); }
+        .activity-icon.unblock { background: rgba(62, 180, 137, 0.1); color: var(--mint-400); }
+        .activity-icon.approve { background: rgba(16, 185, 129, 0.1); color: var(--success); }
+        .activity-icon.import { background: rgba(139, 92, 246, 0.1); color: #8B5CF6; }
+        .activity-icon.export { background: rgba(59, 130, 246, 0.1); color: var(--info); }
 
         .activity-content {
             flex: 1;
@@ -455,55 +1005,125 @@
             margin-top: 0.25rem;
         }
 
-        /* ===== EMPTY STATES ===== */
-        .empty-state-section {
-            text-align: center;
-            padding: 4rem 2rem;
-            animation: fadeIn 0.5s ease;
+        /* ===== OLD DATA SECTION ===== */
+        .olddata-section {
+            max-width: 800px;
+            margin: 0 auto;
         }
 
-        .empty-state-icon {
-            font-size: 4rem;
-            color: var(--mint-100);
-            margin-bottom: 1.5rem;
-            animation: float 3s ease-in-out infinite;
-        }
-
-        .empty-state-text {
+        .olddata-description {
             color: var(--text-secondary);
-            margin-bottom: 1.5rem;
-            max-width: 400px;
-            margin-left: auto;
-            margin-right: auto;
+            margin-bottom: 2.5rem;
+            line-height: 1.7;
         }
 
-        /* ===== FLOATING ADD BUTTON ===== */
-        .floating-add-btn {
-            position: fixed;
-            bottom: 2rem;
-            left: 2rem;
-            width: 56px;
-            height: 56px;
-            background: linear-gradient(135deg, var(--mint-300), var(--mint-400));
-            border-radius: 50%;
+        .data-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        @media (max-width: 768px) {
+            .data-actions {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .data-action-card {
+            background: var(--bg-card);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 1.5rem;
+        }
+
+        .data-action-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--mint-300);
+        }
+
+        .data-action-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 20px;
+            background: var(--mint-50);
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: var(--shadow-mint);
-            border: none;
-            z-index: 90;
+            color: var(--mint-400);
+            font-size: 2.5rem;
         }
 
-        .floating-add-btn:hover {
-            transform: translateY(-4px) scale(1.1);
-            box-shadow: 0 8px 25px rgba(62, 180, 137, 0.3);
+        .data-action-content {
+            flex: 1;
         }
 
-        .floating-add-btn:active {
-            transform: translateY(-1px) scale(0.98);
+        .data-action-content .h4 {
+            margin-bottom: 0.75rem;
+        }
+
+        .data-action-content .body {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .data-preview {
+            margin-top: 3rem;
+        }
+
+        .data-preview-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .data-preview-content {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 1.5rem;
+            border: 1px solid var(--border-color);
+            max-height: 300px;
+            overflow-y: auto;
+            font-family: monospace;
+            font-size: 0.875rem;
+            line-height: 1.6;
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+
+        /* ===== EMPTY STATES ===== */
+        .empty-state {
+            text-align: center;
+            padding: 6rem 2rem;
+            animation: fadeIn 0.6s ease;
+        }
+
+        .empty-icon {
+            font-size: 5rem;
+            color: var(--mint-100);
+            margin-bottom: 2rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .empty-state .h3 {
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .empty-state .body {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         /* ===== USER PROFILE ===== */
@@ -536,7 +1156,7 @@
             width: 40px;
             height: 40px;
             border-radius: 12px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            background: linear-gradient(135deg, var(--mint-300), var(--mint-400));
             display: flex;
             align-items: center;
             justify-content: center;
@@ -628,377 +1248,33 @@
             background: rgba(239, 68, 68, 0.1);
         }
 
-        /* ===== SEGMENTED CONTROL ===== */
-        .segmented-control {
-            display: flex;
-            background: var(--bg-primary);
-            border-radius: 12px;
-            padding: 4px;
-            border: 1px solid var(--border-color);
-            gap: 4px;
-        }
-
-        .segmented-option {
-            flex: 1;
-            padding: 0.75rem 1rem;
-            text-align: center;
-            cursor: pointer;
-            border-radius: 8px;
-            font-size: 0.875rem;
-            font-weight: 500;
-            transition: all 0.2s ease;
-            color: var(--text-secondary);
-            border: 1px solid transparent;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            min-height: 44px;
-        }
-
-        .segmented-option:hover {
-            background: var(--mint-50);
-        }
-
-        .segmented-option.selected {
-            background: var(--mint-100);
-            color: var(--mint-400);
-            border-color: var(--mint-200);
-            box-shadow: var(--shadow-sm);
-        }
-
-        /* ===== RADIO SELECTOR ===== */
-        .radio-selector {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-            margin-top: 0.5rem;
-        }
-
-        .radio-option {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.5rem;
-            cursor: pointer;
-        }
-
-        .radio-circle {
+        /* ===== FLOATING ADD BUTTON ===== */
+        .floating-add-btn {
+            position: fixed;
+            bottom: 2rem;
+            left: 2rem;
             width: 56px;
             height: 56px;
-            border-radius: 16px;
-            transition: all 0.3s ease;
-            border: 3px solid transparent;
-            position: relative;
+            background: linear-gradient(135deg, var(--mint-300), var(--mint-400));
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-weight: bold;
-            font-size: 1.25rem;
-        }
-
-        .radio-circle:hover {
-            transform: scale(1.1);
-            box-shadow: var(--shadow-md);
-        }
-
-        .radio-circle.selected {
-            border-color: var(--text-primary);
-            transform: scale(1.05);
-            box-shadow: 0 0 0 4px rgba(62, 180, 137, 0.2);
-        }
-
-        .radio-label {
-            font-size: 0.75rem;
-            color: var(--text-muted);
-            text-align: center;
-            font-weight: 500;
-        }
-
-        /* ===== ADVANCED PASSWORD STRENGTH ===== */
-        .password-strength-advanced {
-            margin-top: 1rem;
-        }
-
-        .strength-meter {
-            height: 6px;
-            background: var(--gray-200);
-            border-radius: 3px;
-            overflow: hidden;
-            margin-bottom: 0.5rem;
-            position: relative;
-        }
-
-        .strength-fill {
-            height: 100%;
-            border-radius: 3px;
-            transition: width 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-            background: linear-gradient(90deg, 
-                #EF4444 0%, 
-                #F59E0B 25%, 
-                #10B981 50%, 
-                var(--mint-300) 75%, 
-                var(--mint-400) 100%);
-            width: 0%;
-        }
-
-        .strength-details {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.75rem;
-            margin-top: 0.75rem;
-        }
-
-        .strength-criteria {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 0.8125rem;
-            color: var(--text-muted);
-        }
-
-        .strength-criteria.valid {
-            color: var(--success);
-        }
-
-        .strength-criteria iconify-icon {
-            font-size: 1rem;
-        }
-
-        .strength-score {
-            font-size: 0.875rem;
-            font-weight: 600;
-            color: var(--text-secondary);
-            margin-top: 0.5rem;
-        }
-
-        /* ===== MAIN CONTENT ===== */
-        .main-content {
-            max-width: 1280px;
-            margin: 0 auto;
-            padding: 2.5rem 1.5rem;
-            min-height: calc(100vh - 88px);
-        }
-
-        /* ===== BOARDS GRID ===== */
-        .boards-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-
-        /* ===== BOARD CARD ===== */
-        .board-card {
-            background: var(--bg-card);
-            border-radius: 20px;
-            padding: 1.75rem;
-            border: 1px solid var(--border-color);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-            animation: fadeIn 0.5s ease;
-            min-height: 280px;
-            box-shadow: var(--shadow-md);
-        }
-
-        .board-card:hover {
-            transform: translateY(-8px);
-            box-shadow: var(--shadow-xl);
-            border-color: var(--border-hover);
-        }
-
-        .card-header {
-            display: flex;
-            align-items: flex-start;
-            gap: 1rem;
-        }
-
-        .board-icon-wrapper {
-            position: relative;
-            flex-shrink: 0;
-        }
-
-        .board-icon {
-            width: 64px;
-            height: 64px;
-            background: var(--mint-50);
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            color: var(--mint-400);
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
-        }
-
-        .board-card:hover .board-icon {
-            transform: scale(1.05);
-            background: var(--mint-100);
-            border-color: var(--mint-200);
-        }
-
-        body.dark-mode .board-icon {
-            background: rgba(62, 180, 137, 0.1);
-        }
-
-        body.dark-mode .board-card:hover .board-icon {
-            background: rgba(62, 180, 137, 0.2);
-        }
-
-        .color-dot {
-            position: absolute;
-            top: -8px;
-            right: -8px;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            border: 3px solid var(--bg-card);
-            transition: all 0.3s ease;
-            box-shadow: var(--shadow-sm);
-        }
-
-        .color-dot:hover {
-            transform: scale(1.3);
-        }
-
-        .color-dot.personal { background: var(--mint-300); }
-        .color-dot.work { background: #4ECDC4; }
-        .color-dot.important { background: #FF6B6B; }
-        .color-dot.social { background: #9D4EDD; }
-        .color-dot.finance { background: #FFD166; }
-        .color-dot.other { background: #118AB2; }
-
-        .board-info {
-            flex: 1;
-            min-width: 0;
-        }
-
-        .board-name {
-            font-weight: 700;
-            font-size: 1.25rem;
-            margin-bottom: 0.5rem;
-            color: var(--text-primary);
-            line-height: 1.4;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-
-        .board-username {
-            color: var(--text-secondary);
-            font-size: 0.9375rem;
-            display: -webkit-box;
-            -webkit-line-clamp: 1;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-
-        /* ===== PASSWORD SECTION ===== */
-        .password-section {
-            margin-top: 0.5rem;
-        }
-
-        .password-label {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 0.75rem;
-        }
-
-        .password-field {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: var(--bg-primary);
-            border-radius: 12px;
-            padding: 1rem;
-            border: 1px solid var(--border-color);
-            transition: border-color 0.2s ease;
-        }
-
-        .password-field:hover {
-            border-color: var(--border-hover);
-        }
-
-        .password-input {
-            flex: 1;
-            background: none;
-            border: none;
-            color: var(--text-primary);
-            font-family: 'Inter', monospace;
-            font-size: 1rem;
-            letter-spacing: 0.05em;
-            min-width: 0;
-            outline: none;
-        }
-
-        /* ===== CARD ACTIONS ===== */
-        .card-actions {
-            display: flex;
-            gap: 0.5rem;
-            opacity: 0;
-            transform: translateY(10px);
-            transition: all 0.3s ease;
-            margin-top: auto;
-            padding-top: 1rem;
-            border-top: 1px solid var(--border-color);
-        }
-
-        .board-card:hover .card-actions {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* ===== ACTION BUTTONS ===== */
-        .action-btn {
-            flex: 1;
-            height: 40px;
-            border-radius: 10px;
-            border: 1px solid var(--border-color);
-            background: var(--bg-primary);
-            color: var(--text-secondary);
             cursor: pointer;
-            transition: all 0.2s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            font-size: 0.875rem;
-            font-weight: 500;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: var(--shadow-mint);
+            border: none;
+            z-index: 900;
         }
 
-        .action-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-sm);
+        .floating-add-btn:hover {
+            transform: translateY(-4px) scale(1.1);
+            box-shadow: 0 8px 25px rgba(62, 180, 137, 0.3);
         }
 
-        .action-btn.copy:hover {
-            background: var(--mint-50);
-            color: var(--mint-400);
-            border-color: var(--mint-300);
-        }
-
-        .action-btn.edit:hover {
-            background: rgba(59, 130, 246, 0.1);
-            color: var(--info);
-            border-color: var(--info);
-        }
-
-        .action-btn.delete:hover {
-            background: var(--danger-light);
-            color: var(--danger-dark);
-            border-color: var(--danger);
-        }
-
-        body.dark-mode .action-btn.delete:hover {
-            background: rgba(239, 68, 68, 0.1);
+        .floating-add-btn:active {
+            transform: translateY(-1px) scale(0.98);
         }
 
         /* ===== MODALS ===== */
@@ -1028,7 +1304,7 @@
             padding: 2.5rem;
             width: 100%;
             max-width: 520px;
-            animation: modalSlideUp 0.3s ease;
+            animation: modalSlideUp 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             box-shadow: var(--shadow-xl);
             border: 1px solid var(--border-color);
             max-height: 85vh;
@@ -1215,6 +1491,117 @@
             display: block;
         }
 
+        /* ===== FILE UPLOAD ===== */
+        .file-upload {
+            width: 100%;
+            padding: 2rem;
+            border: 2px dashed var(--border-color);
+            border-radius: 16px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: var(--bg-primary);
+        }
+
+        .file-upload:hover {
+            border-color: var(--mint-300);
+            background: var(--mint-50);
+        }
+
+        .file-upload.dragover {
+            border-color: var(--mint-400);
+            background: var(--mint-100);
+            transform: scale(1.02);
+        }
+
+        .file-upload-icon {
+            font-size: 3rem;
+            color: var(--mint-300);
+            margin-bottom: 1rem;
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        /* ===== RADIO AND SEGMENTED CONTROLS ===== */
+        .radio-selector {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .radio-option {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .radio-circle {
+            width: 56px;
+            height: 56px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+            transition: all 0.3s ease;
+            border: 3px solid transparent;
+            cursor: pointer;
+        }
+
+        .radio-circle:hover {
+            transform: scale(1.05);
+            box-shadow: var(--shadow-md);
+        }
+
+        .radio-circle.selected {
+            border-color: white;
+            box-shadow: 0 0 0 3px var(--mint-300);
+        }
+
+        .radio-label {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        .segmented-control {
+            display: flex;
+            background: var(--bg-primary);
+            border-radius: 12px;
+            padding: 0.25rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .segmented-option {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+
+        .segmented-option:hover {
+            background: var(--mint-50);
+        }
+
+        .segmented-option.selected {
+            background: var(--mint-100);
+            color: var(--mint-400);
+            box-shadow: var(--shadow-sm);
+        }
+
         /* ===== ICON SELECTOR ===== */
         .icon-selector {
             margin-bottom: 2rem;
@@ -1296,6 +1683,62 @@
             border-color: var(--mint-300);
             transform: scale(1.05);
             box-shadow: 0 0 0 3px rgba(62, 180, 137, 0.2);
+        }
+
+        /* ===== PASSWORD STRENGTH ===== */
+        .password-strength-advanced {
+            margin-top: 1rem;
+            background: var(--bg-primary);
+            border-radius: 12px;
+            padding: 1rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .strength-meter {
+            width: 100%;
+            height: 8px;
+            background: var(--border-color);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 1rem;
+        }
+
+        .strength-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--danger), var(--warning), var(--success));
+            border-radius: 4px;
+            transition: width 0.3s ease;
+            width: 0%;
+        }
+
+        .strength-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .strength-criteria {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .strength-criteria.valid {
+            color: var(--success);
+        }
+
+        .strength-criteria.valid iconify-icon {
+            color: var(--success);
+        }
+
+        .strength-score {
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
         }
 
         /* ===== MODAL ACTIONS ===== */
@@ -1419,34 +1862,6 @@
             color: var(--mint-400);
         }
 
-        /* ===== EMPTY STATE ===== */
-        .empty-state {
-            grid-column: 1 / -1;
-            text-align: center;
-            padding: 6rem 2rem;
-            animation: fadeIn 0.6s ease;
-        }
-
-        .empty-icon {
-            font-size: 5rem;
-            color: var(--mint-100);
-            margin-bottom: 2rem;
-            animation: float 3s ease-in-out infinite;
-        }
-
-        .empty-state .h3 {
-            margin-bottom: 1rem;
-            color: var(--text-primary);
-        }
-
-        .empty-state .body {
-            color: var(--text-secondary);
-            margin-bottom: 2rem;
-            max-width: 400px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
         /* ===== ANIMATIONS ===== */
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
@@ -1534,12 +1949,41 @@
                 font-size: 1.25rem;
             }
             
-            .main-content {
-                padding: 2rem 1rem;
+            .nav-tabs {
+                display: none;
+            }
+            
+            .dashboard-content {
+                padding: 1.5rem 1rem;
             }
             
             .boards-grid {
                 grid-template-columns: 1fr;
+            }
+            
+            .device-card {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            
+            .device-actions {
+                width: 100%;
+                justify-content: flex-end;
+                opacity: 1;
+                transform: none;
+            }
+            
+            .activity-timeline {
+                padding-right: 1.5rem;
+            }
+            
+            .activity-timeline::before {
+                right: 0.5rem;
+            }
+            
+            .day-header::before {
+                right: -1.5rem;
             }
             
             .modal-content {
@@ -1557,14 +2001,6 @@
             
             .btn {
                 width: 100%;
-            }
-            
-            .segmented-control {
-                flex-direction: column;
-            }
-            
-            .segmented-option {
-                padding: 1rem;
             }
             
             .floating-add-btn {
@@ -1621,27 +2057,60 @@
                 max-width: none;
             }
             
-            .radio-selector {
+            .device-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+            
+            .device-badges {
+                width: 100%;
+            }
+            
+            .activity-item {
+                flex-direction: column;
                 gap: 0.75rem;
             }
             
-            .radio-circle {
-                width: 48px;
-                height: 48px;
-            }
-            
-            .settings-header h4 {
-                font-size: 1rem;
+            .activity-time {
+                align-self: flex-end;
             }
         }
     </style>
 </head>
 <body>
+    <!-- Blocked/Pending Access Overlay -->
+    <div class="access-overlay" id="accessOverlay" style="display: none;">
+        <div class="access-message" id="accessMessage">
+            <!-- Will be populated by JavaScript -->
+        </div>
+    </div>
+
     <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
             <div class="logo">
                 <span class="logo-text">NovaPass<span class="logo-dashboard" id="dashboardLabel">Dashboard</span></span>
+            </div>
+            
+            <!-- Navigation Tabs -->
+            <div class="nav-tabs">
+                <button class="nav-tab active" data-section="dashboardSection">
+                    <iconify-icon icon="mdi:view-dashboard"></iconify-icon>
+                    <span>لوحة التحكم</span>
+                </button>
+                <button class="nav-tab" data-section="devicesSection">
+                    <iconify-icon icon="mdi:devices"></iconify-icon>
+                    <span>الأجهزة</span>
+                </button>
+                <button class="nav-tab" data-section="activitySection">
+                    <iconify-icon icon="mdi:history"></iconify-icon>
+                    <span>سجلات النشاط</span>
+                </button>
+                <button class="nav-tab" data-section="olddataSection">
+                    <iconify-icon icon="mdi:database-export"></iconify-icon>
+                    <span>البيانات القديمة</span>
+                </button>
             </div>
             
             <div class="nav-actions">
@@ -1664,14 +2133,19 @@
                             <div class="body-sm" style="color: var(--text-muted);" id="userEmail">mohamed@example.com</div>
                         </div>
                         
-                        <a href="#" class="dropdown-item" id="devicesBtn">
+                        <a href="#" class="dropdown-item" data-section="devicesSection">
                             <iconify-icon icon="mdi:devices"></iconify-icon>
                             <span>الأجهزة</span>
                         </a>
                         
-                        <a href="#" class="dropdown-item" id="activityBtn">
+                        <a href="#" class="dropdown-item" data-section="activitySection">
                             <iconify-icon icon="mdi:history"></iconify-icon>
                             <span>سجلات النشاط</span>
+                        </a>
+                        
+                        <a href="#" class="dropdown-item" data-section="olddataSection">
+                            <iconify-icon icon="mdi:database-export"></iconify-icon>
+                            <span>البيانات القديمة</span>
                         </a>
                         
                         <a href="#" class="dropdown-item" id="settingsBtn">
@@ -1695,13 +2169,13 @@
     </button>
 
     <!-- Main Content -->
-    <main class="main-content">
+    <main class="dashboard-content">
         <!-- Dashboard Section (Default) -->
         <div class="section active" id="dashboardSection">
             <!-- Welcome Section -->
             <div class="welcome-section">
                 <h1 class="h1" id="welcomeMessage">مرحباً محمد!</h1>
-                <p class="body-lg" style="color: var(--text-secondary); margin-top: 1rem; max-width: 600px;">
+                <p class="body-lg">
                     إدارة كلمات المرور الخاصة بك أصبحت أسهل وأكثر أماناً. كل شيء في مكان واحد.
                 </p>
             </div>
@@ -1726,18 +2200,13 @@
         </div>
 
         <!-- Devices Section -->
-        <div class="section" id="devicesSection">
+        <div class="section devices-section" id="devicesSection">
             <div class="section-header">
-                <h2 class="h2">الأجهزة المتصلة</h2>
-                <a href="#" class="back-to-dashboard" id="backFromDevices">
-                    <iconify-icon icon="mdi:arrow-left"></iconify-icon>
-                    <span>العودة للرئيسية</span>
-                </a>
+                <h2 class="h2">🔐 الأجهزة المتصلة</h2>
+                <div class="body" style="color: var(--text-secondary);">
+                    إدارة الأجهزة التي تم تسجيل الدخول منها إلى حسابك
+                </div>
             </div>
-            
-            <p class="body-lg" style="color: var(--text-secondary); margin-bottom: 2rem;">
-                إدارة جميع الأجهزة التي تم تسجيل الدخول منها إلى حسابك. يمكنك تسجيل الخروج من الأجهزة الأخرى.
-            </p>
             
             <div class="devices-list" id="devicesList">
                 <!-- Devices will be populated by JavaScript -->
@@ -1745,21 +2214,95 @@
         </div>
 
         <!-- Activity Logs Section -->
-        <div class="section" id="activitySection">
+        <div class="section activity-section" id="activitySection">
             <div class="section-header">
-                <h2 class="h2">سجلات النشاط</h2>
-                <a href="#" class="back-to-dashboard" id="backFromActivity">
-                    <iconify-icon icon="mdi:arrow-left"></iconify-icon>
-                    <span>العودة للرئيسية</span>
-                </a>
+                <h2 class="h2">📜 سجلات النشاط</h2>
+                <div class="body" style="color: var(--text-secondary);">
+                    تتبع جميع الأنشطة المهمة على حسابك للحفاظ على الأمان والخصوصية
+                </div>
             </div>
             
-            <p class="body-lg" style="color: var(--text-secondary); margin-bottom: 2rem;">
-                تتبع جميع الأنشطة المهمة على حسابك للحفاظ على الأمان والخصوصية.
-            </p>
+            <div class="activity-filters" id="activityFilters">
+                <!-- Filters will be populated by JavaScript -->
+            </div>
             
             <div class="activity-timeline" id="activityTimeline">
                 <!-- Activity logs will be populated by JavaScript -->
+            </div>
+        </div>
+
+        <!-- Old Data Section -->
+        <div class="section olddata-section" id="olddataSection">
+            <div class="section-header">
+                <h2 class="h2">📂 البيانات القديمة</h2>
+                <div class="body" style="color: var(--text-secondary);">
+                    إدارة وترحيل بياناتك القديمة بأمان
+                </div>
+            </div>
+            
+            <div class="olddata-description">
+                <p>
+                    يمكنك تصدير بياناتك القديمة أو استيرادها إلى النظام الجديد.
+                    يُرجى التأكد من صحة البيانات قبل الاستيراد.
+                </p>
+            </div>
+            
+            <div class="data-actions">
+                <div class="data-action-card">
+                    <div class="data-action-icon">
+                        <iconify-icon icon="mdi:download"></iconify-icon>
+                    </div>
+                    <div class="data-action-content">
+                        <h4 class="h4">تصدير البيانات القديمة</h4>
+                        <p class="body">
+                            احفظ نسخة احتياطية من بياناتك القديمة بصيغة JSON.
+                            يمكنك استخدام هذه النسخة لاستعادة البيانات لاحقاً.
+                        </p>
+                        <button class="btn btn-primary" id="exportOldDataBtn">
+                            <iconify-icon icon="mdi:download"></iconify-icon>
+                            <span>تصدير البيانات</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="data-action-card">
+                    <div class="data-action-icon">
+                        <iconify-icon icon="mdi:upload"></iconify-icon>
+                    </div>
+                    <div class="data-action-content">
+                        <h4 class="h4">استيراد البيانات القديمة</h4>
+                        <p class="body">
+                            استورد بياناتك القديمة إلى النظام الجديد.
+                            سيتم معاينة البيانات قبل الاستيراد النهائي.
+                        </p>
+                        <button class="btn btn-secondary" id="importOldDataBtn">
+                            <iconify-icon icon="mdi:upload"></iconify-icon>
+                            <span>استيراد البيانات</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="data-preview" id="dataPreviewContainer" style="display: none;">
+                <div class="data-preview-header">
+                    <h3 class="h3">معاينة البيانات</h3>
+                    <button class="btn btn-secondary" id="closePreviewBtn">
+                        <iconify-icon icon="mdi:close"></iconify-icon>
+                        <span>إغلاق المعاينة</span>
+                    </button>
+                </div>
+                <div class="data-preview-content" id="dataPreviewContent">
+                    <!-- Data preview will be populated by JavaScript -->
+                </div>
+                <div class="modal-actions" style="margin-top: 1.5rem;">
+                    <button class="btn btn-secondary" id="cancelImportBtn">
+                        إلغاء
+                    </button>
+                    <button class="btn btn-primary" id="confirmImportBtn">
+                        <iconify-icon icon="mdi:check"></iconify-icon>
+                        <span>تأكيد الاستيراد</span>
+                    </button>
+                </div>
             </div>
         </div>
     </main>
@@ -1946,6 +2489,16 @@
                                 <!-- Will be populated by JavaScript -->
                             </div>
                         </div>
+                        
+                        <div class="settings-item">
+                            <div class="settings-label">
+                                <span class="settings-name">وضع التصحيح</span>
+                                <span class="settings-description">إظهار معلومات التصحيح للأجهزة</span>
+                            </div>
+                            <div class="segmented-control" id="debugModeSelector">
+                                <!-- Will be populated by JavaScript -->
+                            </div>
+                        </div>
                     </div>
                 </div>
                 
@@ -1973,6 +2526,44 @@
                         </div>
                     </div>
                 </div>
+                
+                <!-- Debug Info (Hidden by default) -->
+                <div class="settings-section" id="debugInfoSection" style="display: none;">
+                    <div class="settings-header">
+                        <iconify-icon icon="mdi:bug"></iconify-icon>
+                        <h4 class="body" style="font-weight: 600;">معلومات التصحيح</h4>
+                    </div>
+                    
+                    <div class="settings-items">
+                        <div class="settings-item">
+                            <div class="settings-label">
+                                <span class="settings-name">معرّف الجهاز الحالي</span>
+                                <span class="settings-description" id="debugDeviceId">-</span>
+                            </div>
+                        </div>
+                        
+                        <div class="settings-item">
+                            <div class="settings-label">
+                                <span class="settings-name">معرّف المالك</span>
+                                <span class="settings-description" id="debugOwnerId">-</span>
+                            </div>
+                        </div>
+                        
+                        <div class="settings-item">
+                            <div class="settings-label">
+                                <span class="settings-name">حالة الجهاز</span>
+                                <span class="settings-description" id="debugDeviceStatus">-</span>
+                            </div>
+                        </div>
+                        
+                        <div class="settings-item">
+                            <div class="settings-label">
+                                <span class="settings-name">آخر فحص أمني</span>
+                                <span class="settings-description" id="debugLastCheck">-</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             
             <div class="modal-actions">
@@ -1984,34 +2575,83 @@
         </div>
     </div>
 
-    <!-- Confirm Delete Modal -->
+    <!-- Confirm Modal Template -->
     <div class="modal" id="confirmModal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="h3">تأكيد الحذف</h3>
+                <h3 class="h3" id="confirmTitle">تأكيد الإجراء</h3>
                 <button class="close-btn" id="closeConfirmModal">
                     <iconify-icon icon="mdi:close"></iconify-icon>
                 </button>
             </div>
             
             <div style="text-align: center; padding: 2rem 0;">
-                <div style="width: 80px; height: 80px; background: var(--danger-light); border-radius: 20px; display: flex; align-items: center; justify-content: center; margin: 0 auto 2rem; color: var(--danger);">
-                    <iconify-icon icon="mdi:alert-circle" style="font-size: 2.5rem;"></iconify-icon>
+                <div id="confirmIcon" style="width: 80px; height: 80px; border-radius: 20px; display: flex; align-items: center; justify-content: center; margin: 0 auto 2rem;">
+                    <!-- Icon will be set by JavaScript -->
                 </div>
                 
-                <h4 class="h3" style="margin-bottom: 1rem;" id="confirmTitle">هل أنت متأكد؟</h4>
+                <h4 class="h3" style="margin-bottom: 1rem;" id="confirmTitleText"></h4>
                 <p class="body" style="color: var(--text-secondary); margin-bottom: 1rem; line-height: 1.6;" id="confirmMessage">
-                    هذا الإجراء لا يمكن التراجع عنه.
+                    <!-- Message will be set by JavaScript -->
                 </p>
             </div>
             
             <div class="modal-actions">
-                <button type="button" class="btn btn-secondary" id="cancelDeleteBtn">
+                <button type="button" class="btn btn-secondary" id="cancelConfirmBtn">
                     إلغاء
                 </button>
-                <button type="button" class="btn btn-danger" id="confirmDeleteBtn">
-                    <iconify-icon icon="mdi:delete"></iconify-icon>
-                    <span>نعم، احذف</span>
+                <button type="button" class="btn" id="confirmActionBtn">
+                    <!-- Text will be set by JavaScript -->
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Import Modal -->
+    <div class="modal" id="importModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="h3">استيراد البيانات القديمة</h3>
+                <button class="close-btn" id="closeImportModal">
+                    <iconify-icon icon="mdi:close"></iconify-icon>
+                </button>
+            </div>
+            
+            <div style="text-align: center; padding: 2rem 0;">
+                <div class="file-upload" id="fileUploadArea">
+                    <iconify-icon icon="mdi:file-upload" class="file-upload-icon"></iconify-icon>
+                    <h4 class="h4" style="margin-bottom: 0.5rem;">اسحب وأفلت الملف هنا</h4>
+                    <p class="body" style="color: var(--text-secondary); margin-bottom: 1.5rem;">
+                        أو انقر لاختيار ملف JSON
+                    </p>
+                    <button type="button" class="btn btn-secondary" id="browseFilesBtn">
+                        <iconify-icon icon="mdi:folder-open"></iconify-icon>
+                        <span>تصفح الملفات</span>
+                    </button>
+                    <input type="file" id="importFileInput" class="file-input" accept=".json">
+                </div>
+                
+                <div id="fileInfo" style="display: none; margin-top: 2rem;">
+                    <div class="settings-item">
+                        <div class="settings-label">
+                            <span class="settings-name">الملف المحدد</span>
+                            <span class="settings-description" id="fileName">-</span>
+                        </div>
+                        <button class="action-btn delete" id="removeFileBtn">
+                            <iconify-icon icon="mdi:close"></iconify-icon>
+                            <span>إزالة</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="modal-actions">
+                <button type="button" class="btn btn-secondary" id="cancelImportModalBtn">
+                    إلغاء
+                </button>
+                <button type="button" class="btn btn-primary" id="previewImportBtn" disabled>
+                    <iconify-icon icon="mdi:eye"></iconify-icon>
+                    <span>معاينة البيانات</span>
                 </button>
             </div>
         </div>
@@ -2047,9 +2687,14 @@
         let userBoards = [];
         let currentEditingBoard = null;
         let boardToDelete = null;
-        let userData = {};
-        let userSettings = {};
         let currentDeviceId = null;
+        let accountRef = null;
+        let userSettings = {};
+        let securityData = {};
+        let userDevices = [];
+        let pendingImportData = null;
+        let isOwnerDevice = false;
+        let deviceStatus = 'active'; // active, pending, blocked
 
         // Icon Categories
         const iconCategories = {
@@ -2126,6 +2771,12 @@
             { value: 'always', label: 'دائماً', icon: 'mdi:eye-outline' }
         ];
 
+        // Debug mode options
+        const debugModeOptions = [
+            { value: 'off', label: 'مخفي', icon: 'mdi:eye-off' },
+            { value: 'on', label: 'مرئي', icon: 'mdi:eye' }
+        ];
+
         // Category names for filter
         const categoryNames = {
             social: 'اجتماعي',
@@ -2155,24 +2806,35 @@
             delete: { icon: 'mdi:delete', label: 'حذف حساب' },
             copy: { icon: 'mdi:content-copy', label: 'نسخ كلمة مرور' },
             theme: { icon: 'mdi:palette', label: 'تغيير المظهر' },
-            device_logout: { icon: 'mdi:device-off', label: 'تسجيل خروج من جهاز' }
+            device_logout: { icon: 'mdi:device-off', label: 'تسجيل خروج من جهاز' },
+            trust: { icon: 'mdi:shield-check', label: 'تعيين جهاز كموثوق' },
+            block: { icon: 'mdi:block-helper', label: 'منع جهاز' },
+            unblock: { icon: 'mdi:lock-open', label: 'إلغاء منع جهاز' },
+            approve: { icon: 'mdi:check-circle', label: 'موافقة على جهاز' },
+            import: { icon: 'mdi:database-import', label: 'استيراد بيانات' },
+            export: { icon: 'mdi:database-export', label: 'تصدير بيانات' }
         };
 
         const activityDescriptions = {
-            login: (details) => `تم تسجيل الدخول من ${details.deviceName || 'جهاز جديد'}`,
+            login: (details) => `تم تسجيل الدخول ${details.isNewDevice ? 'من جهاز جديد' : ''}`,
             logout: () => 'تم تسجيل الخروج',
             add: (details) => `تم إضافة حساب جديد: ${details.boardName || ''}`,
             edit: (details) => `تم تعديل حساب: ${details.boardName || ''}`,
             delete: (details) => `تم حذف حساب: ${details.boardName || ''}`,
             copy: (details) => `تم نسخ كلمة مرور لحساب: ${details.boardName || ''}`,
             theme: (details) => `تم تغيير المظهر إلى الوضع ${details.theme === 'dark' ? 'الداكن' : 'الفاتح'}`,
-            device_logout: (details) => `تم تسجيل الخروج من جهاز: ${details.deviceName || ''}`
+            device_logout: (details) => `تم تسجيل الخروج من جهاز: ${details.deviceName || ''}`,
+            trust: (details) => `تم ${details.trusted ? 'تعيين' : 'إلغاء'} الثقة في جهاز: ${details.deviceName || ''}`,
+            block: (details) => `تم ${details.permanent ? 'منع نهائي' : 'منع مؤقت'} لجهاز: ${details.deviceName || ''}`,
+            unblock: (details) => `تم إلغاء منع جهاز: ${details.deviceName || ''}`,
+            approve: (details) => `تم الموافقة على جهاز: ${details.deviceName || ''}`,
+            import: (details) => `تم استيراد ${details.count || 0} حساب من البيانات القديمة`,
+            export: (details) => `تم تصدير ${details.count || 0} حساب كبيانات قديمة`
         };
 
         // ===== INITIALIZATION =====
         document.addEventListener('DOMContentLoaded', () => {
             initializeUI();
-            loadSavedSettings();
             setupEventListeners();
             checkAuth();
         });
@@ -2186,11 +2848,571 @@
                 }
                 
                 currentUser = user;
-                currentDeviceId = generateDeviceId();
-                await loadUserData(user.uid);
-                await registerCurrentDevice();
-                await logActivity('login', { deviceName: getDeviceInfo().name });
+                currentDeviceId = getStableDeviceId();
+                await initializeAccount();
+                await checkDeviceAccess();
+                await loadUserData();
+                updateUserUI();
             });
+        }
+
+        // ===== ACCOUNT-CENTRIC STRUCTURE =====
+        async function initializeAccount() {
+            if (!currentUser) return;
+            
+            accountRef = doc(db, 'accounts', currentUser.uid);
+            const accountDoc = await getDoc(accountRef);
+            
+            if (!accountDoc.exists()) {
+                // Create new account with full account-centric structure
+                await setDoc(accountRef, {
+                    profile: {
+                        name: currentUser.displayName || currentUser.email?.split('@')[0] || 'المستخدم',
+                        email: currentUser.email,
+                        plan: 'مجانية',
+                        createdAt: serverTimestamp()
+                    },
+                    vault: {
+                        boards: []
+                    },
+                    settings: {
+                        theme: 'light',
+                        passwordVisibility: 'hold',
+                        debugMode: 'off'
+                    },
+                    security: {
+                        ownerDeviceId: currentDeviceId,
+                        blockedDevices: {},
+                        pendingDevices: {},
+                        permissions: {}
+                    },
+                    migration: {
+                        oldData: null,
+                        migrated: false,
+                        migratedAt: null
+                    },
+                    lastUpdated: serverTimestamp()
+                });
+                
+                // Create devices subcollection
+                await registerOrUpdateDevice(true);
+                await logActivity('login', { isNewDevice: true, isOwner: true });
+            } else {
+                // Load existing account data
+                const data = accountDoc.data();
+                userSettings = data.settings || {};
+                securityData = data.security || {};
+                applyTheme(userSettings.theme || 'light');
+                
+                // Update device registration
+                await registerOrUpdateDevice(false);
+                await logActivity('login', { isNewDevice: false });
+            }
+        }
+
+        // ===== DEVICE ACCESS CONTROL =====
+        async function checkDeviceAccess() {
+            if (!accountRef || !securityData) return;
+            
+            const { ownerDeviceId = '', blockedDevices = {}, pendingDevices = {} } = securityData;
+            
+            // Check if current device is owner
+            isOwnerDevice = (ownerDeviceId === currentDeviceId);
+            
+            // Check if device is blocked
+            if (blockedDevices[currentDeviceId]) {
+                deviceStatus = 'blocked';
+                showAccessOverlay('blocked', blockedDevices[currentDeviceId]);
+                return;
+            }
+            
+            // Check if device is pending (non-owner devices)
+            if (!isOwnerDevice && !pendingDevices[currentDeviceId]) {
+                // Add to pending devices if not owner
+                await updateDoc(accountRef, {
+                    [`security.pendingDevices.${currentDeviceId}`]: {
+                        deviceId: currentDeviceId,
+                        addedAt: serverTimestamp(),
+                        status: 'pending'
+                    }
+                }, { merge: true });
+                
+                deviceStatus = 'pending';
+                showAccessOverlay('pending');
+            } else if (pendingDevices[currentDeviceId]) {
+                deviceStatus = 'pending';
+                showAccessOverlay('pending');
+            } else {
+                deviceStatus = 'active';
+            }
+        }
+
+        function showAccessOverlay(type, blockData = null) {
+            const overlay = document.getElementById('accessOverlay');
+            const message = document.getElementById('accessMessage');
+            
+            if (!overlay || !message) return;
+            
+            let title = '';
+            let text = '';
+            let icon = '';
+            let actions = '';
+            
+            switch(type) {
+                case 'blocked':
+                    title = '⛔ تم منع هذا الجهاز';
+                    text = blockData?.reason || 'تم منع هذا الجهاز من الوصول إلى هذا الحساب.';
+                    if (blockData?.blockedAt) {
+                        const blockedDate = new Date(blockData.blockedAt.seconds * 1000);
+                        text += `<br><small>تم المنع في: ${formatDate(blockedDate)}</small>`;
+                    }
+                    icon = '<iconify-icon icon="mdi:block-helper" style="font-size: 2.5rem;"></iconify-icon>';
+                    actions = `
+                        <button class="btn btn-danger" id="blockedLogoutBtn">
+                            <iconify-icon icon="mdi:logout"></iconify-icon>
+                            <span>تسجيل الخروج</span>
+                        </button>
+                    `;
+                    break;
+                    
+                case 'pending':
+                    title = '⏳ في انتظار الموافقة';
+                    text = 'هذا الجهاز في انتظار موافقة الجهاز الرئيسي. يرجى الانتظار أو تسجيل الخروج.';
+                    icon = '<iconify-icon icon="mdi:clock-outline" style="font-size: 2.5rem;"></iconify-icon>';
+                    actions = `
+                        <button class="btn btn-secondary" id="refreshAccessBtn" style="margin-left: 0.5rem;">
+                            <iconify-icon icon="mdi:refresh"></iconify-icon>
+                            <span>تحديث الحالة</span>
+                        </button>
+                        <button class="btn btn-danger" id="pendingLogoutBtn">
+                            <iconify-icon icon="mdi:logout"></iconify-icon>
+                            <span>تسجيل الخروج</span>
+                        </button>
+                    `;
+                    break;
+            }
+            
+            message.innerHTML = `
+                <div class="access-icon ${type}">
+                    ${icon}
+                </div>
+                <h3 class="h3">${title}</h3>
+                <p class="body">${text}</p>
+                <div class="access-actions">
+                    ${actions}
+                </div>
+            `;
+            
+            overlay.style.display = 'flex';
+            
+            // Setup event listeners for overlay buttons
+            setTimeout(() => {
+                document.getElementById('blockedLogoutBtn')?.addEventListener('click', handleLogout);
+                document.getElementById('pendingLogoutBtn')?.addEventListener('click', handleLogout);
+                document.getElementById('refreshAccessBtn')?.addEventListener('click', async () => {
+                    await checkDeviceAccess();
+                });
+            }, 100);
+        }
+
+        function hideAccessOverlay() {
+            const overlay = document.getElementById('accessOverlay');
+            if (overlay) {
+                overlay.style.display = 'none';
+            }
+        }
+
+        // ===== DEVICE MANAGEMENT =====
+        function getStableDeviceId() {
+            let deviceId = localStorage.getItem('novapass_device_id');
+            
+            if (!deviceId) {
+                const timestamp = Date.now().toString(36);
+                const random = Math.random().toString(36).substr(2, 8);
+                deviceId = `device_${timestamp}_${random}`;
+                localStorage.setItem('novapass_device_id', deviceId);
+            }
+            
+            return deviceId;
+        }
+
+        function getDeviceInfo() {
+            const userAgent = navigator.userAgent;
+            let deviceName = 'Unknown Device';
+            let browser = 'Unknown Browser';
+            let os = 'Unknown OS';
+            
+            // Detect device type
+            if (/mobile/i.test(userAgent)) {
+                deviceName = 'هاتف محمول';
+            } else if (/tablet/i.test(userAgent)) {
+                deviceName = 'تابلت';
+            } else {
+                deviceName = 'حاسوب';
+            }
+            
+            // Detect browser
+            if (/edg/i.test(userAgent)) {
+                browser = 'Microsoft Edge';
+            } else if (/chrome/i.test(userAgent) && !/edg/i.test(userAgent)) {
+                browser = 'Google Chrome';
+            } else if (/firefox/i.test(userAgent)) {
+                browser = 'Mozilla Firefox';
+            } else if (/safari/i.test(userAgent) && !/chrome/i.test(userAgent)) {
+                browser = 'Safari';
+            } else if (/opera/i.test(userAgent)) {
+                browser = 'Opera';
+            }
+            
+            // Detect OS
+            if (/windows/i.test(userAgent)) {
+                os = 'Windows';
+            } else if (/macintosh/i.test(userAgent)) {
+                os = 'macOS';
+            } else if (/linux/i.test(userAgent)) {
+                os = 'Linux';
+            } else if (/android/i.test(userAgent)) {
+                os = 'Android';
+            } else if (/iphone|ipad|ipod/i.test(userAgent)) {
+                os = 'iOS';
+            }
+            
+            return { 
+                name: deviceName, 
+                browser, 
+                os,
+                userAgent: userAgent.substring(0, 100)
+            };
+        }
+
+        async function registerOrUpdateDevice(isFirstDevice = false) {
+            if (!accountRef) return;
+            
+            const deviceInfo = getDeviceInfo();
+            
+            const devicesRef = collection(accountRef, 'devices');
+            const deviceDocRef = doc(devicesRef, currentDeviceId);
+            
+            const deviceData = {
+                deviceName: deviceInfo.name,
+                browser: deviceInfo.browser,
+                os: deviceInfo.os,
+                userAgent: deviceInfo.userAgent,
+                isCurrent: true,
+                trusted: isOwnerDevice,
+                lastActive: serverTimestamp(),
+                createdAt: serverTimestamp(),
+                updatedAt: serverTimestamp()
+            };
+            
+            const deviceDoc = await getDoc(deviceDocRef);
+            
+            if (deviceDoc.exists()) {
+                // Update existing device
+                await updateDoc(deviceDocRef, {
+                    ...deviceData,
+                    createdAt: deviceDoc.data().createdAt
+                });
+            } else {
+                // Create new device
+                await setDoc(deviceDocRef, deviceData);
+            }
+            
+            // Update other devices to not current
+            const allDevices = await getDocs(devicesRef);
+            allDevices.forEach(async (doc) => {
+                if (doc.id !== currentDeviceId) {
+                    await updateDoc(doc.ref, {
+                        isCurrent: false,
+                        updatedAt: serverTimestamp()
+                    });
+                }
+            });
+        }
+
+        async function loadDevices() {
+            if (!accountRef) return [];
+            
+            try {
+                const devicesRef = collection(accountRef, 'devices');
+                const q = query(devicesRef, orderBy('lastActive', 'desc'));
+                const snapshot = await getDocs(q);
+                
+                const devices = [];
+                snapshot.forEach(doc => {
+                    const data = doc.data();
+                    devices.push({
+                        id: doc.id,
+                        ...data,
+                        lastActive: data.lastActive?.toDate?.() || new Date(),
+                        createdAt: data.createdAt?.toDate?.() || new Date()
+                    });
+                });
+                
+                return devices;
+            } catch (error) {
+                console.error('Error loading devices:', error);
+                return [];
+            }
+        }
+
+        async function updateDeviceStatus(deviceId, updates) {
+            try {
+                const deviceRef = doc(accountRef, 'devices', deviceId);
+                await updateDoc(deviceRef, {
+                    ...updates,
+                    updatedAt: serverTimestamp()
+                });
+                return true;
+            } catch (error) {
+                console.error('Error updating device:', error);
+                return false;
+            }
+        }
+
+        // ===== SECURITY MANAGEMENT =====
+        async function blockDevice(deviceId, permanent = false, reason = '') {
+            if (!isOwnerDevice) {
+                showToast('فقط الجهاز الرئيسي يمكنه منع الأجهزة', 'error');
+                return false;
+            }
+            
+            try {
+                const blockData = {
+                    deviceId,
+                    blockedAt: serverTimestamp(),
+                    blockedBy: currentDeviceId,
+                    permanent,
+                    reason: reason || (permanent ? 'منع نهائي' : 'منع مؤقت')
+                };
+                
+                await updateDoc(accountRef, {
+                    [`security.blockedDevices.${deviceId}`]: blockData
+                }, { merge: true });
+                
+                // Remove from pending if exists
+                await updateDoc(accountRef, {
+                    [`security.pendingDevices.${deviceId}`]: deleteField()
+                }, { merge: true });
+                
+                await logActivity('block', { 
+                    deviceId, 
+                    permanent, 
+                    reason,
+                    deviceName: userDevices.find(d => d.id === deviceId)?.deviceName || deviceId
+                });
+                
+                return true;
+            } catch (error) {
+                console.error('Error blocking device:', error);
+                return false;
+            }
+        }
+
+        async function unblockDevice(deviceId) {
+            if (!isOwnerDevice) {
+                showToast('فقط الجهاز الرئيسي يمكنه إلغاء منع الأجهزة', 'error');
+                return false;
+            }
+            
+            try {
+                await updateDoc(accountRef, {
+                    [`security.blockedDevices.${deviceId}`]: deleteField()
+                }, { merge: true });
+                
+                await logActivity('unblock', { 
+                    deviceId,
+                    deviceName: userDevices.find(d => d.id === deviceId)?.deviceName || deviceId
+                });
+                
+                return true;
+            } catch (error) {
+                console.error('Error unblocking device:', error);
+                return false;
+            }
+        }
+
+        async function approveDevice(deviceId) {
+            if (!isOwnerDevice) {
+                showToast('فقط الجهاز الرئيسي يمكنه الموافقة على الأجهزة', 'error');
+                return false;
+            }
+            
+            try {
+                await updateDoc(accountRef, {
+                    [`security.pendingDevices.${deviceId}`]: deleteField()
+                }, { merge: true });
+                
+                await updateDeviceStatus(deviceId, { trusted: true });
+                
+                await logActivity('approve', { 
+                    deviceId,
+                    deviceName: userDevices.find(d => d.id === deviceId)?.deviceName || deviceId
+                });
+                
+                return true;
+            } catch (error) {
+                console.error('Error approving device:', error);
+                return false;
+            }
+        }
+
+        async function toggleDeviceTrust(deviceId, trusted) {
+            if (!isOwnerDevice) {
+                showToast('فقط الجهاز الرئيسي يمكنه تغيير حالة الثقة', 'error');
+                return false;
+            }
+            
+            try {
+                await updateDeviceStatus(deviceId, { trusted });
+                
+                await logActivity('trust', { 
+                    deviceId,
+                    trusted,
+                    deviceName: userDevices.find(d => d.id === deviceId)?.deviceName || deviceId
+                });
+                
+                return true;
+            } catch (error) {
+                console.error('Error toggling device trust:', error);
+                return false;
+            }
+        }
+
+        // ===== ACTIVITY LOGS =====
+        async function logActivity(action, details = {}) {
+            if (!accountRef) return;
+            
+            try {
+                const logsRef = collection(accountRef, 'activity_logs');
+                const deviceInfo = getDeviceInfo();
+                
+                await addDoc(logsRef, {
+                    action,
+                    details,
+                    deviceId: currentDeviceId,
+                    deviceName: deviceInfo.name,
+                    timestamp: serverTimestamp()
+                });
+            } catch (error) {
+                console.error('Error logging activity:', error);
+            }
+        }
+
+        async function loadActivityLogs(filter = 'all') {
+            if (!accountRef) return [];
+            
+            try {
+                const logsRef = collection(accountRef, 'activity_logs');
+                const q = query(logsRef, orderBy('timestamp', 'desc'));
+                const snapshot = await getDocs(q);
+                
+                const logs = [];
+                snapshot.forEach(doc => {
+                    const data = doc.data();
+                    logs.push({
+                        id: doc.id,
+                        ...data,
+                        timestamp: data.timestamp?.toDate?.() || new Date()
+                    });
+                });
+                
+                if (filter !== 'all') {
+                    return logs.filter(log => 
+                        (filter === 'security' && ['login', 'logout', 'device_logout', 'trust', 'block', 'unblock', 'approve'].includes(log.action)) ||
+                        (filter === 'vault' && ['add', 'edit', 'delete', 'copy'].includes(log.action)) ||
+                        (filter === 'migration' && ['import', 'export'].includes(log.action))
+                    );
+                }
+                
+                return logs;
+            } catch (error) {
+                console.error('Error loading activity logs:', error);
+                return [];
+            }
+        }
+
+        // ===== MIGRATION SYSTEM =====
+        async function exportOldData() {
+            try {
+                // Get old data from account
+                const accountDoc = await getDoc(accountRef);
+                const data = accountDoc.data();
+                
+                const exportData = {
+                    exportedAt: new Date().toISOString(),
+                    accounts: data.vault?.boards || [],
+                    metadata: {
+                        totalAccounts: data.vault?.boards?.length || 0,
+                        userEmail: currentUser.email,
+                        exportVersion: '1.0'
+                    }
+                };
+                
+                // Create JSON file
+                const jsonStr = JSON.stringify(exportData, null, 2);
+                const blob = new Blob([jsonStr], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                
+                // Create download link
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `novapass-backup-${new Date().toISOString().split('T')[0]}.json`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                
+                await logActivity('export', { count: exportData.accounts.length });
+                showToast('تم تصدير البيانات بنجاح', 'success');
+                
+                return true;
+            } catch (error) {
+                console.error('Error exporting data:', error);
+                showToast('حدث خطأ أثناء تصدير البيانات', 'error');
+                return false;
+            }
+        }
+
+        async function importOldData(data) {
+            try {
+                // Validate data structure
+                if (!data.accounts || !Array.isArray(data.accounts)) {
+                    throw new Error('بيانات غير صالحة');
+                }
+                
+                // Merge with existing boards
+                const existingBoards = userBoards || [];
+                const importedBoards = data.accounts.map(board => ({
+                    ...board,
+                    id: generateId(),
+                    importedAt: new Date().toISOString(),
+                    createdAt: board.createdAt || new Date().toISOString()
+                }));
+                
+                const mergedBoards = [...existingBoards, ...importedBoards];
+                
+                // Update account with merged data
+                await updateDoc(accountRef, {
+                    'vault.boards': mergedBoards,
+                    'migration.oldData': data,
+                    'migration.migrated': true,
+                    'migration.migratedAt': serverTimestamp(),
+                    updatedAt: serverTimestamp()
+                }, { merge: true });
+                
+                userBoards = mergedBoards;
+                renderBoards();
+                
+                await logActivity('import', { count: importedBoards.length });
+                showToast(`تم استيراد ${importedBoards.length} حساب بنجاح`, 'success');
+                
+                return true;
+            } catch (error) {
+                console.error('Error importing data:', error);
+                showToast('حدث خطأ أثناء استيراد البيانات', 'error');
+                return false;
+            }
         }
 
         // ===== UI INITIALIZATION =====
@@ -2201,6 +3423,7 @@
             setupPasswordStrength();
             setupThemeSelector();
             setupPasswordVisibilitySelector();
+            setupDebugModeSelector();
         }
 
         function setupIconCategories() {
@@ -2209,7 +3432,6 @@
             
             categoriesContainer.innerHTML = '';
             
-            // Add "الكل" category
             const allBtn = document.createElement('button');
             allBtn.className = 'category-btn active';
             allBtn.textContent = 'الكل';
@@ -2217,7 +3439,6 @@
             allBtn.addEventListener('click', (e) => filterIconsByCategory('all', e.target));
             categoriesContainer.appendChild(allBtn);
             
-            // Add other categories
             Object.keys(categoryNames).forEach(categoryKey => {
                 const btn = document.createElement('button');
                 btn.className = 'category-btn';
@@ -2247,7 +3468,6 @@
             iconElement.setAttribute('data-name', iconData.name);
             iconElement.setAttribute('title', iconData.name);
             
-            // Determine category
             let category = 'generic';
             if (iconCategories.social.includes(iconData)) category = 'social';
             else if (iconCategories.google.includes(iconData)) category = 'google';
@@ -2270,13 +3490,11 @@
         }
 
         function filterIconsByCategory(category, button) {
-            // Update active category button
             document.querySelectorAll('.category-btn').forEach(btn => {
                 btn.classList.remove('active');
             });
             button.classList.add('active');
             
-            // Filter icons
             const iconOptions = document.querySelectorAll('.icon-option');
             iconOptions.forEach(icon => {
                 if (category === 'all') {
@@ -2326,8 +3544,6 @@
             if (!passwordInput) return;
             
             passwordInput.addEventListener('input', updatePasswordStrength);
-            
-            // Initial update
             updatePasswordStrength();
         }
 
@@ -2342,7 +3558,6 @@
             let totalScore = 0;
             let totalWeight = 0;
             
-            // Calculate score for each criteria
             const criteriaResults = passwordCriteria.map(criteria => {
                 const passes = criteria.test(password);
                 const score = passes ? criteria.weight : 0;
@@ -2356,21 +3571,15 @@
                 };
             });
             
-            // Add bonus for length (progressive)
             const lengthBonus = Math.min(password.length * 2, 20);
             totalScore += lengthBonus;
             totalWeight += 20;
             
-            // Calculate percentage
             const percentage = Math.min(Math.round((totalScore / totalWeight) * 100), 100);
             
-            // Update strength meter
             strengthFill.style.width = `${percentage}%`;
-            
-            // Update score text
             strengthScore.textContent = `${percentage}%`;
             
-            // Update criteria details
             strengthDetails.innerHTML = '';
             criteriaResults.forEach(criteria => {
                 const criteriaElement = document.createElement('div');
@@ -2382,7 +3591,6 @@
                 strengthDetails.appendChild(criteriaElement);
             });
             
-            // Add length bonus criteria
             const lengthElement = document.createElement('div');
             lengthElement.className = 'strength-criteria valid';
             lengthElement.innerHTML = `
@@ -2412,6 +3620,10 @@
                 });
                 
                 themeSelector.appendChild(option);
+                
+                if (theme.value === (userSettings.theme || 'light')) {
+                    option.classList.add('selected');
+                }
             });
         }
 
@@ -2435,58 +3647,38 @@
                 });
                 
                 selector.appendChild(optionElement);
+                
+                if (option.value === (userSettings.passwordVisibility || 'hold')) {
+                    optionElement.classList.add('selected');
+                }
             });
         }
 
-        function selectIcon(iconElement) {
-            document.querySelectorAll('.icon-option').forEach(icon => {
-                icon.classList.remove('selected');
+        function setupDebugModeSelector() {
+            const selector = document.getElementById('debugModeSelector');
+            if (!selector) return;
+            
+            selector.innerHTML = '';
+            
+            debugModeOptions.forEach(option => {
+                const optionElement = document.createElement('div');
+                optionElement.className = 'segmented-option';
+                optionElement.setAttribute('data-value', option.value);
+                optionElement.innerHTML = `
+                    <iconify-icon icon="${option.icon}"></iconify-icon>
+                    <span>${option.label}</span>
+                `;
+                
+                optionElement.addEventListener('click', () => {
+                    selectDebugMode(optionElement);
+                });
+                
+                selector.appendChild(optionElement);
+                
+                if (option.value === (userSettings.debugMode || 'off')) {
+                    optionElement.classList.add('selected');
+                }
             });
-            iconElement.classList.add('selected');
-            
-            iconElement.style.animation = 'copyPulse 0.6s';
-            setTimeout(() => {
-                iconElement.style.animation = '';
-            }, 600);
-        }
-
-        function selectColor(colorCircle) {
-            document.querySelectorAll('.radio-circle').forEach(circle => {
-                circle.classList.remove('selected');
-            });
-            colorCircle.classList.add('selected');
-            
-            colorCircle.style.boxShadow = '0 0 0 4px rgba(62, 180, 137, 0.2)';
-            setTimeout(() => {
-                colorCircle.style.boxShadow = '';
-            }, 300);
-        }
-
-        function selectTheme(option) {
-            const theme = option.getAttribute('data-theme');
-            
-            document.querySelectorAll('#themeSelector .segmented-option').forEach(opt => {
-                opt.classList.remove('selected');
-            });
-            option.classList.add('selected');
-            
-            applyTheme(theme);
-            saveSettings({ theme: theme });
-            
-            // Log activity
-            logActivity('theme', { theme });
-        }
-
-        function selectPasswordVisibility(option) {
-            const value = option.getAttribute('data-value');
-            
-            document.querySelectorAll('#passwordVisibilitySelector .segmented-option').forEach(opt => {
-                opt.classList.remove('selected');
-            });
-            option.classList.add('selected');
-            
-            saveSettings({ passwordVisibility: value });
-            showToast('تم حفظ التفضيل', 'success');
         }
 
         // ===== THEME MANAGEMENT =====
@@ -2500,168 +3692,111 @@
             }
             
             document.body.classList.toggle('dark-mode', isDark);
-            showToast(`تم التبديل إلى الوضع ${isDark ? 'الداكن' : 'الفاتح'}`, 'info');
+            localStorage.setItem('novapass_theme', theme);
         }
 
-        function loadSavedSettings() {
-            const savedTheme = userSettings.theme || localStorage.getItem('theme') || 'light';
-            const savedPasswordVisibility = userSettings.passwordVisibility || 'hold';
-            
-            // Apply theme
-            const themeSelector = document.getElementById('themeSelector');
-            if (themeSelector) {
-                const options = themeSelector.querySelectorAll('.segmented-option');
-                options.forEach(option => {
-                    if (option.getAttribute('data-theme') === savedTheme) {
-                        selectTheme(option);
-                    }
+        // ===== EVENT LISTENERS =====
+        function setupEventListeners() {
+            // Navigation Tabs
+            document.querySelectorAll('.nav-tab').forEach(tab => {
+                tab.addEventListener('click', (e) => {
+                    const sectionId = e.currentTarget.getAttribute('data-section');
+                    showSection(sectionId);
+                    
+                    // Update active tab
+                    document.querySelectorAll('.nav-tab').forEach(t => {
+                        t.classList.remove('active');
+                    });
+                    e.currentTarget.classList.add('active');
                 });
-            }
-            
-            // Apply password visibility
-            const visibilitySelector = document.getElementById('passwordVisibilitySelector');
-            if (visibilitySelector) {
-                const options = visibilitySelector.querySelectorAll('.segmented-option');
-                options.forEach(option => {
-                    if (option.getAttribute('data-value') === savedPasswordVisibility) {
-                        selectPasswordVisibility(option);
-                    }
-                });
-            }
-        }
-
-        // ===== SECTION MANAGEMENT =====
-        function showSection(sectionId) {
-            // Hide all sections
-            document.querySelectorAll('.section').forEach(section => {
-                section.classList.remove('active');
             });
             
-            // Show target section
-            const targetSection = document.getElementById(sectionId);
-            if (targetSection) {
-                targetSection.classList.add('active');
-                updateNavLabel(sectionId);
-            }
-            
-            // Hide floating button in non-dashboard sections
-            const floatingBtn = document.getElementById('floatingAddBtn');
-            if (floatingBtn) {
-                floatingBtn.style.display = sectionId === 'dashboardSection' ? 'flex' : 'none';
-            }
-        }
-
-        function updateNavLabel(sectionId) {
-            const dashboardLabel = document.getElementById('dashboardLabel');
-            
-            switch(sectionId) {
-                case 'devicesSection':
-                    dashboardLabel.textContent = 'الأجهزة';
-                    break;
-                case 'activitySection':
-                    dashboardLabel.textContent = 'سجلات النشاط';
-                    break;
-                default:
-                    dashboardLabel.textContent = 'Dashboard';
-            }
-        }
-
-        // ===== EVENT LISTENERS SETUP =====
-        function setupEventListeners() {
-            // Navigation buttons
-            const devicesBtn = document.getElementById('devicesBtn');
-            const activityBtn = document.getElementById('activityBtn');
-            const backFromDevices = document.getElementById('backFromDevices');
-            const backFromActivity = document.getElementById('backFromActivity');
-            
-            if (devicesBtn) {
-                devicesBtn.addEventListener('click', (e) => {
+            // Profile dropdown navigation
+            document.querySelectorAll('.dropdown-item[data-section]').forEach(item => {
+                item.addEventListener('click', (e) => {
                     e.preventDefault();
-                    showSection('devicesSection');
-                    renderDevices();
+                    const sectionId = e.currentTarget.getAttribute('data-section');
+                    showSection(sectionId);
+                    
+                    // Update active tab
+                    document.querySelectorAll('.nav-tab').forEach(tab => {
+                        tab.classList.remove('active');
+                        if (tab.getAttribute('data-section') === sectionId) {
+                            tab.classList.add('active');
+                        }
+                    });
+                    
                     closeProfileDropdown();
                 });
-            }
+            });
             
-            if (activityBtn) {
-                activityBtn.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    showSection('activitySection');
-                    renderActivityLogs();
-                    closeProfileDropdown();
-                });
-            }
-            
-            if (backFromDevices) {
-                backFromDevices.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    showSection('dashboardSection');
-                });
-            }
-            
-            if (backFromActivity) {
-                backFromActivity.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    showSection('dashboardSection');
-                });
-            }
-
             // Floating add button
-            const floatingAddBtn = document.getElementById('floatingAddBtn');
-            if (floatingAddBtn) {
-                floatingAddBtn.addEventListener('click', () => openBoardModal('add'));
-            }
-
+            document.getElementById('floatingAddBtn')?.addEventListener('click', () => openBoardModal('add'));
+            document.getElementById('firstBoardBtn')?.addEventListener('click', () => openBoardModal('add'));
+            
             // Profile dropdown
-            const profileBtn = document.getElementById('profileBtn');
-            if (profileBtn) {
-                profileBtn.addEventListener('click', toggleProfileDropdown);
-            }
+            document.getElementById('profileBtn')?.addEventListener('click', toggleProfileDropdown);
             document.addEventListener('click', closeProfileDropdown);
-
+            
             // Icon search
-            const iconSearch = document.getElementById('iconSearch');
-            if (iconSearch) {
-                iconSearch.addEventListener('input', searchIcons);
-            }
-
+            document.getElementById('iconSearch')?.addEventListener('input', searchIcons);
+            
             // Modals
-            const firstBoardBtn = document.getElementById('firstBoardBtn');
-            const closeModal = document.getElementById('closeModal');
-            const cancelBtn = document.getElementById('cancelBtn');
-            const closeConfirmModal = document.getElementById('closeConfirmModal');
-            const cancelDeleteBtn = document.getElementById('cancelDeleteBtn');
-            const closeSettings = document.getElementById('closeSettings');
+            document.getElementById('closeModal')?.addEventListener('click', closeAllModals);
+            document.getElementById('cancelBtn')?.addEventListener('click', closeAllModals);
+            document.getElementById('closeConfirmModal')?.addEventListener('click', closeAllModals);
+            document.getElementById('cancelConfirmBtn')?.addEventListener('click', closeAllModals);
+            document.getElementById('closeSettings')?.addEventListener('click', closeAllModals);
+            document.getElementById('closeImportModal')?.addEventListener('click', closeAllModals);
+            document.getElementById('cancelImportModalBtn')?.addEventListener('click', closeAllModals);
+            document.getElementById('closePreviewBtn')?.addEventListener('click', closeDataPreview);
+            document.getElementById('cancelImportBtn')?.addEventListener('click', closeDataPreview);
             
-            if (firstBoardBtn) firstBoardBtn.addEventListener('click', () => openBoardModal('add'));
-            if (closeModal) closeModal.addEventListener('click', closeAllModals);
-            if (cancelBtn) cancelBtn.addEventListener('click', closeAllModals);
-            if (closeConfirmModal) closeConfirmModal.addEventListener('click', closeAllModals);
-            if (cancelDeleteBtn) cancelDeleteBtn.addEventListener('click', closeAllModals);
-            if (closeSettings) closeSettings.addEventListener('click', closeAllModals);
-
             // Board form
-            const boardForm = document.getElementById('boardForm');
-            if (boardForm) {
-                boardForm.addEventListener('submit', handleBoardSubmit);
-            }
+            document.getElementById('boardForm')?.addEventListener('submit', handleBoardSubmit);
             
-            // Delete confirmation
-            const confirmDeleteBtn = document.getElementById('confirmDeleteBtn');
-            if (confirmDeleteBtn) {
-                confirmDeleteBtn.addEventListener('click', confirmDelete);
-            }
+            // Confirm action
+            document.getElementById('confirmActionBtn')?.addEventListener('click', handleConfirmAction);
             
             // Settings
-            const settingsBtn = document.getElementById('settingsBtn');
-            const logoutBtn = document.getElementById('logoutBtn');
-            const logoutSettingsBtn = document.getElementById('logoutSettingsBtn');
-            const editNameBtn = document.getElementById('editNameBtn');
+            document.getElementById('settingsBtn')?.addEventListener('click', openSettingsModal);
+            document.getElementById('logoutBtn')?.addEventListener('click', handleLogout);
+            document.getElementById('logoutSettingsBtn')?.addEventListener('click', handleLogout);
+            document.getElementById('editNameBtn')?.addEventListener('click', editUserName);
             
-            if (settingsBtn) settingsBtn.addEventListener('click', openSettingsModal);
-            if (logoutBtn) logoutBtn.addEventListener('click', handleLogout);
-            if (logoutSettingsBtn) logoutSettingsBtn.addEventListener('click', handleLogout);
-            if (editNameBtn) editNameBtn.addEventListener('click', editUserName);
+            // Old Data actions
+            document.getElementById('exportOldDataBtn')?.addEventListener('click', exportOldData);
+            document.getElementById('importOldDataBtn')?.addEventListener('click', openImportModal);
+            document.getElementById('browseFilesBtn')?.addEventListener('click', () => {
+                document.getElementById('importFileInput').click();
+            });
+            document.getElementById('importFileInput')?.addEventListener('change', handleFileSelect);
+            document.getElementById('previewImportBtn')?.addEventListener('click', previewImportData);
+            document.getElementById('confirmImportBtn')?.addEventListener('click', confirmImportData);
+            document.getElementById('removeFileBtn')?.addEventListener('click', removeSelectedFile);
+            
+            // File upload drag & drop
+            const fileUploadArea = document.getElementById('fileUploadArea');
+            if (fileUploadArea) {
+                fileUploadArea.addEventListener('dragover', (e) => {
+                    e.preventDefault();
+                    fileUploadArea.classList.add('dragover');
+                });
+                
+                fileUploadArea.addEventListener('dragleave', () => {
+                    fileUploadArea.classList.remove('dragover');
+                });
+                
+                fileUploadArea.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    fileUploadArea.classList.remove('dragover');
+                    
+                    const files = e.dataTransfer.files;
+                    if (files.length > 0) {
+                        handleFileSelect({ target: { files } });
+                    }
+                });
+            }
             
             // Keyboard shortcuts
             document.addEventListener('keydown', (e) => {
@@ -2671,8 +3806,8 @@
                     openBoardModal('add');
                 }
             });
-
-            // Listen for system theme changes
+            
+            // System theme changes
             window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
                 if (userSettings.theme === 'system') {
                     applyTheme('system');
@@ -2694,21 +3829,62 @@
             });
         }
 
+        // ===== SECTION MANAGEMENT =====
+        function showSection(sectionId) {
+            // Hide access overlay if showing
+            hideAccessOverlay();
+            
+            // Update sections
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            const targetSection = document.getElementById(sectionId);
+            if (targetSection) {
+                targetSection.classList.add('active');
+                updateNavLabel(sectionId);
+                
+                // Load section data
+                switch(sectionId) {
+                    case 'devicesSection':
+                        loadAndRenderDevices();
+                        break;
+                    case 'activitySection':
+                        loadAndRenderActivityLogs();
+                        setupActivityFilters();
+                        break;
+                    case 'olddataSection':
+                        // Nothing to load
+                        break;
+                }
+            }
+            
+            // Show/hide floating button
+            const floatingBtn = document.getElementById('floatingAddBtn');
+            if (floatingBtn) {
+                floatingBtn.style.display = sectionId === 'dashboardSection' ? 'flex' : 'none';
+            }
+        }
+
+        function updateNavLabel(sectionId) {
+            const label = document.getElementById('dashboardLabel');
+            switch(sectionId) {
+                case 'devicesSection': label.textContent = 'الأجهزة'; break;
+                case 'activitySection': label.textContent = 'سجلات النشاط'; break;
+                case 'olddataSection': label.textContent = 'البيانات القديمة'; break;
+                default: label.textContent = 'Dashboard';
+            }
+        }
+
         // ===== PROFILE DROPDOWN =====
         function toggleProfileDropdown(e) {
-            e.stopPropagation();
-            const dropdown = document.getElementById('profileDropdown');
-            if (!dropdown) return;
-            
-            dropdown.classList.toggle('active');
+            e?.stopPropagation();
+            document.getElementById('profileDropdown')?.classList.toggle('active');
         }
 
         function closeProfileDropdown(e) {
-            if (!e.target.closest('.user-profile')) {
-                const dropdown = document.getElementById('profileDropdown');
-                if (dropdown) {
-                    dropdown.classList.remove('active');
-                }
+            if (!e?.target.closest('.user-profile')) {
+                document.getElementById('profileDropdown')?.classList.remove('active');
             }
         }
 
@@ -2727,6 +3903,7 @@
             });
             document.body.style.overflow = 'auto';
             resetBoardForm();
+            resetImportModal();
         }
 
         function openBoardModal(mode, board = null) {
@@ -2786,6 +3963,179 @@
             });
         }
 
+        // ===== IMPORT MODAL FUNCTIONS =====
+        function openImportModal() {
+            resetImportModal();
+            openModal('importModal');
+        }
+
+        function resetImportModal() {
+            const fileInput = document.getElementById('importFileInput');
+            const fileInfo = document.getElementById('fileInfo');
+            const previewBtn = document.getElementById('previewImportBtn');
+            
+            if (fileInput) fileInput.value = '';
+            if (fileInfo) fileInfo.style.display = 'none';
+            if (previewBtn) previewBtn.disabled = true;
+            
+            pendingImportData = null;
+        }
+
+        function handleFileSelect(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            
+            // Check file type
+            if (!file.name.endsWith('.json')) {
+                showToast('الرجاء اختيار ملف JSON فقط', 'error');
+                return;
+            }
+            
+            // Check file size (max 10MB)
+            if (file.size > 10 * 1024 * 1024) {
+                showToast('حجم الملف كبير جداً (الحد الأقصى 10MB)', 'error');
+                return;
+            }
+            
+            // Read file
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                try {
+                    const data = JSON.parse(event.target.result);
+                    pendingImportData = data;
+                    
+                    // Update UI
+                    const fileInfo = document.getElementById('fileInfo');
+                    const fileName = document.getElementById('fileName');
+                    const previewBtn = document.getElementById('previewImportBtn');
+                    
+                    if (fileInfo && fileName && previewBtn) {
+                        fileName.textContent = `${file.name} (${(file.size / 1024).toFixed(1)}KB)`;
+                        fileInfo.style.display = 'block';
+                        previewBtn.disabled = false;
+                    }
+                    
+                    showToast('تم تحميل الملف بنجاح', 'success');
+                } catch (error) {
+                    console.error('Error parsing JSON:', error);
+                    showToast('خطأ في قراءة الملف. تأكد من صحة تنسيق JSON', 'error');
+                }
+            };
+            
+            reader.readAsText(file);
+        }
+
+        function removeSelectedFile() {
+            const fileInput = document.getElementById('importFileInput');
+            const fileInfo = document.getElementById('fileInfo');
+            const previewBtn = document.getElementById('previewImportBtn');
+            
+            if (fileInput) fileInput.value = '';
+            if (fileInfo) fileInfo.style.display = 'none';
+            if (previewBtn) previewBtn.disabled = true;
+            
+            pendingImportData = null;
+        }
+
+        function previewImportData() {
+            if (!pendingImportData) {
+                showToast('لا توجد بيانات للمعاينة', 'error');
+                return;
+            }
+            
+            try {
+                const previewContent = document.getElementById('dataPreviewContent');
+                const previewContainer = document.getElementById('dataPreviewContainer');
+                
+                if (previewContent && previewContainer) {
+                    // Format and display data
+                    const formattedData = JSON.stringify(pendingImportData, null, 2);
+                    previewContent.textContent = formattedData;
+                    previewContainer.style.display = 'block';
+                    
+                    // Scroll to preview
+                    previewContainer.scrollIntoView({ behavior: 'smooth' });
+                    
+                    closeAllModals();
+                }
+            } catch (error) {
+                console.error('Error previewing data:', error);
+                showToast('حدث خطأ أثناء معاينة البيانات', 'error');
+            }
+        }
+
+        function closeDataPreview() {
+            const previewContainer = document.getElementById('dataPreviewContainer');
+            if (previewContainer) {
+                previewContainer.style.display = 'none';
+            }
+        }
+
+        async function confirmImportData() {
+            if (!pendingImportData) {
+                showToast('لا توجد بيانات للاستيراد', 'error');
+                return;
+            }
+            
+            try {
+                const success = await importOldData(pendingImportData);
+                if (success) {
+                    closeDataPreview();
+                    resetImportModal();
+                }
+            } catch (error) {
+                console.error('Error confirming import:', error);
+                showToast('حدث خطأ أثناء استيراد البيانات', 'error');
+            }
+        }
+
+        // ===== CONFIRM MODAL SYSTEM =====
+        let currentConfirmAction = null;
+        let currentConfirmData = null;
+
+        function showConfirmModal(config) {
+            const modal = document.getElementById('confirmModal');
+            const title = document.getElementById('confirmTitle');
+            const titleText = document.getElementById('confirmTitleText');
+            const message = document.getElementById('confirmMessage');
+            const icon = document.getElementById('confirmIcon');
+            const actionBtn = document.getElementById('confirmActionBtn');
+            
+            if (!modal || !title || !message || !actionBtn) return;
+            
+            // Set modal content
+            title.textContent = config.title;
+            titleText.textContent = config.titleText || config.title;
+            message.textContent = config.message;
+            
+            // Set icon
+            icon.innerHTML = `<iconify-icon icon="${config.icon || 'mdi:alert-circle'}" style="font-size: 2.5rem;"></iconify-icon>`;
+            icon.style.background = config.iconBg || 'var(--danger-light)';
+            icon.style.color = config.iconColor || 'var(--danger)';
+            
+            // Set action button
+            actionBtn.textContent = config.actionText || 'تأكيد';
+            actionBtn.className = `btn ${config.actionType || 'btn-danger'}`;
+            if (config.actionIcon) {
+                actionBtn.innerHTML = `<iconify-icon icon="${config.actionIcon}"></iconify-icon> <span>${config.actionText || 'تأكيد'}</span>`;
+            }
+            
+            // Store action callback
+            currentConfirmAction = config.action;
+            currentConfirmData = config.data;
+            
+            openModal('confirmModal');
+        }
+
+        async function handleConfirmAction() {
+            if (currentConfirmAction) {
+                await currentConfirmAction(currentConfirmData);
+            }
+            closeAllModals();
+            currentConfirmAction = null;
+            currentConfirmData = null;
+        }
+
         // ===== SETTINGS MODAL =====
         function openSettingsModal() {
             if (!currentUser) {
@@ -2800,21 +4150,18 @@
         function updateSettingsUI() {
             if (!currentUser) return;
             
-            // Profile
-            const displayName = currentUser.displayName || userData.name || currentUser.email?.split('@')[0] || 'المستخدم';
-            const email = currentUser.email || userData.email || 'غير محدد';
-            const createdAt = userData.createdAt ? formatDate(userData.createdAt.toDate()) : formatDate(new Date());
+            const displayName = currentUser.displayName || currentUser.email?.split('@')[0] || 'المستخدم';
+            const email = currentUser.email || 'غير محدد';
+            const createdAt = userSettings.createdAt ? formatDate(userSettings.createdAt.toDate()) : formatDate(new Date());
             
             document.getElementById('settingsName').textContent = displayName;
             document.getElementById('settingsEmail').textContent = email;
             document.getElementById('settingsCreatedAt').textContent = createdAt;
             
-            // Plan
-            const plan = userData.plan || 'مجانية';
+            const plan = userSettings.plan || 'مجانية';
             document.getElementById('currentPlan').textContent = plan;
             document.getElementById('currentPlan').className = `plan-badge ${plan === 'مجانية' ? '' : 'pro'}`;
             
-            // Boards limit
             document.getElementById('boardsLimit').textContent = plan === 'مجانية' ? '10 حسابات' : 'غير محدود';
             
             // Theme selector
@@ -2836,6 +4183,29 @@
                     option.classList.add('selected');
                 }
             });
+            
+            // Debug mode selector
+            const currentDebugMode = userSettings.debugMode || 'off';
+            const debugOptions = document.querySelectorAll('#debugModeSelector .segmented-option');
+            debugOptions.forEach(option => {
+                option.classList.remove('selected');
+                if (option.getAttribute('data-value') === currentDebugMode) {
+                    option.classList.add('selected');
+                }
+            });
+            
+            // Debug info section
+            const debugSection = document.getElementById('debugInfoSection');
+            if (debugSection) {
+                debugSection.style.display = currentDebugMode === 'on' ? 'block' : 'none';
+                
+                if (currentDebugMode === 'on') {
+                    document.getElementById('debugDeviceId').textContent = currentDeviceId || '-';
+                    document.getElementById('debugOwnerId').textContent = securityData?.ownerDeviceId || '-';
+                    document.getElementById('debugDeviceStatus').textContent = deviceStatus || '-';
+                    document.getElementById('debugLastCheck').textContent = new Date().toLocaleString('ar-SA');
+                }
+            }
         }
 
         function editUserName() {
@@ -2850,20 +4220,16 @@
 
         async function updateUserName(name) {
             try {
-                // Update in Firebase Auth
                 await updateProfile(currentUser, {
                     displayName: name
                 });
                 
-                // Update user document in Firestore
-                const userRef = doc(db, 'users', currentUser.uid);
-                await updateDoc(userRef, {
-                    name: name,
+                await updateDoc(accountRef, {
+                    'profile.name': name,
                     updatedAt: serverTimestamp()
                 }, { merge: true });
                 
-                // Update UI
-                updateUserUI(name, currentUser?.email);
+                updateUserUI();
                 updateSettingsUI();
                 showToast('تم تحديث الاسم بنجاح', 'success');
             } catch (error) {
@@ -2872,127 +4238,86 @@
             }
         }
 
-        // ===== DEVICES MANAGEMENT =====
-        async function registerCurrentDevice() {
-            if (!currentUser) return;
+        function selectTheme(option) {
+            const theme = option.getAttribute('data-theme');
+            
+            document.querySelectorAll('#themeSelector .segmented-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            option.classList.add('selected');
+            
+            applyTheme(theme);
+            
+            userSettings.theme = theme;
+            updateSettings();
+            
+            logActivity('theme', { theme });
+        }
+
+        function selectPasswordVisibility(option) {
+            const value = option.getAttribute('data-value');
+            
+            document.querySelectorAll('#passwordVisibilitySelector .segmented-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            option.classList.add('selected');
+            
+            userSettings.passwordVisibility = value;
+            updateSettings();
+            showToast('تم حفظ التفضيل', 'success');
+        }
+
+        function selectDebugMode(option) {
+            const value = option.getAttribute('data-value');
+            
+            document.querySelectorAll('#debugModeSelector .segmented-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            option.classList.add('selected');
+            
+            userSettings.debugMode = value;
+            updateSettings();
+            
+            // Update UI immediately
+            const debugSection = document.getElementById('debugInfoSection');
+            if (debugSection) {
+                debugSection.style.display = value === 'on' ? 'block' : 'none';
+            }
+            
+            showToast('تم تغيير وضع التصحيح', 'success');
+        }
+
+        async function updateSettings() {
+            if (!accountRef) return;
             
             try {
-                const deviceInfo = getDeviceInfo();
-                const deviceRef = doc(db, 'devices', `${currentUser.uid}_${currentDeviceId}`);
-                
-                await setDoc(deviceRef, {
-                    userId: currentUser.uid,
-                    deviceId: currentDeviceId,
-                    deviceName: deviceInfo.name,
-                    browser: deviceInfo.browser,
-                    os: deviceInfo.os,
-                    isCurrent: true,
-                    isActive: true,
-                    lastActive: serverTimestamp(),
-                    createdAt: serverTimestamp(),
+                await updateDoc(accountRef, {
+                    settings: userSettings,
                     updatedAt: serverTimestamp()
                 }, { merge: true });
-                
-                console.log('Device registered:', deviceInfo);
             } catch (error) {
-                console.error('Error registering device:', error);
+                console.error('Error updating settings:', error);
             }
         }
 
-        function getDeviceInfo() {
-            const userAgent = navigator.userAgent;
-            let deviceName = 'Unknown Device';
-            let browser = 'Unknown Browser';
-            let os = 'Unknown OS';
-            
-            // Detect device type
-            if (/mobile/i.test(userAgent)) {
-                deviceName = 'هاتف محمول';
-            } else if (/tablet/i.test(userAgent)) {
-                deviceName = 'تابلت';
-            } else {
-                deviceName = 'حاسوب';
-            }
-            
-            // Detect browser
-            if (/edg/i.test(userAgent)) {
-                browser = 'Microsoft Edge';
-            } else if (/chrome/i.test(userAgent)) {
-                browser = 'Google Chrome';
-            } else if (/firefox/i.test(userAgent)) {
-                browser = 'Mozilla Firefox';
-            } else if (/safari/i.test(userAgent)) {
-                browser = 'Safari';
-            } else if (/opera/i.test(userAgent)) {
-                browser = 'Opera';
-            }
-            
-            // Detect OS
-            if (/windows/i.test(userAgent)) {
-                os = 'Windows';
-            } else if (/macintosh/i.test(userAgent)) {
-                os = 'macOS';
-            } else if (/linux/i.test(userAgent)) {
-                os = 'Linux';
-            } else if (/android/i.test(userAgent)) {
-                os = 'Android';
-            } else if (/iphone|ipad|ipod/i.test(userAgent)) {
-                os = 'iOS';
-            }
-            
-            return { name: deviceName, browser, os };
+        // ===== UI RENDERING =====
+        async function loadAndRenderDevices() {
+            userDevices = await loadDevices();
+            renderDevices(userDevices);
         }
 
-        function generateDeviceId() {
-            const timestamp = Date.now().toString(36);
-            const random = Math.random().toString(36).substr(2, 6);
-            return `device_${timestamp}_${random}`;
-        }
-
-        async function loadUserDevices() {
-            if (!currentUser) return [];
-            
-            try {
-                const devicesRef = collection(db, 'devices');
-                const q = query(
-                    devicesRef,
-                    where('userId', '==', currentUser.uid),
-                    orderBy('lastActive', 'desc')
-                );
-                
-                const snapshot = await getDocs(q);
-                const devices = [];
-                
-                snapshot.forEach(doc => {
-                    const deviceData = doc.data();
-                    devices.push({
-                        id: doc.id,
-                        ...deviceData,
-                        lastActive: deviceData.lastActive?.toDate?.() || new Date()
-                    });
-                });
-                
-                return devices;
-            } catch (error) {
-                console.error('Error loading devices:', error);
-                return [];
-            }
-        }
-
-        async function renderDevices() {
+        function renderDevices(devices) {
             const devicesList = document.getElementById('devicesList');
             if (!devicesList) return;
             
-            const devices = await loadUserDevices();
-            
             if (devices.length === 0) {
                 devicesList.innerHTML = `
-                    <div class="empty-state-section">
-                        <div class="empty-state-icon">
+                    <div class="empty-state">
+                        <div class="empty-icon">
                             <iconify-icon icon="mdi:devices"></iconify-icon>
                         </div>
                         <h3 class="h3">لا توجد أجهزة</h3>
-                        <p class="empty-state-text">
+                        <p class="body">
                             سيظهر هنا أي جهاز تقوم بتسجيل الدخول منه
                         </p>
                     </div>
@@ -3009,14 +4334,23 @@
         }
 
         function createDeviceElement(device) {
-            const isCurrent = device.deviceId === currentDeviceId;
-            const deviceElement = document.createElement('div');
-            deviceElement.className = `device-card ${isCurrent ? 'current' : ''}`;
+            const isCurrent = device.id === currentDeviceId;
+            const isOwner = securityData?.ownerDeviceId === device.id;
+            const isBlocked = securityData?.blockedDevices?.[device.id];
+            const isPending = securityData?.pendingDevices?.[device.id] && !isOwner;
             
-            const deviceIcon = getDeviceIcon(device.deviceName);
+            let deviceClass = 'device-card';
+            if (isCurrent) deviceClass += ' current';
+            if (isBlocked) deviceClass += ' blocked';
+            if (isPending) deviceClass += ' pending';
+            
+            const element = document.createElement('div');
+            element.className = deviceClass;
+            
             const lastActive = formatTimeAgo(device.lastActive);
+            const deviceIcon = getDeviceIcon(device.deviceName);
             
-            deviceElement.innerHTML = `
+            element.innerHTML = `
                 <div class="device-icon">
                     <iconify-icon icon="${deviceIcon}"></iconify-icon>
                 </div>
@@ -3027,142 +4361,186 @@
                             <div class="device-name">${device.deviceName}</div>
                             <div class="device-details">
                                 ${device.browser} • ${device.os}
-                                <br>
-                                <span style="color: var(--text-muted); font-size: 0.75rem;">
-                                    آخر نشاط: ${lastActive}
-                                </span>
                             </div>
                         </div>
-                        ${isCurrent ? 
-                            `<span class="device-badge">هذا الجهاز</span>` : 
-                            ''
-                        }
+                        <div class="device-badges">
+                            ${isCurrent ? `
+                                <span class="device-badge current">
+                                    <iconify-icon icon="mdi:check-circle"></iconify-icon>
+                                    هذا الجهاز
+                                </span>
+                            ` : ''}
+                            ${isOwner ? `
+                                <span class="device-badge owner">
+                                    <iconify-icon icon="mdi:crown"></iconify-icon>
+                                    المالك
+                                </span>
+                            ` : ''}
+                            ${device.trusted && !isBlocked ? `
+                                <span class="device-badge trusted">
+                                    <iconify-icon icon="mdi:shield-check"></iconify-icon>
+                                    موثوق
+                                </span>
+                            ` : ''}
+                            ${isBlocked ? `
+                                <span class="device-badge blocked">
+                                    <iconify-icon icon="mdi:block-helper"></iconify-icon>
+                                    محظور
+                                </span>
+                            ` : ''}
+                            ${isPending ? `
+                                <span class="device-badge pending">
+                                    <iconify-icon icon="mdi:clock-outline"></iconify-icon>
+                                    في انتظار الموافقة
+                                </span>
+                            ` : ''}
+                            ${userSettings.debugMode === 'on' ? `
+                                <span class="device-badge debug">
+                                    <iconify-icon icon="mdi:bug"></iconify-icon>
+                                    ${device.id.substring(0, 8)}...
+                                </span>
+                            ` : ''}
+                        </div>
+                    </div>
+                    
+                    <div class="device-time">
+                        <iconify-icon icon="mdi:clock-outline"></iconify-icon>
+                        <span>آخر نشاط: ${lastActive}</span>
                     </div>
                 </div>
                 
-                ${!isCurrent ? `
-                    <div class="device-actions">
-                        <button class="device-action-btn signout-btn" 
-                                data-device-id="${device.deviceId}"
-                                title="تسجيل الخروج من هذا الجهاز">
-                            <iconify-icon icon="mdi:logout"></iconify-icon>
-                            <span>تسجيل الخروج</span>
-                        </button>
-                    </div>
-                ` : ''}
+                <div class="device-actions">
+                    ${renderDeviceActions(device, isCurrent, isOwner, isBlocked, isPending)}
+                </div>
             `;
             
-            if (!isCurrent) {
-                const signoutBtn = deviceElement.querySelector('.signout-btn');
-                signoutBtn.addEventListener('click', () => signOutDevice(device));
+            // Add event listeners for action buttons
+            setTimeout(() => {
+                if (!isCurrent) {
+                    const logoutBtn = element.querySelector('.logout');
+                    const trustBtn = element.querySelector('.trust');
+                    const untrustBtn = element.querySelector('.untrust');
+                    const blockBtn = element.querySelector('.block');
+                    const unblockBtn = element.querySelector('.unblock');
+                    const approveBtn = element.querySelector('.approve');
+                    
+                    logoutBtn?.addEventListener('click', () => signOutDevice(device));
+                    trustBtn?.addEventListener('click', () => toggleDeviceTrustAction(device.id, true));
+                    untrustBtn?.addEventListener('click', () => toggleDeviceTrustAction(device.id, false));
+                    blockBtn?.addEventListener('click', () => blockDeviceAction(device));
+                    unblockBtn?.addEventListener('click', () => unblockDeviceAction(device.id));
+                    approveBtn?.addEventListener('click', () => approveDeviceAction(device.id));
+                }
+            }, 100);
+            
+            return element;
+        }
+
+        function renderDeviceActions(device, isCurrent, isOwner, isBlocked, isPending) {
+            if (isCurrent) {
+                return ''; // No actions for current device
             }
             
-            return deviceElement;
-        }
-
-        function getDeviceIcon(deviceName) {
-            if (deviceName.includes('هاتف')) return 'mdi:cellphone';
-            if (deviceName.includes('تابلت')) return 'mdi:tablet';
-            if (deviceName.includes('حاسوب')) return 'mdi:laptop';
-            return 'mdi:devices';
-        }
-
-        async function signOutDevice(device) {
-            try {
-                const confirmLogout = confirm(`هل تريد بالتأكيد تسجيل الخروج من ${device.deviceName}؟\n\nسيتم إغلاق الجلسة على ذلك الجهاز.`);
-                
-                if (!confirmLogout) return;
-                
-                // Mark device as inactive in Firestore
-                const deviceRef = doc(db, 'devices', device.id);
-                await updateDoc(deviceRef, {
-                    isActive: false,
-                    isCurrent: false,
-                    updatedAt: serverTimestamp()
-                });
-                
-                // Log the activity
-                await logActivity('device_logout', {
-                    deviceName: device.deviceName,
-                    deviceId: device.deviceId
-                });
-                
-                // Refresh devices list
-                await renderDevices();
-                showToast('تم تسجيل الخروج من الجهاز بنجاح', 'success');
-            } catch (error) {
-                console.error('Error signing out device:', error);
-                showToast('حدث خطأ أثناء تسجيل الخروج من الجهاز', 'error');
+            if (!isOwnerDevice) {
+                return ''; // Only owner device can perform actions
             }
-        }
-
-        // ===== ACTIVITY LOGS MANAGEMENT =====
-        async function logActivity(action, details = {}) {
-            if (!currentUser) return;
             
-            try {
-                const activityRef = collection(db, 'activityLogs');
-                const deviceInfo = getDeviceInfo();
-                
-                await addDoc(activityRef, {
-                    userId: currentUser.uid,
-                    action: action,
-                    details: details,
-                    deviceId: currentDeviceId,
-                    deviceName: deviceInfo.name,
-                    timestamp: serverTimestamp()
-                });
-                
-                console.log('Activity logged:', action, details);
-            } catch (error) {
-                console.error('Error logging activity:', error);
+            let actions = '';
+            
+            if (isBlocked) {
+                actions += `
+                    <button class="device-action-btn unblock" data-device-id="${device.id}">
+                        <iconify-icon icon="mdi:lock-open"></iconify-icon>
+                        إلغاء المنع
+                    </button>
+                `;
+            } else if (isPending) {
+                actions += `
+                    <button class="device-action-btn approve" data-device-id="${device.id}">
+                        <iconify-icon icon="mdi:check-circle"></iconify-icon>
+                        الموافقة
+                    </button>
+                    <button class="device-action-btn block" data-device-id="${device.id}">
+                        <iconify-icon icon="mdi:block-helper"></iconify-icon>
+                        رفض
+                    </button>
+                `;
+            } else {
+                actions += `
+                    <button class="device-action-btn logout" data-device-id="${device.id}">
+                        <iconify-icon icon="mdi:logout"></iconify-icon>
+                        تسجيل الخروج
+                    </button>
+                    ${device.trusted ? `
+                        <button class="device-action-btn untrust" data-device-id="${device.id}">
+                            <iconify-icon icon="mdi:shield-off"></iconify-icon>
+                            إلغاء الثقة
+                        </button>
+                    ` : `
+                        <button class="device-action-btn trust" data-device-id="${device.id}">
+                            <iconify-icon icon="mdi:shield-check"></iconify-icon>
+                            تعيين كموثوق
+                        </button>
+                    `}
+                    <button class="device-action-btn block" data-device-id="${device.id}">
+                        <iconify-icon icon="mdi:block-helper"></iconify-icon>
+                        منع
+                    </button>
+                `;
             }
+            
+            return actions;
         }
 
-        async function loadActivityLogs() {
-            if (!currentUser) return [];
+        function setupActivityFilters() {
+            const filtersContainer = document.getElementById('activityFilters');
+            if (!filtersContainer) return;
             
-            try {
-                const activityRef = collection(db, 'activityLogs');
-                const q = query(
-                    activityRef,
-                    where('userId', '==', currentUser.uid),
-                    orderBy('timestamp', 'desc')
-                );
-                
-                const snapshot = await getDocs(q);
-                const logs = [];
-                
-                snapshot.forEach(doc => {
-                    const logData = doc.data();
-                    logs.push({
-                        id: doc.id,
-                        ...logData,
-                        timestamp: logData.timestamp?.toDate?.() || new Date()
+            const filters = [
+                { value: 'all', label: 'الكل' },
+                { value: 'security', label: 'الأمان' },
+                { value: 'vault', label: 'الحسابات' },
+                { value: 'migration', label: 'الترحيل' }
+            ];
+            
+            filtersContainer.innerHTML = filters.map(filter => `
+                <button class="activity-filter ${filter.value === 'all' ? 'active' : ''}" 
+                        data-filter="${filter.value}">
+                    ${filter.label}
+                </button>
+            `).join('');
+            
+            filtersContainer.querySelectorAll('.activity-filter').forEach(btn => {
+                btn.addEventListener('click', async (e) => {
+                    const filter = e.target.getAttribute('data-filter');
+                    
+                    filtersContainer.querySelectorAll('.activity-filter').forEach(b => {
+                        b.classList.remove('active');
                     });
+                    e.target.classList.add('active');
+                    
+                    await loadAndRenderActivityLogs(filter);
                 });
-                
-                return logs;
-            } catch (error) {
-                console.error('Error loading activity logs:', error);
-                return [];
-            }
+            });
         }
 
-        async function renderActivityLogs() {
-            const activityTimeline = document.getElementById('activityTimeline');
-            if (!activityTimeline) return;
-            
-            const logs = await loadActivityLogs();
+        async function loadAndRenderActivityLogs(filter = 'all') {
+            const logs = await loadActivityLogs(filter);
+            renderActivityLogs(logs);
+        }
+
+        function renderActivityLogs(logs) {
+            const timeline = document.getElementById('activityTimeline');
+            if (!timeline) return;
             
             if (logs.length === 0) {
-                activityTimeline.innerHTML = `
-                    <div class="empty-state-section">
-                        <div class="empty-state-icon">
+                timeline.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">
                             <iconify-icon icon="mdi:history"></iconify-icon>
                         </div>
                         <h3 class="h3">لا توجد سجلات نشاط</h3>
-                        <p class="empty-state-text">
+                        <p class="body">
                             سيظهر هنا أي نشاط تقوم به على حسابك
                         </p>
                     </div>
@@ -3170,81 +4548,65 @@
                 return;
             }
             
-            // Group logs by day
             const logsByDay = groupLogsByDay(logs);
             
-            activityTimeline.innerHTML = '';
+            timeline.innerHTML = '';
             
             Object.keys(logsByDay).forEach(day => {
                 const dayGroup = document.createElement('div');
                 dayGroup.className = 'activity-day-group';
                 
-                const dayHeader = document.createElement('div');
-                dayHeader.className = 'day-header';
-                dayHeader.innerHTML = `
-                    <h3 class="day-label">${day}</h3>
-                    <span class="caption" style="color: var(--text-muted);">${logsByDay[day].length} نشاط</span>
+                dayGroup.innerHTML = `
+                    <div class="day-header">
+                        <h3 class="day-label">${day}</h3>
+                        <span class="day-count">${logsByDay[day].length} نشاط</span>
+                    </div>
+                    <div class="activity-items">
+                        ${logsByDay[day].map(log => createActivityItem(log)).join('')}
+                    </div>
                 `;
                 
-                dayGroup.appendChild(dayHeader);
-                
-                logsByDay[day].forEach(log => {
-                    const activityItem = createActivityItem(log);
-                    dayGroup.appendChild(activityItem);
-                });
-                
-                activityTimeline.appendChild(dayGroup);
+                timeline.appendChild(dayGroup);
             });
-        }
-
-        function groupLogsByDay(logs) {
-            const groups = {};
-            
-            logs.forEach(log => {
-                const date = log.timestamp.toLocaleDateString('ar-SA', {
-                    weekday: 'long',
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric'
-                });
-                
-                if (!groups[date]) {
-                    groups[date] = [];
-                }
-                
-                groups[date].push(log);
-            });
-            
-            return groups;
         }
 
         function createActivityItem(log) {
-            const activity = activityIcons[log.action] || { icon: 'mdi:information', label: 'نشاط' };
-            const description = activityDescriptions[log.action]?.(log.details) || 'نشاط جديد';
+            const activity = getActivityInfo(log.action);
+            const description = getActivityDescription(log.action, log.details);
             
-            const activityItem = document.createElement('div');
-            activityItem.className = 'activity-item';
-            activityItem.innerHTML = `
-                <div class="activity-icon ${log.action}">
-                    <iconify-icon icon="${activity.icon}"></iconify-icon>
-                </div>
-                
-                <div class="activity-content">
-                    <div class="activity-description">${description}</div>
-                    <div class="activity-details">
-                        ${log.deviceName ? `من ${log.deviceName}` : ''}
+            return `
+                <div class="activity-item">
+                    <div class="activity-icon ${log.action}">
+                        <iconify-icon icon="${activity.icon}"></iconify-icon>
+                    </div>
+                    <div class="activity-content">
+                        <div class="activity-description">${description}</div>
+                        <div class="activity-details">
+                            ${log.deviceName ? `من ${log.deviceName}` : ''}
+                        </div>
+                    </div>
+                    <div class="activity-time">
+                        ${formatTime(log.timestamp)}
                     </div>
                 </div>
-                
-                <div class="activity-time">
-                    ${formatTime(log.timestamp)}
-                </div>
             `;
-            
-            return activityItem;
         }
 
         // ===== BOARD OPERATIONS =====
+        async function loadUserData() {
+            if (!accountRef) return;
+            
+            const accountDoc = await getDoc(accountRef);
+            if (accountDoc.exists()) {
+                const data = accountDoc.data();
+                userBoards = data.vault?.boards || [];
+                userSettings = data.settings || {};
+                securityData = data.security || {};
+                
+                renderBoards();
+            }
+        }
+
         async function handleBoardSubmit(e) {
             e.preventDefault();
             
@@ -3325,7 +4687,11 @@
                     showToast('تم إضافة الحساب بنجاح!', 'success');
                 }
                 
-                await saveBoardsToFirestore();
+                await updateDoc(accountRef, {
+                    'vault.boards': userBoards,
+                    updatedAt: serverTimestamp()
+                }, { merge: true });
+                
                 await logActivity(currentEditingBoard ? 'edit' : 'add', { boardName: boardName });
                 renderBoards();
                 closeAllModals();
@@ -3362,54 +4728,39 @@
         }
 
         function showDeleteConfirmation(board) {
-            boardToDelete = board;
-            document.getElementById('confirmTitle').textContent = `حذف ${board.name}`;
-            document.getElementById('confirmMessage').textContent = 
-                `سيتم حذف حساب "${board.name}" نهائياً. لا يمكن التراجع عن هذا الإجراء.`;
-            openModal('confirmModal');
+            showConfirmModal({
+                title: 'حذف حساب',
+                titleText: `حذف ${board.name}`,
+                message: `سيتم حذف حساب "${board.name}" نهائياً. لا يمكن التراجع عن هذا الإجراء.`,
+                icon: 'mdi:delete',
+                iconBg: 'var(--danger-light)',
+                iconColor: 'var(--danger)',
+                actionText: 'نعم، احذف',
+                actionIcon: 'mdi:delete',
+                actionType: 'btn-danger',
+                action: () => deleteBoard(board),
+                data: board
+            });
         }
 
-        async function confirmDelete() {
-            if (!boardToDelete) return;
-            
+        async function deleteBoard(board) {
             try {
-                userBoards = userBoards.filter(b => b.id !== boardToDelete.id);
-                await saveBoardsToFirestore();
-                await logActivity('delete', { boardName: boardToDelete.name });
+                userBoards = userBoards.filter(b => b.id !== board.id);
+                
+                await updateDoc(accountRef, {
+                    'vault.boards': userBoards,
+                    updatedAt: serverTimestamp()
+                }, { merge: true });
+                
+                await logActivity('delete', { boardName: board.name });
                 renderBoards();
                 showToast('تم حذف الحساب بنجاح', 'success');
-                closeAllModals();
             } catch (error) {
                 console.error('Error deleting board:', error);
                 showToast('حدث خطأ أثناء حذف الحساب', 'error');
             }
         }
 
-        // ===== COPY FUNCTIONALITY =====
-        function copyToClipboard(text, button, boardName = '') {
-            navigator.clipboard.writeText(text).then(() => {
-                showToast('تم النسخ إلى الحافظة!', 'success');
-                
-                if (button) {
-                    const originalIcon = button.innerHTML;
-                    button.innerHTML = '<iconify-icon icon="mdi:check" style="color: var(--success);"></iconify-icon>';
-                    
-                    setTimeout(() => {
-                        button.innerHTML = originalIcon;
-                    }, 2000);
-                }
-                
-                // Log activity
-                if (boardName) {
-                    logActivity('copy', { boardName: boardName });
-                }
-            }).catch(err => {
-                console.error('Failed to copy:', err);
-                showToast('حدث خطأ أثناء النسخ', 'error');
-            });
-        }
-
-        // ===== RENDER BOARDS =====
         function renderBoards() {
             const container = document.getElementById('boardsContainer');
             const emptyState = document.getElementById('emptyState');
@@ -3442,7 +4793,6 @@
             const element = document.createElement('div');
             element.className = 'board-card';
             
-            // Calculate password strength
             const password = board.password;
             let strength = 0;
             let totalWeight = 0;
@@ -3576,7 +4926,6 @@
                             '<iconify-icon icon="mdi:eye-off"></iconify-icon>';
                     });
                 } else {
-                    // Default: hold to show
                     let holdTimer;
                     
                     const showPassword = () => {
@@ -3610,6 +4959,230 @@
             return element;
         }
 
+        // ===== DEVICE ACTIONS HANDLERS =====
+        async function signOutDevice(device) {
+            try {
+                const deviceRef = doc(accountRef, 'devices', device.id);
+                await deleteDoc(deviceRef);
+                
+                await logActivity('device_logout', {
+                    deviceName: device.deviceName
+                });
+                
+                await loadAndRenderDevices();
+                showToast('تم تسجيل الخروج من الجهاز بنجاح', 'success');
+            } catch (error) {
+                console.error('Error signing out device:', error);
+                showToast('حدث خطأ أثناء تسجيل الخروج من الجهاز', 'error');
+            }
+        }
+
+        function toggleDeviceTrustAction(deviceId, trusted) {
+            showConfirmModal({
+                title: trusted ? 'تعيين كموثوق' : 'إلغاء الثقة',
+                titleText: trusted ? 'تعيين الجهاز كموثوق' : 'إلغاء الثقة عن الجهاز',
+                message: trusted 
+                    ? 'هل تريد تعيين هذا الجهاز كموثوق؟ الأجهزة الموثوقة يمكنها الوصول بدون موافقة.'
+                    : 'هل تريد إلغاء الثقة عن هذا الجهاز؟ سيحتاج الجهاز إلى موافقة عند تسجيل الدخول التالي.',
+                icon: trusted ? 'mdi:shield-check' : 'mdi:shield-off',
+                iconBg: 'var(--mint-50)',
+                iconColor: 'var(--mint-400)',
+                actionText: trusted ? 'نعم، تعيين' : 'نعم، إلغاء',
+                actionIcon: trusted ? 'mdi:shield-check' : 'mdi:shield-off',
+                actionType: 'btn-primary',
+                action: async () => {
+                    const success = await toggleDeviceTrust(deviceId, trusted);
+                    if (success) {
+                        await loadAndRenderDevices();
+                    }
+                },
+                data: { deviceId, trusted }
+            });
+        }
+
+        function blockDeviceAction(device) {
+            showConfirmModal({
+                title: 'منع جهاز',
+                titleText: `منع ${device.deviceName}`,
+                message: 'اختر نوع المنع:<br><br>' +
+                        '• <strong>منع مؤقت</strong>: يمكن إلغاؤه لاحقاً<br>' +
+                        '• <strong>منع نهائي</strong>: لا يمكن إلغاؤه',
+                icon: 'mdi:block-helper',
+                iconBg: 'var(--danger-light)',
+                iconColor: 'var(--danger)',
+                actionText: 'مؤقت',
+                actionIcon: 'mdi:clock-alert',
+                actionType: 'btn-warning',
+                action: async (data) => {
+                    const permanent = data?.permanent || false;
+                    const reason = data?.reason || '';
+                    const success = await blockDevice(device.id, permanent, reason);
+                    if (success) {
+                        await loadAndRenderDevices();
+                    }
+                },
+                data: { deviceId: device.id, permanent: false }
+            });
+            
+            // Add permanent block button
+            const modalActions = document.querySelector('#confirmModal .modal-actions');
+            if (modalActions) {
+                const permanentBtn = document.createElement('button');
+                permanentBtn.className = 'btn btn-danger';
+                permanentBtn.innerHTML = '<iconify-icon icon="mdi:block-helper"></iconify-icon> <span>نهائي</span>';
+                permanentBtn.onclick = () => {
+                    const reason = prompt('أدخل سبب المنع النهائي (اختياري):', 'منع نهائي من المالك');
+                    showConfirmModal({
+                        title: 'تأكيد المنع النهائي',
+                        titleText: `منع نهائي لـ ${device.deviceName}`,
+                        message: `⚠️ <strong>تحذير:</strong> هذا الإجراء لا يمكن التراجع عنه.<br><br>` +
+                                `سيتم منع الجهاز ${device.deviceName} نهائياً من الوصول إلى الحساب.`,
+                        icon: 'mdi:alert-circle',
+                        iconBg: 'var(--danger-light)',
+                        iconColor: 'var(--danger)',
+                        actionText: 'نعم، منع نهائي',
+                        actionIcon: 'mdi:block-helper',
+                        actionType: 'btn-danger',
+                        action: async () => {
+                            const success = await blockDevice(device.id, true, reason);
+                            if (success) {
+                                await loadAndRenderDevices();
+                            }
+                        },
+                        data: { deviceId: device.id, permanent: true, reason }
+                    });
+                };
+                
+                const cancelBtn = document.getElementById('cancelConfirmBtn');
+                modalActions.insertBefore(permanentBtn, cancelBtn.nextSibling);
+            }
+        }
+
+        function unblockDeviceAction(deviceId) {
+            showConfirmModal({
+                title: 'إلغاء منع جهاز',
+                titleText: 'إلغاء المنع عن الجهاز',
+                message: 'هل تريد إلغاء منع هذا الجهاز؟ سيكون بإمكان الجهاز تسجيل الدخول مرة أخرى.',
+                icon: 'mdi:lock-open',
+                iconBg: 'var(--mint-50)',
+                iconColor: 'var(--mint-400)',
+                actionText: 'نعم، إلغاء المنع',
+                actionIcon: 'mdi:lock-open',
+                actionType: 'btn-primary',
+                action: async () => {
+                    const success = await unblockDevice(deviceId);
+                    if (success) {
+                        await loadAndRenderDevices();
+                    }
+                },
+                data: { deviceId }
+            });
+        }
+
+        function approveDeviceAction(deviceId) {
+            showConfirmModal({
+                title: 'الموافقة على جهاز',
+                titleText: 'الموافقة على الجهاز',
+                message: 'هل تريد الموافقة على هذا الجهاز؟ سيتمكن الجهاز من الوصول إلى الحساب.',
+                icon: 'mdi:check-circle',
+                iconBg: 'rgba(16, 185, 129, 0.1)',
+                iconColor: 'var(--success)',
+                actionText: 'نعم، الموافقة',
+                actionIcon: 'mdi:check-circle',
+                actionType: 'btn-primary',
+                action: async () => {
+                    const success = await approveDevice(deviceId);
+                    if (success) {
+                        await loadAndRenderDevices();
+                    }
+                },
+                data: { deviceId }
+            });
+        }
+
+        // ===== UTILITY FUNCTIONS =====
+        function selectIcon(iconElement) {
+            document.querySelectorAll('.icon-option').forEach(icon => {
+                icon.classList.remove('selected');
+            });
+            iconElement.classList.add('selected');
+            
+            iconElement.style.animation = 'copyPulse 0.6s';
+            setTimeout(() => {
+                iconElement.style.animation = '';
+            }, 600);
+        }
+
+        function selectColor(colorCircle) {
+            document.querySelectorAll('.radio-circle').forEach(circle => {
+                circle.classList.remove('selected');
+            });
+            colorCircle.classList.add('selected');
+            
+            colorCircle.style.boxShadow = '0 0 0 4px rgba(62, 180, 137, 0.2)';
+            setTimeout(() => {
+                colorCircle.style.boxShadow = '';
+            }, 300);
+        }
+
+        function getDeviceIcon(deviceName) {
+            if (deviceName.includes('هاتف')) return 'mdi:cellphone';
+            if (deviceName.includes('تابلت')) return 'mdi:tablet';
+            if (deviceName.includes('حاسوب')) return 'mdi:laptop';
+            return 'mdi:devices';
+        }
+
+        function getActivityInfo(action) {
+            return activityIcons[action] || { icon: 'mdi:information', label: 'نشاط' };
+        }
+
+        function getActivityDescription(action, details) {
+            return activityDescriptions[action]?.(details) || 'نشاط جديد';
+        }
+
+        function groupLogsByDay(logs) {
+            const groups = {};
+            
+            logs.forEach(log => {
+                const date = log.timestamp.toLocaleDateString('ar-SA', {
+                    weekday: 'long',
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                });
+                
+                if (!groups[date]) {
+                    groups[date] = [];
+                }
+                
+                groups[date].push(log);
+            });
+            
+            return groups;
+        }
+
+        function copyToClipboard(text, button, boardName = '') {
+            navigator.clipboard.writeText(text).then(() => {
+                showToast('تم النسخ إلى الحافظة!', 'success');
+                
+                if (button) {
+                    const originalIcon = button.innerHTML;
+                    button.innerHTML = '<iconify-icon icon="mdi:check" style="color: var(--success);"></iconify-icon>';
+                    
+                    setTimeout(() => {
+                        button.innerHTML = originalIcon;
+                    }, 2000);
+                }
+                
+                if (boardName) {
+                    logActivity('copy', { boardName: boardName });
+                }
+            }).catch(err => {
+                console.error('Failed to copy:', err);
+                showToast('حدث خطأ أثناء النسخ', 'error');
+            });
+        }
+
         function escapeHtml(text) {
             if (!text) return '';
             const div = document.createElement('div');
@@ -3617,128 +5190,6 @@
             return div.innerHTML;
         }
 
-        // ===== FIREBASE OPERATIONS =====
-        async function saveBoardsToFirestore() {
-            try {
-                if (!currentUser) return;
-                
-                const userDataRef = doc(db, 'data', currentUser.uid);
-                await setDoc(userDataRef, {
-                    boards: userBoards,
-                    lastUpdated: serverTimestamp()
-                }, { merge: true });
-            } catch (error) {
-                console.error('Error saving boards:', error);
-                throw error;
-            }
-        }
-
-        async function saveSettings(settings) {
-            try {
-                if (!currentUser) return;
-                
-                userSettings = { ...userSettings, ...settings };
-                
-                const userRef = doc(db, 'users', currentUser.uid);
-                await updateDoc(userRef, {
-                    settings: userSettings,
-                    updatedAt: serverTimestamp()
-                }, { merge: true });
-                
-                // Also save to localStorage for quick access
-                localStorage.setItem('userSettings', JSON.stringify(userSettings));
-            } catch (error) {
-                console.error('Error saving settings:', error);
-            }
-        }
-
-        async function loadUserData(uid) {
-            try {
-                // Load user profile
-                const userRef = doc(db, 'users', uid);
-                const userDoc = await getDoc(userRef);
-                
-                if (userDoc.exists()) {
-                    userData = userDoc.data();
-                    userSettings = userData.settings || {};
-                    
-                    // Load from localStorage if available
-                    const savedSettings = localStorage.getItem('userSettings');
-                    if (savedSettings) {
-                        userSettings = { ...userSettings, ...JSON.parse(savedSettings) };
-                    }
-                    
-                    updateUserUI(userData.name || currentUser.displayName || currentUser.email?.split('@')[0], userData.email || currentUser.email);
-                } else {
-                    // Create user document if it doesn't exist
-                    userSettings = {
-                        theme: 'light',
-                        passwordVisibility: 'hold'
-                    };
-                    
-                    await setDoc(userRef, {
-                        name: currentUser.displayName || currentUser.email?.split('@')[0],
-                        email: currentUser.email,
-                        createdAt: serverTimestamp(),
-                        plan: 'مجانية',
-                        settings: userSettings
-                    });
-                }
-                
-                // Load user boards
-                const dataRef = doc(db, 'data', uid);
-                const dataDoc = await getDoc(dataRef);
-                
-                if (dataDoc.exists() && dataDoc.data().boards) {
-                    userBoards = dataDoc.data().boards;
-                } else {
-                    userBoards = [];
-                }
-                
-                // Apply saved settings
-                loadSavedSettings();
-                renderBoards();
-                updateSettingsUI();
-            } catch (error) {
-                console.error('Error loading user data:', error);
-                showToast('حدث خطأ أثناء تحميل البيانات', 'error');
-            }
-        }
-
-        // ===== USER MANAGEMENT =====
-        function updateUserUI(name, email) {
-            const displayName = name || email?.split('@')[0] || 'المستخدم';
-            const displayEmail = email || 'user@example.com';
-            const initial = displayName.charAt(0).toUpperCase();
-            
-            document.getElementById('userName').textContent = displayName;
-            document.getElementById('dropdownName').textContent = displayName;
-            document.getElementById('userEmail').textContent = displayEmail;
-            document.getElementById('welcomeMessage').textContent = `مرحباً ${displayName}!`;
-            
-            const avatar = document.getElementById('userAvatar');
-            if (avatar) {
-                avatar.textContent = initial;
-            }
-        }
-
-        // ===== LOGOUT =====
-        async function handleLogout(e) {
-            if (e) e.preventDefault();
-            
-            try {
-                // Log activity before signing out
-                await logActivity('logout');
-                
-                await signOut(auth);
-                window.location.href = 'auth.html';
-            } catch (error) {
-                console.error('Error signing out:', error);
-                showToast('حدث خطأ أثناء تسجيل الخروج', 'error');
-            }
-        }
-
-        // ===== UTILITY FUNCTIONS =====
         function generateId() {
             return Date.now().toString(36) + Math.random().toString(36).substr(2, 9);
         }
@@ -3746,7 +5197,7 @@
         function formatDate(date) {
             if (!date) return '-';
             
-            return new Date(date).toLocaleDateString('ar-SA', {
+            return date.toLocaleDateString('ar-SA', {
                 year: 'numeric',
                 month: 'long',
                 day: 'numeric'
@@ -3763,8 +5214,6 @@
         }
 
         function formatTimeAgo(date) {
-            if (!date) return 'منذ قليل';
-            
             const now = new Date();
             const diffMs = now - date;
             const diffMins = Math.floor(diffMs / 60000);
@@ -3777,6 +5226,33 @@
             if (diffDays < 7) return `منذ ${diffDays} يوم`;
             
             return date.toLocaleDateString('ar-SA');
+        }
+
+        function updateUserUI() {
+            if (!currentUser) return;
+            
+            const displayName = currentUser.displayName || currentUser.email?.split('@')[0] || 'المستخدم';
+            document.getElementById('userName').textContent = displayName;
+            document.getElementById('dropdownName').textContent = displayName;
+            document.getElementById('userEmail').textContent = currentUser.email || 'user@example.com';
+            document.getElementById('welcomeMessage').textContent = `مرحباً ${displayName}!`;
+            
+            const initial = displayName.charAt(0).toUpperCase();
+            document.getElementById('userAvatar').textContent = initial;
+        }
+
+        // ===== LOGOUT =====
+        async function handleLogout(e) {
+            if (e) e.preventDefault();
+            
+            try {
+                await logActivity('logout');
+                await signOut(auth);
+                window.location.href = 'auth.html';
+            } catch (error) {
+                console.error('Error signing out:', error);
+                showToast('حدث خطأ أثناء تسجيل الخروج', 'error');
+            }
         }
 
         // ===== TOAST NOTIFICATIONS =====
@@ -3811,6 +5287,13 @@
                 }, 300);
             }, 3000);
         }
+
+        // Firebase deleteField helper
+        const deleteField = () => {
+            // This is a placeholder for Firebase's deleteField()
+            // In actual Firebase, you would import { deleteField } from 'firebase/firestore'
+            return null;
+        };
     </script>
 </body>
 </html>
