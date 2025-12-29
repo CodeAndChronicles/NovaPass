@@ -8,41 +8,41 @@
     <!-- Iconify Icons -->
     <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
     
-    <!-- Google Fonts -->
+    <!-- Google Fonts - Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
-        /* ===== DESIGN SYSTEM ===== */
+        /* ===== DESIGN SYSTEM UPDATED ===== */
         :root {
-            /* Primary Mint Green System */
+            /* Updated Mint Green Palette - As Accent */
             --mint-50: #E8F8F2;
             --mint-100: #D4F1E9;
             --mint-200: #B4E6D6;
-            --mint-300: #3EB489;
-            --mint-400: #1F7A5A;
-            --mint-500: #165C46;
+            --mint-300: #2ED3B7; /* Updated Primary Accent */
+            --mint-400: #1FAF95;
+            --mint-500: #158C75;
             
-            /* Neutral Palette */
-            --gray-50: #F9FFFC;
-            --gray-100: #F3F4F6;
-            --gray-200: #E5E7EB;
-            --gray-300: #D1D5DB;
-            --gray-400: #9CA3AF;
-            --gray-500: #6B7280;
-            --gray-600: #4B5563;
-            --gray-700: #374151;
-            --gray-800: #1F2937;
-            --gray-900: #111827;
+            /* Updated Neutral Palette */
+            --gray-50: #F8FAFC;
+            --gray-100: #F1F5F9;
+            --gray-200: #E2E8F0;
+            --gray-300: #CBD5E1;
+            --gray-400: #94A3B8;
+            --gray-500: #64748B;
+            --gray-600: #475569;
+            --gray-700: #334155;
+            --gray-800: #1E293B;
+            --gray-900: #0F172A;
             
             /* Semantic Colors */
             --success: #10B981;
             --warning: #F59E0B;
             --danger: #EF4444;
-            --info: #3B82F6;
             --danger-light: #FEE2E2;
             --danger-dark: #DC2626;
+            --info: #3B82F6;
             --pending: #F59E0B;
             --pending-light: #FEF3C7;
             --blocked: #DC2626;
@@ -50,10 +50,10 @@
             
             /* Shadows */
             --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08);
             --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-            --shadow-mint: 0 4px 20px rgba(62, 180, 137, 0.15);
+            --shadow-mint: 0 4px 20px rgba(46, 211, 183, 0.15);
             
             /* Light Theme (Default) */
             --bg-primary: var(--gray-50);
@@ -66,14 +66,14 @@
             --border-hover: var(--mint-300);
             
             /* Dark Theme Variables */
-            --dark-bg-primary: #0F172A;
-            --dark-bg-secondary: #1E293B;
-            --dark-bg-card: #1E293B;
-            --dark-text-primary: #E5E7EB;
+            --dark-bg-primary: #0B1220;
+            --dark-bg-secondary: #111827;
+            --dark-bg-card: #111827;
+            --dark-text-primary: #F1F5F9;
             --dark-text-secondary: #94A3B8;
             --dark-text-muted: #64748B;
-            --dark-border-color: #334155;
-            --dark-border-hover: #4ADE80;
+            --dark-border-color: #1E293B;
+            --dark-border-hover: #2ED3B7;
         }
 
         /* Apply Dark Theme */
@@ -86,6 +86,68 @@
             --text-muted: var(--dark-text-muted);
             --border-color: var(--dark-border-color);
             --border-hover: var(--dark-border-hover);
+        }
+
+        /* ===== LOADING STATES ===== */
+        .skeleton {
+            background: linear-gradient(
+                90deg,
+                var(--border-color) 25%,
+                var(--bg-primary) 50%,
+                var(--border-color) 75%
+            );
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+            border-radius: 8px;
+        }
+
+        .skeleton-text {
+            height: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .skeleton-circle {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+        }
+
+        .skeleton-card {
+            height: 280px;
+            border-radius: 20px;
+        }
+
+        @keyframes loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        .loading-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.9);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            border-radius: inherit;
+        }
+
+        body.dark-mode .loading-overlay {
+            background: rgba(11, 18, 32, 0.9);
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid var(--border-color);
+            border-top-color: var(--mint-300);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
         }
 
         /* ===== ACCESS OVERLAY ===== */
@@ -106,7 +168,7 @@
         }
 
         body.dark-mode .access-overlay {
-            background: rgba(15, 23, 42, 0.97);
+            background: rgba(11, 18, 32, 0.97);
         }
 
         .access-message {
@@ -161,16 +223,22 @@
             justify-content: center;
         }
 
-        /* ===== TYPOGRAPHY ===== */
+        /* ===== TYPOGRAPHY - UPDATED HIERARCHY ===== */
         .h1 { 
             font-size: 2.5rem; 
             font-weight: 700; 
             line-height: 1.2;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .h1 .gradient-text {
             background: linear-gradient(135deg, var(--mint-300), var(--mint-400));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            position: relative;
             display: inline-block;
         }
 
@@ -179,20 +247,67 @@
             position: absolute;
             bottom: -8px;
             right: 0;
-            width: 60%;
+            width: 40%;
             height: 3px;
             background: linear-gradient(90deg, transparent, var(--mint-300));
             border-radius: 2px;
         }
 
-        .h2 { font-size: 2rem; font-weight: 700; line-height: 1.3; }
-        .h3 { font-size: 1.5rem; font-weight: 600; line-height: 1.4; }
-        .h4 { font-size: 1.25rem; font-weight: 600; line-height: 1.4; }
+        .h2 { 
+            font-size: 2rem; 
+            font-weight: 700; 
+            line-height: 1.3;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
         
-        .body-lg { font-size: 1.125rem; line-height: 1.7; }
-        .body { font-size: 1rem; line-height: 1.6; }
-        .body-sm { font-size: 0.875rem; line-height: 1.5; }
-        .caption { font-size: 0.75rem; line-height: 1.4; color: var(--text-muted); }
+        .h3 { 
+            font-size: 1.5rem; 
+            font-weight: 600; 
+            line-height: 1.4;
+            color: var(--text-primary);
+            margin-bottom: 0.75rem;
+        }
+        
+        .h4 { 
+            font-size: 1.25rem; 
+            font-weight: 600; 
+            line-height: 1.4;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .section-subtitle {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 2rem;
+            max-width: 600px;
+        }
+        
+        .body-lg { 
+            font-size: 1.125rem; 
+            line-height: 1.7; 
+            color: var(--text-secondary);
+        }
+        
+        .body { 
+            font-size: 1rem; 
+            line-height: 1.6; 
+            color: var(--text-secondary);
+        }
+        
+        .body-sm { 
+            font-size: 0.875rem; 
+            line-height: 1.5; 
+            color: var(--text-muted);
+        }
+        
+        .caption { 
+            font-size: 0.75rem; 
+            line-height: 1.4; 
+            color: var(--text-muted);
+        }
         
         .text-gradient {
             background: linear-gradient(135deg, var(--mint-300), var(--mint-400));
@@ -201,7 +316,7 @@
             background-clip: text;
         }
 
-        /* ===== NAVBAR ===== */
+        /* ===== NAVBAR - UPDATED ===== */
         .navbar {
             background: var(--bg-secondary);
             border-bottom: 1px solid var(--border-color);
@@ -215,7 +330,7 @@
         }
 
         body.dark-mode .navbar {
-            background: rgba(30, 41, 59, 0.98);
+            background: rgba(17, 24, 39, 0.98);
         }
 
         .nav-container {
@@ -261,7 +376,7 @@
             gap: 1rem;
         }
 
-        /* ===== NAV TABS ===== */
+        /* ===== NAV TABS - UPDATED ===== */
         .nav-tabs {
             display: flex;
             gap: 0.5rem;
@@ -290,16 +405,18 @@
         }
 
         body.dark-mode .nav-tab:hover {
-            background: rgba(62, 180, 137, 0.1);
+            background: rgba(46, 211, 183, 0.1);
         }
 
         .nav-tab.active {
             background: var(--mint-100);
             color: var(--mint-400);
+            box-shadow: var(--shadow-sm);
         }
 
         body.dark-mode .nav-tab.active {
-            background: rgba(62, 180, 137, 0.2);
+            background: rgba(46, 211, 183, 0.2);
+            box-shadow: 0 2px 8px rgba(46, 211, 183, 0.15);
         }
 
         /* ===== SECTIONS MANAGEMENT ===== */
@@ -315,13 +432,17 @@
         .section-header {
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2rem;
+            align-items: flex-start;
+            margin-bottom: 2.5rem;
             padding-bottom: 1.5rem;
             border-bottom: 1px solid var(--border-color);
         }
 
-        /* ===== DASHBOARD SECTION ===== */
+        .section-header h2 {
+            margin-bottom: 0.5rem;
+        }
+
+        /* ===== DASHBOARD SECTION - UPDATED ===== */
         .dashboard-content {
             max-width: 1280px;
             margin: 0 auto;
@@ -333,16 +454,19 @@
             margin-bottom: 3rem;
         }
 
-        .welcome-section .body-lg {
-            color: var(--text-secondary);
-            margin-top: 1rem;
+        .welcome-section .h1 {
+            margin-bottom: 1rem;
+        }
+
+        .welcome-section .section-subtitle {
+            margin-bottom: 0;
             max-width: 600px;
         }
 
-        /* ===== BOARDS GRID ===== */
+        /* ===== SMART PASSWORD CARDS ===== */
         .boards-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
             gap: 1.5rem;
             margin-top: 2rem;
         }
@@ -359,13 +483,20 @@
             flex-direction: column;
             gap: 1.5rem;
             animation: fadeIn 0.5s ease;
-            min-height: 280px;
+            min-height: 320px;
         }
 
         .board-card:hover {
-            transform: translateY(-8px);
+            transform: translateY(-6px);
             box-shadow: var(--shadow-xl);
             border-color: var(--border-hover);
+        }
+
+        .board-card.loading {
+            min-height: 280px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
         .card-header {
@@ -400,31 +531,32 @@
         }
 
         body.dark-mode .board-icon {
-            background: rgba(62, 180, 137, 0.1);
+            background: rgba(46, 211, 183, 0.1);
         }
 
-        .color-dot {
+        .category-dot {
             position: absolute;
-            top: -8px;
-            right: -8px;
+            top: -6px;
+            right: -6px;
             width: 20px;
             height: 20px;
             border-radius: 50%;
             border: 3px solid var(--bg-card);
             transition: all 0.3s ease;
             box-shadow: var(--shadow-sm);
+            z-index: 2;
         }
 
-        .color-dot:hover {
+        .category-dot:hover {
             transform: scale(1.3);
         }
 
-        .color-dot.personal { background: var(--mint-300); }
-        .color-dot.work { background: #4ECDC4; }
-        .color-dot.important { background: #FF6B6B; }
-        .color-dot.social { background: #9D4EDD; }
-        .color-dot.finance { background: #FFD166; }
-        .color-dot.other { background: #118AB2; }
+        .category-dot.personal { background: var(--mint-300); }
+        .category-dot.work { background: #4ECDC4; }
+        .category-dot.important { background: #FF6B6B; }
+        .category-dot.social { background: #9D4EDD; }
+        .category-dot.finance { background: #FFD166; }
+        .category-dot.other { background: #118AB2; }
 
         .board-info {
             flex: 1;
@@ -472,10 +604,16 @@
             padding: 1rem;
             border: 1px solid var(--border-color);
             transition: border-color 0.2s ease;
+            position: relative;
         }
 
         .password-field:hover {
             border-color: var(--border-hover);
+        }
+
+        .password-field.focused {
+            border-color: var(--mint-300);
+            box-shadow: 0 0 0 3px rgba(46, 211, 183, 0.1);
         }
 
         .password-input {
@@ -488,22 +626,101 @@
             letter-spacing: 0.05em;
             min-width: 0;
             outline: none;
+            width: 100%;
         }
 
-        .card-actions {
+        .password-visibility-controls {
+            display: flex;
+            gap: 0.25rem;
+        }
+
+        /* Password Strength Badge */
+        .password-strength-badge {
+            position: absolute;
+            top: -10px;
+            left: 12px;
+            background: var(--bg-card);
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            z-index: 1;
+        }
+
+        .strength-weak {
+            background: #FEE2E2;
+            color: #DC2626;
+            border-color: #FCA5A5;
+        }
+
+        .strength-medium {
+            background: #FEF3C7;
+            color: #D97706;
+            border-color: #FBBF24;
+        }
+
+        .strength-good {
+            background: #D1FAE5;
+            color: #059669;
+            border-color: #34D399;
+        }
+
+        .strength-excellent {
+            background: #E0F2FE;
+            color: #0369A1;
+            border-color: #7DD3FC;
+        }
+
+        .copy-buttons {
             display: flex;
             gap: 0.5rem;
-            opacity: 0;
-            transform: translateY(10px);
-            transition: all 0.3s ease;
-            margin-top: auto;
-            padding-top: 1rem;
-            border-top: 1px solid var(--border-color);
+            margin-top: 1rem;
         }
 
-        .board-card:hover .card-actions {
-            opacity: 1;
-            transform: translateY(0);
+        .copy-btn {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.75rem;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-primary);
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .copy-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .copy-btn.email:hover {
+            background: var(--mint-50);
+            color: var(--mint-400);
+            border-color: var(--mint-300);
+        }
+
+        .copy-btn.password:hover {
+            background: #E0F2FE;
+            color: #0369A1;
+            border-color: #7DD3FC;
+        }
+
+        .card-footer {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: auto;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-color);
         }
 
         .action-btn {
@@ -528,12 +745,6 @@
             box-shadow: var(--shadow-sm);
         }
 
-        .action-btn.copy:hover {
-            background: var(--mint-50);
-            color: var(--mint-400);
-            border-color: var(--mint-300);
-        }
-
         .action-btn.edit:hover {
             background: rgba(59, 130, 246, 0.1);
             color: var(--info);
@@ -546,7 +757,39 @@
             border-color: var(--danger);
         }
 
-        /* ===== DEVICES SECTION ===== */
+        /* ===== EMPTY STATES - ENHANCED ===== */
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            animation: fadeIn 0.6s ease;
+            background: var(--bg-card);
+            border-radius: 20px;
+            border: 2px dashed var(--border-color);
+            margin: 2rem 0;
+        }
+
+        .empty-icon {
+            font-size: 4rem;
+            color: var(--mint-100);
+            margin-bottom: 1.5rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .empty-state .h3 {
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .empty-state .body {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+        }
+
+        /* ===== DEVICES SECTION - ENHANCED ===== */
         .devices-section {
             max-width: 1280px;
             margin: 0 auto;
@@ -587,8 +830,8 @@
         .device-card.current {
             border: 2px solid var(--mint-300);
             background: linear-gradient(135deg, 
-                rgba(62, 180, 137, 0.05), 
-                rgba(62, 180, 137, 0.02));
+                rgba(46, 211, 183, 0.05), 
+                rgba(46, 211, 183, 0.02));
         }
 
         .device-card.current::before {
@@ -636,11 +879,11 @@
         }
 
         body.dark-mode .device-icon {
-            background: rgba(62, 180, 137, 0.1);
+            background: rgba(46, 211, 183, 0.1);
         }
 
         body.dark-mode .device-card:hover .device-icon {
-            background: rgba(62, 180, 137, 0.2);
+            background: rgba(46, 211, 183, 0.2);
         }
 
         .device-info {
@@ -692,9 +935,9 @@
         }
 
         .device-badge.owner {
-            background: rgba(62, 180, 137, 0.2);
+            background: rgba(46, 211, 183, 0.2);
             color: var(--mint-400);
-            border: 1px solid rgba(62, 180, 137, 0.3);
+            border: 1px solid rgba(46, 211, 183, 0.3);
         }
 
         .device-badge.trusted {
@@ -716,7 +959,7 @@
         }
 
         body.dark-mode .device-badge.current {
-            background: rgba(62, 180, 137, 0.2);
+            background: rgba(46, 211, 183, 0.2);
         }
 
         body.dark-mode .device-badge.trusted {
@@ -801,7 +1044,7 @@
         }
 
         body.dark-mode .device-action-btn.trust:hover {
-            background: rgba(62, 180, 137, 0.1);
+            background: rgba(46, 211, 183, 0.1);
         }
 
         .device-action-btn:disabled {
@@ -810,7 +1053,7 @@
             pointer-events: none;
         }
 
-        /* ===== ACTIVITY LOGS SECTION ===== */
+        /* ===== ACTIVITY LOGS SECTION - ENHANCED ===== */
         .activity-section {
             max-width: 1280px;
             margin: 0 auto;
@@ -847,12 +1090,14 @@
         .activity-filter:hover {
             background: var(--mint-50);
             color: var(--mint-400);
+            border-color: var(--mint-300);
         }
 
         .activity-filter.active {
             background: var(--mint-100);
             color: var(--mint-400);
             border-color: var(--mint-200);
+            box-shadow: var(--shadow-sm);
         }
 
         .activity-timeline {
@@ -944,19 +1189,19 @@
             flex-shrink: 0;
         }
 
-        .activity-icon.login { background: rgba(62, 180, 137, 0.1); color: var(--mint-400); }
+        .activity-icon.login { background: rgba(46, 211, 183, 0.1); color: var(--mint-400); }
         .activity-icon.logout { background: rgba(239, 68, 68, 0.1); color: var(--danger); }
         .activity-icon.device_logout { background: rgba(239, 68, 68, 0.1); color: var(--danger); }
         .activity-icon.add { background: rgba(16, 185, 129, 0.1); color: var(--success); }
         .activity-icon.edit { background: rgba(59, 130, 246, 0.1); color: var(--info); }
         .activity-icon.delete { background: rgba(239, 68, 68, 0.1); color: var(--danger); }
         .activity-icon.copy { background: rgba(245, 158, 11, 0.1); color: var(--warning); }
-        .activity-icon.theme { background: rgba(139, 92, 246, 0.1); color: #8B5CF6; }
-        .activity-icon.trust { background: rgba(62, 180, 137, 0.1); color: var(--mint-400); }
+        .activity-icon.theme { background: rgba(46, 211, 183, 0.1); color: var(--mint-400); }
+        .activity-icon.trust { background: rgba(46, 211, 183, 0.1); color: var(--mint-400); }
         .activity-icon.block { background: rgba(239, 68, 68, 0.1); color: var(--danger); }
-        .activity-icon.unblock { background: rgba(62, 180, 137, 0.1); color: var(--mint-400); }
+        .activity-icon.unblock { background: rgba(46, 211, 183, 0.1); color: var(--mint-400); }
         .activity-icon.approve { background: rgba(16, 185, 129, 0.1); color: var(--success); }
-        .activity-icon.import { background: rgba(139, 92, 246, 0.1); color: #8B5CF6; }
+        .activity-icon.import { background: rgba(46, 211, 183, 0.1); color: var(--mint-400); }
         .activity-icon.export { background: rgba(59, 130, 246, 0.1); color: var(--info); }
 
         .activity-content {
@@ -964,7 +1209,7 @@
             min-width: 0;
         }
 
-        .activity-description {
+        .activity-description-text {
             font-weight: 500;
             color: var(--text-primary);
             margin-bottom: 0.25rem;
@@ -985,34 +1230,171 @@
             margin-top: 0.25rem;
         }
 
-        /* ===== EMPTY STATES ===== */
-        .empty-state {
-            text-align: center;
-            padding: 6rem 2rem;
-            animation: fadeIn 0.6s ease;
+        /* ===== SETTINGS SECTION - REORGANIZED ===== */
+        .settings-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
         }
 
-        .empty-icon {
-            font-size: 5rem;
-            color: var(--mint-100);
-            margin-bottom: 2rem;
-            animation: float 3s ease-in-out infinite;
+        .settings-card {
+            background: var(--bg-card);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
         }
 
-        .empty-state .h3 {
-            margin-bottom: 1rem;
+        .settings-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--border-hover);
+        }
+
+        .settings-card-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .settings-card-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: var(--mint-50);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--mint-400);
+            font-size: 1.5rem;
+        }
+
+        body.dark-mode .settings-card-icon {
+            background: rgba(46, 211, 183, 0.1);
+        }
+
+        .settings-card-title {
+            font-weight: 600;
+            font-size: 1.25rem;
             color: var(--text-primary);
         }
 
-        .empty-state .body {
-            color: var(--text-secondary);
-            margin-bottom: 2rem;
-            max-width: 400px;
-            margin-left: auto;
-            margin-right: auto;
+        .settings-card-description {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            line-height: 1.4;
         }
 
-        /* ===== USER PROFILE ===== */
+        .settings-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            border-radius: 12px;
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            transition: all 0.2s ease;
+            margin-bottom: 0.75rem;
+        }
+
+        .settings-item:hover {
+            border-color: var(--border-hover);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .settings-label {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+            flex: 1;
+        }
+
+        .settings-name {
+            font-weight: 600;
+            color: var(--text-primary);
+            font-size: 0.9375rem;
+        }
+
+        .settings-description {
+            font-size: 0.8125rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        /* ===== OLD DATA MIGRATION SECTION ===== */
+        .migration-section {
+            background: var(--bg-card);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 2px dashed var(--border-color);
+            margin: 3rem 0;
+            text-align: center;
+        }
+
+        .migration-icon {
+            font-size: 3rem;
+            color: var(--mint-300);
+            margin-bottom: 1.5rem;
+        }
+
+        .migration-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .migration-btn {
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-primary);
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: 500;
+            min-width: 200px;
+            justify-content: center;
+        }
+
+        .migration-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .migration-btn.import:hover {
+            background: var(--mint-50);
+            color: var(--mint-400);
+            border-color: var(--mint-300);
+        }
+
+        .migration-btn.export:hover {
+            background: #E0F2FE;
+            color: #0369A1;
+            border-color: #7DD3FC;
+        }
+
+        .preview-container {
+            background: var(--bg-primary);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+            border: 1px solid var(--border-color);
+            max-height: 300px;
+            overflow-y: auto;
+            text-align: left;
+        }
+
+        /* ===== USER PROFILE - UPDATED ===== */
         .user-profile {
             position: relative;
         }
@@ -1035,7 +1417,7 @@
         }
 
         body.dark-mode .profile-trigger:hover {
-            background: rgba(62, 180, 137, 0.1);
+            background: rgba(46, 211, 183, 0.1);
         }
 
         .avatar {
@@ -1115,7 +1497,7 @@
         }
 
         body.dark-mode .dropdown-item:hover {
-            background: rgba(62, 180, 137, 0.1);
+            background: rgba(46, 211, 183, 0.1);
         }
 
         .dropdown-item.danger {
@@ -1156,14 +1538,14 @@
 
         .floating-add-btn:hover {
             transform: translateY(-4px) scale(1.1);
-            box-shadow: 0 8px 25px rgba(62, 180, 137, 0.3);
+            box-shadow: 0 8px 25px rgba(46, 211, 183, 0.3);
         }
 
         .floating-add-btn:active {
             transform: translateY(-1px) scale(0.98);
         }
 
-        /* ===== MODALS ===== */
+        /* ===== MODALS - ENHANCED ===== */
         .modal {
             display: none;
             position: fixed;
@@ -1226,104 +1608,89 @@
             border-color: var(--mint-300);
         }
 
-        /* ===== SETTINGS MODAL ===== */
+        /* ===== CONFIRM MODAL - ENHANCED ===== */
+        .confirm-modal .modal-content {
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .confirm-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 2rem;
+            font-size: 2.5rem;
+        }
+
+        .confirm-icon.delete {
+            background: var(--danger-light);
+            color: var(--danger);
+        }
+
+        .confirm-icon.logout {
+            background: var(--warning-light);
+            color: var(--warning);
+        }
+
+        .confirm-icon.block {
+            background: var(--danger-light);
+            color: var(--danger);
+        }
+
+        .confirm-message {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        /* ===== SETTINGS MODAL - REORGANIZED ===== */
         .settings-modal .modal-content {
-            max-width: 600px;
+            max-width: 800px;
         }
 
-        .settings-sections {
+        .settings-tabs {
             display: flex;
-            flex-direction: column;
-            gap: 2rem;
-        }
-
-        .settings-section {
-            background: var(--bg-primary);
-            border-radius: 16px;
-            padding: 1.5rem;
-            border: 1px solid var(--border-color);
-        }
-
-        .settings-header {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            margin-bottom: 1.5rem;
-            padding-bottom: 0.75rem;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
             border-bottom: 1px solid var(--border-color);
+            padding-bottom: 1rem;
         }
 
-        .settings-header iconify-icon {
-            color: var(--mint-400);
-            font-size: 1.5rem;
-        }
-
-        .settings-items {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .settings-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem;
-            border-radius: 12px;
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-color);
+        .settings-tab {
+            padding: 0.75rem 1.5rem;
+            border-radius: 10px;
+            border: none;
+            background: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-weight: 500;
             transition: all 0.2s ease;
-            min-height: 60px;
         }
 
-        .settings-item:hover {
-            border-color: var(--border-hover);
-            transform: translateY(-2px);
+        .settings-tab:hover {
+            background: var(--mint-50);
+            color: var(--mint-400);
+        }
+
+        .settings-tab.active {
+            background: var(--mint-100);
+            color: var(--mint-400);
             box-shadow: var(--shadow-sm);
         }
 
-        .settings-label {
-            display: flex;
-            flex-direction: column;
-            gap: 0.25rem;
-            flex: 1;
+        .settings-tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease;
         }
 
-        .settings-name {
-            font-weight: 600;
-            color: var(--text-primary);
-            font-size: 0.9375rem;
+        .settings-tab-content.active {
+            display: block;
         }
 
-        .settings-description {
-            font-size: 0.8125rem;
-            color: var(--text-muted);
-            line-height: 1.4;
-        }
-
-        .plan-badge {
-            padding: 0.375rem 1rem;
-            border-radius: 20px;
-            font-size: 0.8125rem;
-            font-weight: 600;
-            background: var(--mint-50);
-            color: var(--mint-400);
-            border: 1px solid var(--mint-200);
-        }
-
-        .plan-badge.pro {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            border: none;
-        }
-
-        .plan-badge.premium {
-            background: linear-gradient(135deg, #f093fb, #f5576c);
-            color: white;
-            border: none;
-        }
-
-        /* ===== FORM CONTROLS ===== */
+        /* ===== FORM CONTROLS - ENHANCED ===== */
         .form-group {
             margin-bottom: 1.75rem;
         }
@@ -1351,7 +1718,7 @@
         .form-control:focus {
             outline: none;
             border-color: var(--border-hover);
-            box-shadow: 0 0 0 4px rgba(62, 180, 137, 0.1);
+            box-shadow: 0 0 0 4px rgba(46, 211, 183, 0.1);
         }
 
         .form-control:hover {
@@ -1535,10 +1902,10 @@
             color: var(--mint-400);
             border-color: var(--mint-300);
             transform: scale(1.05);
-            box-shadow: 0 0 0 3px rgba(62, 180, 137, 0.2);
+            box-shadow: 0 0 0 3px rgba(46, 211, 183, 0.2);
         }
 
-        /* ===== PASSWORD STRENGTH ===== */
+        /* ===== PASSWORD STRENGTH - ENHANCED ===== */
         .password-strength-advanced {
             margin-top: 1rem;
             background: var(--bg-primary);
@@ -1624,7 +1991,7 @@
 
         .btn-primary:hover:not(:disabled) {
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(62, 180, 137, 0.3);
+            box-shadow: 0 8px 25px rgba(46, 211, 183, 0.3);
         }
 
         .btn-primary:active:not(:disabled) {
@@ -1648,7 +2015,7 @@
         }
 
         body.dark-mode .btn-secondary:hover {
-            background: rgba(62, 180, 137, 0.1);
+            background: rgba(46, 211, 183, 0.1);
         }
 
         .btn-danger {
@@ -1661,7 +2028,7 @@
             box-shadow: 0 8px 25px rgba(239, 68, 68, 0.3);
         }
 
-        /* ===== TOAST NOTIFICATIONS ===== */
+        /* ===== TOAST NOTIFICATIONS - ENHANCED ===== */
         .toast-container {
             position: fixed;
             bottom: 2rem;
@@ -1711,7 +2078,7 @@
         }
 
         .toast.info .toast-icon {
-            background: rgba(62, 180, 137, 0.1);
+            background: rgba(46, 211, 183, 0.1);
             color: var(--mint-400);
         }
 
@@ -1868,14 +2235,16 @@
                 padding: 0 0.5rem;
             }
             
-            .settings-section {
-                padding: 1.25rem;
+            .settings-grid {
+                grid-template-columns: 1fr;
             }
             
-            .settings-item {
+            .migration-actions {
                 flex-direction: column;
-                align-items: flex-start;
-                gap: 1rem;
+            }
+            
+            .migration-btn {
+                min-width: 100%;
             }
         }
 
@@ -2018,68 +2387,132 @@
         <div class="section active" id="dashboardSection">
             <!-- Welcome Section -->
             <div class="welcome-section">
-                <h1 class="h1" id="welcomeMessage">مرحباً محمد!</h1>
-                <p class="body-lg">
-                    إدارة كلمات المرور الخاصة بك أصبحت أسهل وأكثر أماناً. كل شيء في مكان واحد.
+                <h1 class="h1"><span class="gradient-text" id="welcomeMessage">مرحباً محمد!</span></h1>
+                <p class="section-subtitle">
+                    إدارة كلمات المرور الخاصة بك أصبحت أسهل وأكثر أماناً. كل شيء في مكان واحد، تحت سيطرتك الكاملة.
                 </p>
             </div>
 
             <!-- Boards Grid -->
             <div class="boards-grid" id="boardsContainer">
-                <!-- Empty State -->
-                <div class="empty-state" id="emptyState">
-                    <div class="empty-icon">
-                        <iconify-icon icon="mdi:lock-outline"></iconify-icon>
+                <!-- Loading State -->
+                <div class="board-card loading" id="loadingState">
+                    <div class="card-header">
+                        <div class="skeleton-circle skeleton"></div>
+                        <div style="flex: 1;">
+                            <div class="skeleton-text skeleton" style="width: 70%;"></div>
+                            <div class="skeleton-text skeleton" style="width: 50%;"></div>
+                        </div>
                     </div>
-                    <h3 class="h3">لا توجد حسابات بعد</h3>
-                    <p class="body">
-                        ابدأ بحفظ أول حساب لتجربة أمان NovaPass
-                    </p>
-                    <button class="btn btn-primary" id="firstBoardBtn" style="margin-top: 1.5rem;">
-                        <iconify-icon icon="mdi:plus"></iconify-icon>
-                        <span>ابدأ بإضافة حساب</span>
+                    <div class="password-section">
+                        <div class="skeleton-text skeleton" style="width: 40%;"></div>
+                        <div class="skeleton-text skeleton" style="height: 48px;"></div>
+                        <div class="skeleton-text skeleton" style="width: 60%; margin-top: 1rem;"></div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="skeleton-text skeleton" style="flex: 1; height: 40px;"></div>
+                        <div class="skeleton-text skeleton" style="flex: 1; height: 40px;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Old Data Migration Section -->
+            <div class="migration-section" id="migrationSection" style="display: none;">
+                <div class="migration-icon">
+                    <iconify-icon icon="mdi:database-import"></iconify-icon>
+                </div>
+                <h3 class="h3">ترحيل البيانات القديمة</h3>
+                <p class="body">
+                    استورد بياناتك من مدير كلمات المرور القديم أو حمل نسخة احتياطية من بياناتك الحالية.
+                </p>
+                <div class="migration-actions">
+                    <button class="migration-btn import" id="importDataBtn">
+                        <iconify-icon icon="mdi:import"></iconify-icon>
+                        <span>استيراد بيانات</span>
+                    </button>
+                    <button class="migration-btn export" id="exportDataBtn">
+                        <iconify-icon icon="mdi:export"></iconify-icon>
+                        <span>تصدير البيانات</span>
                     </button>
                 </div>
+                <div class="preview-container" id="dataPreview" style="display: none;"></div>
             </div>
         </div>
 
         <!-- Devices Section -->
         <div class="section devices-section" id="devicesSection">
             <div class="section-header">
-                <h2 class="h2">🔐 الأجهزة المرتبطة بالحساب</h2>
-                <div class="body" style="color: var(--text-secondary);">
-                    تحكم كامل في الأمان وجلسات الدخول
+                <div>
+                    <h2 class="h2">🔐 الأجهزة المرتبطة بالحساب</h2>
+                    <p class="section-subtitle">
+                        تحكم كامل في الأمان وجلسات الدخول من جميع الأجهزة
+                    </p>
                 </div>
             </div>
             
-            <p class="body-lg devices-description">
-                إدارة جميع الأجهزة التي تم تسجيل الدخول منها إلى حسابك. يمكنك تسجيل الخروج من الأجهزة الأخرى أو تحديدها كأجهزة موثوقة.
-            </p>
-            
             <div class="devices-list" id="devicesList">
-                <!-- Devices will be populated by JavaScript -->
+                <!-- Loading State -->
+                <div class="device-card loading">
+                    <div class="device-icon">
+                        <div class="skeleton skeleton-circle"></div>
+                    </div>
+                    <div class="device-info">
+                        <div class="skeleton skeleton-text" style="width: 60%; height: 1.5rem; margin-bottom: 0.5rem;"></div>
+                        <div class="skeleton skeleton-text" style="width: 40%; height: 1rem;"></div>
+                    </div>
+                </div>
             </div>
         </div>
 
         <!-- Activity Logs Section -->
         <div class="section activity-section" id="activitySection">
             <div class="section-header">
-                <h2 class="h2">📜 سجلات النشاط</h2>
-                <div class="body" style="color: var(--text-secondary);">
-                    تتبع جميع الأنشطة المهمة على حسابك للحفاظ على الأمان والخصوصية
+                <div>
+                    <h2 class="h2">📜 سجلات النشاط</h2>
+                    <p class="section-subtitle">
+                        تتبع جميع الأنشطة المهمة على حسابك للحفاظ على الأمان والخصوصية
+                    </p>
                 </div>
             </div>
-            
-            <p class="body-lg activity-description">
-                تتبع جميع الأنشطة المهمة على حسابك للحفاظ على الأمان والخصوصية.
-            </p>
             
             <div class="activity-filters" id="activityFilters">
                 <!-- Filters will be populated by JavaScript -->
             </div>
             
             <div class="activity-timeline" id="activityTimeline">
-                <!-- Activity logs will be populated by JavaScript -->
+                <!-- Loading State -->
+                <div class="activity-day-group">
+                    <div class="day-header">
+                        <div class="skeleton skeleton-text" style="width: 120px; height: 1.5rem;"></div>
+                    </div>
+                    <div class="activity-items">
+                        <div class="activity-item">
+                            <div class="activity-icon">
+                                <div class="skeleton skeleton-circle" style="width: 40px; height: 40px;"></div>
+                            </div>
+                            <div class="activity-content">
+                                <div class="skeleton skeleton-text" style="width: 70%; height: 1.25rem; margin-bottom: 0.5rem;"></div>
+                                <div class="skeleton skeleton-text" style="width: 50%; height: 1rem;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Settings Section -->
+        <div class="section" id="settingsSection">
+            <div class="section-header">
+                <div>
+                    <h2 class="h2">⚙️ الإعدادات</h2>
+                    <p class="section-subtitle">
+                        خصص تجربتك وادخل إلى الإعدادات المتقدمة
+                    </p>
+                </div>
+            </div>
+            
+            <div class="settings-grid" id="settingsGrid">
+                <!-- Settings cards will be populated by JavaScript -->
             </div>
         </div>
     </main>
@@ -2171,168 +2604,83 @@
         </div>
     </div>
 
-    <!-- Settings Modal -->
-    <div class="modal settings-modal" id="settingsModal">
+    <!-- Confirm Action Modal -->
+    <div class="modal confirm-modal" id="confirmModal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="h3">الإعدادات</h3>
-                <button class="close-btn" id="closeSettings">
-                    <iconify-icon icon="mdi:close"></iconify-icon>
-                </button>
-            </div>
-            
-            <div class="settings-sections">
-                <!-- Profile Section -->
-                <div class="settings-section">
-                    <div class="settings-header">
-                        <iconify-icon icon="mdi:account-circle"></iconify-icon>
-                        <h4 class="body" style="font-weight: 600;">الملف الشخصي</h4>
-                    </div>
-                    
-                    <div class="settings-items">
-                        <div class="settings-item">
-                            <div class="settings-label">
-                                <span class="settings-name">الاسم الكامل</span>
-                                <span class="settings-description" id="settingsName">محمد</span>
-                            </div>
-                            <button class="action-btn edit" id="editNameBtn">
-                                <iconify-icon icon="mdi:pencil"></iconify-icon>
-                                <span>تعديل</span>
-                            </button>
-                        </div>
-                        
-                        <div class="settings-item">
-                            <div class="settings-label">
-                                <span class="settings-name">البريد الإلكتروني</span>
-                                <span class="settings-description" id="settingsEmail">mohamed@example.com</span>
-                            </div>
-                            <span class="caption" style="color: var(--text-muted);">ثابت</span>
-                        </div>
-                        
-                        <div class="settings-item">
-                            <div class="settings-label">
-                                <span class="settings-name">تاريخ الإنشاء</span>
-                                <span class="settings-description" id="settingsCreatedAt">25 ديسمبر 2024</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Appearance Section -->
-                <div class="settings-section">
-                    <div class="settings-header">
-                        <iconify-icon icon="mdi:palette"></iconify-icon>
-                        <h4 class="body" style="font-weight: 600;">المظهر</h4>
-                    </div>
-                    
-                    <div class="settings-items">
-                        <div class="settings-item">
-                            <div class="settings-label">
-                                <span class="settings-name">الوضع</span>
-                                <span class="settings-description">اختر المظهر المناسب لك</span>
-                            </div>
-                            <div class="segmented-control" id="themeSelector">
-                                <!-- Will be populated by JavaScript -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Security Section -->
-                <div class="settings-section">
-                    <div class="settings-header">
-                        <iconify-icon icon="mdi:shield-lock"></iconify-icon>
-                        <h4 class="body" style="font-weight: 600;">الأمان</h4>
-                    </div>
-                    
-                    <div class="settings-items">
-                        <div class="settings-item">
-                            <div class="settings-label">
-                                <span class="settings-name">جلسة المستخدم</span>
-                                <span class="settings-description">حالة الاتصال الحالية</span>
-                            </div>
-                            <span class="caption" style="color: var(--success); display: flex; align-items: center; gap: 0.25rem;">
-                                <iconify-icon icon="mdi:check-circle"></iconify-icon>
-                                نشط
-                            </span>
-                        </div>
-                        
-                        <div class="settings-item">
-                            <div class="settings-label">
-                                <span class="settings-name">إظهار كلمة المرور</span>
-                                <span class="settings-description">طريقة إظهار كلمات المرور</span>
-                            </div>
-                            <div class="segmented-control" id="passwordVisibilitySelector">
-                                <!-- Will be populated by JavaScript -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Plan Section -->
-                <div class="settings-section">
-                    <div class="settings-header">
-                        <iconify-icon icon="mdi:crown"></iconify-icon>
-                        <h4 class="body" style="font-weight: 600;">الخطة</h4>
-                    </div>
-                    
-                    <div class="settings-items">
-                        <div class="settings-item">
-                            <div class="settings-label">
-                                <span class="settings-name">الخطة الحالية</span>
-                                <span class="settings-description">استمتع بميزات NovaPass الأساسية</span>
-                            </div>
-                            <span class="plan-badge" id="currentPlan">مجانية</span>
-                        </div>
-                        
-                        <div class="settings-item">
-                            <div class="settings-label">
-                                <span class="settings-name">عدد الحسابات</span>
-                                <span class="settings-description" id="boardsLimit">غير محدود</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="modal-actions">
-                <button type="button" class="btn btn-danger" id="logoutSettingsBtn">
-                    <iconify-icon icon="mdi:logout"></iconify-icon>
-                    <span>تسجيل الخروج</span>
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Confirm Delete Modal -->
-    <div class="modal" id="confirmModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="h3">تأكيد الإجراء</h3>
+                <h3 class="h3" id="confirmTitle">تأكيد الإجراء</h3>
                 <button class="close-btn" id="closeConfirmModal">
                     <iconify-icon icon="mdi:close"></iconify-icon>
                 </button>
             </div>
             
             <div style="text-align: center; padding: 2rem 0;">
-                <div style="width: 80px; height: 80px; background: var(--danger-light); border-radius: 20px; display: flex; align-items: center; justify-content: center; margin: 0 auto 2rem; color: var(--danger);">
+                <div class="confirm-icon" id="confirmIcon">
                     <iconify-icon icon="mdi:alert-circle" style="font-size: 2.5rem;"></iconify-icon>
                 </div>
                 
-                <h4 class="h3" style="margin-bottom: 1rem;" id="confirmTitle">هل أنت متأكد؟</h4>
-                <p class="body" style="color: var(--text-secondary); margin-bottom: 1rem; line-height: 1.6;" id="confirmMessage">
+                <h4 class="h3" style="margin-bottom: 1rem;" id="confirmAction"></h4>
+                <p class="confirm-message" id="confirmMessage">
                     هذا الإجراء لا يمكن التراجع عنه.
                 </p>
             </div>
             
             <div class="modal-actions">
-                <button type="button" class="btn btn-secondary" id="cancelDeleteBtn">
+                <button type="button" class="btn btn-secondary" id="cancelActionBtn">
                     إلغاء
                 </button>
-                <button type="button" class="btn btn-danger" id="confirmDeleteBtn">
-                    <iconify-icon icon="mdi:delete"></iconify-icon>
-                    <span>نعم، احذف</span>
+                <button type="button" class="btn btn-danger" id="confirmActionBtn">
+                    <iconify-icon icon="mdi:check"></iconify-icon>
+                    <span id="confirmActionText">تأكيد</span>
                 </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div class="modal settings-modal" id="settingsModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="h3">الإعدادات المتقدمة</h3>
+                <button class="close-btn" id="closeSettings">
+                    <iconify-icon icon="mdi:close"></iconify-icon>
+                </button>
+            </div>
+            
+            <div class="settings-tabs" id="settingsTabs">
+                <!-- Tabs will be populated by JavaScript -->
+            </div>
+            
+            <div class="settings-tab-content" id="profileTab">
+                <!-- Profile settings will be populated by JavaScript -->
+            </div>
+            
+            <div class="settings-tab-content" id="appearanceTab">
+                <!-- Appearance settings will be populated by JavaScript -->
+            </div>
+            
+            <div class="settings-tab-content" id="securityTab">
+                <!-- Security settings will be populated by JavaScript -->
+            </div>
+            
+            <div class="settings-tab-content" id="advancedTab">
+                <!-- Advanced settings will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Import/Export Modal -->
+    <div class="modal" id="dataModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="h3" id="dataModalTitle">استيراد البيانات</h3>
+                <button class="close-btn" id="closeDataModal">
+                    <iconify-icon icon="mdi:close"></iconify-icon>
+                </button>
+            </div>
+            
+            <div id="dataModalContent">
+                <!-- Content will be populated by JavaScript -->
             </div>
         </div>
     </div>
@@ -2374,6 +2722,12 @@
         let userDevices = [];
         let isOwnerDevice = false;
         let deviceStatus = 'active'; // active, pending, blocked
+        let isLoading = {
+            dashboard: true,
+            devices: true,
+            activity: true,
+            settings: true
+        };
 
         // Icon Categories
         const iconCategories = {
@@ -2428,7 +2782,7 @@
 
         // Color options with labels and icons
         const colorOptions = [
-            { color: '#3EB489', label: 'شخصي', class: 'personal', icon: 'mdi:account' },
+            { color: '#2ED3B7', label: 'شخصي', class: 'personal', icon: 'mdi:account' },
             { color: '#4ECDC4', label: 'عمل', class: 'work', icon: 'mdi:briefcase' },
             { color: '#FF6B6B', label: 'مهم', class: 'important', icon: 'mdi:star' },
             { color: '#9D4EDD', label: 'اجتماعي', class: 'social', icon: 'mdi:account-group' },
@@ -2470,6 +2824,14 @@
             { id: 'unique', label: 'أحرف متنوعة', test: (p) => new Set(p).size >= 8, weight: 10 }
         ];
 
+        // Password strength levels
+        const passwordStrengthLevels = {
+            weak: { threshold: 30, label: 'ضعيف', class: 'strength-weak', icon: 'mdi:alert-circle' },
+            medium: { threshold: 60, label: 'متوسط', class: 'strength-medium', icon: 'mdi:shield-half-full' },
+            good: { threshold: 80, label: 'جيد', class: 'strength-good', icon: 'mdi:shield' },
+            excellent: { threshold: 90, label: 'ممتاز', class: 'strength-excellent', icon: 'mdi:shield-check' }
+        };
+
         // Activity types
         const activityIcons = {
             login: { icon: 'mdi:login', label: 'تسجيل دخول' },
@@ -2483,7 +2845,9 @@
             trust: { icon: 'mdi:shield-check', label: 'تعيين جهاز كموثوق' },
             block: { icon: 'mdi:block-helper', label: 'منع جهاز' },
             unblock: { icon: 'mdi:lock-open', label: 'إلغاء منع جهاز' },
-            approve: { icon: 'mdi:check-circle', label: 'موافقة على جهاز' }
+            approve: { icon: 'mdi:check-circle', label: 'موافقة على جهاز' },
+            import: { icon: 'mdi:import', label: 'استيراد بيانات' },
+            export: { icon: 'mdi:export', label: 'تصدير بيانات' }
         };
 
         const activityDescriptions = {
@@ -2498,8 +2862,18 @@
             trust: (details) => `تم ${details.trusted ? 'تعيين' : 'إلغاء'} الثقة في جهاز: ${details.deviceName || ''}`,
             block: (details) => `تم ${details.permanent ? 'منع نهائي' : 'منع مؤقت'} لجهاز: ${details.deviceName || ''}`,
             unblock: (details) => `تم إلغاء منع جهاز: ${details.deviceName || ''}`,
-            approve: (details) => `تم الموافقة على جهاز: ${details.deviceName || ''}`
+            approve: (details) => `تم الموافقة على جهاز: ${details.deviceName || ''}`,
+            import: () => 'تم استيراد البيانات بنجاح',
+            export: () => 'تم تصدير البيانات بنجاح'
         };
+
+        // Settings tabs
+        const settingsTabs = [
+            { id: 'profile', label: 'الملف الشخصي', icon: 'mdi:account-circle' },
+            { id: 'appearance', label: 'المظهر', icon: 'mdi:palette' },
+            { id: 'security', label: 'الأمان', icon: 'mdi:shield-lock' },
+            { id: 'advanced', label: 'متقدم', icon: 'mdi:cog' }
+        ];
 
         // ===== INITIALIZATION =====
         document.addEventListener('DOMContentLoaded', () => {
@@ -2546,12 +2920,13 @@
                     },
                     settings: {
                         theme: 'light',
-                        passwordVisibility: 'hold'
+                        passwordVisibility: 'hold',
+                        showMigrationSection: true
                     },
                     security: {
-                        ownerDeviceId: currentDeviceId, // ⭐ أول جهاز = مالك
+                        ownerDeviceId: currentDeviceId,
                         trustedDevices: {
-                            [currentDeviceId]: { // ⭐ الجهاز الحالي موثوق تلقائي
+                            [currentDeviceId]: {
                                 deviceId: currentDeviceId,
                                 trustedAt: serverTimestamp(),
                                 trustedBy: currentDeviceId
@@ -2583,7 +2958,7 @@
             }
         }
 
-        // ===== DEVICE ACCESS CONTROL - الحل الجديد =====
+        // ===== DEVICE ACCESS CONTROL =====
         async function checkDeviceAccess() {
             if (!accountRef || !securityData) return;
             
@@ -2594,9 +2969,8 @@
                 trustedDevices = {}
             } = securityData;
             
-            // ⭐ القاعدة 1: أول جهاز يسجل = owner
+            // القاعدة 1: أول جهاز يسجل = owner
             if (!ownerDeviceId) {
-                // أول دخول بعد تفعيل النظام - هذا الجهاز يصبح owner
                 await updateDoc(accountRef, {
                     'security.ownerDeviceId': currentDeviceId,
                     [`security.trustedDevices.${currentDeviceId}`]: {
@@ -2619,41 +2993,33 @@
                 return;
             }
             
-            // ⭐ القاعدة 2: الجهاز الحالي = owner
             isOwnerDevice = (ownerDeviceId === currentDeviceId);
             
-            // ⭐ القاعدة 3: لو owner → active مباشرة
             if (isOwnerDevice) {
                 deviceStatus = 'active';
                 hideAccessOverlay();
                 return;
             }
             
-            // ⭐ القاعدة 4: لو blocked → show blocked
             if (blockedDevices[currentDeviceId]) {
                 deviceStatus = 'blocked';
                 showAccessOverlay('blocked', blockedDevices[currentDeviceId]);
                 return;
             }
             
-            // ⭐ القاعدة 5: لو trusted → active مباشرة
             if (trustedDevices && trustedDevices[currentDeviceId]) {
                 deviceStatus = 'active';
                 hideAccessOverlay();
                 return;
             }
             
-            // ⭐ القاعدة 6: لو pending → show pending
             if (pendingDevices && pendingDevices[currentDeviceId]) {
                 deviceStatus = 'pending';
                 showAccessOverlay('pending');
                 return;
             }
             
-            // ⭐ القاعدة 7: لو جهاز جديد → يضاف pending
-            // بس لو فيه owner فعلاً (Fail-safe: لو مفيش owner، الجهاز الجديد يبقى owner)
             if (!ownerDeviceId) {
-                // Fail-safe: لو مفيش owner، الجهاز الجديد يبقى owner
                 await updateDoc(accountRef, {
                     'security.ownerDeviceId': currentDeviceId,
                     [`security.trustedDevices.${currentDeviceId}`]: {
@@ -2672,7 +3038,6 @@
                     failSafeOwner: true 
                 });
             } else {
-                // وضع عادي: جهاز جديد يضاف pending
                 await updateDoc(accountRef, {
                     [`security.pendingDevices.${currentDeviceId}`]: {
                         deviceId: currentDeviceId,
@@ -2752,7 +3117,6 @@
             
             overlay.style.display = 'flex';
             
-            // Setup event listeners for overlay buttons
             setTimeout(() => {
                 document.getElementById('blockedLogoutBtn')?.addEventListener('click', handleLogout);
                 document.getElementById('pendingLogoutBtn')?.addEventListener('click', handleLogout);
@@ -2790,7 +3154,6 @@
             let browser = 'Unknown Browser';
             let os = 'Unknown OS';
             
-            // Detect device type
             if (/mobile/i.test(userAgent)) {
                 deviceName = 'هاتف محمول';
             } else if (/tablet/i.test(userAgent)) {
@@ -2799,7 +3162,6 @@
                 deviceName = 'حاسوب';
             }
             
-            // Detect browser
             if (/edg/i.test(userAgent)) {
                 browser = 'Microsoft Edge';
             } else if (/chrome/i.test(userAgent) && !/edg/i.test(userAgent)) {
@@ -2812,7 +3174,6 @@
                 browser = 'Opera';
             }
             
-            // Detect OS
             if (/windows/i.test(userAgent)) {
                 os = 'Windows';
             } else if (/macintosh/i.test(userAgent)) {
@@ -2847,7 +3208,7 @@
                 os: deviceInfo.os,
                 userAgent: deviceInfo.userAgent,
                 isCurrent: true,
-                trusted: isOwner || isFirstDevice, // Owner أو أول جهاز يكون trusted
+                trusted: isOwner || isFirstDevice,
                 isOwner: isOwner,
                 lastActive: serverTimestamp(),
                 createdAt: serverTimestamp(),
@@ -2857,17 +3218,14 @@
             const deviceDoc = await getDoc(deviceDocRef);
             
             if (deviceDoc.exists()) {
-                // Update existing device
                 await updateDoc(deviceDocRef, {
                     ...deviceData,
                     createdAt: deviceDoc.data().createdAt
                 });
             } else {
-                // Create new device
                 await setDoc(deviceDocRef, deviceData);
             }
             
-            // Update other devices to not current
             const allDevices = await getDocs(devicesRef);
             allDevices.forEach(async (doc) => {
                 if (doc.id !== currentDeviceId) {
@@ -2901,6 +3259,7 @@
                 return devices;
             } catch (error) {
                 console.error('Error loading devices:', error);
+                showToast('حدث خطأ في تحميل الأجهزة', 'error');
                 return [];
             }
         }
@@ -2935,22 +3294,18 @@
                     reason: reason || (permanent ? 'منع نهائي' : 'منع مؤقت')
                 };
                 
-                // Add to blocked devices
                 await updateDoc(accountRef, {
                     [`security.blockedDevices.${deviceId}`]: blockData
                 }, { merge: true });
                 
-                // Remove from pending if exists
                 await updateDoc(accountRef, {
                     [`security.pendingDevices.${deviceId}`]: deleteField()
                 }, { merge: true });
                 
-                // Remove from trusted if exists
                 await updateDoc(accountRef, {
                     [`security.trustedDevices.${deviceId}`]: deleteField()
                 }, { merge: true });
                 
-                // Update device status
                 await updateDeviceStatus(deviceId, { 
                     trusted: false,
                     isOwner: false 
@@ -2977,7 +3332,6 @@
             }
             
             try {
-                // Remove from blocked devices
                 await updateDoc(accountRef, {
                     [`security.blockedDevices.${deviceId}`]: deleteField()
                 }, { merge: true });
@@ -3001,12 +3355,10 @@
             }
             
             try {
-                // 1. Remove from pending
                 await updateDoc(accountRef, {
                     [`security.pendingDevices.${deviceId}`]: deleteField()
                 }, { merge: true });
                 
-                // 2. Add to trusted
                 await updateDoc(accountRef, {
                     [`security.trustedDevices.${deviceId}`]: {
                         deviceId,
@@ -3015,7 +3367,6 @@
                     }
                 }, { merge: true });
                 
-                // 3. Update device status
                 await updateDeviceStatus(deviceId, { 
                     trusted: true 
                 });
@@ -3040,7 +3391,6 @@
             
             try {
                 if (trusted) {
-                    // Add to trusted
                     await updateDoc(accountRef, {
                         [`security.trustedDevices.${deviceId}`]: {
                             deviceId,
@@ -3049,13 +3399,11 @@
                         }
                     }, { merge: true });
                 } else {
-                    // Remove from trusted
                     await updateDoc(accountRef, {
                         [`security.trustedDevices.${deviceId}`]: deleteField()
                     }, { merge: true });
                 }
                 
-                // Update device status
                 await updateDeviceStatus(deviceId, { trusted });
                 
                 await logActivity('trust', { 
@@ -3112,13 +3460,14 @@
                 if (filter !== 'all') {
                     return logs.filter(log => 
                         (filter === 'security' && ['login', 'logout', 'device_logout', 'trust', 'block', 'unblock', 'approve'].includes(log.action)) ||
-                        (filter === 'vault' && ['add', 'edit', 'delete', 'copy'].includes(log.action))
+                        (filter === 'vault' && ['add', 'edit', 'delete', 'copy', 'import', 'export'].includes(log.action))
                     );
                 }
                 
                 return logs;
             } catch (error) {
                 console.error('Error loading activity logs:', error);
+                showToast('حدث خطأ في تحميل سجلات النشاط', 'error');
                 return [];
             }
         }
@@ -3131,6 +3480,7 @@
             setupPasswordStrength();
             setupThemeSelector();
             setupPasswordVisibilitySelector();
+            setupSettingsTabs();
         }
 
         function setupIconCategories() {
@@ -3361,6 +3711,27 @@
             });
         }
 
+        function setupSettingsTabs() {
+            const tabsContainer = document.getElementById('settingsTabs');
+            if (!tabsContainer) return;
+            
+            tabsContainer.innerHTML = settingsTabs.map((tab, index) => `
+                <button class="settings-tab ${index === 0 ? 'active' : ''}" 
+                        data-tab="${tab.id}">
+                    <iconify-icon icon="${tab.icon}"></iconify-icon>
+                    <span>${tab.label}</span>
+                </button>
+            `).join('');
+            
+            // Add event listeners for tabs
+            tabsContainer.querySelectorAll('.settings-tab').forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const tabId = tab.getAttribute('data-tab');
+                    switchSettingsTab(tabId);
+                });
+            });
+        }
+
         // ===== THEME MANAGEMENT =====
         function applyTheme(theme) {
             let isDark = false;
@@ -3383,7 +3754,6 @@
                     const sectionId = e.currentTarget.getAttribute('data-section');
                     showSection(sectionId);
                     
-                    // Update active tab
                     document.querySelectorAll('.nav-tab').forEach(t => {
                         t.classList.remove('active');
                     });
@@ -3398,7 +3768,6 @@
                     const sectionId = e.currentTarget.getAttribute('data-section');
                     showSection(sectionId);
                     
-                    // Update active tab
                     document.querySelectorAll('.nav-tab').forEach(tab => {
                         tab.classList.remove('active');
                         if (tab.getAttribute('data-section') === sectionId) {
@@ -3425,20 +3794,25 @@
             document.getElementById('closeModal')?.addEventListener('click', closeAllModals);
             document.getElementById('cancelBtn')?.addEventListener('click', closeAllModals);
             document.getElementById('closeConfirmModal')?.addEventListener('click', closeAllModals);
-            document.getElementById('cancelDeleteBtn')?.addEventListener('click', closeAllModals);
+            document.getElementById('cancelActionBtn')?.addEventListener('click', closeAllModals);
             document.getElementById('closeSettings')?.addEventListener('click', closeAllModals);
+            document.getElementById('closeDataModal')?.addEventListener('click', closeAllModals);
             
             // Board form
             document.getElementById('boardForm')?.addEventListener('submit', handleBoardSubmit);
             
-            // Delete confirmation
-            document.getElementById('confirmDeleteBtn')?.addEventListener('click', confirmDelete);
-            
             // Settings
             document.getElementById('settingsBtn')?.addEventListener('click', openSettingsModal);
-            document.getElementById('logoutBtn')?.addEventListener('click', handleLogout);
-            document.getElementById('logoutSettingsBtn')?.addEventListener('click', handleLogout);
+            document.getElementById('logoutBtn')?.addEventListener('click', () => confirmLogout());
+            document.getElementById('logoutSettingsBtn')?.addEventListener('click', () => confirmLogout());
             document.getElementById('editNameBtn')?.addEventListener('click', editUserName);
+            
+            // Data migration
+            document.getElementById('importDataBtn')?.addEventListener('click', openImportModal);
+            document.getElementById('exportDataBtn')?.addEventListener('click', exportData);
+            
+            // Confirm action
+            document.getElementById('confirmActionBtn')?.addEventListener('click', handleConfirmAction);
             
             // Keyboard shortcuts
             document.addEventListener('keydown', (e) => {
@@ -3473,16 +3847,13 @@
 
         // ===== SECTION MANAGEMENT =====
         function showSection(sectionId) {
-            // Only allow navigation if device is active
             if (deviceStatus !== 'active' && sectionId !== 'dashboardSection') {
                 showToast('الجهاز غير نشط حالياً', 'error');
                 return;
             }
             
-            // Hide access overlay if showing
             hideAccessOverlay();
             
-            // Update sections
             document.querySelectorAll('.section').forEach(section => {
                 section.classList.remove('active');
             });
@@ -3492,7 +3863,6 @@
                 targetSection.classList.add('active');
                 updateNavLabel(sectionId);
                 
-                // Load section data
                 switch(sectionId) {
                     case 'devicesSection':
                         loadAndRenderDevices();
@@ -3501,10 +3871,12 @@
                         loadAndRenderActivityLogs();
                         setupActivityFilters();
                         break;
+                    case 'settingsSection':
+                        loadAndRenderSettings();
+                        break;
                 }
             }
             
-            // Show/hide floating button
             const floatingBtn = document.getElementById('floatingAddBtn');
             if (floatingBtn) {
                 floatingBtn.style.display = sectionId === 'dashboardSection' && deviceStatus === 'active' ? 'flex' : 'none';
@@ -3516,6 +3888,7 @@
             switch(sectionId) {
                 case 'devicesSection': label.textContent = 'الأجهزة'; break;
                 case 'activitySection': label.textContent = 'سجلات النشاط'; break;
+                case 'settingsSection': label.textContent = 'الإعدادات'; break;
                 default: label.textContent = 'Dashboard';
             }
         }
@@ -3606,6 +3979,89 @@
             });
         }
 
+        // ===== CONFIRMATION MODAL =====
+        let pendingAction = null;
+        let pendingActionData = null;
+
+        function showConfirmationModal(type, data = {}) {
+            const modal = document.getElementById('confirmModal');
+            const title = document.getElementById('confirmTitle');
+            const action = document.getElementById('confirmAction');
+            const message = document.getElementById('confirmMessage');
+            const icon = document.getElementById('confirmIcon');
+            const actionText = document.getElementById('confirmActionText');
+            const actionBtn = document.getElementById('confirmActionBtn');
+            
+            if (!modal) return;
+            
+            pendingAction = type;
+            pendingActionData = data;
+            
+            switch(type) {
+                case 'delete':
+                    title.textContent = 'تأكيد الحذف';
+                    action.textContent = `حذف ${data.boardName}`;
+                    message.textContent = `سيتم حذف حساب "${data.boardName}" نهائياً. لا يمكن التراجع عن هذا الإجراء.`;
+                    icon.className = 'confirm-icon delete';
+                    icon.innerHTML = '<iconify-icon icon="mdi:delete" style="font-size: 2.5rem;"></iconify-icon>';
+                    actionText.textContent = 'نعم، احذف';
+                    actionBtn.className = 'btn btn-danger';
+                    break;
+                    
+                case 'logout':
+                    title.textContent = 'تأكيد تسجيل الخروج';
+                    action.textContent = 'تسجيل الخروج';
+                    message.textContent = 'سيتم تسجيل خروجك من جميع الأجهزة. هل أنت متأكد؟';
+                    icon.className = 'confirm-icon logout';
+                    icon.innerHTML = '<iconify-icon icon="mdi:logout" style="font-size: 2.5rem;"></iconify-icon>';
+                    actionText.textContent = 'نعم، سجل الخروج';
+                    actionBtn.className = 'btn btn-danger';
+                    break;
+                    
+                case 'block':
+                    title.textContent = 'تأكيد المنع';
+                    action.textContent = `منع ${data.deviceName}`;
+                    message.textContent = `سيتم منع الجهاز "${data.deviceName}" من الوصول إلى الحساب.`;
+                    icon.className = 'confirm-icon block';
+                    icon.innerHTML = '<iconify-icon icon="mdi:block-helper" style="font-size: 2.5rem;"></iconify-icon>';
+                    actionText.textContent = 'نعم، امنع';
+                    actionBtn.className = 'btn btn-danger';
+                    break;
+            }
+            
+            openModal('confirmModal');
+        }
+
+        async function handleConfirmAction() {
+            if (!pendingAction || !pendingActionData) return;
+            
+            try {
+                switch(pendingAction) {
+                    case 'delete':
+                        await deleteBoard(pendingActionData.boardId);
+                        break;
+                    case 'logout':
+                        await handleLogout();
+                        break;
+                    case 'block':
+                        await blockDevice(pendingActionData.deviceId, false, 'حظر يدوي');
+                        loadAndRenderDevices();
+                        break;
+                }
+                
+                closeAllModals();
+                pendingAction = null;
+                pendingActionData = null;
+            } catch (error) {
+                console.error('Error executing action:', error);
+                showToast('حدث خطأ أثناء تنفيذ الإجراء', 'error');
+            }
+        }
+
+        function confirmLogout() {
+            showConfirmationModal('logout', {});
+        }
+
         // ===== SETTINGS MODAL =====
         function openSettingsModal() {
             if (!currentUser) {
@@ -3615,6 +4071,296 @@
             
             updateSettingsUI();
             openModal('settingsModal');
+            switchSettingsTab('profile');
+        }
+
+        function switchSettingsTab(tabId) {
+            // Update tabs
+            document.querySelectorAll('.settings-tab').forEach(tab => {
+                tab.classList.remove('active');
+                if (tab.getAttribute('data-tab') === tabId) {
+                    tab.classList.add('active');
+                }
+            });
+            
+            // Update content
+            document.querySelectorAll('.settings-tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            const tabContent = document.getElementById(`${tabId}Tab`);
+            if (tabContent) {
+                tabContent.classList.add('active');
+                renderSettingsTab(tabId);
+            }
+        }
+
+        function renderSettingsTab(tabId) {
+            const tabContent = document.getElementById(`${tabId}Tab`);
+            if (!tabContent) return;
+            
+            switch(tabId) {
+                case 'profile':
+                    renderProfileTab(tabContent);
+                    break;
+                case 'appearance':
+                    renderAppearanceTab(tabContent);
+                    break;
+                case 'security':
+                    renderSecurityTab(tabContent);
+                    break;
+                case 'advanced':
+                    renderAdvancedTab(tabContent);
+                    break;
+            }
+        }
+
+        function renderProfileTab(container) {
+            const displayName = currentUser.displayName || currentUser.email?.split('@')[0] || 'المستخدم';
+            const email = currentUser.email || 'غير محدد';
+            const createdAt = userSettings.createdAt ? formatDate(userSettings.createdAt.toDate()) : formatDate(new Date());
+            
+            container.innerHTML = `
+                <div class="settings-card">
+                    <div class="settings-card-header">
+                        <div class="settings-card-icon">
+                            <iconify-icon icon="mdi:account-circle"></iconify-icon>
+                        </div>
+                        <div>
+                            <h4 class="settings-card-title">معلومات الحساب</h4>
+                            <p class="settings-card-description">إدارة معلومات ملفك الشخصي</p>
+                        </div>
+                    </div>
+                    
+                    <div class="settings-items">
+                        <div class="settings-item">
+                            <div class="settings-label">
+                                <span class="settings-name">الاسم الكامل</span>
+                                <span class="settings-description">اسمك المعروض في التطبيق</span>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 1rem;">
+                                <span id="profileName">${displayName}</span>
+                                <button class="action-btn edit" id="editProfileNameBtn">
+                                    <iconify-icon icon="mdi:pencil"></iconify-icon>
+                                    <span>تعديل</span>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="settings-item">
+                            <div class="settings-label">
+                                <span class="settings-name">البريد الإلكتروني</span>
+                                <span class="settings-description">البريد الإلكتروني المرتبط بالحساب</span>
+                            </div>
+                            <span id="profileEmail">${email}</span>
+                        </div>
+                        
+                        <div class="settings-item">
+                            <div class="settings-label">
+                                <span class="settings-name">تاريخ الإنشاء</span>
+                                <span class="settings-description">تاريخ إنشاء حسابك في NovaPass</span>
+                            </div>
+                            <span id="profileCreatedAt">${createdAt}</span>
+                        </div>
+                        
+                        <div class="settings-item">
+                            <div class="settings-label">
+                                <span class="settings-name">الخطة الحالية</span>
+                                <span class="settings-description">استمتع بميزات NovaPass الأساسية</span>
+                            </div>
+                            <span class="plan-badge" id="profilePlan">${userSettings.plan || 'مجانية'}</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            container.querySelector('#editProfileNameBtn')?.addEventListener('click', editUserName);
+        }
+
+        function renderAppearanceTab(container) {
+            container.innerHTML = `
+                <div class="settings-card">
+                    <div class="settings-card-header">
+                        <div class="settings-card-icon">
+                            <iconify-icon icon="mdi:palette"></iconify-icon>
+                        </div>
+                        <div>
+                            <h4 class="settings-card-title">المظهر</h4>
+                            <p class="settings-card-description">خصّص مظهر التطبيق حسب تفضيلاتك</p>
+                        </div>
+                    </div>
+                    
+                    <div class="settings-items">
+                        <div class="settings-item">
+                            <div class="settings-label">
+                                <span class="settings-name">الوضع</span>
+                                <span class="settings-description">اختر المظهر المناسب لك</span>
+                            </div>
+                            <div class="segmented-control" id="themeSelectorTab">
+                                ${themeOptions.map(theme => `
+                                    <div class="segmented-option ${theme.value === (userSettings.theme || 'light') ? 'selected' : ''}" 
+                                         data-theme="${theme.value}">
+                                        <iconify-icon icon="${theme.icon}"></iconify-icon>
+                                        <span>${theme.label}</span>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                        
+                        <div class="settings-item">
+                            <div class="settings-label">
+                                <span class="settings-name">كثافة الواجهة</span>
+                                <span class="settings-description">تحكم في المسافات بين العناصر</span>
+                            </div>
+                            <select class="form-control" style="width: auto;" id="densitySelector">
+                                <option value="comfortable">مريح</option>
+                                <option value="compact">مضغوط</option>
+                                <option value="spacious">واسع</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // Add event listeners for theme selector
+            container.querySelectorAll('#themeSelectorTab .segmented-option').forEach(option => {
+                option.addEventListener('click', () => {
+                    const theme = option.getAttribute('data-theme');
+                    selectTheme(option);
+                });
+            });
+        }
+
+        function renderSecurityTab(container) {
+            container.innerHTML = `
+                <div class="settings-card">
+                    <div class="settings-card-header">
+                        <div class="settings-card-icon">
+                            <iconify-icon icon="mdi:shield-lock"></iconify-icon>
+                        </div>
+                        <div>
+                            <h4 class="settings-card-title">الأمان</h4>
+                            <p class="settings-card-description">إدارة إعدادات الأمان والخصوصية</p>
+                        </div>
+                    </div>
+                    
+                    <div class="settings-items">
+                        <div class="settings-item">
+                            <div class="settings-label">
+                                <span class="settings-name">جلسة المستخدم</span>
+                                <span class="settings-description">حالة الاتصال الحالية</span>
+                            </div>
+                            <span class="caption" style="color: var(--success); display: flex; align-items: center; gap: 0.25rem;">
+                                <iconify-icon icon="mdi:check-circle"></iconify-icon>
+                                نشط
+                            </span>
+                        </div>
+                        
+                        <div class="settings-item">
+                            <div class="settings-label">
+                                <span class="settings-name">إظهار كلمة المرور</span>
+                                <span class="settings-description">طريقة إظهار كلمات المرور</span>
+                            </div>
+                            <div class="segmented-control" id="passwordVisibilitySelectorTab">
+                                ${passwordVisibilityOptions.map(option => `
+                                    <div class="segmented-option ${option.value === (userSettings.passwordVisibility || 'hold') ? 'selected' : ''}" 
+                                         data-value="${option.value}">
+                                        <iconify-icon icon="${option.icon}"></iconify-icon>
+                                        <span>${option.label}</span>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                        
+                        <div class="settings-item">
+                            <div class="settings-label">
+                                <span class="settings-name">جلسات الدخول النشطة</span>
+                                <span class="settings-description">إدارة جميع جلسات الدخول</span>
+                            </div>
+                            <button class="action-btn" onclick="showSection('devicesSection'); closeAllModals();">
+                                <iconify-icon icon="mdi:devices"></iconify-icon>
+                                <span>عرض الأجهزة</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // Add event listeners for password visibility selector
+            container.querySelectorAll('#passwordVisibilitySelectorTab .segmented-option').forEach(option => {
+                option.addEventListener('click', () => {
+                    const value = option.getAttribute('data-value');
+                    selectPasswordVisibility(option);
+                });
+            });
+        }
+
+        function renderAdvancedTab(container) {
+            container.innerHTML = `
+                <div class="settings-card">
+                    <div class="settings-card-header">
+                        <div class="settings-card-icon">
+                            <iconify-icon icon="mdi:cog"></iconify-icon>
+                        </div>
+                        <div>
+                            <h4 class="settings-card-title">ميزات متقدمة</h4>
+                            <p class="settings-card-description">إعدادات إضافية وميزات متقدمة</p>
+                        </div>
+                    </div>
+                    
+                    <div class="settings-items">
+                        <div class="settings-item">
+                            <div class="settings-label">
+                                <span class="settings-name">نسخة احتياطية</span>
+                                <span class="settings-description">قم بعمل نسخة احتياطية من بياناتك</span>
+                            </div>
+                            <button class="action-btn" id="backupDataBtn">
+                                <iconify-icon icon="mdi:download"></iconify-icon>
+                                <span>تحميل النسخة</span>
+                            </button>
+                        </div>
+                        
+                        <div class="settings-item">
+                            <div class="settings-label">
+                                <span class="settings-name">استيراد البيانات</span>
+                                <span class="settings-description">استورد بيانات من مدير كلمات مرور آخر</span>
+                            </div>
+                            <button class="action-btn" id="importDataBtnAdvanced">
+                                <iconify-icon icon="mdi:import"></iconify-icon>
+                                <span>استيراد</span>
+                            </button>
+                        </div>
+                        
+                        <div class="settings-item">
+                            <div class="settings-label">
+                                <span class="settings-name">مسح البيانات</span>
+                                <span class="settings-description">احذف جميع البيانات المخزنة محلياً</span>
+                            </div>
+                            <button class="action-btn delete" id="clearDataBtn">
+                                <iconify-icon icon="mdi:delete"></iconify-icon>
+                                <span>مسح</span>
+                            </button>
+                        </div>
+                        
+                        <div class="settings-item">
+                            <div class="settings-label">
+                                <span class="settings-name">سجلات التصحيح</span>
+                                <span class="settings-description">سجلات النظام والأخطاء</span>
+                            </div>
+                            <button class="action-btn" id="debugLogsBtn">
+                                <iconify-icon icon="mdi:bug"></iconify-icon>
+                                <span>عرض السجلات</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // Add event listeners for advanced settings
+            container.querySelector('#backupDataBtn')?.addEventListener('click', exportData);
+            container.querySelector('#importDataBtnAdvanced')?.addEventListener('click', openImportModal);
+            container.querySelector('#clearDataBtn')?.addEventListener('click', clearLocalData);
+            container.querySelector('#debugLogsBtn')?.addEventListener('click', showDebugLogs);
         }
 
         function updateSettingsUI() {
@@ -3633,30 +4379,10 @@
             document.getElementById('currentPlan').className = `plan-badge ${plan === 'مجانية' ? '' : 'pro'}`;
             
             document.getElementById('boardsLimit').textContent = plan === 'مجانية' ? '10 حسابات' : 'غير محدود';
-            
-            // Theme selector
-            const currentTheme = userSettings.theme || 'light';
-            const themeOptions = document.querySelectorAll('#themeSelector .segmented-option');
-            themeOptions.forEach(option => {
-                option.classList.remove('selected');
-                if (option.getAttribute('data-theme') === currentTheme) {
-                    option.classList.add('selected');
-                }
-            });
-            
-            // Password visibility selector
-            const currentVisibility = userSettings.passwordVisibility || 'hold';
-            const visibilityOptions = document.querySelectorAll('#passwordVisibilitySelector .segmented-option');
-            visibilityOptions.forEach(option => {
-                option.classList.remove('selected');
-                if (option.getAttribute('data-value') === currentVisibility) {
-                    option.classList.add('selected');
-                }
-            });
         }
 
         function editUserName() {
-            const currentName = document.getElementById('settingsName').textContent;
+            const currentName = currentUser.displayName || currentUser.email?.split('@')[0] || 'المستخدم';
             const newName = prompt('أدخل اسمك الجديد:', currentName);
             
             if (newName && newName.trim() && newName !== currentName) {
@@ -3677,7 +4403,6 @@
                 }, { merge: true });
                 
                 updateUserUI();
-                updateSettingsUI();
                 showToast('تم تحديث الاسم بنجاح', 'success');
             } catch (error) {
                 console.error('Error updating name:', error);
@@ -3688,7 +4413,7 @@
         function selectTheme(option) {
             const theme = option.getAttribute('data-theme');
             
-            document.querySelectorAll('#themeSelector .segmented-option').forEach(opt => {
+            option.parentElement.querySelectorAll('.segmented-option').forEach(opt => {
                 opt.classList.remove('selected');
             });
             option.classList.add('selected');
@@ -3699,12 +4424,13 @@
             updateSettings();
             
             logActivity('theme', { theme });
+            showToast('تم تغيير المظهر بنجاح', 'success');
         }
 
         function selectPasswordVisibility(option) {
             const value = option.getAttribute('data-value');
             
-            document.querySelectorAll('#passwordVisibilitySelector .segmented-option').forEach(opt => {
+            option.parentElement.querySelectorAll('.segmented-option').forEach(opt => {
                 opt.classList.remove('selected');
             });
             option.classList.add('selected');
@@ -3727,10 +4453,389 @@
             }
         }
 
+        // ===== DATA MIGRATION =====
+        function openImportModal() {
+            const modal = document.getElementById('dataModal');
+            const title = document.getElementById('dataModalTitle');
+            const content = document.getElementById('dataModalContent');
+            
+            if (!modal || !title || !content) return;
+            
+            title.textContent = 'استيراد البيانات';
+            content.innerHTML = `
+                <div class="form-group">
+                    <label class="form-label">اختر ملف البيانات (JSON)</label>
+                    <input type="file" id="dataFileInput" class="form-control" accept=".json" />
+                    <p class="body-sm" style="color: var(--text-muted); margin-top: 0.5rem;">
+                        يجب أن يكون الملف بتنسيق JSON صالح ويحتوي على مصفوفة من الحسابات.
+                    </p>
+                </div>
+                
+                <div class="preview-container" id="importPreview" style="display: none; margin-top: 1.5rem;"></div>
+                
+                <div class="modal-actions" style="margin-top: 2rem;">
+                    <button type="button" class="btn btn-secondary" onclick="closeAllModals()">
+                        إلغاء
+                    </button>
+                    <button type="button" class="btn btn-primary" id="importDataConfirmBtn" disabled>
+                        <iconify-icon icon="mdi:import"></iconify-icon>
+                        <span>استيراد البيانات</span>
+                    </button>
+                </div>
+            `;
+            
+            openModal('dataModal');
+            
+            // Add event listeners
+            setTimeout(() => {
+                const fileInput = document.getElementById('dataFileInput');
+                const importBtn = document.getElementById('importDataConfirmBtn');
+                const preview = document.getElementById('importPreview');
+                
+                fileInput.addEventListener('change', (e) => {
+                    const file = e.target.files[0];
+                    if (file) {
+                        previewData(file, preview);
+                        importBtn.disabled = false;
+                    }
+                });
+                
+                importBtn.addEventListener('click', () => {
+                    importData(fileInput.files[0]);
+                });
+            }, 100);
+        }
+
+        function previewData(file, previewContainer) {
+            const reader = new FileReader();
+            
+            reader.onload = (e) => {
+                try {
+                    const data = JSON.parse(e.target.result);
+                    if (Array.isArray(data)) {
+                        previewContainer.innerHTML = `
+                            <h4 class="h4" style="margin-bottom: 1rem;">معاينة البيانات</h4>
+                            <p class="body-sm">تم العثور على ${data.length} حساب</p>
+                            <div style="margin-top: 1rem;">
+                                ${data.slice(0, 5).map((item, index) => `
+                                    <div style="padding: 0.5rem; border-bottom: 1px solid var(--border-color);">
+                                        <div style="font-weight: 500;">${item.name || 'غير معروف'}</div>
+                                        <div style="font-size: 0.75rem; color: var(--text-muted);">${item.email || 'لا يوجد بريد'}</div>
+                                    </div>
+                                `).join('')}
+                                ${data.length > 5 ? `
+                                    <div style="padding: 0.5rem; text-align: center; color: var(--text-muted);">
+                                        و ${data.length - 5} حساب إضافي...
+                                    </div>
+                                ` : ''}
+                            </div>
+                        `;
+                        previewContainer.style.display = 'block';
+                    } else {
+                        previewContainer.innerHTML = '<p style="color: var(--danger);">تنسيق الملف غير صالح. يجب أن يحتوي على مصفوفة.</p>';
+                        previewContainer.style.display = 'block';
+                    }
+                } catch (error) {
+                    previewContainer.innerHTML = `<p style="color: var(--danger);">خطأ في قراءة الملف: ${error.message}</p>`;
+                    previewContainer.style.display = 'block';
+                }
+            };
+            
+            reader.readAsText(file);
+        }
+
+        async function importData(file) {
+            if (!file) {
+                showToast('الرجاء اختيار ملف', 'error');
+                return;
+            }
+            
+            const reader = new FileReader();
+            
+            reader.onload = async (e) => {
+                try {
+                    const data = JSON.parse(e.target.result);
+                    if (!Array.isArray(data)) {
+                        showToast('تنسيق الملف غير صالح', 'error');
+                        return;
+                    }
+                    
+                    // Validate and prepare data
+                    const validBoards = data.filter(item => 
+                        item.name && item.email && item.password
+                    ).map(item => ({
+                        id: generateId(),
+                        name: item.name,
+                        email: item.email,
+                        password: item.password,
+                        icon: item.icon || 'mdi:web',
+                        color: item.color || '#2ED3B7',
+                        colorClass: item.colorClass || 'personal',
+                        colorLabel: item.colorLabel || 'شخصي',
+                        updatedAt: new Date().toISOString(),
+                        createdAt: new Date().toISOString()
+                    }));
+                    
+                    if (validBoards.length === 0) {
+                        showToast('لم يتم العثور على بيانات صالحة', 'error');
+                        return;
+                    }
+                    
+                    // Add to existing boards
+                    userBoards = [...userBoards, ...validBoards];
+                    
+                    // Update Firebase
+                    await updateDoc(accountRef, {
+                        'vault.boards': userBoards,
+                        updatedAt: serverTimestamp()
+                    }, { merge: true });
+                    
+                    // Log activity
+                    await logActivity('import', { count: validBoards.length });
+                    
+                    // Hide migration section if it was shown
+                    await updateDoc(accountRef, {
+                        'settings.showMigrationSection': false
+                    }, { merge: true });
+                    
+                    // Update UI
+                    renderBoards();
+                    closeAllModals();
+                    showToast(`تم استيراد ${validBoards.length} حساب بنجاح`, 'success');
+                    
+                } catch (error) {
+                    console.error('Error importing data:', error);
+                    showToast('حدث خطأ أثناء استيراد البيانات', 'error');
+                }
+            };
+            
+            reader.readAsText(file);
+        }
+
+        function exportData() {
+            try {
+                const data = {
+                    version: '1.0',
+                    exportedAt: new Date().toISOString(),
+                    count: userBoards.length,
+                    boards: userBoards.map(board => ({
+                        name: board.name,
+                        email: board.email,
+                        password: board.password,
+                        icon: board.icon,
+                        color: board.color,
+                        colorClass: board.colorClass,
+                        colorLabel: board.colorLabel,
+                        createdAt: board.createdAt,
+                        updatedAt: board.updatedAt
+                    }))
+                };
+                
+                const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `novapass-backup-${new Date().toISOString().split('T')[0]}.json`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                
+                logActivity('export', { count: userBoards.length });
+                showToast(`تم تصدير ${userBoards.length} حساب بنجاح`, 'success');
+                
+            } catch (error) {
+                console.error('Error exporting data:', error);
+                showToast('حدث خطأ أثناء تصدير البيانات', 'error');
+            }
+        }
+
+        function clearLocalData() {
+            if (confirm('هل تريد مسح جميع البيانات المخزنة محلياً؟ هذا الإجراء لا يمكن التراجع عنه.')) {
+                localStorage.clear();
+                showToast('تم مسح البيانات المحلية', 'success');
+                setTimeout(() => {
+                    window.location.reload();
+                }, 1500);
+            }
+        }
+
+        function showDebugLogs() {
+            const logs = [
+                `User: ${currentUser?.email || 'غير معروف'}`,
+                `Device: ${currentDeviceId}`,
+                `Is Owner: ${isOwnerDevice}`,
+                `Boards Count: ${userBoards.length}`,
+                `Devices Count: ${userDevices.length}`,
+                `Theme: ${userSettings.theme || 'light'}`,
+                `Last Login: ${new Date().toLocaleString('ar-SA')}`
+            ];
+            
+            alert('سجلات التصحيح:\n\n' + logs.join('\n'));
+        }
+
         // ===== UI RENDERING =====
+        async function loadUserData() {
+            if (!accountRef) return;
+            
+            try {
+                isLoading.dashboard = true;
+                renderLoadingState('dashboard');
+                
+                const accountDoc = await getDoc(accountRef);
+                if (accountDoc.exists()) {
+                    const data = accountDoc.data();
+                    userBoards = data.vault?.boards || [];
+                    userSettings = data.settings || {};
+                    securityData = data.security || {};
+                    
+                    // Show/hide migration section
+                    const migrationSection = document.getElementById('migrationSection');
+                    if (migrationSection) {
+                        migrationSection.style.display = userSettings.showMigrationSection && userBoards.length === 0 ? 'block' : 'none';
+                    }
+                    
+                    renderBoards();
+                    isLoading.dashboard = false;
+                }
+            } catch (error) {
+                console.error('Error loading user data:', error);
+                showToast('حدث خطأ في تحميل البيانات', 'error');
+                renderErrorState('dashboard');
+                isLoading.dashboard = false;
+            }
+        }
+
+        function renderLoadingState(section) {
+            switch(section) {
+                case 'dashboard':
+                    const boardsContainer = document.getElementById('boardsContainer');
+                    if (boardsContainer) {
+                        boardsContainer.innerHTML = `
+                            <div class="board-card loading">
+                                <div class="card-header">
+                                    <div class="skeleton-circle skeleton"></div>
+                                    <div style="flex: 1;">
+                                        <div class="skeleton-text skeleton" style="width: 70%;"></div>
+                                        <div class="skeleton-text skeleton" style="width: 50%;"></div>
+                                    </div>
+                                </div>
+                                <div class="password-section">
+                                    <div class="skeleton-text skeleton" style="width: 40%;"></div>
+                                    <div class="skeleton-text skeleton" style="height: 48px;"></div>
+                                    <div class="skeleton-text skeleton" style="width: 60%; margin-top: 1rem;"></div>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="skeleton-text skeleton" style="flex: 1; height: 40px;"></div>
+                                    <div class="skeleton-text skeleton" style="flex: 1; height: 40px;"></div>
+                                </div>
+                            </div>
+                        `;
+                    }
+                    break;
+                    
+                case 'devices':
+                    const devicesList = document.getElementById('devicesList');
+                    if (devicesList) {
+                        devicesList.innerHTML = `
+                            <div class="device-card loading">
+                                <div class="device-icon">
+                                    <div class="skeleton skeleton-circle"></div>
+                                </div>
+                                <div class="device-info">
+                                    <div class="skeleton skeleton-text" style="width: 60%; height: 1.5rem; margin-bottom: 0.5rem;"></div>
+                                    <div class="skeleton skeleton-text" style="width: 40%; height: 1rem;"></div>
+                                </div>
+                            </div>
+                        `;
+                    }
+                    break;
+                    
+                case 'activity':
+                    const activityTimeline = document.getElementById('activityTimeline');
+                    if (activityTimeline) {
+                        activityTimeline.innerHTML = `
+                            <div class="activity-day-group">
+                                <div class="day-header">
+                                    <div class="skeleton skeleton-text" style="width: 120px; height: 1.5rem;"></div>
+                                </div>
+                                <div class="activity-items">
+                                    <div class="activity-item">
+                                        <div class="activity-icon">
+                                            <div class="skeleton skeleton-circle" style="width: 40px; height: 40px;"></div>
+                                        </div>
+                                        <div class="activity-content">
+                                            <div class="skeleton skeleton-text" style="width: 70%; height: 1.25rem; margin-bottom: 0.5rem;"></div>
+                                            <div class="skeleton skeleton-text" style="width: 50%; height: 1rem;"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    }
+                    break;
+            }
+        }
+
+        function renderErrorState(section) {
+            switch(section) {
+                case 'dashboard':
+                    const boardsContainer = document.getElementById('boardsContainer');
+                    if (boardsContainer) {
+                        boardsContainer.innerHTML = `
+                            <div class="empty-state">
+                                <div class="empty-icon">
+                                    <iconify-icon icon="mdi:alert-circle"></iconify-icon>
+                                </div>
+                                <h3 class="h3">حدث خطأ في التحميل</h3>
+                                <p class="body">
+                                    تعذر تحميل البيانات. يرجى المحاولة مرة أخرى لاحقاً.
+                                </p>
+                                <button class="btn btn-primary" onclick="location.reload()" style="margin-top: 1.5rem;">
+                                    <iconify-icon icon="mdi:refresh"></iconify-icon>
+                                    <span>إعادة المحاولة</span>
+                                </button>
+                            </div>
+                        `;
+                    }
+                    break;
+                    
+                case 'devices':
+                    const devicesList = document.getElementById('devicesList');
+                    if (devicesList) {
+                        devicesList.innerHTML = `
+                            <div class="empty-state">
+                                <div class="empty-icon">
+                                    <iconify-icon icon="mdi:alert-circle"></iconify-icon>
+                                </div>
+                                <h3 class="h3">حدث خطأ في التحميل</h3>
+                                <p class="body">
+                                    تعذر تحميل قائمة الأجهزة. يرجى المحاولة مرة أخرى لاحقاً.
+                                </p>
+                                <button class="btn btn-primary" onclick="loadAndRenderDevices()" style="margin-top: 1.5rem;">
+                                    <iconify-icon icon="mdi:refresh"></iconify-icon>
+                                    <span>إعادة المحاولة</span>
+                                </button>
+                            </div>
+                        `;
+                    }
+                    break;
+            }
+        }
+
         async function loadAndRenderDevices() {
-            userDevices = await loadDevices();
-            renderDevices(userDevices);
+            try {
+                isLoading.devices = true;
+                renderLoadingState('devices');
+                
+                userDevices = await loadDevices();
+                renderDevices(userDevices);
+                isLoading.devices = false;
+            } catch (error) {
+                console.error('Error loading devices:', error);
+                renderErrorState('devices');
+                isLoading.devices = false;
+            }
         }
 
         function renderDevices(devices) {
@@ -3745,7 +4850,7 @@
                         </div>
                         <h3 class="h3">لا توجد أجهزة</h3>
                         <p class="body">
-                            سيظهر هنا أي جهاز تقوم بتسجيل الدخول منه
+                            سيظهر هنا أي جهاز تقوم بتسجيل الدخول منه. جرب تسجيل الدخول من جهاز آخر لتراه هنا.
                         </p>
                     </div>
                 `;
@@ -3836,7 +4941,6 @@
                 </div>
             `;
             
-            // Add event listeners for action buttons
             setTimeout(() => {
                 if (!isCurrent && isOwnerDevice) {
                     const logoutBtn = element.querySelector('.logout');
@@ -3849,7 +4953,7 @@
                     logoutBtn?.addEventListener('click', () => signOutDevice(device));
                     trustBtn?.addEventListener('click', () => toggleDeviceTrustAction(device.id, true));
                     untrustBtn?.addEventListener('click', () => toggleDeviceTrustAction(device.id, false));
-                    blockBtn?.addEventListener('click', () => blockDeviceAction(device));
+                    blockBtn?.addEventListener('click', () => showBlockConfirmation(device));
                     unblockBtn?.addEventListener('click', () => unblockDeviceAction(device.id));
                     approveBtn?.addEventListener('click', () => approveDeviceAction(device.id));
                 }
@@ -3858,13 +4962,20 @@
             return element;
         }
 
+        function showBlockConfirmation(device) {
+            showConfirmationModal('block', {
+                deviceId: device.id,
+                deviceName: device.deviceName
+            });
+        }
+
         function renderDeviceActions(device, isCurrent, isOwner, isBlocked, isPending, isTrusted) {
             if (isCurrent) {
-                return ''; // No actions for current device
+                return '';
             }
             
             if (!isOwnerDevice) {
-                return ''; // Only owner device can perform actions
+                return '';
             }
             
             let actions = '';
@@ -3914,6 +5025,62 @@
             return actions;
         }
 
+        async function signOutDevice(device) {
+            try {
+                const confirm = window.confirm(`هل تريد تسجيل الخروج من الجهاز "${device.deviceName}"؟`);
+                if (!confirm) return;
+                
+                const deviceRef = doc(accountRef, 'devices', device.id);
+                await deleteDoc(deviceRef);
+                
+                await logActivity('device_logout', {
+                    deviceName: device.deviceName
+                });
+                
+                await loadAndRenderDevices();
+                showToast('تم تسجيل الخروج من الجهاز بنجاح', 'success');
+            } catch (error) {
+                console.error('Error signing out device:', error);
+                showToast('حدث خطأ أثناء تسجيل الخروج من الجهاز', 'error');
+            }
+        }
+
+        function toggleDeviceTrustAction(deviceId, trusted) {
+            const action = trusted ? 'تعيين كموثوق' : 'إلغاء الثقة';
+            const confirmMsg = trusted 
+                ? 'هل تريد تعيين هذا الجهاز كموثوق؟ الأجهزة الموثوقة يمكنها الوصول بدون موافقة.'
+                : 'هل تريد إلغاء الثقة عن هذا الجهاز؟ سيحتاج الجهاز إلى موافقة عند تسجيل الدخول التالي.';
+            
+            if (confirm(confirmMsg)) {
+                toggleDeviceTrust(deviceId, trusted).then(success => {
+                    if (success) {
+                        loadAndRenderDevices();
+                    }
+                });
+            }
+        }
+
+        function unblockDeviceAction(deviceId) {
+            if (confirm('هل تريد إلغاء حظر هذا الجهاز؟ سيكون بإمكان الجهاز تسجيل الدخول مرة أخرى.')) {
+                unblockDevice(deviceId).then(success => {
+                    if (success) {
+                        loadAndRenderDevices();
+                    }
+                });
+            }
+        }
+
+        function approveDeviceAction(deviceId) {
+            if (confirm('هل تريد الموافقة على هذا الجهاز؟ سيتمكن الجهاز من الوصول إلى الحساب.')) {
+                approveDevice(deviceId).then(success => {
+                    if (success) {
+                        loadAndRenderDevices();
+                    }
+                });
+            }
+        }
+
+        // ===== ACTIVITY LOGS =====
         function setupActivityFilters() {
             const filtersContainer = document.getElementById('activityFilters');
             if (!filtersContainer) return;
@@ -3946,8 +5113,18 @@
         }
 
         async function loadAndRenderActivityLogs(filter = 'all') {
-            const logs = await loadActivityLogs(filter);
-            renderActivityLogs(logs);
+            try {
+                isLoading.activity = true;
+                renderLoadingState('activity');
+                
+                const logs = await loadActivityLogs(filter);
+                renderActivityLogs(logs);
+                isLoading.activity = false;
+            } catch (error) {
+                console.error('Error loading activity logs:', error);
+                renderErrorState('activity');
+                isLoading.activity = false;
+            }
         }
 
         function renderActivityLogs(logs) {
@@ -3962,7 +5139,7 @@
                         </div>
                         <h3 class="h3">لا توجد سجلات نشاط</h3>
                         <p class="body">
-                            سيظهر هنا أي نشاط تقوم به على حسابك
+                            سيظهر هنا أي نشاط تقوم به على حسابك. جرب إضافة حساب جديد أو تعديل إعداداتك.
                         </p>
                     </div>
                 `;
@@ -4001,7 +5178,7 @@
                         <iconify-icon icon="${activity.icon}"></iconify-icon>
                     </div>
                     <div class="activity-content">
-                        <div class="activity-description">${description}</div>
+                        <div class="activity-description-text">${description}</div>
                         <div class="activity-details">
                             ${log.deviceName ? `من ${log.deviceName}` : ''}
                         </div>
@@ -4013,21 +5190,337 @@
             `;
         }
 
-        // ===== BOARD OPERATIONS =====
-        async function loadUserData() {
-            if (!accountRef) return;
+        // ===== SETTINGS SECTION =====
+        async function loadAndRenderSettings() {
+            const settingsGrid = document.getElementById('settingsGrid');
+            if (!settingsGrid) return;
             
-            const accountDoc = await getDoc(accountRef);
-            if (accountDoc.exists()) {
-                const data = accountDoc.data();
-                userBoards = data.vault?.boards || [];
-                userSettings = data.settings || {};
-                securityData = data.security || {};
+            settingsGrid.innerHTML = `
+                <div class="settings-card" onclick="openSettingsModal();">
+                    <div class="settings-card-header">
+                        <div class="settings-card-icon">
+                            <iconify-icon icon="mdi:account-circle"></iconify-icon>
+                        </div>
+                        <div>
+                            <h4 class="settings-card-title">الملف الشخصي</h4>
+                            <p class="settings-card-description">إدارة معلومات حسابك وتفضيلاتك</p>
+                        </div>
+                    </div>
+                    <div class="settings-items">
+                        <div class="settings-item">
+                            <span class="settings-name">الاسم: ${currentUser?.displayName || 'المستخدم'}</span>
+                            <iconify-icon icon="mdi:chevron-left"></iconify-icon>
+                        </div>
+                    </div>
+                </div>
                 
-                renderBoards();
+                <div class="settings-card" onclick="openSettingsModal(); switchSettingsTab('appearance');">
+                    <div class="settings-card-header">
+                        <div class="settings-card-icon">
+                            <iconify-icon icon="mdi:palette"></iconify-icon>
+                        </div>
+                        <div>
+                            <h4 class="settings-card-title">المظهر</h4>
+                            <p class="settings-card-description">تخصيص مظهر واجهة التطبيق</p>
+                        </div>
+                    </div>
+                    <div class="settings-items">
+                        <div class="settings-item">
+                            <span class="settings-name">الوضع: ${userSettings.theme === 'dark' ? 'داكن' : userSettings.theme === 'system' ? 'النظام' : 'فاتح'}</span>
+                            <iconify-icon icon="mdi:chevron-left"></iconify-icon>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="settings-card" onclick="openSettingsModal(); switchSettingsTab('security');">
+                    <div class="settings-card-header">
+                        <div class="settings-card-icon">
+                            <iconify-icon icon="mdi:shield-lock"></iconify-icon>
+                        </div>
+                        <div>
+                            <h4 class="settings-card-title">الأمان</h4>
+                            <p class="settings-card-description">إدارة إعدادات الأمان والخصوصية</p>
+                        </div>
+                    </div>
+                    <div class="settings-items">
+                        <div class="settings-item">
+                            <span class="settings-name">إظهار الباسورد: ${userSettings.passwordVisibility === 'hold' ? 'الضغط المطول' : userSettings.passwordVisibility === 'click' ? 'النقر' : 'دائماً'}</span>
+                            <iconify-icon icon="mdi:chevron-left"></iconify-icon>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="settings-card" onclick="openSettingsModal(); switchSettingsTab('advanced');">
+                    <div class="settings-card-header">
+                        <div class="settings-card-icon">
+                            <iconify-icon icon="mdi:cog"></iconify-icon>
+                        </div>
+                        <div>
+                            <h4 class="settings-card-title">متقدم</h4>
+                            <p class="settings-card-description">ميزات متقدمة وإعدادات إضافية</p>
+                        </div>
+                    </div>
+                    <div class="settings-items">
+                        <div class="settings-item">
+                            <span class="settings-name">نسخ احتياطي، استيراد، سجلات</span>
+                            <iconify-icon icon="mdi:chevron-left"></iconify-icon>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // ===== SMART PASSWORD CARDS =====
+        function renderBoards() {
+            const container = document.getElementById('boardsContainer');
+            const emptyState = document.getElementById('emptyState');
+            
+            if (!container) return;
+            
+            container.innerHTML = '';
+            
+            if (userBoards.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">
+                            <iconify-icon icon="mdi:lock-outline"></iconify-icon>
+                        </div>
+                        <h3 class="h3">لا توجد حسابات بعد</h3>
+                        <p class="body">
+                            ابدأ بحفظ أول حساب لتجربة أمان NovaPass. إدارة كلمات المرور أصبحت أسهل وأكثر أماناً.
+                        </p>
+                        <button class="btn btn-primary" id="firstBoardBtn" style="margin-top: 1.5rem;">
+                            <iconify-icon icon="mdi:plus"></iconify-icon>
+                            <span>ابدأ بإضافة حساب</span>
+                        </button>
+                    </div>
+                `;
+                
+                document.getElementById('firstBoardBtn')?.addEventListener('click', () => openBoardModal('add'));
+                return;
+            }
+            
+            userBoards.forEach(board => {
+                const boardElement = createSmartBoardElement(board);
+                if (boardElement) {
+                    container.appendChild(boardElement);
+                }
+            });
+        }
+
+        function createSmartBoardElement(board) {
+            const element = document.createElement('div');
+            element.className = 'board-card';
+            
+            // Calculate password strength
+            const password = board.password;
+            let strength = 0;
+            let totalWeight = 0;
+            
+            passwordCriteria.forEach(criteria => {
+                if (criteria.test(password)) {
+                    strength += criteria.weight;
+                }
+                totalWeight += criteria.weight;
+            });
+            
+            const lengthBonus = Math.min(password.length * 2, 20);
+            strength += lengthBonus;
+            totalWeight += 20;
+            
+            const percentage = Math.min(Math.round((strength / totalWeight) * 100), 100);
+            
+            // Determine strength level
+            let strengthLevel = passwordStrengthLevels.weak;
+            if (percentage >= passwordStrengthLevels.excellent.threshold) {
+                strengthLevel = passwordStrengthLevels.excellent;
+            } else if (percentage >= passwordStrengthLevels.good.threshold) {
+                strengthLevel = passwordStrengthLevels.good;
+            } else if (percentage >= passwordStrengthLevels.medium.threshold) {
+                strengthLevel = passwordStrengthLevels.medium;
+            }
+            
+            element.innerHTML = `
+                <div class="card-header">
+                    <div class="board-icon-wrapper">
+                        <div class="board-icon">
+                            <iconify-icon icon="${board.icon || 'mdi:web'}"></iconify-icon>
+                        </div>
+                        <div class="category-dot ${board.colorClass || 'personal'}" title="${board.colorLabel || 'شخصي'}"></div>
+                    </div>
+                    
+                    <div class="board-info">
+                        <h4 class="board-name">${escapeHtml(board.name)}</h4>
+                        <div class="board-username">${escapeHtml(board.email)}</div>
+                    </div>
+                </div>
+                
+                <div class="password-section">
+                    <div class="password-label">
+                        <span class="caption">كلمة المرور</span>
+                        <span class="caption" style="color: var(--text-muted);">• ${getPasswordVisibilityText()}</span>
+                    </div>
+                    
+                    <div class="password-field" id="passwordField-${board.id}">
+                        <div class="password-strength-badge ${strengthLevel.class}">
+                            <iconify-icon icon="${strengthLevel.icon}"></iconify-icon>
+                            <span>${strengthLevel.label} (${percentage}%)</span>
+                        </div>
+                        <input type="password" 
+                               class="password-input" 
+                               id="password-${board.id}"
+                               value="${escapeHtml(board.password)}" 
+                               readonly>
+                        <div class="password-visibility-controls">
+                            <button class="action-btn toggle" 
+                                    type="button"
+                                    aria-label="إظهار كلمة المرور"
+                                    data-board-id="${board.id}">
+                                <iconify-icon icon="mdi:eye"></iconify-icon>
+                            </button>
+                            <button class="action-btn copy" 
+                                    type="button"
+                                    aria-label="نسخ كلمة المرور"
+                                    data-board-id="${board.id}">
+                                <iconify-icon icon="mdi:content-copy"></iconify-icon>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="copy-buttons">
+                        <button class="copy-btn email" data-board-id="${board.id}">
+                            <iconify-icon icon="mdi:email"></iconify-icon>
+                            <span>نسخ البريد</span>
+                        </button>
+                        <button class="copy-btn password" data-board-id="${board.id}">
+                            <iconify-icon icon="mdi:key"></iconify-icon>
+                            <span>نسخ الباسورد</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="card-footer">
+                    <button class="action-btn edit" 
+                            type="button"
+                            aria-label="تعديل الحساب"
+                            data-board-id="${board.id}">
+                        <iconify-icon icon="mdi:pencil"></iconify-icon>
+                        <span>تعديل</span>
+                    </button>
+                    <button class="action-btn delete" 
+                            type="button"
+                            aria-label="حذف الحساب"
+                            data-board-id="${board.id}">
+                        <iconify-icon icon="mdi:delete"></iconify-icon>
+                        <span>حذف</span>
+                    </button>
+                </div>
+            `;
+            
+            // Add event listeners
+            const emailCopyBtn = element.querySelector('.copy-btn.email');
+            const passwordCopyBtn = element.querySelector('.copy-btn.password');
+            const editButton = element.querySelector('.action-btn.edit');
+            const deleteButton = element.querySelector('.action-btn.delete');
+            const toggleButton = element.querySelector('.action-btn.toggle');
+            const copyButton = element.querySelector('.action-btn.copy');
+            const passwordInput = element.querySelector(`#password-${board.id}`);
+            const passwordField = element.querySelector(`#passwordField-${board.id}`);
+            
+            emailCopyBtn.addEventListener('click', () => {
+                copyToClipboard(board.email, emailCopyBtn, board.name, 'email');
+            });
+            
+            passwordCopyBtn.addEventListener('click', () => {
+                copyToClipboard(board.password, passwordCopyBtn, board.name, 'password');
+            });
+            
+            copyButton.addEventListener('click', () => {
+                copyToClipboard(board.password, copyButton, board.name, 'password');
+            });
+            
+            editButton.addEventListener('click', () => {
+                const boardToEdit = userBoards.find(b => b.id === board.id);
+                if (boardToEdit) openBoardModal('edit', boardToEdit);
+            });
+            
+            deleteButton.addEventListener('click', () => {
+                showConfirmationModal('delete', {
+                    boardId: board.id,
+                    boardName: board.name
+                });
+            });
+            
+            if (toggleButton && passwordInput) {
+                setupPasswordVisibility(toggleButton, passwordInput, passwordField);
+            }
+            
+            return element;
+        }
+
+        function getPasswordVisibilityText() {
+            const mode = userSettings.passwordVisibility || 'hold';
+            switch(mode) {
+                case 'hold': return 'إظهار بالضغط المطول';
+                case 'click': return 'إظهار بالنقر';
+                case 'always': return 'مرئي دائماً';
+                default: return 'إظهار بالضغط المطول';
             }
         }
 
+        function setupPasswordVisibility(toggleButton, passwordInput, passwordField) {
+            const visibilityMode = userSettings.passwordVisibility || 'hold';
+            
+            if (visibilityMode === 'always') {
+                passwordInput.type = 'text';
+                toggleButton.innerHTML = '<iconify-icon icon="mdi:eye-off"></iconify-icon>';
+                toggleButton.addEventListener('click', () => {
+                    passwordInput.type = passwordInput.type === 'password' ? 'text' : 'password';
+                    toggleButton.innerHTML = passwordInput.type === 'password' ? 
+                        '<iconify-icon icon="mdi:eye"></iconify-icon>' : 
+                        '<iconify-icon icon="mdi:eye-off"></iconify-icon>';
+                });
+            } else if (visibilityMode === 'click') {
+                toggleButton.addEventListener('click', () => {
+                    passwordInput.type = passwordInput.type === 'password' ? 'text' : 'password';
+                    toggleButton.innerHTML = passwordInput.type === 'password' ? 
+                        '<iconify-icon icon="mdi:eye"></iconify-icon>' : 
+                        '<iconify-icon icon="mdi:eye-off"></iconify-icon>';
+                });
+            } else {
+                let holdTimer;
+                
+                const showPassword = () => {
+                    passwordInput.type = 'text';
+                    toggleButton.innerHTML = '<iconify-icon icon="mdi:eye-off"></iconify-icon>';
+                    passwordField.classList.add('focused');
+                };
+                
+                const hidePassword = () => {
+                    clearTimeout(holdTimer);
+                    passwordInput.type = 'password';
+                    toggleButton.innerHTML = '<iconify-icon icon="mdi:eye"></iconify-icon>';
+                    passwordField.classList.remove('focused');
+                };
+                
+                toggleButton.addEventListener('mousedown', () => {
+                    holdTimer = setTimeout(showPassword, 500);
+                });
+                
+                toggleButton.addEventListener('mouseup', hidePassword);
+                toggleButton.addEventListener('mouseleave', hidePassword);
+                
+                toggleButton.addEventListener('touchstart', (e) => {
+                    e.preventDefault();
+                    holdTimer = setTimeout(showPassword, 500);
+                });
+                
+                toggleButton.addEventListener('touchend', hidePassword);
+                toggleButton.addEventListener('touchcancel', hidePassword);
+            }
+        }
+
+        // ===== BOARD OPERATIONS =====
         async function handleBoardSubmit(e) {
             e.preventDefault();
             
@@ -4125,6 +5618,27 @@
             }
         }
 
+        async function deleteBoard(boardId) {
+            try {
+                userBoards = userBoards.filter(b => b.id !== boardId);
+                
+                await updateDoc(accountRef, {
+                    'vault.boards': userBoards,
+                    updatedAt: serverTimestamp()
+                }, { merge: true });
+                
+                await logActivity('delete', { 
+                    boardName: userBoards.find(b => b.id === boardId)?.name || 'حساب'
+                });
+                
+                renderBoards();
+                showToast('تم حذف الحساب بنجاح', 'success');
+            } catch (error) {
+                console.error('Error deleting board:', error);
+                showToast('حدث خطأ أثناء حذف الحساب', 'error');
+            }
+        }
+
         function showError(errorId, message) {
             const errorElement = document.getElementById(errorId);
             if (errorElement) {
@@ -4148,301 +5662,6 @@
             }
         }
 
-        function showDeleteConfirmation(board) {
-            boardToDelete = board;
-            document.getElementById('confirmTitle').textContent = `حذف ${board.name}`;
-            document.getElementById('confirmMessage').textContent = 
-                `سيتم حذف حساب "${board.name}" نهائياً. لا يمكن التراجع عن هذا الإجراء.`;
-            openModal('confirmModal');
-        }
-
-        async function confirmDelete() {
-            if (!boardToDelete) return;
-            
-            try {
-                userBoards = userBoards.filter(b => b.id !== boardToDelete.id);
-                
-                await updateDoc(accountRef, {
-                    'vault.boards': userBoards,
-                    updatedAt: serverTimestamp()
-                }, { merge: true });
-                
-                await logActivity('delete', { boardName: boardToDelete.name });
-                renderBoards();
-                showToast('تم حذف الحساب بنجاح', 'success');
-                closeAllModals();
-            } catch (error) {
-                console.error('Error deleting board:', error);
-                showToast('حدث خطأ أثناء حذف الحساب', 'error');
-            }
-        }
-
-        function renderBoards() {
-            const container = document.getElementById('boardsContainer');
-            const emptyState = document.getElementById('emptyState');
-            
-            if (!container) return;
-            
-            container.innerHTML = '';
-            
-            if (userBoards.length === 0) {
-                if (emptyState) {
-                    emptyState.style.display = 'block';
-                    container.appendChild(emptyState);
-                }
-                return;
-            }
-            
-            if (emptyState) {
-                emptyState.style.display = 'none';
-            }
-            
-            userBoards.forEach(board => {
-                const boardElement = createBoardElement(board);
-                if (boardElement) {
-                    container.appendChild(boardElement);
-                }
-            });
-        }
-
-        function createBoardElement(board) {
-            const element = document.createElement('div');
-            element.className = 'board-card';
-            
-            const password = board.password;
-            let strength = 0;
-            let totalWeight = 0;
-            
-            passwordCriteria.forEach(criteria => {
-                if (criteria.test(password)) {
-                    strength += criteria.weight;
-                }
-                totalWeight += criteria.weight;
-            });
-            
-            const lengthBonus = Math.min(password.length * 2, 20);
-            strength += lengthBonus;
-            totalWeight += 20;
-            
-            const percentage = Math.min(Math.round((strength / totalWeight) * 100), 100);
-            
-            element.innerHTML = `
-                <div class="card-header">
-                    <div class="board-icon-wrapper">
-                        <div class="board-icon">
-                            <iconify-icon icon="${board.icon || 'mdi:web'}"></iconify-icon>
-                        </div>
-                        <div class="color-dot ${board.colorClass || 'personal'}" title="${board.colorLabel || 'شخصي'}"></div>
-                    </div>
-                    
-                    <div class="board-info">
-                        <h4 class="board-name">${escapeHtml(board.name)}</h4>
-                        <div class="board-username">${escapeHtml(board.email)}</div>
-                    </div>
-                </div>
-                
-                <div class="password-section">
-                    <div class="password-label">
-                        <span class="caption">كلمة المرور</span>
-                        <span class="caption" style="color: var(--text-muted);">• إظهار بالضغط المطول</span>
-                    </div>
-                    
-                    <div class="password-field">
-                        <input type="password" 
-                               class="password-input" 
-                               value="${escapeHtml(board.password)}" 
-                               readonly>
-                        <div style="display: flex; gap: 0.25rem;">
-                            <button class="action-btn toggle" 
-                                    type="button"
-                                    aria-label="إظهار كلمة المرور">
-                                <iconify-icon icon="mdi:eye"></iconify-icon>
-                            </button>
-                            <button class="action-btn copy" 
-                                    type="button"
-                                    aria-label="نسخ كلمة المرور">
-                                <iconify-icon icon="mdi:content-copy"></iconify-icon>
-                            </button>
-                        </div>
-                    </div>
-                    
-                    <div class="password-strength-advanced">
-                        <div class="strength-meter">
-                            <div class="strength-fill" style="width: ${percentage}%"></div>
-                        </div>
-                        <div class="strength-score">${percentage}%</div>
-                    </div>
-                </div>
-                
-                <div class="card-actions">
-                    <button class="action-btn copy email-copy" 
-                            type="button"
-                            aria-label="نسخ البريد الإلكتروني">
-                        <iconify-icon icon="mdi:email"></iconify-icon>
-                        <span>نسخ البريد</span>
-                    </button>
-                    <button class="action-btn edit" 
-                            type="button"
-                            aria-label="تعديل الحساب"
-                            data-id="${board.id}">
-                        <iconify-icon icon="mdi:pencil"></iconify-icon>
-                        <span>تعديل</span>
-                    </button>
-                    <button class="action-btn delete" 
-                            type="button"
-                            aria-label="حذف الحساب"
-                            data-id="${board.id}">
-                        <iconify-icon icon="mdi:delete"></iconify-icon>
-                        <span>حذف</span>
-                    </button>
-                </div>
-            `;
-            
-            const copyEmailBtn = element.querySelector('.email-copy');
-            const copyPasswordBtn = element.querySelector('.password-field .action-btn.copy');
-            const editButton = element.querySelector('.action-btn.edit');
-            const deleteButton = element.querySelector('.action-btn.delete');
-            const toggleButton = element.querySelector('.action-btn.toggle');
-            const passwordInput = element.querySelector('.password-input');
-            
-            copyEmailBtn.addEventListener('click', () => {
-                copyToClipboard(board.email, copyEmailBtn, board.name);
-            });
-            
-            copyPasswordBtn.addEventListener('click', () => {
-                copyToClipboard(board.password, copyPasswordBtn, board.name);
-            });
-            
-            editButton.addEventListener('click', () => {
-                const boardToEdit = userBoards.find(b => b.id === board.id);
-                if (boardToEdit) openBoardModal('edit', boardToEdit);
-            });
-            
-            deleteButton.addEventListener('click', () => {
-                showDeleteConfirmation(board);
-            });
-            
-            if (toggleButton && passwordInput) {
-                const visibilityMode = userSettings.passwordVisibility || 'hold';
-                
-                if (visibilityMode === 'always') {
-                    passwordInput.type = 'text';
-                    toggleButton.innerHTML = '<iconify-icon icon="mdi:eye-off"></iconify-icon>';
-                    toggleButton.addEventListener('click', () => {
-                        passwordInput.type = passwordInput.type === 'password' ? 'text' : 'password';
-                        toggleButton.innerHTML = passwordInput.type === 'password' ? 
-                            '<iconify-icon icon="mdi:eye"></iconify-icon>' : 
-                            '<iconify-icon icon="mdi:eye-off"></iconify-icon>';
-                    });
-                } else if (visibilityMode === 'click') {
-                    toggleButton.addEventListener('click', () => {
-                        passwordInput.type = passwordInput.type === 'password' ? 'text' : 'password';
-                        toggleButton.innerHTML = passwordInput.type === 'password' ? 
-                            '<iconify-icon icon="mdi:eye"></iconify-icon>' : 
-                            '<iconify-icon icon="mdi:eye-off"></iconify-icon>';
-                    });
-                } else {
-                    let holdTimer;
-                    
-                    const showPassword = () => {
-                        passwordInput.type = 'text';
-                        toggleButton.innerHTML = '<iconify-icon icon="mdi:eye-off"></iconify-icon>';
-                    };
-                    
-                    const hidePassword = () => {
-                        clearTimeout(holdTimer);
-                        passwordInput.type = 'password';
-                        toggleButton.innerHTML = '<iconify-icon icon="mdi:eye"></iconify-icon>';
-                    };
-                    
-                    toggleButton.addEventListener('mousedown', () => {
-                        holdTimer = setTimeout(showPassword, 500);
-                    });
-                    
-                    toggleButton.addEventListener('mouseup', hidePassword);
-                    toggleButton.addEventListener('mouseleave', hidePassword);
-                    
-                    toggleButton.addEventListener('touchstart', (e) => {
-                        e.preventDefault();
-                        holdTimer = setTimeout(showPassword, 500);
-                    });
-                    
-                    toggleButton.addEventListener('touchend', hidePassword);
-                    toggleButton.addEventListener('touchcancel', hidePassword);
-                }
-            }
-            
-            return element;
-        }
-
-        // ===== DEVICE ACTIONS HANDLERS =====
-        async function signOutDevice(device) {
-            try {
-                const deviceRef = doc(accountRef, 'devices', device.id);
-                await deleteDoc(deviceRef);
-                
-                await logActivity('device_logout', {
-                    deviceName: device.deviceName
-                });
-                
-                await loadAndRenderDevices();
-                showToast('تم تسجيل الخروج من الجهاز بنجاح', 'success');
-            } catch (error) {
-                console.error('Error signing out device:', error);
-                showToast('حدث خطأ أثناء تسجيل الخروج من الجهاز', 'error');
-            }
-        }
-
-        function toggleDeviceTrustAction(deviceId, trusted) {
-            if (!confirm(trusted 
-                ? 'هل تريد تعيين هذا الجهاز كموثوق؟ الأجهزة الموثوقة يمكنها الوصول بدون موافقة.'
-                : 'هل تريد إلغاء الثقة عن هذا الجهاز؟ سيحتاج الجهاز إلى موافقة عند تسجيل الدخول التالي.')) {
-                return;
-            }
-            
-            toggleDeviceTrust(deviceId, trusted).then(success => {
-                if (success) {
-                    loadAndRenderDevices();
-                }
-            });
-        }
-
-        function blockDeviceAction(device) {
-            if (!confirm('هل تريد حظر هذا الجهاز؟ سيتم منع الجهاز من الوصول إلى الحساب.')) {
-                return;
-            }
-            
-            blockDevice(device.id, false, 'حظر من المالك').then(success => {
-                if (success) {
-                    loadAndRenderDevices();
-                }
-            });
-        }
-
-        function unblockDeviceAction(deviceId) {
-            if (!confirm('هل تريد إلغاء حظر هذا الجهاز؟ سيكون بإمكان الجهاز تسجيل الدخول مرة أخرى.')) {
-                return;
-            }
-            
-            unblockDevice(deviceId).then(success => {
-                if (success) {
-                    loadAndRenderDevices();
-                }
-            });
-        }
-
-        function approveDeviceAction(deviceId) {
-            if (!confirm('هل تريد الموافقة على هذا الجهاز؟ سيتمكن الجهاز من الوصول إلى الحساب.')) {
-                return;
-            }
-            
-            approveDevice(deviceId).then(success => {
-                if (success) {
-                    loadAndRenderDevices();
-                }
-            });
-        }
-
         // ===== UTILITY FUNCTIONS =====
         function selectIcon(iconElement) {
             document.querySelectorAll('.icon-option').forEach(icon => {
@@ -4462,7 +5681,7 @@
             });
             colorCircle.classList.add('selected');
             
-            colorCircle.style.boxShadow = '0 0 0 4px rgba(62, 180, 137, 0.2)';
+            colorCircle.style.boxShadow = '0 0 0 4px rgba(46, 211, 183, 0.2)';
             setTimeout(() => {
                 colorCircle.style.boxShadow = '';
             }, 300);
@@ -4504,9 +5723,10 @@
             return groups;
         }
 
-        function copyToClipboard(text, button, boardName = '') {
+        function copyToClipboard(text, button, boardName = '', type = '') {
             navigator.clipboard.writeText(text).then(() => {
-                showToast('تم النسخ إلى الحافظة!', 'success');
+                const message = type === 'email' ? 'تم نسخ البريد الإلكتروني!' : 'تم نسخ كلمة المرور!';
+                showToast(message, 'success');
                 
                 if (button) {
                     const originalIcon = button.innerHTML;
@@ -4518,7 +5738,10 @@
                 }
                 
                 if (boardName) {
-                    logActivity('copy', { boardName: boardName });
+                    logActivity('copy', { 
+                        boardName: boardName,
+                        type: type 
+                    });
                 }
             }).catch(err => {
                 console.error('Failed to copy:', err);
@@ -4585,9 +5808,7 @@
         }
 
         // ===== LOGOUT =====
-        async function handleLogout(e) {
-            if (e) e.preventDefault();
-            
+        async function handleLogout() {
             try {
                 await logActivity('logout');
                 await signOut(auth);
@@ -4633,7 +5854,6 @@
 
         // Firebase deleteField helper
         const deleteField = () => {
-            // This is a placeholder for Firebase's deleteField()
             return null;
         };
     </script>
