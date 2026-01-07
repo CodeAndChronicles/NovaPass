@@ -7,7 +7,10 @@ import {
     fetchSignInMethodsForEmail,
     onAuthStateChanged,
     signOut,
-    updateProfile
+    updateProfile,
+    updatePassword,
+    reauthenticateWithCredential,
+    EmailAuthProvider
 } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
 import { 
     getFirestore, 
@@ -15,14 +18,16 @@ import {
     setDoc,
     getDoc,
     updateDoc,
-    deleteDoc,  // ← أضف هذا!
+    deleteDoc,
     collection,
     query,
     where,
     orderBy,
     getDocs,
     addDoc,
-    serverTimestamp
+    serverTimestamp,
+    onSnapshot,
+    deleteField
 } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-firestore.js";
 
 // Firebase configuration
@@ -51,16 +56,21 @@ export {
     onAuthStateChanged,
     signOut,
     updateProfile,
+    updatePassword,
+    reauthenticateWithCredential,
+    EmailAuthProvider,
     doc, 
     setDoc,
     getDoc,
     updateDoc,
-    deleteDoc,  // ← أضف هذا!
+    deleteDoc,
     collection,
     query,
     where,
     orderBy,
     getDocs,
     addDoc,
-    serverTimestamp
+    serverTimestamp,
+    onSnapshot,
+    deleteField
 };
