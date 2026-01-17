@@ -1,3 +1,5 @@
+[file name]: index_fixed.html
+[file content begin]
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -3014,7 +3016,7 @@
         let activityUnsubscribe = null;
         let boardsUnsubscribe = null;
 
-        // Account reference
+        // Account reference - سيتم تهيئته بشكل صحيح
         let accountRef = null;
 
         // ===== STATE HELPER FUNCTIONS =====
@@ -3149,7 +3151,9 @@
                 const deviceId = getStableDeviceId();
                 updateState('currentDeviceId', deviceId);
                 
-                // Initialize account
+                // Initialize account - تهيئة accountRef هنا
+                accountRef = doc(db, 'accounts', user.uid);
+                
                 await initializeAccount(user, deviceId);
                 
                 // Update UI
@@ -3164,8 +3168,6 @@
         // ===== ACCOUNT INITIALIZATION =====
         async function initializeAccount(user, deviceId) {
             console.info('[ACCOUNT] Initializing account for user:', user.uid);
-            
-            accountRef = doc(db, 'accounts', user.uid);
             
             try {
                 const accountDoc = await getDoc(accountRef);
@@ -3464,7 +3466,9 @@
         }
 
         function setupDevicesRealtimeListener() {
-            if (!accountRef || devicesUnsubscribe) return;
+            if (!accountRef || devicesUnsubscribe) {
+                devicesUnsubscribe && devicesUnsubscribe();
+            }
             
             const devicesRef = collection(accountRef, 'devices');
             const q = query(devicesRef, orderBy('lastActive', 'desc'));
@@ -3497,7 +3501,9 @@
         }
 
         function setupActivityRealtimeListener() {
-            if (!accountRef || activityUnsubscribe) return;
+            if (!accountRef || activityUnsubscribe) {
+                activityUnsubscribe && activityUnsubscribe();
+            }
             
             const logsRef = collection(accountRef, 'activity_logs');
             const q = query(logsRef, orderBy('timestamp', 'desc'));
@@ -3529,7 +3535,9 @@
         }
 
         function setupBoardsRealtimeListener() {
-            if (!accountRef || boardsUnsubscribe) return;
+            if (!accountRef || boardsUnsubscribe) {
+                boardsUnsubscribe && boardsUnsubscribe();
+            }
             
             boardsUnsubscribe = onSnapshot(accountRef, (doc) => {
                 if (doc.exists()) {
@@ -3540,6 +3548,12 @@
                     
                     if (document.getElementById('dashboardSection').classList.contains('active')) {
                         renderBoards();
+                    }
+                    
+                    // Update settings if changed
+                    if (data.settings) {
+                        updateState('userSettings', data.settings);
+                        applyTheme(data.settings.theme || 'light');
                     }
                     
                     console.info('[BOARDS] Real-time update:', boards.length, 'boards');
@@ -3889,7 +3903,7 @@
             }
         }
 
-        // ===== UI RENDERING =====
+        // ===== RENDER FUNCTIONS =====
         async function loadInitialData() {
             console.info('[UI] Loading initial data...');
             
@@ -3911,8 +3925,8 @@
             
             if (devices.length === 0) {
                 devicesList.innerHTML = `
-                    <div class="empty-state">
-                        <div class="empty-icon">
+                    <div class="empty-state" style="text-align: center; padding: 3rem; color: var(--text-secondary);">
+                        <div style="font-size: 3rem; margin-bottom: 1rem; color: var(--text-muted);">
                             <iconify-icon icon="mdi:devices"></iconify-icon>
                         </div>
                         <h3 class="h3">لا توجد أجهزة</h3>
@@ -4295,7 +4309,7 @@
         }
 
         function filterDevices(searchTerm) {
-            const devices = document.querySelectorAll('.device-card');
+            const devices = document.querySelectorAll('.device-card:not(.loading)');
             const searchLower = searchTerm.toLowerCase();
             
             devices.forEach(device => {
@@ -4365,8 +4379,8 @@
             
             if (logs.length === 0) {
                 timeline.innerHTML = `
-                    <div class="empty-state">
-                        <div class="empty-icon">
+                    <div class="empty-state" style="text-align: center; padding: 3rem; color: var(--text-secondary);">
+                        <div style="font-size: 3rem; margin-bottom: 1rem; color: var(--text-muted);">
                             <iconify-icon icon="mdi:history"></iconify-icon>
                         </div>
                         <h3 class="h3">لا توجد سجلات نشاط</h3>
@@ -4493,8 +4507,8 @@
             
             if (novaState.userBoards.length === 0) {
                 container.innerHTML = `
-                    <div class="empty-state">
-                        <div class="empty-icon">
+                    <div class="empty-state" style="text-align: center; padding: 3rem; color: var(--text-secondary);">
+                        <div style="font-size: 3rem; margin-bottom: 1rem; color: var(--text-muted);">
                             <iconify-icon icon="mdi:lock-outline"></iconify-icon>
                         </div>
                         <h3 class="h3">لا توجد حسابات بعد</h3>
@@ -4886,7 +4900,7 @@
                                 <span class="settings-name">قفل الجلسة</span>
                                 <span class="settings-description">قفل التطبيق مع الاحتفاظ بتسجيل الدخول</span>
                             </div>
-                            <button class="action-btn" onclick="localStorage.setItem('session_locked', 'true'); window.location.href = 'auth.html?action=unlock';">
+                            <button class="action-btn" onclick="lockSession()">
                                 <iconify-icon icon="mdi:lock"></iconify-icon>
                                 <span>قفل الآن</span>
                             </button>
@@ -5220,7 +5234,8 @@
                 document.getElementById('boardId').value = '';
                 document.getElementById('iconSearch').value = '';
                 document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('active'));
-                document.querySelector('.category-btn[data-category="all"]').classList.add('active');
+                const allBtn = document.querySelector('.category-btn[data-category="all"]');
+                if (allBtn) allBtn.classList.add('active');
                 showAllIcons();
                 updatePasswordStrength();
             }
@@ -5577,11 +5592,11 @@
                 
                 switch(sectionId) {
                     case 'devicesSection':
-                        // Real-time listener will handle updates
+                        renderDevicesWithHierarchy(novaState.devices);
                         break;
                     case 'activitySection':
                         setupActivityFilters();
-                        // Real-time listener will handle updates
+                        renderActivityLogs(novaState.activityLogs);
                         break;
                     case 'settingsSection':
                         loadAndRenderSettings();
@@ -5917,8 +5932,7 @@
             // Lock session
             document.getElementById('lockSessionBtn')?.addEventListener('click', (e) => {
                 e.preventDefault();
-                localStorage.setItem('session_locked', 'true');
-                window.location.href = 'auth.html?action=unlock';
+                lockSession();
             });
             
             // Logout
@@ -5931,9 +5945,12 @@
             document.getElementById('floatingAddBtn')?.addEventListener('click', () => openBoardModal('add'));
             
             // Devices search
-            document.getElementById('devicesSearch')?.addEventListener('input', (e) => {
-                filterDevices(e.target.value);
-            });
+            const devicesSearchInput = document.getElementById('devicesSearch');
+            if (devicesSearchInput) {
+                devicesSearchInput.addEventListener('input', (e) => {
+                    filterDevices(e.target.value);
+                });
+            }
             
             // Settings tabs
             document.querySelectorAll('.settings-tab-btn').forEach(tab => {
@@ -5966,7 +5983,10 @@
             document.getElementById('exportDataBtn')?.addEventListener('click', exportData);
             
             // Icon search
-            document.getElementById('iconSearch')?.addEventListener('input', searchIcons);
+            const iconSearchInput = document.getElementById('iconSearch');
+            if (iconSearchInput) {
+                iconSearchInput.addEventListener('input', searchIcons);
+            }
             
             // Keyboard shortcuts
             document.addEventListener('keydown', (e) => {
@@ -6005,6 +6025,11 @@
 
         function confirmLogout() {
             showConfirmationModal('logout', {});
+        }
+
+        function lockSession() {
+            localStorage.setItem('session_locked', 'true');
+            window.location.href = 'auth.html?action=unlock';
         }
 
         // ===== DATA MIGRATION =====
@@ -6475,3 +6500,4 @@
     </script>
 </body>
 </html>
+[file content end]
