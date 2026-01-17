@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -86,6 +86,21 @@
             --text-muted: var(--dark-text-muted);
             --border-color: var(--dark-border-color);
             --border-hover: var(--dark-border-hover);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            direction: ltr;
+            min-height: 100vh;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         /* ===== LOADING STATES ===== */
@@ -246,10 +261,10 @@
             content: '';
             position: absolute;
             bottom: -8px;
-            right: 0;
+            left: 0;
             width: 40%;
             height: 3px;
-            background: linear-gradient(90deg, transparent, var(--mint-300));
+            background: linear-gradient(90deg, var(--mint-300), transparent);
             border-radius: 2px;
         }
 
@@ -380,8 +395,8 @@
         .nav-tabs {
             display: flex;
             gap: 0.5rem;
-            margin-left: auto;
-            margin-right: 2rem;
+            margin-right: auto;
+            margin-left: 2rem;
         }
 
         .nav-tab {
@@ -537,7 +552,7 @@
         .category-dot {
             position: absolute;
             top: -6px;
-            right: -6px;
+            left: -6px;
             width: 20px;
             height: 20px;
             border-radius: 50%;
@@ -638,7 +653,7 @@
         .password-strength-badge {
             position: absolute;
             top: -10px;
-            left: 12px;
+            right: 12px;
             background: var(--bg-card);
             padding: 0.25rem 0.75rem;
             border-radius: 12px;
@@ -808,7 +823,7 @@
 
         .devices-search input {
             width: 100%;
-            padding: 1rem 1.5rem 1rem 3rem;
+            padding: 1rem 3rem 1rem 1.5rem;
             border-radius: 12px;
             border: 1px solid var(--border-color);
             background: var(--bg-card);
@@ -825,7 +840,7 @@
 
         .devices-search .search-icon {
             position: absolute;
-            right: 1rem;
+            left: 1rem;
             top: 50%;
             transform: translateY(-50%);
             color: var(--text-muted);
@@ -900,7 +915,7 @@
             content: '';
             position: absolute;
             top: 0;
-            right: 0;
+            left: 0;
             width: 4px;
             height: 100%;
             background: var(--mint-300);
@@ -921,13 +936,13 @@
 
         /* Owner Device */
         .device-card.owner {
-            border-left: 4px solid var(--mint-400);
+            border-right: 4px solid var(--mint-400);
             order: 0;
         }
 
         /* Trusted Devices */
         .device-card.trusted {
-            border-left: 4px solid var(--success);
+            border-right: 4px solid var(--success);
             order: 1;
         }
 
@@ -976,9 +991,9 @@
             content: '';
             position: absolute;
             top: -2px;
-            right: -2px;
-            bottom: -2px;
             left: -2px;
+            bottom: -2px;
+            right: -2px;
             border: 2px solid var(--mint-300);
             border-radius: 16px;
             animation: pulse 2s infinite;
@@ -1153,7 +1168,7 @@
             display: flex;
             gap: 0.75rem;
             opacity: 0;
-            transform: translateX(10px);
+            transform: translateX(-10px);
             transition: all 0.3s ease;
         }
 
@@ -1289,13 +1304,13 @@
 
         .activity-timeline {
             position: relative;
-            padding-right: 2rem;
+            padding-left: 2rem;
         }
 
         .activity-timeline::before {
             content: '';
             position: absolute;
-            right: 0;
+            left: 0;
             top: 0;
             bottom: 0;
             width: 2px;
@@ -1320,7 +1335,7 @@
         .day-header::before {
             content: '';
             position: absolute;
-            right: -2rem;
+            left: -2rem;
             top: 50%;
             transform: translateY(-50%);
             width: 12px;
@@ -1362,7 +1377,7 @@
 
         .activity-item:hover {
             border-color: var(--mint-200);
-            transform: translateX(-4px);
+            transform: translateX(4px);
             box-shadow: var(--shadow-sm);
         }
 
@@ -1679,7 +1694,7 @@
         }
 
         .user-info {
-            text-align: right;
+            text-align: left;
         }
 
         .user-name {
@@ -1699,7 +1714,7 @@
         .profile-dropdown {
             position: absolute;
             top: calc(100% + 0.5rem);
-            left: 0;
+            right: 0;
             background: var(--bg-secondary);
             border-radius: 16px;
             box-shadow: var(--shadow-xl);
@@ -1765,7 +1780,7 @@
         .floating-add-btn {
             position: fixed;
             bottom: 2rem;
-            left: 2rem;
+            right: 2rem;
             width: 56px;
             height: 56px;
             background: linear-gradient(135deg, var(--mint-300), var(--mint-400));
@@ -1895,8 +1910,6 @@
             margin-bottom: 2rem;
             line-height: 1.6;
         }
-
-        /* ===== SETTINGS MODAL - REMOVED (NOW PAGE) ===== */
 
         /* ===== FORM CONTROLS - ENHANCED ===== */
         .form-group {
@@ -2256,7 +2269,7 @@
         .toast-container {
             position: fixed;
             bottom: 2rem;
-            right: 2rem;
+            left: 2rem;
             z-index: 3000;
             display: flex;
             flex-direction: column;
@@ -2273,7 +2286,7 @@
             box-shadow: var(--shadow-lg);
             border: 1px solid var(--border-color);
             animation: toastSlideIn 0.3s ease;
-            transform-origin: bottom right;
+            transform-origin: bottom left;
             max-width: 320px;
         }
 
@@ -2304,6 +2317,32 @@
         .toast.info .toast-icon {
             background: rgba(46, 211, 183, 0.1);
             color: var(--mint-400);
+        }
+
+        /* ===== EMPTY STATES ===== */
+        .empty-state {
+            text-align: center;
+            padding: 3rem 1rem;
+            background: var(--bg-card);
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+        }
+
+        .empty-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 20px;
+            background: var(--mint-50);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--mint-400);
+            font-size: 2.5rem;
+            margin: 0 auto 1.5rem;
+        }
+
+        body.dark-mode .empty-icon {
+            background: rgba(46, 211, 183, 0.1);
         }
 
         /* ===== PULSE ANIMATION ===== */
@@ -2361,7 +2400,7 @@
         @keyframes toastSlideIn {
             from {
                 opacity: 0;
-                transform: translateX(100px) scale(0.9);
+                transform: translateX(-100px) scale(0.9);
             }
             to {
                 opacity: 1;
@@ -2376,7 +2415,7 @@
             }
             to {
                 opacity: 0;
-                transform: translateX(100px) scale(0.9);
+                transform: translateX(-100px) scale(0.9);
             }
         }
 
@@ -2432,15 +2471,15 @@
             }
             
             .activity-timeline {
-                padding-right: 1.5rem;
+                padding-left: 1.5rem;
             }
             
             .activity-timeline::before {
-                right: 0.5rem;
+                left: 0.5rem;
             }
             
             .day-header::before {
-                right: -1.5rem;
+                left: -1.5rem;
             }
             
             .modal-content {
@@ -2462,7 +2501,7 @@
             
             .floating-add-btn {
                 bottom: 1.5rem;
-                left: 1.5rem;
+                right: 1.5rem;
                 width: 52px;
                 height: 52px;
             }
@@ -2532,7 +2571,7 @@
             }
             
             .activity-time {
-                align-self: flex-end;
+                align-self: flex-start;
             }
         }
     </style>
@@ -2556,19 +2595,19 @@
             <div class="nav-tabs">
                 <button class="nav-tab active" data-section="dashboardSection">
                     <iconify-icon icon="mdi:view-dashboard"></iconify-icon>
-                    <span>لوحة التحكم</span>
+                    <span>Dashboard</span>
                 </button>
                 <button class="nav-tab" data-section="devicesSection">
                     <iconify-icon icon="mdi:devices"></iconify-icon>
-                    <span>الأجهزة</span>
+                    <span>Devices</span>
                 </button>
                 <button class="nav-tab" data-section="activitySection">
                     <iconify-icon icon="mdi:history"></iconify-icon>
-                    <span>سجلات النشاط</span>
+                    <span>Activity Logs</span>
                 </button>
                 <button class="nav-tab" data-section="settingsSection">
                     <iconify-icon icon="mdi:cog"></iconify-icon>
-                    <span>الإعدادات</span>
+                    <span>Settings</span>
                 </button>
             </div>
             
@@ -2576,30 +2615,30 @@
                 <!-- User Profile -->
                 <div class="user-profile">
                     <button class="profile-trigger" id="profileBtn">
-                        <div class="avatar" id="userAvatar">M</div>
+                        <div class="avatar" id="userAvatar">U</div>
                         <div class="user-info">
-                            <div class="user-name" id="userName">محمد</div>
+                            <div class="user-name" id="userName">User</div>
                             <div class="user-status">
                                 <iconify-icon icon="mdi:check-circle" style="font-size: 0.75rem;"></iconify-icon>
-                                <span>متصلة</span>
+                                <span>Connected</span>
                             </div>
                         </div>
                     </button>
                     
                     <div class="profile-dropdown" id="profileDropdown">
                         <div class="dropdown-header">
-                            <div class="user-name" id="dropdownName">محمد</div>
-                            <div class="body-sm" style="color: var(--text-muted);" id="userEmail">mohamed@example.com</div>
+                            <div class="user-name" id="dropdownName">User</div>
+                            <div class="body-sm" style="color: var(--text-muted);" id="userEmail">user@example.com</div>
                         </div>
                         
                         <a href="#" class="dropdown-item" id="lockSessionBtn">
                             <iconify-icon icon="mdi:lock"></iconify-icon>
-                            <span>قفل الجلسة</span>
+                            <span>Lock Session</span>
                         </a>
                         
                         <a href="#" class="dropdown-item danger" id="logoutBtn">
                             <iconify-icon icon="mdi:logout"></iconify-icon>
-                            <span>تسجيل الخروج</span>
+                            <span>Sign Out</span>
                         </a>
                     </div>
                 </div>
@@ -2618,9 +2657,9 @@
         <div class="section active" id="dashboardSection">
             <!-- Welcome Section -->
             <div class="welcome-section">
-                <h1 class="h1"><span class="gradient-text" id="welcomeMessage">مرحباً محمد!</span></h1>
+                <h1 class="h1"><span class="gradient-text" id="welcomeMessage">Welcome User!</span></h1>
                 <p class="section-subtitle">
-                    إدارة كلمات المرور الخاصة بك أصبحت أسهل وأكثر أماناً. كل شيء في مكان واحد، تحت سيطرتك الكاملة.
+                    Manage your passwords easier and more securely. Everything in one place, under your complete control.
                 </p>
             </div>
 
@@ -2652,18 +2691,18 @@
                 <div class="migration-icon">
                     <iconify-icon icon="mdi:database-import"></iconify-icon>
                 </div>
-                <h3 class="h3">ترحيل البيانات القديمة</h3>
+                <h3 class="h3">Data Migration</h3>
                 <p class="body">
-                    استورد بياناتك من مدير كلمات المرور القديم أو حمل نسخة احتياطية من بياناتك الحالية.
+                    Import your data from old password manager or backup your current data.
                 </p>
                 <div class="migration-actions">
                     <button class="migration-btn import" id="importDataBtn">
                         <iconify-icon icon="mdi:import"></iconify-icon>
-                        <span>استيراد بيانات</span>
+                        <span>Import Data</span>
                     </button>
                     <button class="migration-btn export" id="exportDataBtn">
                         <iconify-icon icon="mdi:export"></iconify-icon>
-                        <span>تصدير البيانات</span>
+                        <span>Export Data</span>
                     </button>
                 </div>
                 <div class="preview-container" id="dataPreview" style="display: none;"></div>
@@ -2674,9 +2713,9 @@
         <div class="section devices-section" id="devicesSection">
             <div class="section-header">
                 <div>
-                    <h2 class="h2">🔐 الأجهزة المرتبطة بالحساب</h2>
+                    <h2 class="h2">🔐 Connected Devices</h2>
                     <p class="section-subtitle">
-                        تحكم كامل في الأمان وجلسات الدخول من جميع الأجهزة
+                        Full control over security and login sessions from all devices
                     </p>
                 </div>
             </div>
@@ -2684,7 +2723,7 @@
             <!-- Devices Search -->
             <div class="devices-search">
                 <iconify-icon icon="mdi:magnify" class="search-icon"></iconify-icon>
-                <input type="text" id="devicesSearch" placeholder="ابحث عن جهاز بالاسم أو المتصفح أو النظام...">
+                <input type="text" id="devicesSearch" placeholder="Search device by name, browser, or OS...">
             </div>
             
             <div class="devices-list" id="devicesList">
@@ -2705,9 +2744,9 @@
         <div class="section activity-section" id="activitySection">
             <div class="section-header">
                 <div>
-                    <h2 class="h2">📜 سجلات النشاط</h2>
+                    <h2 class="h2">📜 Activity Logs</h2>
                     <p class="section-subtitle">
-                        تتبع جميع الأنشطة المهمة على حسابك للحفاظ على الأمان والخصوصية
+                        Track all important activities on your account to maintain security and privacy
                     </p>
                 </div>
             </div>
@@ -2741,9 +2780,9 @@
         <div class="section settings-section" id="settingsSection">
             <div class="section-header">
                 <div>
-                    <h2 class="h2">⚙️ الإعدادات</h2>
+                    <h2 class="h2">⚙️ Settings</h2>
                     <p class="section-subtitle">
-                        خصص تجربتك وادخل إلى الإعدادات المتقدمة
+                        Customize your experience and access advanced settings
                     </p>
                 </div>
             </div>
@@ -2752,19 +2791,19 @@
             <div class="settings-tabs-navigation" id="settingsTabsNav">
                 <button class="settings-tab-btn active" data-tab="profileTab">
                     <iconify-icon icon="mdi:account-circle"></iconify-icon>
-                    <span>الملف الشخصي</span>
+                    <span>Profile</span>
                 </button>
                 <button class="settings-tab-btn" data-tab="appearanceTab">
                     <iconify-icon icon="mdi:palette"></iconify-icon>
-                    <span>المظهر</span>
+                    <span>Appearance</span>
                 </button>
                 <button class="settings-tab-btn" data-tab="securityTab">
                     <iconify-icon icon="mdi:shield-lock"></iconify-icon>
-                    <span>الأمان</span>
+                    <span>Security</span>
                 </button>
                 <button class="settings-tab-btn" data-tab="advancedTab">
                     <iconify-icon icon="mdi:cog"></iconify-icon>
-                    <span>متقدم</span>
+                    <span>Advanced</span>
                 </button>
             </div>
             
@@ -2791,7 +2830,7 @@
     <div class="modal" id="boardModal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="h3" id="modalTitle">إضافة حساب جديد</h3>
+                <h3 class="h3" id="modalTitle">Add New Account</h3>
                 <button class="close-btn" id="closeModal">
                     <iconify-icon icon="mdi:close"></iconify-icon>
                 </button>
@@ -2801,25 +2840,25 @@
                 <input type="hidden" id="boardId">
                 
                 <div class="form-group">
-                    <label class="form-label">اسم الحساب *</label>
+                    <label class="form-label">Account Name *</label>
                     <input type="text" id="boardName" class="form-control" 
-                           placeholder="مثال: Facebook, Gmail, Instagram"
+                           placeholder="Example: Facebook, Gmail, Instagram"
                            required>
                     <div class="error-message" id="nameError"></div>
                 </div>
                 
                 <div class="form-group">
-                    <label class="form-label">البريد الإلكتروني / اسم المستخدم *</label>
+                    <label class="form-label">Email / Username *</label>
                     <input type="text" id="boardEmail" class="form-control" 
-                           placeholder="user@example.com أو اسم المستخدم"
+                           placeholder="user@example.com or username"
                            required>
                     <div class="error-message" id="emailError"></div>
                 </div>
                 
                 <div class="form-group">
-                    <label class="form-label">كلمة المرور *</label>
+                    <label class="form-label">Password *</label>
                     <input type="password" id="boardPassword" class="form-control" 
-                           placeholder="أدخل كلمة المرور"
+                           placeholder="Enter password"
                            required>
                     <div class="error-message" id="passwordError"></div>
                     
@@ -2837,11 +2876,11 @@
                 
                 <!-- Icon Selector -->
                 <div class="icon-selector">
-                    <label class="form-label">اختر الأيقونة</label>
+                    <label class="form-label">Select Icon</label>
                     
                     <div class="icon-search-container">
                         <input type="text" id="iconSearch" class="form-control" 
-                               placeholder="ابحث عن أيقونة...">
+                               placeholder="Search for an icon...">
                     </div>
                     
                     <div class="icon-categories" id="iconCategories">
@@ -2855,7 +2894,7 @@
                 
                 <!-- Color Selector -->
                 <div class="color-selector">
-                    <label class="form-label">اختر التصنيف</label>
+                    <label class="form-label">Select Category</label>
                     <div class="radio-selector" id="colorSelector">
                         <!-- Color options will be populated by JavaScript -->
                     </div>
@@ -2863,11 +2902,11 @@
                 
                 <div class="modal-actions">
                     <button type="button" class="btn btn-secondary" id="cancelBtn">
-                        إلغاء
+                        Cancel
                     </button>
                     <button type="submit" class="btn btn-primary" id="saveBoardBtn">
                         <iconify-icon icon="mdi:check"></iconify-icon>
-                        <span>حفظ الحساب</span>
+                        <span>Save Account</span>
                     </button>
                 </div>
             </form>
@@ -2878,7 +2917,7 @@
     <div class="modal confirm-modal" id="confirmModal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="h3" id="confirmTitle">تأكيد الإجراء</h3>
+                <h3 class="h3" id="confirmTitle">Confirm Action</h3>
                 <button class="close-btn" id="closeConfirmModal">
                     <iconify-icon icon="mdi:close"></iconify-icon>
                 </button>
@@ -2891,17 +2930,17 @@
                 
                 <h4 class="h3" style="margin-bottom: 1rem;" id="confirmAction"></h4>
                 <p class="confirm-message" id="confirmMessage">
-                    هذا الإجراء لا يمكن التراجع عنه.
+                    This action cannot be undone.
                 </p>
             </div>
             
             <div class="modal-actions">
                 <button type="button" class="btn btn-secondary" id="cancelActionBtn">
-                    إلغاء
+                    Cancel
                 </button>
                 <button type="button" class="btn btn-danger" id="confirmActionBtn">
                     <iconify-icon icon="mdi:check"></iconify-icon>
-                    <span id="confirmActionText">تأكيد</span>
+                    <span id="confirmActionText">Confirm</span>
                 </button>
             </div>
         </div>
@@ -2911,7 +2950,7 @@
     <div class="modal" id="resetPasswordModal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="h3">تغيير كلمة المرور</h3>
+                <h3 class="h3">Change Password</h3>
                 <button class="close-btn" id="closeResetPasswordModal">
                     <iconify-icon icon="mdi:close"></iconify-icon>
                 </button>
@@ -2924,11 +2963,11 @@
                 
                 <div class="modal-actions">
                     <button type="button" class="btn btn-secondary" id="cancelResetPasswordBtn">
-                        إلغاء
+                        Cancel
                     </button>
                     <button type="submit" class="btn btn-primary" id="submitResetPasswordBtn">
                         <iconify-icon icon="mdi:check"></iconify-icon>
-                        <span>تغيير كلمة المرور</span>
+                        <span>Change Password</span>
                     </button>
                 </div>
             </form>
@@ -2939,7 +2978,7 @@
     <div class="modal" id="dataModal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="h3" id="dataModalTitle">استيراد البيانات</h3>
+                <h3 class="h3" id="dataModalTitle">Import Data</h3>
                 <button class="close-btn" id="closeDataModal">
                     <iconify-icon icon="mdi:close"></iconify-icon>
                 </button>
@@ -2955,12 +2994,21 @@
     <div class="toast-container" id="toastContainer"></div>
 
     <script type="module">
-        // ===== FIREBASE IMPORTS =====
+        // ===== FIREBASE CONFIGURATION =====
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { 
-            auth, 
-            db,
+            getAuth, 
             onAuthStateChanged,
-            doc, 
+            signOut,
+            updateProfile,
+            updatePassword,
+            reauthenticateWithCredential,
+            EmailAuthProvider
+        } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { 
+            getFirestore,
+            doc,
             setDoc,
             getDoc,
             updateDoc,
@@ -2972,14 +3020,24 @@
             getDocs,
             addDoc,
             serverTimestamp,
-            signOut,
-            updateProfile,
-            updatePassword,
-            reauthenticateWithCredential,
-            EmailAuthProvider,
             onSnapshot,
             deleteField
-        } from './firebase-config.js';
+        } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCKYv3Z8Xz8Y8Xz8Y8Xz8Y8Xz8Y8Xz8Y8X",
+            authDomain: "novapass-dashboard.firebaseapp.com",
+            projectId: "novapass-dashboard",
+            storageBucket: "novapass-dashboard.appspot.com",
+            messagingSenderId: "123456789012",
+            appId: "1:123456789012:web:abcdef1234567890"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
 
         // ===== GLOBAL VARIABLES =====
         let currentUser = null;
@@ -3057,103 +3115,103 @@
 
         // Color options with labels and icons
         const colorOptions = [
-            { color: '#2ED3B7', label: 'شخصي', class: 'personal', icon: 'mdi:account' },
-            { color: '#4ECDC4', label: 'عمل', class: 'work', icon: 'mdi:briefcase' },
-            { color: '#FF6B6B', label: 'مهم', class: 'important', icon: 'mdi:star' },
-            { color: '#9D4EDD', label: 'اجتماعي', class: 'social', icon: 'mdi:account-group' },
-            { color: '#FFD166', label: 'مالي', class: 'finance', icon: 'mdi:currency-usd' },
-            { color: '#118AB2', label: 'أخرى', class: 'other', icon: 'mdi:dots-horizontal' }
+            { color: '#2ED3B7', label: 'Personal', class: 'personal', icon: 'mdi:account' },
+            { color: '#4ECDC4', label: 'Work', class: 'work', icon: 'mdi:briefcase' },
+            { color: '#FF6B6B', label: 'Important', class: 'important', icon: 'mdi:star' },
+            { color: '#9D4EDD', label: 'Social', class: 'social', icon: 'mdi:account-group' },
+            { color: '#FFD166', label: 'Finance', class: 'finance', icon: 'mdi:currency-usd' },
+            { color: '#118AB2', label: 'Other', class: 'other', icon: 'mdi:dots-horizontal' }
         ];
 
         // Theme options
         const themeOptions = [
-            { value: 'light', label: 'فاتح', icon: 'mdi:weather-sunny' },
-            { value: 'dark', label: 'داكن', icon: 'mdi:weather-night' },
-            { value: 'system', label: 'النظام', icon: 'mdi:laptop' }
+            { value: 'light', label: 'Light', icon: 'mdi:weather-sunny' },
+            { value: 'dark', label: 'Dark', icon: 'mdi:weather-night' },
+            { value: 'system', label: 'System', icon: 'mdi:laptop' }
         ];
 
         // Password visibility options
         const passwordVisibilityOptions = [
-            { value: 'hold', label: 'الضغط المطول', icon: 'mdi:timer-outline' },
-            { value: 'click', label: 'النقر', icon: 'mdi:cursor-click' },
-            { value: 'always', label: 'دائماً', icon: 'mdi:eye-outline' }
+            { value: 'hold', label: 'Long Press', icon: 'mdi:timer-outline' },
+            { value: 'click', label: 'Click', icon: 'mdi:cursor-click' },
+            { value: 'always', label: 'Always', icon: 'mdi:eye-outline' }
         ];
 
         // Category names for filter
         const categoryNames = {
-            social: 'اجتماعي',
-            google: 'جوجل',
-            work: 'عمل',
-            finance: 'مالي',
-            generic: 'عام'
+            social: 'Social',
+            google: 'Google',
+            work: 'Work',
+            finance: 'Finance',
+            generic: 'Generic'
         };
 
         // Password strength criteria
         const passwordCriteria = [
-            { id: 'length', label: '8 أحرف على الأقل', test: (p) => p.length >= 8, weight: 20 },
-            { id: 'lowercase', label: 'حرف صغير', test: (p) => /[a-z]/.test(p), weight: 15 },
-            { id: 'uppercase', label: 'حرف كبير', test: (p) => /[A-Z]/.test(p), weight: 15 },
-            { id: 'numbers', label: 'رقم', test: (p) => /[0-9]/.test(p), weight: 15 },
-            { id: 'special', label: 'رمز خاص', test: (p) => /[^A-Za-z0-9]/.test(p), weight: 15 },
-            { id: 'length12', label: '12 حرف أو أكثر', test: (p) => p.length >= 12, weight: 10 },
-            { id: 'unique', label: 'أحرف متنوعة', test: (p) => new Set(p).size >= 8, weight: 10 }
+            { id: 'length', label: 'At least 8 characters', test: (p) => p.length >= 8, weight: 20 },
+            { id: 'lowercase', label: 'Lowercase letter', test: (p) => /[a-z]/.test(p), weight: 15 },
+            { id: 'uppercase', label: 'Uppercase letter', test: (p) => /[A-Z]/.test(p), weight: 15 },
+            { id: 'numbers', label: 'Number', test: (p) => /[0-9]/.test(p), weight: 15 },
+            { id: 'special', label: 'Special character', test: (p) => /[^A-Za-z0-9]/.test(p), weight: 15 },
+            { id: 'length12', label: '12+ characters', test: (p) => p.length >= 12, weight: 10 },
+            { id: 'unique', label: 'Unique characters', test: (p) => new Set(p).size >= 8, weight: 10 }
         ];
 
         // Password strength levels
         const passwordStrengthLevels = {
-            weak: { threshold: 30, label: 'ضعيف', class: 'strength-weak', icon: 'mdi:alert-circle' },
-            medium: { threshold: 60, label: 'متوسط', class: 'strength-medium', icon: 'mdi:shield-half-full' },
-            good: { threshold: 80, label: 'جيد', class: 'strength-good', icon: 'mdi:shield' },
-            excellent: { threshold: 90, label: 'ممتاز', class: 'strength-excellent', icon: 'mdi:shield-check' }
+            weak: { threshold: 30, label: 'Weak', class: 'strength-weak', icon: 'mdi:alert-circle' },
+            medium: { threshold: 60, label: 'Medium', class: 'strength-medium', icon: 'mdi:shield-half-full' },
+            good: { threshold: 80, label: 'Good', class: 'strength-good', icon: 'mdi:shield' },
+            excellent: { threshold: 90, label: 'Excellent', class: 'strength-excellent', icon: 'mdi:shield-check' }
         };
 
         // Activity types
         const activityIcons = {
-            login: { icon: 'mdi:login', label: 'تسجيل دخول' },
-            logout: { icon: 'mdi:logout', label: 'تسجيل خروج' },
-            add: { icon: 'mdi:plus', label: 'إضافة حساب' },
-            edit: { icon: 'mdi:pencil', label: 'تعديل حساب' },
-            delete: { icon: 'mdi:delete', label: 'حذف حساب' },
-            copy: { icon: 'mdi:content-copy', label: 'نسخ كلمة مرور' },
-            theme: { icon: 'mdi:palette', label: 'تغيير المظهر' },
-            device_logout: { icon: 'mdi:device-off', label: 'تسجيل خروج من جهاز' },
-            trust: { icon: 'mdi:shield-check', label: 'تعيين جهاز كموثوق' },
-            block: { icon: 'mdi:block-helper', label: 'منع جهاز' },
-            unblock: { icon: 'mdi:lock-open', label: 'إلغاء منع جهاز' },
-            approve: { icon: 'mdi:check-circle', label: 'موافقة على جهاز' },
-            import: { icon: 'mdi:import', label: 'استيراد بيانات' },
-            export: { icon: 'mdi:export', label: 'تصدير بيانات' },
-            owner_transfer: { icon: 'mdi:crown', label: 'نقل ملكية الجهاز' },
-            name_change: { icon: 'mdi:rename-box', label: 'تغيير اسم الجهاز' },
-            password_reset: { icon: 'mdi:key-change', label: 'تغيير كلمة المرور' }
+            login: { icon: 'mdi:login', label: 'Login' },
+            logout: { icon: 'mdi:logout', label: 'Logout' },
+            add: { icon: 'mdi:plus', label: 'Add account' },
+            edit: { icon: 'mdi:pencil', label: 'Edit account' },
+            delete: { icon: 'mdi:delete', label: 'Delete account' },
+            copy: { icon: 'mdi:content-copy', label: 'Copy password' },
+            theme: { icon: 'mdi:palette', label: 'Theme change' },
+            device_logout: { icon: 'mdi:device-off', label: 'Device logout' },
+            trust: { icon: 'mdi:shield-check', label: 'Trust device' },
+            block: { icon: 'mdi:block-helper', label: 'Block device' },
+            unblock: { icon: 'mdi:lock-open', label: 'Unblock device' },
+            approve: { icon: 'mdi:check-circle', label: 'Approve device' },
+            import: { icon: 'mdi:import', label: 'Import data' },
+            export: { icon: 'mdi:export', label: 'Export data' },
+            owner_transfer: { icon: 'mdi:crown', label: 'Owner transfer' },
+            name_change: { icon: 'mdi:rename-box', label: 'Device name change' },
+            password_reset: { icon: 'mdi:key-change', label: 'Password reset' }
         };
 
         const activityDescriptions = {
-            login: (details) => `تم تسجيل الدخول ${details.isNewDevice ? 'من جهاز جديد' : ''}`,
-            logout: () => 'تم تسجيل الخروج',
-            add: (details) => `تم إضافة حساب جديد: ${details.boardName || ''}`,
-            edit: (details) => `تم تعديل حساب: ${details.boardName || ''}`,
-            delete: (details) => `تم حذف حساب: ${details.boardName || ''}`,
-            copy: (details) => `تم نسخ كلمة مرور لحساب: ${details.boardName || ''}`,
-            theme: (details) => `تم تغيير المظهر إلى الوضع ${details.theme === 'dark' ? 'الداكن' : 'الفاتح'}`,
-            device_logout: (details) => `تم تسجيل الخروج من جهاز: ${details.deviceName || ''}`,
-            trust: (details) => `تم ${details.trusted ? 'تعيين' : 'إلغاء'} الثقة في جهاز: ${details.deviceName || ''}`,
-            block: (details) => `تم ${details.permanent ? 'منع نهائي' : 'منع مؤقت'} لجهاز: ${details.deviceName || ''}`,
-            unblock: (details) => `تم إلغاء منع جهاز: ${details.deviceName || ''}`,
-            approve: (details) => `تم الموافقة على جهاز: ${details.deviceName || ''}`,
-            import: () => 'تم استيراد البيانات بنجاح',
-            export: () => 'تم تصدير البيانات بنجاح',
-            owner_transfer: (details) => `تم نقل ملكية التحكم إلى جهاز: ${details.deviceName || ''}`,
-            name_change: (details) => `تم تغيير اسم الجهاز إلى: ${details.newName || ''}`,
-            password_reset: () => 'تم تغيير كلمة مرور الحساب'
+            login: (details) => `Logged in ${details.isNewDevice ? 'from new device' : ''}`,
+            logout: () => 'Logged out',
+            add: (details) => `Added new account: ${details.boardName || ''}`,
+            edit: (details) => `Edited account: ${details.boardName || ''}`,
+            delete: (details) => `Deleted account: ${details.boardName || ''}`,
+            copy: (details) => `Copied password for account: ${details.boardName || ''}`,
+            theme: (details) => `Changed theme to ${details.theme === 'dark' ? 'dark' : 'light'} mode`,
+            device_logout: (details) => `Logged out from device: ${details.deviceName || ''}`,
+            trust: (details) => `${details.trusted ? 'Trusted' : 'Untrusted'} device: ${details.deviceName || ''}`,
+            block: (details) => `${details.permanent ? 'Permanently blocked' : 'Temporarily blocked'} device: ${details.deviceName || ''}`,
+            unblock: (details) => `Unblocked device: ${details.deviceName || ''}`,
+            approve: (details) => `Approved device: ${details.deviceName || ''}`,
+            import: () => 'Data imported successfully',
+            export: () => 'Data exported successfully',
+            owner_transfer: (details) => `Transferred ownership to device: ${details.deviceName || ''}`,
+            name_change: (details) => `Changed device name to: ${details.newName || ''}`,
+            password_reset: () => 'Changed account password'
         };
 
         // Settings tabs
         const settingsTabs = [
-            { id: 'profile', label: 'الملف الشخصي', icon: 'mdi:account-circle' },
-            { id: 'appearance', label: 'المظهر', icon: 'mdi:palette' },
-            { id: 'security', label: 'الأمان', icon: 'mdi:shield-lock' },
-            { id: 'advanced', label: 'متقدم', icon: 'mdi:cog' }
+            { id: 'profile', label: 'Profile', icon: 'mdi:account-circle' },
+            { id: 'appearance', label: 'Appearance', icon: 'mdi:palette' },
+            { id: 'security', label: 'Security', icon: 'mdi:shield-lock' },
+            { id: 'advanced', label: 'Advanced', icon: 'mdi:cog' }
         ];
 
         // ===== INITIALIZATION =====
@@ -3220,9 +3278,9 @@
                 // Create new account with owner set to current device
                 await setDoc(accountRef, {
                     profile: {
-                        name: currentUser.displayName || currentUser.email?.split('@')[0] || 'المستخدم',
+                        name: currentUser.displayName || currentUser.email?.split('@')[0] || 'User',
                         email: currentUser.email,
-                        plan: 'مجانية',
+                        plan: 'Free',
                         createdAt: serverTimestamp()
                     },
                     vault: {
@@ -3301,7 +3359,7 @@
                 }
             }, (error) => {
                 console.error('Devices listener error:', error);
-                showToast('حدث خطأ في تحديث الأجهزة', 'error');
+                showToast('Error updating devices', 'error');
             });
         }
 
@@ -3329,7 +3387,7 @@
                 }
             }, (error) => {
                 console.error('Activity listener error:', error);
-                showToast('حدث خطأ في تحديث سجلات النشاط', 'error');
+                showToast('Error updating activity logs', 'error');
             });
         }
 
@@ -3356,7 +3414,7 @@
                 trustedDevices = {}
             } = securityData;
             
-            // القاعدة 1: أول جهاز يسجل = owner
+            // Rule 1: First device to register = owner
             if (!ownerDeviceId) {
                 await updateDoc(accountRef, {
                     'security.ownerDeviceId': currentDeviceId,
@@ -3456,36 +3514,36 @@
             
             switch(type) {
                 case 'blocked':
-                    title = '⛔ تم تقييد الوصول من هذا الجهاز';
-                    text = 'لأسباب أمنية، لا يمكن استخدام هذا الجهاز للوصول إلى الحساب.';
+                    title = '⛔ Access Restricted from this Device';
+                    text = 'For security reasons, this device cannot access the account.';
                     if (blockData?.reason) {
-                        text += `<br><br><strong>السبب:</strong> ${blockData.reason}`;
+                        text += `<br><br><strong>Reason:</strong> ${blockData.reason}`;
                     }
                     if (blockData?.blockedAt) {
                         const blockedDate = new Date(blockData.blockedAt.seconds * 1000);
-                        text += `<br><small>تم التقييد في: ${formatDate(blockedDate)}</small>`;
+                        text += `<br><small>Blocked on: ${formatDate(blockedDate)}</small>`;
                     }
                     icon = '<iconify-icon icon="mdi:block-helper" style="font-size: 2.5rem;"></iconify-icon>';
                     actions = `
                         <button class="btn btn-danger" id="blockedLogoutBtn">
                             <iconify-icon icon="mdi:logout"></iconify-icon>
-                            <span>تسجيل الخروج</span>
+                            <span>Sign Out</span>
                         </button>
                     `;
                     break;
                     
                 case 'pending':
-                    title = '⏳ هذا جهاز جديد';
-                    text = 'هذا الجهاز في انتظار موافقة الجهاز الرئيسي للحساب. يمكنك الانتظار أو تسجيل الخروج.';
+                    title = '⏳ New Device Detected';
+                    text = 'This device is waiting for approval from the account owner. You can wait or sign out.';
                     icon = '<iconify-icon icon="mdi:clock-outline" style="font-size: 2.5rem;"></iconify-icon>';
                     actions = `
                         <button class="btn btn-secondary" id="refreshAccessBtn" style="margin-left: 0.5rem;">
                             <iconify-icon icon="mdi:refresh"></iconify-icon>
-                            <span>تحديث الحالة</span>
+                            <span>Refresh Status</span>
                         </button>
                         <button class="btn btn-danger" id="pendingLogoutBtn">
                             <iconify-icon icon="mdi:logout"></iconify-icon>
-                            <span>تسجيل الخروج</span>
+                            <span>Sign Out</span>
                         </button>
                     `;
                     break;
@@ -3509,7 +3567,7 @@
                 document.getElementById('pendingLogoutBtn')?.addEventListener('click', handleLogout);
                 document.getElementById('refreshAccessBtn')?.addEventListener('click', async () => {
                     await checkDeviceAccess();
-                    showToast('تم تحديث حالة الجهاز', 'info');
+                    showToast('Device status refreshed', 'info');
                 });
             }, 100);
         }
@@ -3542,11 +3600,11 @@
             let os = 'Unknown OS';
             
             if (/mobile/i.test(userAgent)) {
-                deviceName = 'هاتف محمول';
+                deviceName = 'Mobile Phone';
             } else if (/tablet/i.test(userAgent)) {
-                deviceName = 'تابلت';
+                deviceName = 'Tablet';
             } else {
-                deviceName = 'حاسوب';
+                deviceName = 'Computer';
             }
             
             if (/edg/i.test(userAgent)) {
@@ -3639,35 +3697,35 @@
                         case 'approve':
                             success = await approveDevice(deviceId);
                             if (success) {
-                                showToast('تمت الموافقة على الجهاز بنجاح', 'success');
+                                showToast('Device approved successfully', 'success');
                             }
                             break;
                             
                         case 'trust':
                             success = await toggleDeviceTrust(deviceId, true);
                             if (success) {
-                                showToast('تم تعيين الجهاز كموثوق', 'success');
+                                showToast('Device marked as trusted', 'success');
                             }
                             break;
                             
                         case 'untrust':
                             success = await toggleDeviceTrust(deviceId, false);
                             if (success) {
-                                showToast('تم إلغاء الثقة عن الجهاز', 'info');
+                                showToast('Device untrusted', 'info');
                             }
                             break;
                             
                         case 'block':
-                            success = await blockDevice(deviceId, false, 'حظر يدوي');
+                            success = await blockDevice(deviceId, false, 'Manual block');
                             if (success) {
-                                showToast('تم حظر الجهاز بنجاح', 'success');
+                                showToast('Device blocked successfully', 'success');
                             }
                             break;
                             
                         case 'unblock':
                             success = await unblockDevice(deviceId);
                             if (success) {
-                                showToast('تم إلغاء حظر الجهاز', 'success');
+                                showToast('Device unblocked', 'success');
                             }
                             break;
                             
@@ -3678,7 +3736,7 @@
                         case 'owner_transfer':
                             success = await transferOwnership(deviceId);
                             if (success) {
-                                showToast('تم نقل ملكية التحكم بنجاح', 'success');
+                                showToast('Ownership transferred successfully', 'success');
                             }
                             break;
                     }
@@ -3687,7 +3745,7 @@
                     
                 } catch (error) {
                     console.error(`Error in ${action}:`, error);
-                    showToast('حدث خطأ أثناء تنفيذ الإجراء', 'error');
+                    showToast('Error executing action', 'error');
                 } finally {
                     setTimeout(() => {
                         if (button.parentNode) {
@@ -3703,7 +3761,7 @@
         // ===== SECURITY MANAGEMENT =====
         async function blockDevice(deviceId, permanent = false, reason = '') {
             if (!isOwnerDevice) {
-                showToast('فقط الجهاز الرئيسي يمكنه منع الأجهزة', 'error');
+                showToast('Only owner device can block devices', 'error');
                 return false;
             }
             
@@ -3713,7 +3771,7 @@
                     blockedAt: serverTimestamp(),
                     blockedBy: currentDeviceId,
                     permanent,
-                    reason: reason || (permanent ? 'منع نهائي' : 'منع مؤقت')
+                    reason: reason || (permanent ? 'Permanent block' : 'Temporary block')
                 };
                 
                 await updateDoc(accountRef, {
@@ -3749,7 +3807,7 @@
 
         async function unblockDevice(deviceId) {
             if (!isOwnerDevice) {
-                showToast('فقط الجهاز الرئيسي يمكنه إلغاء منع الأجهزة', 'error');
+                showToast('Only owner device can unblock devices', 'error');
                 return false;
             }
             
@@ -3772,7 +3830,7 @@
 
         async function approveDevice(deviceId) {
             if (!isOwnerDevice) {
-                showToast('فقط الجهاز الرئيسي يمكنه الموافقة على الأجهزة', 'error');
+                showToast('Only owner device can approve devices', 'error');
                 return false;
             }
             
@@ -3807,7 +3865,7 @@
 
         async function toggleDeviceTrust(deviceId, trusted) {
             if (!isOwnerDevice) {
-                showToast('فقط الجهاز الرئيسي يمكنه تغيير حالة الثقة', 'error');
+                showToast('Only owner device can change trust status', 'error');
                 return false;
             }
             
@@ -3844,14 +3902,14 @@
         // ===== OWNERSHIP TRANSFER =====
         async function transferOwnership(deviceId) {
             if (!isOwnerDevice) {
-                showToast('فقط الجهاز الرئيسي يمكنه نقل الملكية', 'error');
+                showToast('Only owner device can transfer ownership', 'error');
                 return false;
             }
             
             try {
                 const device = userDevices.find(d => d.id === deviceId);
                 if (!device) {
-                    showToast('الجهاز غير موجود', 'error');
+                    showToast('Device not found', 'error');
                     return false;
                 }
                 
@@ -3890,7 +3948,7 @@
         async function updateDeviceName(deviceId, newName) {
             try {
                 if (!newName || newName.trim().length < 2) {
-                    showToast('اسم الجهاز يجب أن يكون على الأقل حرفين', 'error');
+                    showToast('Device name must be at least 2 characters', 'error');
                     return false;
                 }
                 
@@ -3902,11 +3960,11 @@
                     newName: trimmedName
                 });
                 
-                showToast('تم تغيير اسم الجهاز بنجاح', 'success');
+                showToast('Device name changed successfully', 'success');
                 return true;
             } catch (error) {
                 console.error('Error updating device name:', error);
-                showToast('حدث خطأ أثناء تغيير اسم الجهاز', 'error');
+                showToast('Error changing device name', 'error');
                 return false;
             }
         }
@@ -3915,7 +3973,7 @@
         async function resetPassword(currentPassword, newPassword) {
             try {
                 if (!currentUser) {
-                    showToast('يجب تسجيل الدخول أولاً', 'error');
+                    showToast('Please login first', 'error');
                     return false;
                 }
                 
@@ -3932,18 +3990,18 @@
                 
                 await logActivity('password_reset', {});
                 
-                showToast('تم تغيير كلمة المرور بنجاح', 'success');
+                showToast('Password changed successfully', 'success');
                 return true;
             } catch (error) {
                 console.error('Error resetting password:', error);
                 
-                let errorMessage = 'حدث خطأ أثناء تغيير كلمة المرور';
+                let errorMessage = 'Error changing password';
                 switch(error.code) {
                     case 'auth/wrong-password':
-                        errorMessage = 'كلمة المرور الحالية غير صحيحة';
+                        errorMessage = 'Current password is incorrect';
                         break;
                     case 'auth/weak-password':
-                        errorMessage = 'كلمة المرور الجديدة ضعيفة جداً';
+                        errorMessage = 'New password is too weak';
                         break;
                 }
                 
@@ -3988,7 +4046,7 @@
             
             const allBtn = document.createElement('button');
             allBtn.className = 'category-btn active';
-            allBtn.textContent = 'الكل';
+            allBtn.textContent = 'All';
             allBtn.setAttribute('data-category', 'all');
             allBtn.addEventListener('click', (e) => filterIconsByCategory('all', e.target));
             categoriesContainer.appendChild(allBtn);
@@ -4149,7 +4207,7 @@
             lengthElement.className = 'strength-criteria valid';
             lengthElement.innerHTML = `
                 <iconify-icon icon="mdi:check-circle"></iconify-icon>
-                <span>${password.length} حرف (${lengthBonus}%)</span>
+                <span>${password.length} characters (${lengthBonus}%)</span>
             `;
             strengthDetails.appendChild(lengthElement);
         }
@@ -4285,7 +4343,7 @@
         // ===== SECTION MANAGEMENT =====
         function showSection(sectionId) {
             if (deviceStatus !== 'active' && sectionId !== 'dashboardSection') {
-                showToast('الجهاز غير نشط حالياً', 'error');
+                showToast('Device is not currently active', 'error');
                 return;
             }
             
@@ -4326,9 +4384,9 @@
         function updateNavLabel(sectionId) {
             const label = document.getElementById('dashboardLabel');
             switch(sectionId) {
-                case 'devicesSection': label.textContent = 'الأجهزة'; break;
-                case 'activitySection': label.textContent = 'سجلات النشاط'; break;
-                case 'settingsSection': label.textContent = 'الإعدادات'; break;
+                case 'devicesSection': label.textContent = 'Devices'; break;
+                case 'activitySection': label.textContent = 'Activity Logs'; break;
+                case 'settingsSection': label.textContent = 'Settings'; break;
                 default: label.textContent = 'Dashboard';
             }
         }
@@ -4369,7 +4427,7 @@
             if (!modal || !title) return;
             
             if (mode === 'edit' && board) {
-                title.textContent = 'تعديل الحساب';
+                title.textContent = 'Edit Account';
                 document.getElementById('boardId').value = board.id;
                 document.getElementById('boardName').value = board.name;
                 document.getElementById('boardEmail').value = board.email;
@@ -4390,7 +4448,7 @@
                 
                 currentEditingBoard = board.id;
             } else {
-                title.textContent = 'إضافة حساب جديد';
+                title.textContent = 'Add New Account';
                 currentEditingBoard = null;
             }
             
@@ -4430,9 +4488,9 @@
                         <div class="empty-icon">
                             <iconify-icon icon="mdi:devices"></iconify-icon>
                         </div>
-                        <h3 class="h3">لا توجد أجهزة</h3>
+                        <h3 class="h3">No Devices Found</h3>
                         <p class="body">
-                            سيظهر هنا أي جهاز تقوم بتسجيل الدخول منه. جرب تسجيل الدخول من جهاز آخر لتراه هنا.
+                            Any device you log in from will appear here. Try logging in from another device to see it here.
                         </p>
                     </div>
                 `;
@@ -4538,12 +4596,12 @@
 
         function getCategoryTitle(category) {
             const titles = {
-                current: '👤 هذا الجهاز',
-                owner: '👑 الأجهزة الرئيسية',
-                trusted: '🛡️ الأجهزة الموثوقة',
-                pending: '⏳ في انتظار الموافقة',
-                blocked: '⛔ الأجهزة المحظورة',
-                other: '📱 أجهزة أخرى'
+                current: '👤 This Device',
+                owner: '👑 Owner Devices',
+                trusted: '🛡️ Trusted Devices',
+                pending: '⏳ Pending Approval',
+                blocked: '⛔ Blocked Devices',
+                other: '📱 Other Devices'
             };
             
             return titles[category] || category;
@@ -4580,14 +4638,14 @@
                             <div class="device-name-container">
                                 <span class="device-name">${device.deviceName}</span>
                                 ${!isBlocked ? `
-                                    <button class="device-name-edit" data-device-id="${device.id}" title="تغيير الاسم">
+                                    <button class="device-name-edit" data-device-id="${device.id}" title="Change name">
                                         <iconify-icon icon="mdi:pencil"></iconify-icon>
                                     </button>
                                 ` : ''}
                             </div>
                             <div class="device-details">
                                 ${device.browser} • ${device.os}
-                                <div class="device-id-container" title="انقر للنسخ">
+                                <div class="device-id-container" title="Click to copy">
                                     <iconify-icon icon="mdi:identifier"></iconify-icon>
                                     <span class="device-id">${device.id.substring(0, 8)}...</span>
                                 </div>
@@ -4597,31 +4655,31 @@
                             ${isCurrent ? `
                                 <span class="device-badge current">
                                     <iconify-icon icon="mdi:check-circle"></iconify-icon>
-                                    هذا الجهاز
+                                    This Device
                                 </span>
                             ` : ''}
                             ${isOwner ? `
                                 <span class="device-badge owner">
                                     <iconify-icon icon="mdi:crown"></iconify-icon>
-                                    الجهاز الرئيسي
+                                    Owner Device
                                 </span>
                             ` : ''}
                             ${isTrusted && !isBlocked ? `
                                 <span class="device-badge trusted">
                                     <iconify-icon icon="mdi:shield-check"></iconify-icon>
-                                    موثوق
+                                    Trusted
                                 </span>
                             ` : ''}
                             ${isBlocked ? `
                                 <span class="device-badge blocked">
                                     <iconify-icon icon="mdi:block-helper"></iconify-icon>
-                                    محظور
+                                    Blocked
                                 </span>
                             ` : ''}
                             ${isPending ? `
                                 <span class="device-badge pending">
                                     <iconify-icon icon="mdi:clock-outline"></iconify-icon>
-                                    في انتظار الموافقة
+                                    Pending Approval
                                 </span>
                             ` : ''}
                         </div>
@@ -4629,7 +4687,7 @@
                     
                     <div class="device-time">
                         <iconify-icon icon="mdi:clock-outline"></iconify-icon>
-                        <span>آخر نشاط: ${lastActive}</span>
+                        <span>Last active: ${lastActive}</span>
                     </div>
                 </div>
                 
@@ -4645,7 +4703,7 @@
                 if (idContainer) {
                     idContainer.addEventListener('click', () => {
                         copyToClipboard(device.id, idContainer, null, 'device_id');
-                        showToast('تم نسق معرف الجهاز', 'success');
+                        showToast('Device ID copied', 'success');
                     });
                 }
                 
@@ -4696,10 +4754,10 @@
             
             nameContainer.innerHTML = `
                 <input type="text" class="device-name-input" value="${currentName}" maxlength="50">
-                <button class="device-name-edit confirm" data-device-id="${device.id}" title="حفظ">
+                <button class="device-name-edit confirm" data-device-id="${device.id}" title="Save">
                     <iconify-icon icon="mdi:check"></iconify-icon>
                 </button>
-                <button class="device-name-edit cancel" data-device-id="${device.id}" title="إلغاء">
+                <button class="device-name-edit cancel" data-device-id="${device.id}" title="Cancel">
                     <iconify-icon icon="mdi:close"></iconify-icon>
                 </button>
             `;
@@ -4742,7 +4800,7 @@
                 return `
                     <button class="device-action-btn" onclick="openResetPasswordModal()">
                         <iconify-icon icon="mdi:key-change"></iconify-icon>
-                        تغيير كلمة المرور
+                        Change Password
                     </button>
                 `;
             }
@@ -4757,25 +4815,25 @@
                 actions += `
                     <button class="device-action-btn unblock" data-device-id="${device.id}">
                         <iconify-icon icon="mdi:lock-open"></iconify-icon>
-                        إلغاء الحظر
+                        Unblock
                     </button>
                 `;
             } else if (isPending) {
                 actions += `
                     <button class="device-action-btn approve" data-device-id="${device.id}">
                         <iconify-icon icon="mdi:check-circle"></iconify-icon>
-                        الموافقة
+                        Approve
                     </button>
                     <button class="device-action-btn block" data-device-id="${device.id}">
                         <iconify-icon icon="mdi:block-helper"></iconify-icon>
-                        رفض
+                        Reject
                     </button>
                 `;
             } else {
                 actions += `
                     <button class="device-action-btn logout" data-device-id="${device.id}">
                         <iconify-icon icon="mdi:logout"></iconify-icon>
-                        تسجيل الخروج
+                        Log Out
                     </button>
                 `;
                 
@@ -4784,14 +4842,14 @@
                         actions += `
                             <button class="device-action-btn untrust" data-device-id="${device.id}">
                                 <iconify-icon icon="mdi:shield-off"></iconify-icon>
-                                إلغاء الثقة
+                                Untrust
                             </button>
                         `;
                     } else {
                         actions += `
                             <button class="device-action-btn trust" data-device-id="${device.id}">
                                 <iconify-icon icon="mdi:shield-check"></iconify-icon>
-                                تعيين كموثوق
+                                Mark as Trusted
                             </button>
                         `;
                     }
@@ -4799,11 +4857,11 @@
                     actions += `
                         <button class="device-action-btn block" data-device-id="${device.id}">
                             <iconify-icon icon="mdi:block-helper"></iconify-icon>
-                            حظر
+                            Block
                         </button>
                         <button class="device-action-btn owner-transfer" data-device-id="${device.id}">
                             <iconify-icon icon="mdi:crown"></iconify-icon>
-                            نقل الملكية
+                            Transfer Ownership
                         </button>
                     `;
                 }
@@ -4842,56 +4900,56 @@
                 // Owner device - simple reset
                 content.innerHTML = `
                     <div class="form-group">
-                        <label class="form-label">كلمة المرور الجديدة *</label>
+                        <label class="form-label">New Password *</label>
                         <input type="password" id="newPassword" class="form-control" 
-                               placeholder="أدخل كلمة المرور الجديدة"
+                               placeholder="Enter new password"
                                required>
                         <div class="error-message" id="newPasswordError"></div>
                     </div>
                     
                     <div class="form-group">
-                        <label class="form-label">تأكيد كلمة المرور الجديدة *</label>
+                        <label class="form-label">Confirm New Password *</label>
                         <input type="password" id="confirmNewPassword" class="form-control" 
-                               placeholder="أعد إدخال كلمة المرور الجديدة"
+                               placeholder="Re-enter new password"
                                required>
                         <div class="error-message" id="confirmNewPasswordError"></div>
                     </div>
                     
                     <div class="body-sm" style="color: var(--text-muted); margin-top: 1rem;">
                         <iconify-icon icon="mdi:information"></iconify-icon>
-                        كجهاز رئيسي، يمكنك تغيير كلمة المرور مباشرة بدون التحقق من الكلمة القديمة.
+                        As owner device, you can change password directly without old password verification.
                     </div>
                 `;
             } else {
                 // Non-owner device - require current password
                 content.innerHTML = `
                     <div class="form-group">
-                        <label class="form-label">كلمة المرور الحالية *</label>
+                        <label class="form-label">Current Password *</label>
                         <input type="password" id="currentPassword" class="form-control" 
-                               placeholder="أدخل كلمة المرور الحالية"
+                               placeholder="Enter current password"
                                required>
                         <div class="error-message" id="currentPasswordError"></div>
                     </div>
                     
                     <div class="form-group">
-                        <label class="form-label">كلمة المرور الجديدة *</label>
+                        <label class="form-label">New Password *</label>
                         <input type="password" id="newPassword" class="form-control" 
-                               placeholder="أدخل كلمة المرور الجديدة"
+                               placeholder="Enter new password"
                                required>
                         <div class="error-message" id="newPasswordError"></div>
                     </div>
                     
                     <div class="form-group">
-                        <label class="form-label">تأكيد كلمة المرور الجديدة *</label>
+                        <label class="form-label">Confirm New Password *</label>
                         <input type="password" id="confirmNewPassword" class="form-control" 
-                               placeholder="أعد إدخال كلمة المرور الجديدة"
+                               placeholder="Re-enter new password"
                                required>
                         <div class="error-message" id="confirmNewPasswordError"></div>
                     </div>
                     
                     <div class="body-sm" style="color: var(--warning); margin-top: 1rem;">
                         <iconify-icon icon="mdi:alert"></iconify-icon>
-                        يجب إدخال كلمة المرور الحالية للتحقق من هويتك.
+                        Must enter current password to verify your identity.
                     </div>
                 `;
             }
@@ -4913,7 +4971,7 @@
                 if (!isOwnerDevice) {
                     currentPassword = document.getElementById('currentPassword').value.trim();
                     if (!currentPassword) {
-                        showError('currentPasswordError', 'كلمة المرور الحالية مطلوبة');
+                        showError('currentPasswordError', 'Current password required');
                         throw new Error('Current password required');
                     }
                 }
@@ -4922,17 +4980,17 @@
                 const confirmNewPassword = document.getElementById('confirmNewPassword').value.trim();
                 
                 if (!newPassword) {
-                    showError('newPasswordError', 'كلمة المرور الجديدة مطلوبة');
+                    showError('newPasswordError', 'New password required');
                     throw new Error('New password required');
                 }
                 
                 if (newPassword.length < 6) {
-                    showError('newPasswordError', 'كلمة المرور يجب أن تكون 6 أحرف على الأقل');
+                    showError('newPasswordError', 'Password must be at least 6 characters');
                     throw new Error('Password too short');
                 }
                 
                 if (newPassword !== confirmNewPassword) {
-                    showError('confirmNewPasswordError', 'كلمات المرور غير متطابقة');
+                    showError('confirmNewPasswordError', 'Passwords do not match');
                     throw new Error('Passwords do not match');
                 }
                 
@@ -4977,42 +5035,42 @@
             
             switch(type) {
                 case 'delete':
-                    title.textContent = 'تأكيد الحذف';
-                    action.textContent = `حذف ${data.boardName}`;
-                    message.textContent = `سيتم حذف حساب "${data.boardName}" نهائياً. لا يمكن التراجع عن هذا الإجراء.`;
+                    title.textContent = 'Confirm Deletion';
+                    action.textContent = `Delete ${data.boardName}`;
+                    message.textContent = `Account "${data.boardName}" will be permanently deleted. This action cannot be undone.`;
                     icon.className = 'confirm-icon delete';
                     icon.innerHTML = '<iconify-icon icon="mdi:delete" style="font-size: 2.5rem;"></iconify-icon>';
-                    actionText.textContent = 'نعم، احذف';
+                    actionText.textContent = 'Yes, Delete';
                     actionBtn.className = 'btn btn-danger';
                     break;
                     
                 case 'logout':
-                    title.textContent = 'تأكيد تسجيل الخروج';
-                    action.textContent = 'تسجيل الخروج';
-                    message.textContent = 'سيتم تسجيل خروجك من جميع الأجهزة. هل أنت متأكد؟';
+                    title.textContent = 'Confirm Sign Out';
+                    action.textContent = 'Sign Out';
+                    message.textContent = 'You will be signed out from all devices. Are you sure?';
                     icon.className = 'confirm-icon logout';
                     icon.innerHTML = '<iconify-icon icon="mdi:logout" style="font-size: 2.5rem;"></iconify-icon>';
-                    actionText.textContent = 'نعم، سجل الخروج';
+                    actionText.textContent = 'Yes, Sign Out';
                     actionBtn.className = 'btn btn-danger';
                     break;
                     
                 case 'block':
-                    title.textContent = 'تأكيد المنع';
-                    action.textContent = `منع ${data.deviceName}`;
-                    message.textContent = `سيتم منع الجهاز "${data.deviceName}" من الوصول إلى الحساب.`;
+                    title.textContent = 'Confirm Block';
+                    action.textContent = `Block ${data.deviceName}`;
+                    message.textContent = `Device "${data.deviceName}" will be blocked from accessing the account.`;
                     icon.className = 'confirm-icon block';
                     icon.innerHTML = '<iconify-icon icon="mdi:block-helper" style="font-size: 2.5rem;"></iconify-icon>';
-                    actionText.textContent = 'نعم، امنع';
+                    actionText.textContent = 'Yes, Block';
                     actionBtn.className = 'btn btn-danger';
                     break;
                     
                 case 'owner_transfer':
-                    title.textContent = 'نقل ملكية التحكم';
-                    action.textContent = `جعل ${data.deviceName} الجهاز الرئيسي`;
-                    message.textContent = `سيصبح الجهاز "${data.deviceName}" هو المتحكم الرئيسي في الحساب. ستفقد صلاحيات التحكم من هذا الجهاز.`;
+                    title.textContent = 'Transfer Ownership';
+                    action.textContent = `Make ${data.deviceName} the Owner Device`;
+                    message.textContent = `Device "${data.deviceName}" will become the primary control device. You will lose control privileges from this device.`;
                     icon.className = 'confirm-icon owner-transfer';
                     icon.innerHTML = '<iconify-icon icon="mdi:crown" style="font-size: 2.5rem;"></iconify-icon>';
-                    actionText.textContent = 'نعم، انقل الملكية';
+                    actionText.textContent = 'Yes, Transfer';
                     actionBtn.className = 'btn btn-primary';
                     break;
             }
@@ -5044,7 +5102,7 @@
                 pendingActionData = null;
             } catch (error) {
                 console.error('Error executing action:', error);
-                showToast('حدث خطأ أثناء تنفيذ الإجراء', 'error');
+                showToast('Error executing action', 'error');
             }
         }
 
@@ -5099,8 +5157,8 @@
         }
 
         function renderProfileTab(container) {
-            const displayName = currentUser.displayName || currentUser.email?.split('@')[0] || 'المستخدم';
-            const email = currentUser.email || 'غير محدد';
+            const displayName = currentUser.displayName || currentUser.email?.split('@')[0] || 'User';
+            const email = currentUser.email || 'Not set';
             const createdAt = userSettings.createdAt ? formatDate(userSettings.createdAt.toDate()) : formatDate(new Date());
             
             container.innerHTML = `
@@ -5110,48 +5168,48 @@
                             <iconify-icon icon="mdi:account-circle"></iconify-icon>
                         </div>
                         <div>
-                            <h4 class="settings-card-title">معلومات الحساب</h4>
-                            <p class="settings-card-description">إدارة معلومات ملفك الشخصي</p>
+                            <h4 class="settings-card-title">Account Information</h4>
+                            <p class="settings-card-description">Manage your profile information</p>
                         </div>
                     </div>
                     
                     <div class="settings-items">
                         <div class="settings-item">
                             <div class="settings-label">
-                                <span class="settings-name">الاسم الكامل</span>
-                                <span class="settings-description">اسمك المعروض في التطبيق</span>
+                                <span class="settings-name">Full Name</span>
+                                <span class="settings-description">Your display name in the app</span>
                             </div>
                             <div style="display: flex; align-items: center; gap: 1rem;">
                                 <span id="profileName">${displayName}</span>
                                 <button class="action-btn edit" id="editProfileNameBtn">
                                     <iconify-icon icon="mdi:pencil"></iconify-icon>
-                                    <span>تعديل</span>
+                                    <span>Edit</span>
                                 </button>
                             </div>
                         </div>
                         
                         <div class="settings-item">
                             <div class="settings-label">
-                                <span class="settings-name">البريد الإلكتروني</span>
-                                <span class="settings-description">البريد الإلكتروني المرتبط بالحساب</span>
+                                <span class="settings-name">Email Address</span>
+                                <span class="settings-description">Email associated with your account</span>
                             </div>
                             <span id="profileEmail">${email}</span>
                         </div>
                         
                         <div class="settings-item">
                             <div class="settings-label">
-                                <span class="settings-name">تاريخ الإنشاء</span>
-                                <span class="settings-description">تاريخ إنشاء حسابك في NovaPass</span>
+                                <span class="settings-name">Created Date</span>
+                                <span class="settings-description">Date you created your NovaPass account</span>
                             </div>
                             <span id="profileCreatedAt">${createdAt}</span>
                         </div>
                         
                         <div class="settings-item">
                             <div class="settings-label">
-                                <span class="settings-name">الخطة الحالية</span>
-                                <span class="settings-description">استمتع بميزات NovaPass الأساسية</span>
+                                <span class="settings-name">Current Plan</span>
+                                <span class="settings-description">Enjoy basic NovaPass features</span>
                             </div>
-                            <span class="plan-badge" id="profilePlan">${userSettings.plan || 'مجانية'}</span>
+                            <span class="plan-badge" id="profilePlan">${userSettings.plan || 'Free'}</span>
                         </div>
                     </div>
                 </div>
@@ -5162,45 +5220,45 @@
                             <iconify-icon icon="mdi:shield-account"></iconify-icon>
                         </div>
                         <div>
-                            <h4 class="settings-card-title">إدارة الجهاز</h4>
-                            <p class="settings-card-description">تحكم في جهازك الحالي</p>
+                            <h4 class="settings-card-title">Device Management</h4>
+                            <p class="settings-card-description">Control your current device</p>
                         </div>
                     </div>
                     
                     <div class="settings-items">
                         <div class="settings-item">
                             <div class="settings-label">
-                                <span class="settings-name">معرف الجهاز</span>
-                                <span class="settings-description">للدعم والأمان</span>
+                                <span class="settings-name">Device ID</span>
+                                <span class="settings-description">For support and security</span>
                             </div>
                             <div style="display: flex; align-items: center; gap: 0.5rem;">
                                 <code style="font-family: monospace; font-size: 0.875rem;">${currentDeviceId}</code>
                                 <button class="action-btn copy" onclick="copyToClipboard('${currentDeviceId}', this, null, 'device_id')">
                                     <iconify-icon icon="mdi:content-copy"></iconify-icon>
-                                    <span>نسخ</span>
+                                    <span>Copy</span>
                                 </button>
                             </div>
                         </div>
                         
                         <div class="settings-item">
                             <div class="settings-label">
-                                <span class="settings-name">تغيير كلمة المرور</span>
-                                <span class="settings-description">قم بتحديث كلمة مرور حسابك</span>
+                                <span class="settings-name">Change Password</span>
+                                <span class="settings-description">Update your account password</span>
                             </div>
                             <button class="action-btn" onclick="openResetPasswordModal()">
                                 <iconify-icon icon="mdi:key-change"></iconify-icon>
-                                <span>تغيير كلمة المرور</span>
+                                <span>Change Password</span>
                             </button>
                         </div>
                         
                         <div class="settings-item">
                             <div class="settings-label">
-                                <span class="settings-name">قفل الجلسة</span>
-                                <span class="settings-description">قفل التطبيق مع الاحتفاظ بتسجيل الدخول</span>
+                                <span class="settings-name">Lock Session</span>
+                                <span class="settings-description">Lock the app while staying logged in</span>
                             </div>
                             <button class="action-btn" onclick="localStorage.setItem('session_locked', 'true'); window.location.href = 'auth.html?action=unlock';">
                                 <iconify-icon icon="mdi:lock"></iconify-icon>
-                                <span>قفل الآن</span>
+                                <span>Lock Now</span>
                             </button>
                         </div>
                     </div>
@@ -5218,16 +5276,16 @@
                             <iconify-icon icon="mdi:palette"></iconify-icon>
                         </div>
                         <div>
-                            <h4 class="settings-card-title">المظهر</h4>
-                            <p class="settings-card-description">خصّص مظهر التطبيق حسب تفضيلاتك</p>
+                            <h4 class="settings-card-title">Appearance</h4>
+                            <p class="settings-card-description">Customize the app's appearance to your preferences</p>
                         </div>
                     </div>
                     
                     <div class="settings-items">
                         <div class="settings-item">
                             <div class="settings-label">
-                                <span class="settings-name">الوضع</span>
-                                <span class="settings-description">اختر المظهر المناسب لك</span>
+                                <span class="settings-name">Theme</span>
+                                <span class="settings-description">Choose the theme that suits you</span>
                             </div>
                             <div class="segmented-control" id="themeSelectorTab">
                                 ${themeOptions.map(theme => `
@@ -5242,13 +5300,13 @@
                         
                         <div class="settings-item">
                             <div class="settings-label">
-                                <span class="settings-name">كثافة الواجهة</span>
-                                <span class="settings-description">تحكم في المسافات بين العناصر</span>
+                                <span class="settings-name">UI Density</span>
+                                <span class="settings-description">Control spacing between elements</span>
                             </div>
                             <select class="form-control" style="width: auto;" id="densitySelector">
-                                <option value="comfortable">مريح</option>
-                                <option value="compact">مضغوط</option>
-                                <option value="spacious">واسع</option>
+                                <option value="comfortable">Comfortable</option>
+                                <option value="compact">Compact</option>
+                                <option value="spacious">Spacious</option>
                             </select>
                         </div>
                     </div>
@@ -5260,16 +5318,16 @@
                             <iconify-icon icon="mdi:eye-settings"></iconify-icon>
                         </div>
                         <div>
-                            <h4 class="settings-card-title">إظهار كلمات المرور</h4>
-                            <p class="settings-card-description">تحكم في طريقة إظهار كلمات المرور</p>
+                            <h4 class="settings-card-title">Password Visibility</h4>
+                            <p class="settings-card-description">Control how passwords are shown</p>
                         </div>
                     </div>
                     
                     <div class="settings-items">
                         <div class="settings-item">
                             <div class="settings-label">
-                                <span class="settings-name">طريقة الإظهار</span>
-                                <span class="settings-description">كيف تريد إظهار كلمات المرور؟</span>
+                                <span class="settings-name">Show Method</span>
+                                <span class="settings-description">How do you want to show passwords?</span>
                             </div>
                             <div class="segmented-control" id="passwordVisibilitySelectorTab">
                                 ${passwordVisibilityOptions.map(option => `
@@ -5310,42 +5368,42 @@
                             <iconify-icon icon="mdi:shield-lock"></iconify-icon>
                         </div>
                         <div>
-                            <h4 class="settings-card-title">الأمان</h4>
-                            <p class="settings-card-description">إدارة إعدادات الأمان والخصوصية</p>
+                            <h4 class="settings-card-title">Security</h4>
+                            <p class="settings-card-description">Manage security and privacy settings</p>
                         </div>
                     </div>
                     
                     <div class="settings-items">
                         <div class="settings-item">
                             <div class="settings-label">
-                                <span class="settings-name">حالة الجلسة</span>
-                                <span class="settings-description">حالة الاتصال الحالية</span>
+                                <span class="settings-name">Session Status</span>
+                                <span class="settings-description">Current connection status</span>
                             </div>
                             <span class="caption" style="color: var(--success); display: flex; align-items: center; gap: 0.25rem;">
                                 <iconify-icon icon="mdi:check-circle"></iconify-icon>
-                                نشط
+                                Active
                             </span>
                         </div>
                         
                         <div class="settings-item">
                             <div class="settings-label">
-                                <span class="settings-name">جلسات الدخول النشطة</span>
-                                <span class="settings-description">إدارة جميع جلسات الدخول</span>
+                                <span class="settings-name">Active Sessions</span>
+                                <span class="settings-description">Manage all login sessions</span>
                             </div>
                             <button class="action-btn" onclick="showSection('devicesSection')">
                                 <iconify-icon icon="mdi:devices"></iconify-icon>
-                                <span>عرض الأجهزة</span>
+                                <span>View Devices</span>
                             </button>
                         </div>
                         
                         <div class="settings-item">
                             <div class="settings-label">
-                                <span class="settings-name">نقل ملكية التحكم</span>
-                                <span class="settings-description">اجعل جهازاً آخر هو الجهاز الرئيسي</span>
+                                <span class="settings-name">Transfer Ownership</span>
+                                <span class="settings-description">Make another device the primary device</span>
                             </div>
                             <button class="action-btn" onclick="showSection('devicesSection')">
                                 <iconify-icon icon="mdi:crown"></iconify-icon>
-                                <span>إدارة الملكية</span>
+                                <span>Manage Ownership</span>
                             </button>
                         </div>
                     </div>
@@ -5361,53 +5419,53 @@
                             <iconify-icon icon="mdi:cog"></iconify-icon>
                         </div>
                         <div>
-                            <h4 class="settings-card-title">ميزات متقدمة</h4>
-                            <p class="settings-card-description">إعدادات إضافية وميزات متقدمة</p>
+                            <h4 class="settings-card-title">Advanced Features</h4>
+                            <p class="settings-card-description">Additional settings and advanced features</p>
                         </div>
                     </div>
                     
                     <div class="settings-items">
                         <div class="settings-item">
                             <div class="settings-label">
-                                <span class="settings-name">نسخة احتياطية</span>
-                                <span class="settings-description">قم بعمل نسخة احتياطية من بياناتك</span>
+                                <span class="settings-name">Backup</span>
+                                <span class="settings-description">Create a backup of your data</span>
                             </div>
                             <button class="action-btn" onclick="exportData()">
                                 <iconify-icon icon="mdi:download"></iconify-icon>
-                                <span>تحميل النسخة</span>
+                                <span>Download Backup</span>
                             </button>
                         </div>
                         
                         <div class="settings-item">
                             <div class="settings-label">
-                                <span class="settings-name">استيراد البيانات</span>
-                                <span class="settings-description">استورد بيانات من مدير كلمات مرور آخر</span>
+                                <span class="settings-name">Import Data</span>
+                                <span class="settings-description">Import data from another password manager</span>
                             </div>
                             <button class="action-btn" onclick="openImportModal()">
                                 <iconify-icon icon="mdi:import"></iconify-icon>
-                                <span>استيراد</span>
+                                <span>Import</span>
                             </button>
                         </div>
                         
                         <div class="settings-item">
                             <div class="settings-label">
-                                <span class="settings-name">مسح البيانات المحلية</span>
-                                <span class="settings-description">احذف جميع البيانات المخزنة محلياً</span>
+                                <span class="settings-name">Clear Local Data</span>
+                                <span class="settings-description">Delete all locally stored data</span>
                             </div>
                             <button class="action-btn delete" onclick="clearLocalData()">
                                 <iconify-icon icon="mdi:delete"></iconify-icon>
-                                <span>مسح</span>
+                                <span>Clear</span>
                             </button>
                         </div>
                         
                         <div class="settings-item">
                             <div class="settings-label">
-                                <span class="settings-name">سجلات التصحيح</span>
-                                <span class="settings-description">سجلات النظام والأخطاء</span>
+                                <span class="settings-name">Debug Logs</span>
+                                <span class="settings-description">System logs and errors</span>
                             </div>
                             <button class="action-btn" onclick="showDebugLogs()">
                                 <iconify-icon icon="mdi:bug"></iconify-icon>
-                                <span>عرض السجلات</span>
+                                <span>View Logs</span>
                             </button>
                         </div>
                     </div>
@@ -5429,7 +5487,7 @@
             updateSettings();
             
             logActivity('theme', { theme });
-            showToast('تم تغيير المظهر بنجاح', 'success');
+            showToast('Theme changed successfully', 'success');
         }
 
         function selectPasswordVisibility(option) {
@@ -5442,7 +5500,7 @@
             
             userSettings.passwordVisibility = value;
             updateSettings();
-            showToast('تم حفظ التفضيل', 'success');
+            showToast('Preference saved', 'success');
         }
 
         async function updateSettings() {
@@ -5466,13 +5524,13 @@
             
             if (!modal || !title || !content) return;
             
-            title.textContent = 'استيراد البيانات';
+            title.textContent = 'Import Data';
             content.innerHTML = `
                 <div class="form-group">
-                    <label class="form-label">اختر ملف البيانات (JSON)</label>
+                    <label class="form-label">Select Data File (JSON)</label>
                     <input type="file" id="dataFileInput" class="form-control" accept=".json" />
                     <p class="body-sm" style="color: var(--text-muted); margin-top: 0.5rem;">
-                        يجب أن يكون الملف بتنسيق JSON صالح ويحتوي على مصفوفة من الحسابات.
+                        File must be valid JSON format containing an array of accounts.
                     </p>
                 </div>
                 
@@ -5480,11 +5538,11 @@
                 
                 <div class="modal-actions" style="margin-top: 2rem;">
                     <button type="button" class="btn btn-secondary" onclick="closeAllModals()">
-                        إلغاء
+                        Cancel
                     </button>
                     <button type="button" class="btn btn-primary" id="importDataConfirmBtn" disabled>
                         <iconify-icon icon="mdi:import"></iconify-icon>
-                        <span>استيراد البيانات</span>
+                        <span>Import Data</span>
                     </button>
                 </div>
             `;
@@ -5519,29 +5577,29 @@
                     const data = JSON.parse(e.target.result);
                     if (Array.isArray(data)) {
                         previewContainer.innerHTML = `
-                            <h4 class="h4" style="margin-bottom: 1rem;">معاينة البيانات</h4>
-                            <p class="body-sm">تم العثور على ${data.length} حساب</p>
+                            <h4 class="h4" style="margin-bottom: 1rem;">Data Preview</h4>
+                            <p class="body-sm">Found ${data.length} accounts</p>
                             <div style="margin-top: 1rem;">
                                 ${data.slice(0, 5).map((item, index) => `
                                     <div style="padding: 0.5rem; border-bottom: 1px solid var(--border-color);">
-                                        <div style="font-weight: 500;">${item.name || 'غير معروف'}</div>
-                                        <div style="font-size: 0.75rem; color: var(--text-muted);">${item.email || 'لا يوجد بريد'}</div>
+                                        <div style="font-weight: 500;">${item.name || 'Unknown'}</div>
+                                        <div style="font-size: 0.75rem; color: var(--text-muted);">${item.email || 'No email'}</div>
                                     </div>
                                 `).join('')}
                                 ${data.length > 5 ? `
                                     <div style="padding: 0.5rem; text-align: center; color: var(--text-muted);">
-                                        و ${data.length - 5} حساب إضافي...
+                                        And ${data.length - 5} more accounts...
                                     </div>
                                 ` : ''}
                             </div>
                         `;
                         previewContainer.style.display = 'block';
                     } else {
-                        previewContainer.innerHTML = '<p style="color: var(--danger);">تنسيق الملف غير صالح. يجب أن يحتوي على مصفوفة.</p>';
+                        previewContainer.innerHTML = '<p style="color: var(--danger);">Invalid file format. Must contain an array.</p>';
                         previewContainer.style.display = 'block';
                     }
                 } catch (error) {
-                    previewContainer.innerHTML = `<p style="color: var(--danger);">خطأ في قراءة الملف: ${error.message}</p>`;
+                    previewContainer.innerHTML = `<p style="color: var(--danger);">Error reading file: ${error.message}</p>`;
                     previewContainer.style.display = 'block';
                 }
             };
@@ -5551,7 +5609,7 @@
 
         async function importData(file) {
             if (!file) {
-                showToast('الرجاء اختيار ملف', 'error');
+                showToast('Please select a file', 'error');
                 return;
             }
             
@@ -5561,7 +5619,7 @@
                 try {
                     const data = JSON.parse(e.target.result);
                     if (!Array.isArray(data)) {
-                        showToast('تنسيق الملف غير صالح', 'error');
+                        showToast('Invalid file format', 'error');
                         return;
                     }
                     
@@ -5576,13 +5634,13 @@
                         icon: item.icon || 'mdi:web',
                         color: item.color || '#2ED3B7',
                         colorClass: item.colorClass || 'personal',
-                        colorLabel: item.colorLabel || 'شخصي',
+                        colorLabel: item.colorLabel || 'Personal',
                         updatedAt: new Date().toISOString(),
                         createdAt: new Date().toISOString()
                     }));
                     
                     if (validBoards.length === 0) {
-                        showToast('لم يتم العثور على بيانات صالحة', 'error');
+                        showToast('No valid data found', 'error');
                         return;
                     }
                     
@@ -5606,11 +5664,11 @@
                     // Update UI
                     renderBoards();
                     closeAllModals();
-                    showToast(`تم استيراد ${validBoards.length} حساب بنجاح`, 'success');
+                    showToast(`Imported ${validBoards.length} accounts successfully`, 'success');
                     
                 } catch (error) {
                     console.error('Error importing data:', error);
-                    showToast('حدث خطأ أثناء استيراد البيانات', 'error');
+                    showToast('Error importing data', 'error');
                 }
             };
             
@@ -5647,18 +5705,18 @@
                 URL.revokeObjectURL(url);
                 
                 logActivity('export', { count: userBoards.length });
-                showToast(`تم تصدير ${userBoards.length} حساب بنجاح`, 'success');
+                showToast(`Exported ${userBoards.length} accounts successfully`, 'success');
                 
             } catch (error) {
                 console.error('Error exporting data:', error);
-                showToast('حدث خطأ أثناء تصدير البيانات', 'error');
+                showToast('Error exporting data', 'error');
             }
         }
 
         function clearLocalData() {
-            if (confirm('هل تريد مسح جميع البيانات المخزنة محلياً؟ هذا الإجراء لا يمكن التراجع عنه.')) {
+            if (confirm('Do you want to clear all locally stored data? This action cannot be undone.')) {
                 localStorage.clear();
-                showToast('تم مسح البيانات المحلية', 'success');
+                showToast('Local data cleared', 'success');
                 setTimeout(() => {
                     window.location.reload();
                 }, 1500);
@@ -5667,19 +5725,19 @@
 
         function showDebugLogs() {
             const logs = [
-                `User: ${currentUser?.email || 'غير معروف'}`,
+                `User: ${currentUser?.email || 'Unknown'}`,
                 `Device: ${currentDeviceId}`,
                 `Is Owner: ${isOwnerDevice}`,
                 `Boards Count: ${userBoards.length}`,
                 `Devices Count: ${userDevices.length}`,
                 `Theme: ${userSettings.theme || 'light'}`,
                 `Password Visibility: ${userSettings.passwordVisibility || 'hold'}`,
-                `Last Login: ${new Date().toLocaleString('ar-SA')}`,
+                `Last Login: ${new Date().toLocaleString('en-US')}`,
                 `Session Status: ${deviceStatus}`,
                 `Owner Device: ${securityData.ownerDeviceId || 'none'}`
             ];
             
-            alert('سجلات التصحيح:\n\n' + logs.join('\n'));
+            alert('Debug Logs:\n\n' + logs.join('\n'));
         }
 
         // ===== UI RENDERING =====
@@ -5708,7 +5766,7 @@
                 }
             } catch (error) {
                 console.error('Error loading user data:', error);
-                showToast('حدث خطأ في تحميل البيانات', 'error');
+                showToast('Error loading data', 'error');
                 renderErrorState('dashboard');
                 isLoading.dashboard = false;
             }
@@ -5795,13 +5853,13 @@
                                 <div class="empty-icon">
                                     <iconify-icon icon="mdi:alert-circle"></iconify-icon>
                                 </div>
-                                <h3 class="h3">حدث خطأ في التحميل</h3>
+                                <h3 class="h3">Error Loading Data</h3>
                                 <p class="body">
-                                    تعذر تحميل البيانات. يرجى المحاولة مرة أخرى لاحقاً.
+                                    Unable to load data. Please try again later.
                                 </p>
                                 <button class="btn btn-primary" onclick="location.reload()" style="margin-top: 1.5rem;">
                                     <iconify-icon icon="mdi:refresh"></iconify-icon>
-                                    <span>إعادة المحاولة</span>
+                                    <span>Try Again</span>
                                 </button>
                             </div>
                         `;
@@ -5816,13 +5874,13 @@
                                 <div class="empty-icon">
                                     <iconify-icon icon="mdi:alert-circle"></iconify-icon>
                                 </div>
-                                <h3 class="h3">حدث خطأ في التحميل</h3>
+                                <h3 class="h3">Error Loading Devices</h3>
                                 <p class="body">
-                                    تعذر تحميل قائمة الأجهزة. يرجى المحاولة مرة أخرى لاحقاً.
+                                    Unable to load devices list. Please try again later.
                                 </p>
                                 <button class="btn btn-primary" onclick="location.reload()" style="margin-top: 1.5rem;">
                                     <iconify-icon icon="mdi:refresh"></iconify-icon>
-                                    <span>إعادة المحاولة</span>
+                                    <span>Try Again</span>
                                 </button>
                             </div>
                         `;
@@ -5837,9 +5895,9 @@
             if (!filtersContainer) return;
             
             const filters = [
-                { value: 'all', label: 'الكل' },
-                { value: 'security', label: 'الأمان' },
-                { value: 'vault', label: 'الحسابات' }
+                { value: 'all', label: 'All' },
+                { value: 'security', label: 'Security' },
+                { value: 'vault', label: 'Accounts' }
             ];
             
             filtersContainer.innerHTML = filters.map(filter => `
@@ -5873,9 +5931,9 @@
                         <div class="empty-icon">
                             <iconify-icon icon="mdi:history"></iconify-icon>
                         </div>
-                        <h3 class="h3">لا توجد سجلات نشاط</h3>
+                        <h3 class="h3">No Activity Logs</h3>
                         <p class="body">
-                            سيظهر هنا أي نشاط تقوم به على حسابك. جرب إضافة حساب جديد أو تعديل إعداداتك.
+                            Any activity you perform on your account will appear here. Try adding a new account or changing your settings.
                         </p>
                     </div>
                 `;
@@ -5893,7 +5951,7 @@
                 dayGroup.innerHTML = `
                     <div class="day-header">
                         <h3 class="day-label">${day}</h3>
-                        <span class="day-count">${logsByDay[day].length} نشاط</span>
+                        <span class="day-count">${logsByDay[day].length} activities</span>
                     </div>
                     <div class="activity-items">
                         ${logsByDay[day].map(log => createActivityItem(log)).join('')}
@@ -5905,8 +5963,8 @@
         }
 
         function createActivityItem(log) {
-            const activity = activityIcons[log.action] || { icon: 'mdi:information', label: 'نشاط' };
-            const description = activityDescriptions[log.action]?.(log.details) || 'نشاط جديد';
+            const activity = activityIcons[log.action] || { icon: 'mdi:information', label: 'Activity' };
+            const description = activityDescriptions[log.action]?.(log.details) || 'New activity';
             
             return `
                 <div class="activity-item">
@@ -5916,7 +5974,7 @@
                     <div class="activity-content">
                         <div class="activity-description-text">${description}</div>
                         <div class="activity-details">
-                            ${log.deviceName ? `من ${log.deviceName}` : ''}
+                            ${log.deviceName ? `From ${log.deviceName}` : ''}
                         </div>
                     </div>
                     <div class="activity-time">
@@ -5940,13 +5998,13 @@
                         <div class="empty-icon">
                             <iconify-icon icon="mdi:lock-outline"></iconify-icon>
                         </div>
-                        <h3 class="h3">لا توجد حسابات بعد</h3>
+                        <h3 class="h3">No Accounts Yet</h3>
                         <p class="body">
-                            ابدأ بحفظ أول حساب لتجربة أمان NovaPass. إدارة كلمات المرور أصبحت أسهل وأكثر أماناً.
+                            Start by saving your first account to experience NovaPass security. Password management made easier and more secure.
                         </p>
                         <button class="btn btn-primary" id="firstBoardBtn" style="margin-top: 1.5rem;">
                             <iconify-icon icon="mdi:plus"></iconify-icon>
-                            <span>ابدأ بإضافة حساب</span>
+                            <span>Start by Adding Account</span>
                         </button>
                     </div>
                 `;
@@ -6001,7 +6059,7 @@
                         <div class="board-icon">
                             <iconify-icon icon="${board.icon || 'mdi:web'}"></iconify-icon>
                         </div>
-                        <div class="category-dot ${board.colorClass || 'personal'}" title="${board.colorLabel || 'شخصي'}"></div>
+                        <div class="category-dot ${board.colorClass || 'personal'}" title="${board.colorLabel || 'Personal'}"></div>
                     </div>
                     
                     <div class="board-info">
@@ -6012,7 +6070,7 @@
                 
                 <div class="password-section">
                     <div class="password-label">
-                        <span class="caption">كلمة المرور</span>
+                        <span class="caption">Password</span>
                         <span class="caption" style="color: var(--text-muted);">• ${getPasswordVisibilityText()}</span>
                     </div>
                     
@@ -6029,13 +6087,13 @@
                         <div class="password-visibility-controls">
                             <button class="action-btn toggle" 
                                     type="button"
-                                    aria-label="إظهار كلمة المرور"
+                                    aria-label="Show Password"
                                     data-board-id="${board.id}">
                                 <iconify-icon icon="mdi:eye"></iconify-icon>
                             </button>
                             <button class="action-btn copy" 
                                     type="button"
-                                    aria-label="نسخ كلمة المرور"
+                                    aria-label="Copy Password"
                                     data-board-id="${board.id}">
                                 <iconify-icon icon="mdi:content-copy"></iconify-icon>
                             </button>
@@ -6045,11 +6103,11 @@
                     <div class="copy-buttons">
                         <button class="copy-btn email" data-board-id="${board.id}">
                             <iconify-icon icon="mdi:email"></iconify-icon>
-                            <span>نسخ البريد</span>
+                            <span>Copy Email</span>
                         </button>
                         <button class="copy-btn password" data-board-id="${board.id}">
                             <iconify-icon icon="mdi:key"></iconify-icon>
-                            <span>نسخ الباسورد</span>
+                            <span>Copy Password</span>
                         </button>
                     </div>
                 </div>
@@ -6057,17 +6115,17 @@
                 <div class="card-footer">
                     <button class="action-btn edit" 
                             type="button"
-                            aria-label="تعديل الحساب"
+                            aria-label="Edit Account"
                             data-board-id="${board.id}">
                         <iconify-icon icon="mdi:pencil"></iconify-icon>
-                        <span>تعديل</span>
+                        <span>Edit</span>
                     </button>
                     <button class="action-btn delete" 
                             type="button"
-                            aria-label="حذف الحساب"
+                            aria-label="Delete Account"
                             data-board-id="${board.id}">
                         <iconify-icon icon="mdi:delete"></iconify-icon>
-                        <span>حذف</span>
+                        <span>Delete</span>
                     </button>
                 </div>
             `;
@@ -6116,10 +6174,10 @@
         function getPasswordVisibilityText() {
             const mode = userSettings.passwordVisibility || 'hold';
             switch(mode) {
-                case 'hold': return 'إظهار بالضغط المطول';
-                case 'click': return 'إظهار بالنقر';
-                case 'always': return 'مرئي دائماً';
-                default: return 'إظهار بالضغط المطول';
+                case 'hold': return 'Show on Long Press';
+                case 'click': return 'Show on Click';
+                case 'always': return 'Always Visible';
+                default: return 'Show on Long Press';
             }
         }
 
@@ -6186,28 +6244,28 @@
             let isValid = true;
             
             if (!boardName) {
-                showError('nameError', 'اسم الحساب مطلوب');
+                showError('nameError', 'Account name required');
                 isValid = false;
             } else {
                 hideError('nameError');
             }
             
             if (!boardEmail) {
-                showError('emailError', 'البريد الإلكتروني مطلوب');
+                showError('emailError', 'Email/Username required');
                 isValid = false;
             } else {
                 hideError('emailError');
             }
             
             if (!boardPassword) {
-                showError('passwordError', 'كلمة المرور مطلوبة');
+                showError('passwordError', 'Password required');
                 isValid = false;
             } else {
                 hideError('passwordError');
             }
             
             if (!isValid) {
-                showToast('الرجاء ملء جميع الحقول المطلوبة', 'error');
+                showToast('Please fill all required fields', 'error');
                 return;
             }
             
@@ -6215,7 +6273,7 @@
             const selectedColor = document.querySelector('.radio-circle.selected');
             
             if (!selectedIcon || !selectedColor) {
-                showToast('الرجاء اختيار أيقونة وتصنيف', 'error');
+                showToast('Please select an icon and category', 'error');
                 return;
             }
             
@@ -6226,7 +6284,7 @@
             
             const saveBtn = document.getElementById('saveBoardBtn');
             const originalContent = saveBtn.innerHTML;
-            saveBtn.innerHTML = '<iconify-icon icon="mdi:loading" style="animation: spin 1s linear infinite;"></iconify-icon> جاري الحفظ...';
+            saveBtn.innerHTML = '<iconify-icon icon="mdi:loading" style="animation: spin 1s linear infinite;"></iconify-icon> Saving...';
             saveBtn.disabled = true;
             
             try {
@@ -6249,11 +6307,11 @@
                     const index = userBoards.findIndex(b => b.id === currentEditingBoard);
                     if (index !== -1) {
                         userBoards[index] = boardData;
-                        showToast('تم تحديث الحساب بنجاح!', 'success');
+                        showToast('Account updated successfully!', 'success');
                     }
                 } else {
                     userBoards.push(boardData);
-                    showToast('تم إضافة الحساب بنجاح!', 'success');
+                    showToast('Account added successfully!', 'success');
                 }
                 
                 await updateDoc(accountRef, {
@@ -6266,7 +6324,7 @@
                 closeAllModals();
             } catch (error) {
                 console.error('Error saving board:', error);
-                showToast('حدث خطأ أثناء حفظ الحساب', 'error');
+                showToast('Error saving account', 'error');
             } finally {
                 saveBtn.innerHTML = originalContent;
                 saveBtn.disabled = false;
@@ -6283,14 +6341,14 @@
                 }, { merge: true });
                 
                 await logActivity('delete', { 
-                    boardName: userBoards.find(b => b.id === boardId)?.name || 'حساب'
+                    boardName: userBoards.find(b => b.id === boardId)?.name || 'Account'
                 });
                 
                 renderBoards();
-                showToast('تم حذف الحساب بنجاح', 'success');
+                showToast('Account deleted successfully', 'success');
             } catch (error) {
                 console.error('Error deleting board:', error);
-                showToast('حدث خطأ أثناء حذف الحساب', 'error');
+                showToast('Error deleting account', 'error');
             }
         }
 
@@ -6343,9 +6401,9 @@
         }
 
         function getDeviceIcon(deviceName) {
-            if (deviceName.includes('هاتف')) return 'mdi:cellphone';
-            if (deviceName.includes('تابلت')) return 'mdi:tablet';
-            if (deviceName.includes('حاسوب')) return 'mdi:laptop';
+            if (deviceName.includes('Mobile')) return 'mdi:cellphone';
+            if (deviceName.includes('Tablet')) return 'mdi:tablet';
+            if (deviceName.includes('Computer')) return 'mdi:laptop';
             return 'mdi:devices';
         }
 
@@ -6353,7 +6411,7 @@
             const groups = {};
             
             logs.forEach(log => {
-                const date = log.timestamp.toLocaleDateString('ar-SA', {
+                const date = log.timestamp.toLocaleDateString('en-US', {
                     weekday: 'long',
                     year: 'numeric',
                     month: 'long',
@@ -6372,8 +6430,8 @@
 
         function copyToClipboard(text, button, boardName = '', type = '') {
             navigator.clipboard.writeText(text).then(() => {
-                const message = type === 'email' ? 'تم نسخ البريد الإلكتروني!' : 
-                              type === 'device_id' ? 'تم نسخ معرف الجهاز!' : 'تم نسخ كلمة المرور!';
+                const message = type === 'email' ? 'Email copied!' : 
+                              type === 'device_id' ? 'Device ID copied!' : 'Password copied!';
                 showToast(message, 'success');
                 
                 if (button) {
@@ -6393,7 +6451,7 @@
                 }
             }).catch(err => {
                 console.error('Failed to copy:', err);
-                showToast('حدث خطأ أثناء النسخ', 'error');
+                showToast('Error copying', 'error');
             });
         }
 
@@ -6411,7 +6469,7 @@
         function formatDate(date) {
             if (!date) return '-';
             
-            return date.toLocaleDateString('ar-SA', {
+            return date.toLocaleDateString('en-US', {
                 year: 'numeric',
                 month: 'long',
                 day: 'numeric'
@@ -6421,7 +6479,7 @@
         function formatTime(date) {
             if (!date) return '';
             
-            return date.toLocaleTimeString('ar-SA', {
+            return date.toLocaleTimeString('en-US', {
                 hour: '2-digit',
                 minute: '2-digit'
             });
@@ -6434,30 +6492,30 @@
             const diffHours = Math.floor(diffMs / 3600000);
             const diffDays = Math.floor(diffMs / 86400000);
             
-            if (diffMins < 1) return 'الآن';
-            if (diffMins < 60) return `منذ ${diffMins} دقيقة`;
-            if (diffHours < 24) return `منذ ${diffHours} ساعة`;
-            if (diffDays < 7) return `منذ ${diffDays} يوم`;
+            if (diffMins < 1) return 'Just now';
+            if (diffMins < 60) return `${diffMins} min ago`;
+            if (diffHours < 24) return `${diffHours} hours ago`;
+            if (diffDays < 7) return `${diffDays} days ago`;
             
-            return date.toLocaleDateString('ar-SA');
+            return date.toLocaleDateString('en-US');
         }
 
         function updateUserUI() {
             if (!currentUser) return;
             
-            const displayName = currentUser.displayName || currentUser.email?.split('@')[0] || 'المستخدم';
+            const displayName = currentUser.displayName || currentUser.email?.split('@')[0] || 'User';
             document.getElementById('userName').textContent = displayName;
             document.getElementById('dropdownName').textContent = displayName;
             document.getElementById('userEmail').textContent = currentUser.email || 'user@example.com';
-            document.getElementById('welcomeMessage').textContent = `مرحباً ${displayName}!`;
+            document.getElementById('welcomeMessage').textContent = `Welcome ${displayName}!`;
             
             const initial = displayName.charAt(0).toUpperCase();
             document.getElementById('userAvatar').textContent = initial;
         }
 
         function editUserName() {
-            const currentName = currentUser.displayName || currentUser.email?.split('@')[0] || 'المستخدم';
-            const newName = prompt('أدخل اسمك الجديد:', currentName);
+            const currentName = currentUser.displayName || currentUser.email?.split('@')[0] || 'User';
+            const newName = prompt('Enter your new name:', currentName);
             
             if (newName && newName.trim() && newName !== currentName) {
                 const trimmedName = newName.trim();
@@ -6477,10 +6535,10 @@
                 }, { merge: true });
                 
                 updateUserUI();
-                showToast('تم تحديث الاسم بنجاح', 'success');
+                showToast('Name updated successfully', 'success');
             } catch (error) {
                 console.error('Error updating name:', error);
-                showToast('حدث خطأ أثناء تحديث الاسم', 'error');
+                showToast('Error updating name', 'error');
             }
         }
 
@@ -6507,10 +6565,10 @@
                     deviceId: deviceId
                 });
                 
-                showToast('تم تسجيل الخروج من الجهاز بنجاح', 'success');
+                showToast('Signed out from device successfully', 'success');
             } catch (error) {
                 console.error('Error signing out device:', error);
-                showToast('حدث خطأ أثناء تسجيل الخروج من الجهاز', 'error');
+                showToast('Error signing out from device', 'error');
             }
         }
 
@@ -6522,7 +6580,7 @@
                 window.location.href = 'auth.html';
             } catch (error) {
                 console.error('Error signing out:', error);
-                showToast('حدث خطأ أثناء تسجيل الخروج', 'error');
+                showToast('Error signing out', 'error');
             }
         }
 
