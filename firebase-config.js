@@ -1,5 +1,7 @@
 // firebase-config.js
+
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-app.js";
+
 import { 
     getAuth, 
     createUserWithEmailAndPassword,
@@ -12,6 +14,7 @@ import {
     reauthenticateWithCredential,
     EmailAuthProvider
 } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
+
 import { 
     getFirestore, 
     doc, 
@@ -27,8 +30,11 @@ import {
     addDoc,
     serverTimestamp,
     onSnapshot,
-    deleteField
+    deleteField,
+    enableNetwork,
+    disableNetwork
 } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-firestore.js";
+
 
 // Firebase configuration
 const firebaseConfig = {
@@ -40,16 +46,20 @@ const firebaseConfig = {
     appId: "1:100478066092:web:f7eed061c19ec119b62e09"
 };
 
+
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
+
 
 // Export everything
 export { 
     app, 
     auth, 
     db,
+
+    // Auth
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
     fetchSignInMethodsForEmail,
@@ -59,6 +69,8 @@ export {
     updatePassword,
     reauthenticateWithCredential,
     EmailAuthProvider,
+
+    // Firestore
     doc, 
     setDoc,
     getDoc,
@@ -72,5 +84,7 @@ export {
     addDoc,
     serverTimestamp,
     onSnapshot,
-    deleteField
+    deleteField,
+    enableNetwork,
+    disableNetwork
 };
