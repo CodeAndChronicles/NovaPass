@@ -1,4 +1,3 @@
-// firebase-config.js
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-app.js";
 import { 
     getAuth, 
@@ -29,6 +28,14 @@ import {
     onSnapshot,
     deleteField
 } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-firestore.js";
+import { 
+    getDatabase, 
+    ref, 
+    set, 
+    onValue, 
+    remove, 
+    get 
+} from "https://www.gstatic.com/firebasejs/12.7.0/firebase-database.js";
 
 // Firebase configuration
 const firebaseConfig = {
@@ -44,18 +51,19 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
-
-import { getDatabase, ref, set, onValue, remove, get } from 
-  "https://www.gstatic.com/firebasejs/12.7.0/firebase-database.js";
-
 const rtdb = getDatabase(app);
-export { rtdb, ref, set, onValue, remove, get };
 
-// Export everything
+// Export everything (مرة واحدة فقط!)
 export { 
     app, 
     auth, 
     db,
+    rtdb,
+    ref,
+    set,
+    onValue,
+    remove,
+    get,
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
     fetchSignInMethodsForEmail,
