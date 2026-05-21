@@ -25,27 +25,27 @@
         }
 
         :root {
-            --primary: #00B894;
-            --primary-dark: #00A085;
-            --primary-light: #E8F8F5;
-            --secondary: #0984E3;
-            --dark: #2D3436;
-            --gray: #636E72;
-            --light-gray: #DFE6E9;
+            --primary: #8B5CF6;
+            --primary-dark: #7C3AED;
+            --primary-light: #F5F3FF;
+            --secondary: #A78BFA;
+            --dark: #1E1B2E;
+            --gray: #6B7280;
+            --light-gray: #E9E4F0;
             --white: #FFFFFF;
-            --error: #E74C3C;
-            --error-light: #FDEDEC;
-            --success: #27AE60;
-            --success-light: #D5F4E6;
-            --warning: #F39C12;
-            --shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-            --shadow-light: 0 10px 30px rgba(0, 184, 148, 0.15);
-            --radius: 20px;
+            --error: #EF4444;
+            --error-light: #FEF2F2;
+            --success: #10B981;
+            --success-light: #ECFDF5;
+            --warning: #F59E0B;
+            --shadow: 0 20px 60px rgba(139, 92, 246, 0.2);
+            --shadow-light: 0 10px 30px rgba(139, 92, 246, 0.15);
+            --radius: 24px;
             --transition: all 0.3s ease;
         }
 
         body {
-            background: linear-gradient(135deg, #F0F9FF 0%, #F0FDF4 100%);
+            background: linear-gradient(135deg, #0F0A1E 0%, #1A0A3A 50%, #0D1B3E 100%);
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -65,17 +65,21 @@
         }
 
         .auth-card {
-            background: var(--white);
+            background: rgba(255, 255, 255, 0.03);
             border-radius: var(--radius);
             box-shadow: var(--shadow);
             overflow: hidden;
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            backdrop-filter: blur(20px);
         }
 
         .header {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            background: linear-gradient(135deg, #7C3AED 0%, #8B5CF6 50%, #A855F7 100%);
             padding: 50px;
             text-align: center;
             color: var(--white);
+            position: relative;
+            overflow: hidden;
         }
 
         .logo {
@@ -110,6 +114,7 @@
 
         .content {
             padding: 40px;
+            background: rgba(15, 10, 30, 0.95);
         }
 
         .message {
@@ -123,43 +128,43 @@
         }
 
         .message.error {
-            background: var(--error-light);
-            color: var(--error);
-            border: 1px solid var(--error);
+            background: rgba(239, 68, 68, 0.1);
+            color: #F87171;
+            border: 1px solid rgba(239, 68, 68, 0.3);
         }
 
         .message.success {
-            background: var(--success-light);
-            color: var(--success);
-            border: 1px solid var(--success);
+            background: rgba(16, 185, 129, 0.1);
+            color: #34D399;
+            border: 1px solid rgba(16, 185, 129, 0.3);
         }
 
         .message.info {
-            background: #E3F2FD;
-            color: var(--secondary);
-            border: 1px solid var(--secondary);
+            background: rgba(139, 92, 246, 0.1);
+            color: #A78BFA;
+            border: 1px solid rgba(139, 92, 246, 0.3);
         }
 
         .mode-indicator {
-            background: var(--primary-light);
-            border-radius: 10px;
+            background: rgba(139, 92, 246, 0.1);
+            border-radius: 12px;
             padding: 20px;
             margin-bottom: 25px;
             display: flex;
             align-items: center;
             gap: 15px;
-            border: 2px solid var(--primary);
+            border: 1px solid rgba(139, 92, 246, 0.3);
         }
 
         .mode-icon {
             width: 40px;
             height: 40px;
-            background: var(--white);
+            background: rgba(139, 92, 246, 0.2);
             border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--primary);
+            color: var(--secondary);
             font-size: 20px;
         }
 
@@ -167,12 +172,12 @@
             font-size: 16px;
             font-weight: 600;
             margin-bottom: 5px;
-            color: var(--dark);
+            color: #E9E4F0;
         }
 
         .mode-text p {
             font-size: 14px;
-            color: var(--gray);
+            color: rgba(255, 255, 255, 0.5);
         }
 
         .mode-text strong {
@@ -187,7 +192,7 @@
             display: block;
             margin-bottom: 8px;
             font-weight: 500;
-            color: var(--dark);
+            color: #E9E4F0;
             display: flex;
             align-items: center;
             gap: 8px;
@@ -202,22 +207,32 @@
             right: 15px;
             top: 50%;
             transform: translateY(-50%);
-            color: var(--gray);
+            color: rgba(139, 92, 246, 0.6);
         }
 
         .form-input {
             width: 100%;
             padding: 15px 45px 15px 15px;
-            border: 2px solid var(--light-gray);
-            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(139, 92, 246, 0.3);
+            color: #F3F0FF;
+            border-radius: 12px;
             font-size: 16px;
             transition: var(--transition);
+            text-align: right;
+            direction: rtl;
+        }
+
+        .form-input::placeholder {
+            color: rgba(255, 255, 255, 0.3);
+            text-align: right;
         }
 
         .form-input:focus {
             outline: none;
             border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(0, 184, 148, 0.1);
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
+            background: rgba(139, 92, 246, 0.08);
         }
 
         .form-input.success {
@@ -235,17 +250,22 @@
             transform: translateY(-50%);
             background: none;
             border: none;
-            color: var(--gray);
+            color: rgba(255, 255, 255, 0.4);
             cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .password-toggle:hover {
+            color: var(--primary);
         }
 
         .submit-btn {
             width: 100%;
             padding: 16px;
-            background: var(--primary);
+            background: linear-gradient(135deg, #7C3AED, #A855F7);
             color: var(--white);
             border: none;
-            border-radius: 10px;
+            border-radius: 12px;
             font-size: 16px;
             font-weight: 600;
             cursor: pointer;
@@ -254,16 +274,18 @@
             align-items: center;
             justify-content: center;
             gap: 10px;
+            box-shadow: 0 4px 20px rgba(139, 92, 246, 0.4);
         }
 
         .submit-btn:hover {
-            background: var(--primary-dark);
             transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(139, 92, 246, 0.6);
         }
 
         .submit-btn:disabled {
             opacity: 0.6;
             cursor: not-allowed;
+            transform: none;
         }
 
         .loading {
@@ -284,8 +306,8 @@
             text-align: center;
             margin-top: 30px;
             padding-top: 20px;
-            border-top: 1px solid var(--light-gray);
-            color: var(--gray);
+            border-top: 1px solid rgba(139, 92, 246, 0.2);
+            color: rgba(255, 255, 255, 0.4);
             font-size: 14px;
         }
 
@@ -426,6 +448,7 @@
             fetchSignInMethodsForEmail,
             onAuthStateChanged,
             doc, 
+            getDoc,
             setDoc,
             serverTimestamp
         } from './firebase-config.js';
@@ -447,6 +470,7 @@
         let currentMode = 'checking';
         let emailCheckTimeout;
         let lastCheckedEmail = '';
+        let isCheckingEmail = false;
 
         // التحقق من صحة البريد الإلكتروني
         function isValidEmail(email) {
@@ -460,11 +484,18 @@
             messageDiv.className = `message ${type}`;
             messageDiv.classList.remove('hidden');
             
-            if (type === 'success') {
+            if (type !== 'error') {
                 setTimeout(() => {
-                    messageDiv.classList.add('hidden');
-                }, 3000);
+                    if (messageDiv.className.includes(type)) {
+                        messageDiv.classList.add('hidden');
+                    }
+                }, 4000);
             }
+        }
+
+        // إخفاء الرسالة
+        function hideMessage() {
+            messageDiv.classList.add('hidden');
         }
 
         // تحديث واجهة المستخدم حسب الوضع
@@ -499,42 +530,77 @@
             }
         }
 
-        // 🔥🔥🔥 الدالة المُصححة للتحقق من البريد الإلكتروني
+        // 🔥 الدالة المُحسنة للتحقق من البريد الإلكتروني (بدون fetchSignInMethodsForEmail)
         async function checkEmailAvailability(email) {
+            if (isCheckingEmail) return;
+            
             try {
+                isCheckingEmail = true;
                 console.log('🔍 جاري التحقق من البريد:', email);
                 
-                // استدعاء Firebase للتحقق
-                const methods = await fetchSignInMethodsForEmail(auth, email);
-                console.log('نتيجة التحقق:', methods);
+                // ✅ الطريقة الجديدة: محاولة fetchSignInMethods مع fallback آمن
+                let methods = [];
+                let hasAccount = false;
                 
-                if (methods && methods.length > 0) {
-                    // 🔥 البريد الإلكتروني موجود بالفعل - تسجيل دخول
+                try {
+                    methods = await fetchSignInMethodsForEmail(auth, email);
+                    hasAccount = methods && methods.length > 0;
+                    console.log('✅ نتيجة التحقق (fetchSignInMethods):', hasAccount ? 'موجود' : 'جديد');
+                } catch (fetchError) {
+                    // 🔥 في حالة الخطأ، نجرب طريقة بديلة: محاولة تسجيل دخول وهمي
+                    console.warn('⚠️ fetchSignInMethods فشلت، نجرب طريقة بديلة:', fetchError.message);
+                    
+                    // الطريقة البديلة: نحاول نبحث في Firestore
+                    try {
+                        // البحث عن المستخدم في Firestore باستخدام البريد الإلكتروني
+                        const usersRef = collection(db, 'users');
+                        const q = query(usersRef, where('email', '==', email));
+                        const querySnapshot = await getDocs(q);
+                        hasAccount = !querySnapshot.empty;
+                        console.log('✅ نتيجة التحقق (Firestore):', hasAccount ? 'موجود' : 'جديد');
+                    } catch (dbError) {
+                        console.warn('⚠️ فشل البحث في Firestore:', dbError.message);
+                        // في أسوأ الحالات، نعتبر الحساب غير موجود ونسجل جديد
+                        hasAccount = false;
+                    }
+                }
+                
+                if (hasAccount) {
+                    // البريد الإلكتروني موجود بالفعل - تسجيل دخول
                     console.log('✅ البريد موجود، تحويل إلى تسجيل الدخول');
+                    emailInput.classList.remove('error');
                     emailInput.classList.add('success');
                     updateUIMode('login', email);
-                    showMessage('يمكنك تسجيل الدخول الآن', 'success');
+                    showMessage('✓ هذا البريد مسجل مسبقاً، يمكنك تسجيل الدخول', 'success');
                 } else {
-                    // 🔥 البريد الإلكتروني جديد - تسجيل حساب
+                    // البريد الإلكتروني جديد - تسجيل حساب
                     console.log('🆕 البريد جديد، تحويل إلى تسجيل جديد');
+                    emailInput.classList.remove('error');
                     emailInput.classList.add('success');
                     updateUIMode('register', email);
-                    showMessage('يمكنك إنشاء حساب جديد', 'success');
+                    showMessage('✓ بريد إلكتروني جديد، يمكنك إنشاء حساب', 'success');
                 }
                 
                 lastCheckedEmail = email;
+                hideMessage();
                 
             } catch (error) {
                 console.error('❌ خطأ في التحقق:', error.code, error.message);
+                emailInput.classList.remove('success');
                 emailInput.classList.add('error');
                 
                 if (error.code === 'auth/invalid-email') {
-                    showMessage('بريد إلكتروني غير صحيح', 'error');
+                    showMessage('❌ بريد إلكتروني غير صحيح', 'error');
+                } else if (error.code === 'auth/too-many-requests') {
+                    showMessage('❌ محاولات كثيرة جداً. حاول مرة أخرى لاحقاً', 'error');
                 } else {
-                    showMessage('حدث خطأ أثناء التحقق. حاول مرة أخرى', 'error');
+                    showMessage('❌ حدث خطأ أثناء التحقق. حاول مرة أخرى', 'error');
                 }
                 
                 updateUIMode('checking');
+            } finally {
+                isCheckingEmail = false;
+                submitBtn.disabled = false;
             }
         }
 
@@ -549,35 +615,48 @@
         emailInput.addEventListener('input', (e) => {
             const email = e.target.value.trim();
             
-            clearTimeout(emailCheckTimeout);
+            // إلغاء الـ timeout السابق
+            if (emailCheckTimeout) {
+                clearTimeout(emailCheckTimeout);
+            }
             
+            // إذا كان البريد فارغ
             if (!email) {
                 updateUIMode('checking');
-                messageDiv.classList.add('hidden');
+                hideMessage();
                 emailInput.classList.remove('success', 'error');
+                submitBtn.disabled = false;
+                lastCheckedEmail = '';
                 return;
             }
             
+            // التحقق من صحة البريد الإلكتروني
             if (!isValidEmail(email)) {
-                showMessage('يرجى إدخال بريد إلكتروني صحيح', 'error');
+                showMessage('⚠️ يرجى إدخال بريد إلكتروني صحيح (مثال: name@domain.com)', 'error');
                 emailInput.classList.add('error');
                 emailInput.classList.remove('success');
                 updateUIMode('checking');
+                submitBtn.disabled = true;
                 return;
             }
             
             // إذا كان نفس البريد الذي تم التحقق منه مسبقًا، لا تتحقق مرة أخرى
-            if (email === lastCheckedEmail) {
+            if (email === lastCheckedEmail && currentMode !== 'checking') {
+                emailInput.classList.remove('error');
+                emailInput.classList.add('success');
+                submitBtn.disabled = false;
+                hideMessage();
                 return;
             }
             
-            showMessage('جاري التحقق من البريد الإلكتروني...', 'info');
+            // عرض رسالة التحقق
+            showMessage('⏳ جاري التحقق من البريد الإلكتروني...', 'info');
             emailInput.classList.remove('error', 'success');
             submitBtn.disabled = true;
             
+            // تعيين timeout للتحقق
             emailCheckTimeout = setTimeout(async () => {
                 await checkEmailAvailability(email);
-                submitBtn.disabled = false;
             }, 800);
         });
 
@@ -589,21 +668,34 @@
             const password = passwordInput.value;
             const name = nameInput.value.trim();
             
+            // التحقق من صحة البريد
             if (!isValidEmail(email)) {
-                showMessage('يرجى إدخال بريد إلكتروني صحيح', 'error');
+                showMessage('⚠️ يرجى إدخال بريد إلكتروني صحيح', 'error');
+                emailInput.focus();
+                return;
+            }
+            
+            // التحقق من كلمة المرور
+            if (!password) {
+                showMessage('⚠️ يرجى إدخال كلمة المرور', 'error');
+                passwordInput.focus();
                 return;
             }
             
             if (password.length < 6) {
-                showMessage('كلمة المرور يجب أن تكون 6 أحرف على الأقل', 'error');
+                showMessage('⚠️ كلمة المرور يجب أن تكون 6 أحرف على الأقل', 'error');
+                passwordInput.focus();
                 return;
             }
             
+            // التحقق من الاسم في حالة التسجيل
             if (currentMode === 'register' && !name) {
-                showMessage('يرجى إدخال الاسم الكامل', 'error');
+                showMessage('⚠️ يرجى إدخال الاسم الكامل', 'error');
+                nameInput.focus();
                 return;
             }
             
+            // تعطيل الزر أثناء المعالجة
             submitBtn.disabled = true;
             const originalText = btnText.textContent;
             btnText.innerHTML = '<div class="loading"></div>';
@@ -622,10 +714,11 @@
                         email: email,
                         createdAt: serverTimestamp(),
                         updatedAt: serverTimestamp(),
-                        lastLogin: serverTimestamp()
+                        lastLogin: serverTimestamp(),
+                        emailVerified: user.emailVerified
                     });
                     
-                    showMessage('🎉 تم إنشاء الحساب بنجاح! يتم التوجيه...', 'success');
+                    showMessage('🎉 تم إنشاء الحساب بنجاح! جاري التوجيه...', 'success');
                     
                     setTimeout(() => {
                         window.location.href = "index.html";
@@ -639,11 +732,23 @@
                     const user = userCredential.user;
                     
                     // تحديث وقت آخر دخول
-                    await setDoc(doc(db, "users", user.uid), {
-                        lastLogin: serverTimestamp()
-                    }, { merge: true });
+                    const userDocRef = doc(db, "users", user.uid);
+                    const userDoc = await getDoc(userDocRef);
                     
-                    showMessage('✅ تم تسجيل الدخول بنجاح! يتم التوجيه...', 'success');
+                    if (userDoc.exists()) {
+                        await setDoc(userDocRef, {
+                            lastLogin: serverTimestamp()
+                        }, { merge: true });
+                    } else {
+                        // إذا لم يكن هناك مستند، نقوم بإنشائه
+                        await setDoc(userDocRef, {
+                            email: email,
+                            lastLogin: serverTimestamp(),
+                            updatedAt: serverTimestamp()
+                        }, { merge: true });
+                    }
+                    
+                    showMessage('✅ تم تسجيل الدخول بنجاح! جاري التوجيه...', 'success');
                     
                     setTimeout(() => {
                         window.location.href = "index.html";
@@ -653,36 +758,49 @@
             } catch (error) {
                 console.error('❌ خطأ في المصادقة:', error.code, error.message);
                 
+                // إعادة تمكين الزر
                 submitBtn.disabled = false;
                 btnText.textContent = originalText;
                 
-                let errorMessage = 'حدث خطأ غير متوقع. حاول مرة أخرى';
+                let errorMessage = '❌ حدث خطأ غير متوقع. حاول مرة أخرى';
                 
                 switch(error.code) {
                     case 'auth/email-already-in-use':
-                        errorMessage = 'هذا البريد الإلكتروني مستخدم بالفعل. يرجى تسجيل الدخول';
-                        // 🔥 تحويل إلى وضع تسجيل الدخول تلقائيًا
+                        errorMessage = '❌ هذا البريد الإلكتروني مستخدم بالفعل. يرجى تسجيل الدخول';
                         updateUIMode('login', email);
                         break;
                     case 'auth/user-not-found':
-                        errorMessage = 'لا يوجد حساب بهذا البريد الإلكتروني. يرجى التسجيل';
+                        errorMessage = '❌ لا يوجد حساب بهذا البريد الإلكتروني. يرجى التسجيل';
                         updateUIMode('register', email);
                         break;
                     case 'auth/wrong-password':
-                        errorMessage = 'كلمة المرور غير صحيحة';
+                        errorMessage = '❌ كلمة المرور غير صحيحة. حاول مرة أخرى';
+                        passwordInput.focus();
                         break;
                     case 'auth/weak-password':
-                        errorMessage = 'كلمة المرور ضعيفة. استخدم 6 أحرف على الأقل';
+                        errorMessage = '❌ كلمة المرور ضعيفة. استخدم 6 أحرف على الأقل';
                         break;
                     case 'auth/too-many-requests':
-                        errorMessage = 'تم إجراء محاولات كثيرة. حاول مرة أخرى لاحقًا';
+                        errorMessage = '❌ تم إجراء محاولات كثيرة. حاول مرة أخرى لاحقاً';
                         break;
                     case 'auth/network-request-failed':
-                        errorMessage = 'خطأ في الاتصال بالإنترنت';
+                        errorMessage = '❌ خطأ في الاتصال بالإنترنت. تأكد من اتصالك';
+                        break;
+                    case 'auth/invalid-email':
+                        errorMessage = '❌ بريد إلكتروني غير صحيح';
+                        break;
+                    case 'auth/invalid-credential':
+                        errorMessage = '❌ بيانات الدخول غير صحيحة';
                         break;
                 }
                 
                 showMessage(errorMessage, 'error');
+                
+                // تنظيف حقل كلمة المرور في حالة الخطأ
+                if (error.code === 'auth/wrong-password') {
+                    passwordInput.value = '';
+                    passwordInput.focus();
+                }
             }
         });
 
@@ -692,12 +810,15 @@
         // التحقق إذا كان المستخدم مسجل الدخول بالفعل
         onAuthStateChanged(auth, (user) => {
             if (user && window.location.pathname.includes('auth.html')) {
+                console.log('👤 مستخدم مسجل دخول بالفعل، جاري التوجيه...');
                 window.location.href = "index.html";
             }
         });
 
         // التركيز على حقل البريد الإلكتروني تلقائيًا
-        emailInput.focus();
+        setTimeout(() => {
+            emailInput.focus();
+        }, 100);
     </script>
 </body>
 </html>
