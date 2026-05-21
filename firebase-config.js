@@ -27,7 +27,8 @@ import {
     addDoc,
     serverTimestamp,
     onSnapshot,
-    deleteField
+    deleteField,
+    rtdb
 } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-firestore.js";
 
 // Firebase configuration
