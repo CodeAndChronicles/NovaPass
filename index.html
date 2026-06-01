@@ -16,41 +16,20 @@
            PURPLE THEME DESIGN SYSTEM
         ========================================= */
         :root {
-            /* Purple Primary Palette */
-            --purple-50: #F5F3FF;
-            --purple-100: #EDE9FE;
-            --purple-200: #DDD6FE;
-            --purple-300: #C4B5FD;
             --purple-400: #A78BFA;
             --purple-500: #8B5CF6;
             --purple-600: #7C3AED;
             --purple-700: #6D28D9;
             --purple-800: #5B21B6;
-            --purple-900: #4C1D95;
-            
-            /* Dark Theme Backgrounds */
             --dark-bg-primary: #0A0614;
             --dark-bg-secondary: #0F0A1A;
             --dark-bg-card: #130D24;
-            --dark-bg-elevated: #1A1230;
-            
-            /* Text Colors */
             --text-primary: #F3F0FF;
             --text-secondary: #B4A9E6;
             --text-muted: #6B5B8C;
-            
-            /* Border & Shadows */
             --border-color: rgba(139, 92, 246, 0.15);
-            --border-glow: rgba(139, 92, 246, 0.4);
-            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
-            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
-            --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
             --shadow-purple: 0 4px 20px rgba(139, 92, 246, 0.25);
-            --shadow-purple-glow: 0 0 20px rgba(139, 92, 246, 0.3);
-            
-            /* Semantic Colors */
             --success: #10B981;
-            --success-dark: #059669;
             --success-light: rgba(16, 185, 129, 0.15);
             --danger: #EF4444;
             --danger-dark: #DC2626;
@@ -58,18 +37,12 @@
             --warning: #F59E0B;
             --warning-light: rgba(245, 158, 11, 0.15);
             --info: #3B82F6;
-            --info-light: rgba(59, 130, 246, 0.15);
-            
-            /* Radius */
             --radius-sm: 8px;
             --radius-md: 12px;
             --radius-lg: 20px;
             --radius-xl: 28px;
-            
-            /* Transitions */
             --transition-fast: 0.15s ease;
             --transition-normal: 0.25s ease;
-            --transition-slow: 0.4s ease;
         }
         
         * {
@@ -86,9 +59,7 @@
             min-height: 100vh;
         }
         
-        /* ========================================
-           TYPOGRAPHY
-        ========================================= */
+        /* ===== TYPOGRAPHY ===== */
         .h1 {
             font-size: 2rem;
             font-weight: 700;
@@ -111,12 +82,6 @@
             font-weight: 600;
             color: var(--text-primary);
             margin-bottom: 0.5rem;
-        }
-        
-        .h4 {
-            font-size: 1rem;
-            font-weight: 600;
-            color: var(--text-primary);
         }
         
         .body {
@@ -142,9 +107,7 @@
             background-clip: text;
         }
         
-        /* ========================================
-           NAVBAR
-        ========================================= */
+        /* ===== NAVBAR ===== */
         .navbar {
             position: sticky;
             top: 0;
@@ -321,9 +284,7 @@
             color: var(--danger);
         }
         
-        /* ========================================
-           MAIN CONTENT
-        ========================================= */
+        /* ===== MAIN CONTENT ===== */
         .main-content {
             max-width: 1400px;
             margin: 0 auto;
@@ -344,7 +305,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
         
-        /* Welcome Section */
         .welcome-section {
             margin-bottom: 2.5rem;
         }
@@ -358,7 +318,7 @@
             max-width: 600px;
         }
         
-        /* Boards Grid */
+        /* ===== BOARDS GRID ===== */
         .boards-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
@@ -378,6 +338,7 @@
             transform: translateY(-4px);
             border-color: var(--purple-500);
             box-shadow: var(--shadow-purple);
+            background: linear-gradient(135deg, var(--dark-bg-card), rgba(139, 92, 246, 0.08));
         }
         
         .card-header {
@@ -388,14 +349,21 @@
         }
         
         .board-icon {
-            width: 48px;
-            height: 48px;
+            width: 52px;
+            height: 52px;
             background: linear-gradient(135deg, var(--purple-600), var(--purple-800));
             border-radius: var(--radius-md);
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 1.5rem;
+            transition: var(--transition-normal);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+        }
+        
+        .board-card:hover .board-icon {
+            transform: scale(1.08) rotate(-3deg);
+            box-shadow: var(--shadow-purple);
         }
         
         .board-info {
@@ -415,21 +383,27 @@
         }
         
         .password-field {
-            background: var(--dark-bg-secondary);
+            background: rgba(0, 0, 0, 0.2);
             border-radius: var(--radius-md);
-            padding: 0.75rem 1rem;
+            padding: 0.875rem 1rem;
             display: flex;
             align-items: center;
             justify-content: space-between;
             margin: 1rem 0;
-            border: 1px solid var(--border-color);
+            border: 1px solid rgba(139, 92, 246, 0.12);
+            transition: var(--transition-fast);
+        }
+        
+        .password-field:hover {
+            border-color: rgba(139, 92, 246, 0.3);
+            background: rgba(139, 92, 246, 0.05);
         }
         
         .password-value {
-            font-family: monospace;
-            font-size: 0.875rem;
-            letter-spacing: 1px;
-            color: var(--text-secondary);
+            font-family: 'Courier New', monospace;
+            font-size: 1.1rem;
+            letter-spacing: 3px;
+            color: var(--purple-400);
         }
         
         .card-actions {
@@ -440,31 +414,35 @@
         
         .action-btn {
             flex: 1;
-            padding: 0.625rem;
+            padding: 0.75rem 0.5rem;
             border-radius: var(--radius-md);
-            background: var(--dark-bg-secondary);
-            border: 1px solid var(--border-color);
+            background: rgba(139, 92, 246, 0.06);
+            border: 1px solid rgba(139, 92, 246, 0.12);
             color: var(--text-secondary);
             cursor: pointer;
             transition: var(--transition-fast);
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 0.5rem;
+            gap: 0.375rem;
             font-size: 0.8125rem;
+            font-weight: 500;
         }
         
         .action-btn:hover {
             border-color: var(--purple-500);
             color: var(--purple-400);
+            background: rgba(139, 92, 246, 0.12);
+            transform: translateY(-1px);
         }
         
         .action-btn.delete:hover {
             border-color: var(--danger);
             color: var(--danger);
+            background: var(--danger-light);
         }
         
-        /* Empty State */
+        /* ===== EMPTY STATE ===== */
         .empty-state {
             text-align: center;
             padding: 4rem 2rem;
@@ -478,9 +456,7 @@
             margin-bottom: 1rem;
         }
         
-        /* ========================================
-           DEVICES SECTION
-        ========================================= */
+        /* ===== DEVICES SECTION ===== */
         .devices-search {
             margin-bottom: 1.5rem;
         }
@@ -525,11 +501,6 @@
         .device-card.pending {
             border-color: var(--warning);
             background: linear-gradient(135deg, var(--dark-bg-card), var(--warning-light));
-        }
-        
-        .device-card.blocked {
-            border-color: var(--danger);
-            opacity: 0.7;
         }
         
         .device-icon {
@@ -591,11 +562,6 @@
             color: var(--warning);
         }
         
-        .device-badge.blocked {
-            background: var(--danger-light);
-            color: var(--danger);
-        }
-        
         .device-actions {
             display: flex;
             gap: 0.5rem;
@@ -617,7 +583,7 @@
             color: var(--purple-400);
         }
         
-        /* OTP Display in Device Card */
+        /* OTP Display */
         .otp-display {
             background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(139, 92, 246, 0.05));
             border-radius: var(--radius-md);
@@ -661,9 +627,7 @@
             display: block;
         }
         
-        /* ========================================
-           OTP ENTRY OVERLAY
-        ========================================= */
+        /* OTP Entry Overlay */
         .otp-overlay {
             position: fixed;
             top: 0;
@@ -693,11 +657,6 @@
             text-align: center;
         }
         
-        .otp-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-        
         .otp-inputs {
             display: flex;
             gap: 0.5rem;
@@ -723,15 +682,7 @@
             border-color: var(--purple-500);
         }
         
-        .otp-status {
-            font-size: 0.875rem;
-            color: var(--text-muted);
-            margin-top: 1rem;
-        }
-        
-        /* ========================================
-           ACTIVITY LOGS
-        ========================================= */
+        /* ===== ACTIVITY LOGS ===== */
         .activity-filters {
             display: flex;
             gap: 0.5rem;
@@ -796,6 +747,7 @@
             padding: 0.75rem;
             border-radius: var(--radius-md);
             transition: var(--transition-fast);
+            position: relative;
         }
         
         .activity-item:hover {
@@ -827,9 +779,28 @@
             color: var(--text-muted);
         }
         
-        /* ========================================
-           SETTINGS
-        ========================================= */
+        .delete-log-btn {
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: var(--transition-fast);
+            flex-shrink: 0;
+        }
+        
+        .activity-item:hover .delete-log-btn {
+            opacity: 1;
+            color: var(--danger);
+        }
+        
+        /* ===== SETTINGS ===== */
         .settings-tabs {
             display: flex;
             gap: 0.5rem;
@@ -891,9 +862,97 @@
             border-bottom: none;
         }
         
-        /* ========================================
-           FLOATING BUTTON
-        ========================================= */
+        /* ===== CHANGES SECTION ===== */
+        .changes-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        
+        .change-item {
+            background: var(--dark-bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 1.25rem 1.5rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            transition: var(--transition-fast);
+            position: relative;
+        }
+        
+        .change-item:hover {
+            border-color: var(--purple-500);
+            background: rgba(139, 92, 246, 0.04);
+        }
+        
+        .change-item-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            flex-shrink: 0;
+        }
+        
+        .change-item-icon.setting { background: rgba(139, 92, 246, 0.15); color: var(--purple-400); }
+        .change-item-icon.security { background: rgba(245, 158, 11, 0.15); color: var(--warning); }
+        .change-item-icon.password { background: rgba(59, 130, 246, 0.15); color: var(--info); }
+        .change-item-icon.device { background: rgba(16, 185, 129, 0.15); color: var(--success); }
+        .change-item-icon.danger { background: rgba(239, 68, 68, 0.15); color: var(--danger); }
+        
+        .change-item-content {
+            flex: 1;
+        }
+        
+        .change-item-title {
+            font-size: 0.9375rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+        
+        .change-item-detail {
+            font-size: 0.8125rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+        
+        .change-item-time {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        
+        .delete-change-btn {
+            position: absolute;
+            top: 0.75rem;
+            left: 0.75rem;
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            background: transparent;
+            border: 1px solid transparent;
+            color: var(--text-muted);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: var(--transition-fast);
+        }
+        
+        .change-item:hover .delete-change-btn {
+            opacity: 1;
+            border-color: var(--danger-light);
+            background: var(--danger-light);
+            color: var(--danger);
+        }
+        
+        /* ===== FLOATING BUTTON ===== */
         .floating-btn {
             position: fixed;
             bottom: 2rem;
@@ -907,7 +966,7 @@
             justify-content: center;
             cursor: pointer;
             transition: var(--transition-normal);
-            box-shadow: var(--shadow-purple-glow);
+            box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
             border: none;
             z-index: 90;
         }
@@ -917,9 +976,7 @@
             box-shadow: 0 0 25px rgba(139, 92, 246, 0.5);
         }
         
-        /* ========================================
-           MODAL
-        ========================================= */
+        /* ===== MODALS ===== */
         .modal {
             position: fixed;
             top: 0;
@@ -1037,9 +1094,7 @@
             color: white;
         }
         
-        /* ========================================
-           TOAST
-        ========================================= */
+        /* ===== TOAST ===== */
         .toast-container {
             position: fixed;
             bottom: 2rem;
@@ -1060,7 +1115,7 @@
             display: flex;
             align-items: center;
             gap: 0.75rem;
-            box-shadow: var(--shadow-lg);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
             animation: slideUp 0.3s ease;
         }
         
@@ -1069,9 +1124,7 @@
             to { opacity: 1; transform: translateY(0); }
         }
         
-        /* ========================================
-           RESPONSIVE
-        ========================================= */
+        /* ===== RESPONSIVE ===== */
         @media (max-width: 768px) {
             .nav-tabs {
                 display: none;
@@ -1107,6 +1160,14 @@
                 height: 50px;
                 font-size: 1.5rem;
             }
+            
+            .change-item {
+                flex-direction: column;
+            }
+            
+            .change-item-time {
+                align-self: flex-start;
+            }
         }
     </style>
 </head>
@@ -1134,6 +1195,10 @@
             <button class="nav-tab" data-section="activity">
                 <iconify-icon icon="mdi:history"></iconify-icon>
                 <span>النشاط</span>
+            </button>
+            <button class="nav-tab" data-section="changes">
+                <iconify-icon icon="mdi:clipboard-text-clock"></iconify-icon>
+                <span>التغييرات</span>
             </button>
             <button class="nav-tab" data-section="settings">
                 <iconify-icon icon="mdi:cog"></iconify-icon>
@@ -1211,6 +1276,26 @@
         
         <div class="activity-timeline" id="activityTimeline">
             <!-- Activities will be rendered here -->
+        </div>
+    </div>
+    
+    <!-- Changes Section -->
+    <div class="section" id="changesSection">
+        <div class="welcome-section">
+            <h1 class="h1">سجل التغييرات</h1>
+            <p class="section-subtitle">كل تعديل يحدث على حسابك يُسجَّل هنا تلقائياً للحماية القصوى</p>
+        </div>
+        
+        <div class="changes-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+            <span class="body-sm" id="changesCount">جاري التحميل...</span>
+            <button class="btn btn-danger" id="clearChangesBtn" style="padding: 0.5rem 1rem; width: auto;">
+                <iconify-icon icon="mdi:delete-sweep"></iconify-icon>
+                حذف الكل
+            </button>
+        </div>
+        
+        <div class="changes-list" id="changesList">
+            <!-- Changes will render here -->
         </div>
     </div>
     
@@ -1301,13 +1386,6 @@
                 <input type="password" id="boardPassword" class="form-control" placeholder="كلمة المرور" required>
             </div>
             
-            <div class="form-group">
-                <label class="form-label">الأيقونة</label>
-                <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;" id="iconSelector">
-                    <!-- Icons will be populated -->
-                </div>
-            </div>
-            
             <div class="modal-actions">
                 <button type="button" class="btn btn-secondary" id="cancelBoardBtn">إلغاء</button>
                 <button type="submit" class="btn btn-primary">حفظ</button>
@@ -1347,7 +1425,6 @@
         ref as rtdbRef,
         set as rtdbSet,
         get as rtdbGet,
-        onValue as rtdbOnValue,
         remove as rtdbRemove,
         onAuthStateChanged,
         doc, 
@@ -1363,7 +1440,8 @@
         addDoc,
         serverTimestamp,
         signOut,
-        onSnapshot
+        onSnapshot,
+        deleteField
     } from './firebase-config.js';
 
     // ========================================
@@ -1375,6 +1453,7 @@
         boards: [],
         devices: [],
         activityLogs: [],
+        changes: [],
         settings: {},
         currentDeviceId: null,
         ownerDeviceId: null,
@@ -1387,6 +1466,7 @@
     let boardsUnsubscribe = null;
     let devicesUnsubscribe = null;
     let activityUnsubscribe = null;
+    let changesUnsubscribe = null;
     
     // ========================================
     // UTILITY FUNCTIONS
@@ -1475,17 +1555,68 @@
     }
     
     // ========================================
+    // ADD CHANGE FUNCTION
+    // ========================================
+    async function addChange(type, title, detail = '') {
+        if (!AppState.userDocRef) return;
+        
+        const changesRef = collection(AppState.userDocRef, 'changes');
+        
+        // Check for duplicate within 5 minutes
+        const recentQuery = query(
+            changesRef, 
+            where('type', '==', type),
+            where('title', '==', title),
+            orderBy('timestamp', 'desc')
+        );
+        
+        const recentSnap = await getDocs(recentQuery);
+        const FIVE_MINUTES = 5 * 60 * 1000;
+        
+        if (!recentSnap.empty) {
+            const lastChange = recentSnap.docs[0].data();
+            const lastTime = lastChange.timestamp?.toMillis?.() || 0;
+            if (Date.now() - lastTime < FIVE_MINUTES) return;
+        }
+        
+        await addDoc(changesRef, {
+            type,
+            title,
+            detail,
+            deviceId: AppState.currentDeviceId,
+            timestamp: serverTimestamp()
+        });
+    }
+    
+    // ========================================
     // OTP FUNCTIONS (Realtime Database)
     // ========================================
     async function generateAndStoreOTP(uid, deviceId) {
-        const otp = Math.floor(100000 + Math.random() * 900000).toString();
         const otpRef = rtdbRef(rtdb, `users/${uid}/otp_requests/${deviceId}`);
+        const existing = await rtdbGet(otpRef);
+        
+        if (existing.exists()) {
+            const data = existing.val();
+            const now = Date.now();
+            const ONE_MONTH = 30 * 24 * 60 * 60 * 1000;
+            
+            if (!data.used && now < data.expiresAt) {
+                return data.code;
+            }
+            
+            if (data.used && data.usedAt && (now - data.usedAt) < ONE_MONTH) {
+                throw new Error('OTP_COOLDOWN');
+            }
+        }
+        
+        const otp = Math.floor(100000 + Math.random() * 900000).toString();
         
         await rtdbSet(otpRef, {
             code: otp,
             createdAt: Date.now(),
-            expiresAt: Date.now() + (10 * 60 * 1000), // 10 minutes
-            used: false
+            expiresAt: Date.now() + (10 * 60 * 1000),
+            used: false,
+            usedAt: null
         });
         
         return otp;
@@ -1514,8 +1645,11 @@
             return { valid: false, message: 'رمز غير صحيح' };
         }
         
-        // Mark as used
-        await rtdbSet(otpRef, { ...otpData, used: true });
+        await rtdbSet(otpRef, { 
+            ...otpData, 
+            used: true,
+            usedAt: Date.now()
+        });
         
         return { valid: true, message: 'تم التحقق بنجاح' };
     }
@@ -1544,7 +1678,6 @@
         const docSnap = await getDoc(AppState.userDocRef);
         
         if (!docSnap.exists()) {
-            // Create new account
             const deviceInfo = getDeviceInfo();
             const newAccount = {
                 profile: {
@@ -1567,8 +1700,6 @@
             await setDoc(AppState.userDocRef, newAccount);
             AppState.isOwner = true;
             AppState.ownerDeviceId = AppState.currentDeviceId;
-            
-            // Register device in subcollection
             await registerDevice();
         } else {
             const data = docSnap.data();
@@ -1577,7 +1708,6 @@
             AppState.ownerDeviceId = data.security?.ownerDeviceId;
             AppState.isOwner = (AppState.ownerDeviceId === AppState.currentDeviceId);
             
-            // Check if device is trusted or pending
             const trustedDevices = data.security?.trustedDevices || {};
             const pendingDevices = data.security?.pendingDevices || {};
             const blockedDevices = data.security?.blockedDevices || {};
@@ -1594,8 +1724,7 @@
                     AppState.pendingDeviceId = AppState.currentDeviceId;
                     showOTPOverlay();
                 } else {
-                    // New device - add to pending
-                    await updateDoc(AppState.userDocRef, {
+                    await setDoc(AppState.userDocRef, {
                         [`security.pendingDevices.${AppState.currentDeviceId}`]: {
                             deviceId: AppState.currentDeviceId,
                             deviceInfo: getDeviceInfo(),
@@ -1603,7 +1732,6 @@
                         }
                     }, { merge: true });
                     
-                    // Generate OTP
                     const otp = await generateAndStoreOTP(AppState.user.uid, AppState.currentDeviceId);
                     AppState.otpCode = otp;
                     
@@ -1640,7 +1768,6 @@
             await updateDoc(deviceSnap.docs[0].ref, deviceData);
         }
         
-        // Update other devices
         const allDevices = await getDocs(devicesRef);
         for (const doc of allDevices.docs) {
             if (doc.data().deviceId !== AppState.currentDeviceId) {
@@ -1656,7 +1783,6 @@
         const overlay = document.getElementById('otpOverlay');
         overlay.classList.add('active');
         
-        // Setup OTP inputs
         const inputs = document.querySelectorAll('.otp-digit');
         inputs.forEach((input, idx) => {
             input.value = '';
@@ -1686,13 +1812,11 @@
             const result = await verifyOTP(AppState.user.uid, AppState.currentDeviceId, code);
             
             if (result.valid) {
-                // Approve device
-                await updateDoc(AppState.userDocRef, {
+                await setDoc(AppState.userDocRef, {
                     [`security.trustedDevices.${AppState.currentDeviceId}`]: true,
-                    [`security.pendingDevices.${AppState.currentDeviceId}`]: {}
+                    [`security.pendingDevices.${AppState.currentDeviceId}`]: deleteField()
                 }, { merge: true });
                 
-                // Update device in subcollection
                 const devicesRef = collection(AppState.userDocRef, 'devices');
                 const deviceQuery = query(devicesRef, where('deviceId', '==', AppState.currentDeviceId));
                 const deviceSnap = await getDocs(deviceQuery);
@@ -1706,6 +1830,7 @@
                 overlay.classList.remove('active');
                 showToast('✅ تم تفعيل الجهاز بنجاح', 'success');
                 await addActivityLog('device_approved', { deviceId: AppState.currentDeviceId });
+                await addChange('security', 'تفعيل جهاز جديد', `تم تفعيل جهاز بالرمز السري`);
             } else {
                 document.getElementById('otpStatus').textContent = `❌ ${result.message}`;
             }
@@ -1724,7 +1849,6 @@
     function setupRealtimeListeners() {
         if (!AppState.userDocRef) return;
         
-        // Boards listener
         boardsUnsubscribe = onSnapshot(AppState.userDocRef, (doc) => {
             if (doc.exists()) {
                 const data = doc.data();
@@ -1736,23 +1860,46 @@
             }
         });
         
-        // Devices listener
         const devicesRef = collection(AppState.userDocRef, 'devices');
-        devicesUnsubscribe = onSnapshot(query(devicesRef, orderBy('lastActive', 'desc')), (snapshot) => {
-            AppState.devices = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
-            if (document.getElementById('devicesSection').classList.contains('active')) {
-                renderDevices();
+        devicesUnsubscribe = onSnapshot(
+            query(devicesRef, orderBy('lastActive', 'desc')), 
+            (snapshot) => {
+                AppState.devices = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
+                if (document.getElementById('devicesSection').classList.contains('active')) {
+                    renderDevices();
+                }
+            },
+            (error) => {
+                console.error('Devices listener error:', error);
             }
-        });
+        );
         
-        // Activity listener
         const logsRef = collection(AppState.userDocRef, 'activity_logs');
         activityUnsubscribe = onSnapshot(query(logsRef, orderBy('timestamp', 'desc')), (snapshot) => {
-            AppState.activityLogs = snapshot.docs.map(d => ({ id: d.id, ...d.data(), timestamp: d.data().timestamp?.toDate() || new Date() }));
+            AppState.activityLogs = snapshot.docs.map(d => ({ 
+                id: d.id, 
+                ...d.data(), 
+                timestamp: d.data().timestamp?.toDate?.() || new Date() 
+            }));
             if (document.getElementById('activitySection').classList.contains('active')) {
                 renderActivityLogs();
             }
         });
+        
+        const changesRef = collection(AppState.userDocRef, 'changes');
+        changesUnsubscribe = onSnapshot(
+            query(changesRef, orderBy('timestamp', 'desc')), 
+            (snapshot) => {
+                AppState.changes = snapshot.docs.map(d => ({ 
+                    id: d.id, 
+                    ...d.data(), 
+                    timestamp: d.data().timestamp?.toMillis?.() 
+                }));
+                if (document.getElementById('changesSection').classList.contains('active')) {
+                    renderChanges();
+                }
+            }
+        );
     }
     
     async function addActivityLog(action, details = {}) {
@@ -1805,21 +1952,21 @@
                 
                 <div class="card-actions">
                     <button class="action-btn copy-email" data-email="${escapeHtml(board.email)}">
-                        <iconify-icon icon="mdi:email"></iconify-icon>
+                        <iconify-icon icon="mdi:email-outline"></iconify-icon>
                         نسخ البريد
                     </button>
                     <button class="action-btn copy-pwd" data-pwd="${escapeHtml(board.password)}">
                         <iconify-icon icon="mdi:content-copy"></iconify-icon>
                         نسخ الباسورد
                     </button>
-                    <button class="action-btn delete-board" data-id="${board.id}">
-                        <iconify-icon icon="mdi:delete"></iconify-icon>
+                    <button class="action-btn delete delete-board" data-id="${board.id}">
+                        <iconify-icon icon="mdi:delete-outline"></iconify-icon>
+                        حذف
                     </button>
                 </div>
             </div>
         `).join('');
         
-        // Add event listeners
         document.querySelectorAll('.toggle-pwd').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 const card = btn.closest('.board-card');
@@ -1853,11 +2000,13 @@
         document.querySelectorAll('.delete-board').forEach(btn => {
             btn.addEventListener('click', async () => {
                 const id = btn.dataset.id;
+                const boardName = AppState.boards.find(b => b.id === id)?.name || 'حساب';
                 showConfirm('حذف الحساب', 'هل أنت متأكد من حذف هذا الحساب؟', async () => {
                     const updatedBoards = AppState.boards.filter(b => b.id !== id);
                     await updateDoc(AppState.userDocRef, { 'vault.boards': updatedBoards });
                     showToast('تم حذف الحساب بنجاح', 'success');
                     addActivityLog('delete_board');
+                    addChange('danger', 'حذف حساب', `تم حذف حساب: ${boardName}`);
                 });
             });
         });
@@ -1873,7 +2022,6 @@
              d.os?.toLowerCase().includes(searchTerm))
         );
         
-        // Sort: current first, then owner, then trusted, then pending, then others
         filteredDevices.sort((a, b) => {
             if (a.deviceId === AppState.currentDeviceId) return -1;
             if (b.deviceId === AppState.currentDeviceId) return 1;
@@ -1891,15 +2039,17 @@
             const isCurrent = device.deviceId === AppState.currentDeviceId;
             const isOwnerDevice = device.deviceId === AppState.ownerDeviceId;
             const isPendingDevice = !isCurrent && !isOwnerDevice && !device.trusted;
-            const isBlocked = false; // Can be extended
             
             let statusClass = '';
             if (isCurrent) statusClass = 'current';
             else if (isOwnerDevice) statusClass = 'owner';
             else if (isPendingDevice) statusClass = 'pending';
-            else statusClass = '';
             
-            const lastActive = device.lastActive ? new Date(device.lastActive).toLocaleString('ar-SA') : 'غير معروف';
+            const lastActive = device.lastActive?.toDate 
+                ? device.lastActive.toDate().toLocaleString('ar-SA') 
+                : device.lastActive 
+                    ? new Date(device.lastActive).toLocaleString('ar-SA')
+                    : 'غير معروف';
             
             return `
                 <div class="device-card ${statusClass}">
@@ -1949,7 +2099,6 @@
             `;
         }).join('');
         
-        // Load OTPs for pending devices
         for (const device of filteredDevices) {
             const isPending = !device.trusted && device.deviceId !== AppState.currentDeviceId && device.deviceId !== AppState.ownerDeviceId;
             if (isPending && AppState.isOwner) {
@@ -1957,11 +2106,10 @@
             }
         }
         
-        // Add event listeners for device actions
         document.querySelectorAll('.trust-device').forEach(btn => {
             btn.addEventListener('click', async () => {
                 const deviceId = btn.dataset.id;
-                await updateDoc(AppState.userDocRef, {
+                await setDoc(AppState.userDocRef, {
                     [`security.trustedDevices.${deviceId}`]: true
                 }, { merge: true });
                 
@@ -1972,13 +2120,14 @@
                 
                 showToast('تم توثيق الجهاز بنجاح', 'success');
                 addActivityLog('trust_device', { deviceId });
+                addChange('device', 'توثيق جهاز', `تم توثيق الجهاز: ${deviceId.substring(0, 8)}...`);
             });
         });
         
         document.querySelectorAll('.untrust-device').forEach(btn => {
             btn.addEventListener('click', async () => {
                 const deviceId = btn.dataset.id;
-                await updateDoc(AppState.userDocRef, {
+                await setDoc(AppState.userDocRef, {
                     [`security.trustedDevices.${deviceId}`]: {}
                 }, { merge: true });
                 
@@ -1989,25 +2138,28 @@
                 
                 showToast('تم إلغاء توثيق الجهاز', 'success');
                 addActivityLog('untrust_device', { deviceId });
+                addChange('device', 'إلغاء توثيق جهاز', `تم إلغاء توثيق الجهاز: ${deviceId.substring(0, 8)}...`);
             });
         });
         
         document.querySelectorAll('.remove-device').forEach(btn => {
             btn.addEventListener('click', async () => {
                 const deviceId = btn.dataset.id;
+                const deviceName = AppState.devices.find(d => d.deviceId === deviceId)?.deviceName || 'جهاز';
                 showConfirm('إزالة جهاز', 'هل أنت متأكد من إزالة هذا الجهاز؟', async () => {
                     const devicesRef = collection(AppState.userDocRef, 'devices');
                     const q = query(devicesRef, where('deviceId', '==', deviceId));
                     const snap = await getDocs(q);
                     if (!snap.empty) await deleteDoc(snap.docs[0].ref);
                     
-                    await updateDoc(AppState.userDocRef, {
+                    await setDoc(AppState.userDocRef, {
                         [`security.trustedDevices.${deviceId}`]: {},
                         [`security.pendingDevices.${deviceId}`]: {}
                     }, { merge: true });
                     
                     showToast('تم إزالة الجهاز', 'success');
                     addActivityLog('remove_device', { deviceId });
+                    addChange('device', 'إزالة جهاز', `تم إزالة الجهاز: ${deviceName}`);
                 });
             });
         });
@@ -2082,7 +2234,8 @@
             trust_device: 'توثيق جهاز',
             untrust_device: 'إلغاء توثيق جهاز',
             remove_device: 'إزالة جهاز',
-            device_approved: 'تفعيل جهاز'
+            device_approved: 'تفعيل جهاز',
+            import_data: 'استيراد بيانات'
         };
         
         container.innerHTML = Object.entries(grouped).map(([date, dayLogs]) => `
@@ -2093,7 +2246,7 @@
                 </div>
                 <div class="activity-items">
                     ${dayLogs.map(log => `
-                        <div class="activity-item">
+                        <div class="activity-item" data-log-id="${log.id}">
                             <div class="activity-icon">
                                 <iconify-icon icon="mdi:${log.action === 'login' ? 'login' : log.action === 'logout' ? 'logout' : 'information'}"></iconify-icon>
                             </div>
@@ -2101,11 +2254,84 @@
                                 <div class="activity-description">${actionNames[log.action] || log.action}</div>
                                 <div class="activity-time">${log.timestamp.toLocaleTimeString('ar-SA')}</div>
                             </div>
+                            <button class="delete-log-btn" data-id="${log.id}" title="حذف">
+                                <iconify-icon icon="mdi:close"></iconify-icon>
+                            </button>
                         </div>
                     `).join('')}
                 </div>
             </div>
         `).join('');
+        
+        document.querySelectorAll('.delete-log-btn').forEach(btn => {
+            btn.addEventListener('click', async (e) => {
+                e.stopPropagation();
+                const id = btn.dataset.id;
+                const logRef = doc(AppState.userDocRef, 'activity_logs', id);
+                await deleteDoc(logRef);
+                showToast('تم حذف السجل', 'success');
+            });
+        });
+    }
+    
+    function renderChanges() {
+        const container = document.getElementById('changesList');
+        const changes = AppState.changes || [];
+        
+        document.getElementById('changesCount').textContent = 
+            `${changes.length} تغيير مسجل`;
+        
+        if (changes.length === 0) {
+            container.innerHTML = `
+                <div class="empty-state">
+                    <div class="empty-icon">📋</div>
+                    <h3 class="h3">لا توجد تغييرات</h3>
+                    <p class="body-sm">أي تعديل يحدث على حسابك سيظهر هنا</p>
+                </div>
+            `;
+            return;
+        }
+        
+        const iconMap = {
+            setting:  { icon: 'mdi:cog-outline',       class: 'setting' },
+            security: { icon: 'mdi:shield-alert',       class: 'security' },
+            password: { icon: 'mdi:key-outline',        class: 'password' },
+            device:   { icon: 'mdi:devices',            class: 'device' },
+            danger:   { icon: 'mdi:alert-circle-outline', class: 'danger' }
+        };
+        
+        container.innerHTML = changes.map(change => {
+            const meta = iconMap[change.type] || iconMap.setting;
+            const time = change.timestamp 
+                ? new Date(change.timestamp).toLocaleString('ar-SA')
+                : '';
+            
+            return `
+                <div class="change-item" data-change-id="${change.id}">
+                    <div class="change-item-icon ${meta.class}">
+                        <iconify-icon icon="${meta.icon}"></iconify-icon>
+                    </div>
+                    <div class="change-item-content">
+                        <div class="change-item-title">${escapeHtml(change.title)}</div>
+                        ${change.detail ? `<div class="change-item-detail">${escapeHtml(change.detail)}</div>` : ''}
+                    </div>
+                    <div class="change-item-time">${time}</div>
+                    <button class="delete-change-btn" data-id="${change.id}" title="حذف">
+                        <iconify-icon icon="mdi:close"></iconify-icon>
+                    </button>
+                </div>
+            `;
+        }).join('');
+        
+        document.querySelectorAll('.delete-change-btn').forEach(btn => {
+            btn.addEventListener('click', async (e) => {
+                e.stopPropagation();
+                const id = btn.dataset.id;
+                const changeRef = doc(AppState.userDocRef, 'changes', id);
+                await deleteDoc(changeRef);
+                showToast('تم حذف التغيير', 'success');
+            });
+        });
     }
     
     function renderSettings() {
@@ -2154,8 +2380,9 @@
         `;
         
         document.getElementById('passwordVisibility')?.addEventListener('change', async (e) => {
-            await updateDoc(AppState.userDocRef, { 'settings.passwordVisibility': e.target.value });
+            await setDoc(AppState.userDocRef, { 'settings.passwordVisibility': e.target.value }, { merge: true });
             showToast('تم حفظ الإعدادات', 'success');
+            addChange('setting', 'تغيير إعداد', `تم تغيير: طريقة إظهار كلمة المرور`);
         });
         
         const backupTab = document.getElementById('backupTab');
@@ -2178,7 +2405,7 @@
         `;
         
         document.getElementById('exportDataBtn')?.addEventListener('click', () => {
-            const data = JSON.stringify({ boards: AppState.boards, version: '1.0' }, null, 2);
+            const data = JSON.stringify({ boards: AppState.boards, version: '1.0', exportedAt: new Date().toISOString() }, null, 2);
             const blob = new Blob([data], { type: 'application/json' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
@@ -2202,10 +2429,15 @@
                 try {
                     const data = JSON.parse(event.target.result);
                     if (data.boards && Array.isArray(data.boards)) {
-                        const newBoards = [...AppState.boards, ...data.boards.map(b => ({ ...b, id: Date.now().toString(36) + Math.random().toString(36).substr(2, 5) }))];
+                        const newBoards = [...AppState.boards, ...data.boards.map(b => ({ 
+                            ...b, 
+                            id: Date.now().toString(36) + Math.random().toString(36).substr(2, 5),
+                            importedAt: new Date().toISOString()
+                        }))];
                         await updateDoc(AppState.userDocRef, { 'vault.boards': newBoards });
                         showToast(`تم استيراد ${data.boards.length} حساب`, 'success');
                         addActivityLog('import_data', { count: data.boards.length });
+                        addChange('password', 'استيراد بيانات', `تم استيراد ${data.boards.length} حساب`);
                     }
                 } catch (err) {
                     showToast('ملف غير صالح', 'error');
@@ -2278,6 +2510,9 @@
         await updateDoc(AppState.userDocRef, { 'vault.boards': newBoards });
         showToast(isEditing ? 'تم التعديل بنجاح' : 'تمت الإضافة بنجاح', 'success');
         addActivityLog(isEditing ? 'edit_board' : 'add_board', { boardName: name });
+        addChange(isEditing ? 'password' : 'password', 
+                  isEditing ? 'تعديل حساب' : 'إضافة حساب جديد', 
+                  `${isEditing ? 'تم تعديل' : 'تمت إضافة'} حساب: ${name}`);
         closeAllModals();
     });
     
@@ -2293,6 +2528,7 @@
         
         if (sectionId === 'devices') renderDevices();
         if (sectionId === 'activity') renderActivityLogs();
+        if (sectionId === 'changes') renderChanges();
         if (sectionId === 'settings') renderSettings();
     }
     
@@ -2330,6 +2566,17 @@
         });
         
         document.getElementById('devicesSearch')?.addEventListener('input', () => renderDevices());
+        
+        document.getElementById('clearChangesBtn')?.addEventListener('click', () => {
+            showConfirm('حذف كل التغييرات', 'هل تريد حذف جميع سجلات التغييرات؟', async () => {
+                const batch = [];
+                for (const change of AppState.changes) {
+                    batch.push(deleteDoc(doc(AppState.userDocRef, 'changes', change.id)));
+                }
+                await Promise.all(batch);
+                showToast('تم حذف كل التغييرات', 'success');
+            });
+        });
     }
     
     // ========================================
