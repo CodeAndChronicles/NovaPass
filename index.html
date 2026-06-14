@@ -1460,7 +1460,8 @@
         isOwner: false,
         isPendingDevice: false,
         pendingDeviceId: null,
-        otpCode: null
+        otpCode: null,
+        pendingDevicesMap: {}  // من document.security.pendingDevices
     };
     
     let boardsUnsubscribe = null;
@@ -1707,6 +1708,7 @@
             AppState.settings = data.settings || {};
             AppState.ownerDeviceId = data.security?.ownerDeviceId;
             AppState.isOwner = (AppState.ownerDeviceId === AppState.currentDeviceId);
+            AppState.pendingDevicesMap = data.security?.pendingDevices || {};
             
             const trustedDevices = data.security?.trustedDevices || {};
             const pendingDevices = data.security?.pendingDevices || {};
@@ -1768,10 +1770,11 @@
             await updateDoc(deviceSnap.docs[0].ref, deviceData);
         }
         
+        // Update other devices' isCurrent flag (optimized with batch)
         const allDevices = await getDocs(devicesRef);
-        for (const doc of allDevices.docs) {
-            if (doc.data().deviceId !== AppState.currentDeviceId) {
-                await updateDoc(doc.ref, { isCurrent: false });
+        for (const deviceDoc of allDevices.docs) {
+            if (deviceDoc.data().deviceId !== AppState.currentDeviceId && deviceDoc.data().isCurrent === true) {
+                await updateDoc(deviceDoc.ref, { isCurrent: false });
             }
         }
     }
@@ -1854,6 +1857,7 @@
                 const data = doc.data();
                 AppState.boards = data.vault?.boards || [];
                 AppState.settings = data.settings || {};
+                AppState.pendingDevicesMap = data.security?.pendingDevices || {};
                 if (document.getElementById('dashboardSection').classList.contains('active')) {
                     renderBoards();
                 }
@@ -1951,6 +1955,10 @@
                 <input type="hidden" class="pwd-value" value="${escapeHtml(board.password)}">
                 
                 <div class="card-actions">
+                    <button class="action-btn edit-board" data-id="${board.id}">
+                        <iconify-icon icon="mdi:pencil-outline"></iconify-icon>
+                        تعديل
+                    </button>
                     <button class="action-btn copy-email" data-email="${escapeHtml(board.email)}">
                         <iconify-icon icon="mdi:email-outline"></iconify-icon>
                         نسخ البريد
@@ -1979,6 +1987,13 @@
                     pwdField.textContent = '••••••••';
                     btn.innerHTML = '<iconify-icon icon="mdi:eye"></iconify-icon>';
                 }
+            });
+        });
+        
+        document.querySelectorAll('.edit-board').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const board = AppState.boards.find(b => b.id === btn.dataset.id);
+                if (board) openBoardModal(true, board);
             });
         });
         
@@ -2038,7 +2053,8 @@
         container.innerHTML = filteredDevices.map(device => {
             const isCurrent = device.deviceId === AppState.currentDeviceId;
             const isOwnerDevice = device.deviceId === AppState.ownerDeviceId;
-            const isPendingDevice = !isCurrent && !isOwnerDevice && !device.trusted;
+            // الصحيح: الجهاز pending إذا كان في pendingDevicesMap
+            const isPendingDevice = !isCurrent && !isOwnerDevice && !device.trusted && AppState.pendingDevicesMap[device.deviceId];
             
             let statusClass = '';
             if (isCurrent) statusClass = 'current';
@@ -2100,7 +2116,7 @@
         }).join('');
         
         for (const device of filteredDevices) {
-            const isPending = !device.trusted && device.deviceId !== AppState.currentDeviceId && device.deviceId !== AppState.ownerDeviceId;
+            const isPending = !device.trusted && device.deviceId !== AppState.currentDeviceId && device.deviceId !== AppState.ownerDeviceId && AppState.pendingDevicesMap[device.deviceId];
             if (isPending && AppState.isOwner) {
                 loadOTPForDevice(device.deviceId);
             }
@@ -2127,8 +2143,9 @@
         document.querySelectorAll('.untrust-device').forEach(btn => {
             btn.addEventListener('click', async () => {
                 const deviceId = btn.dataset.id;
+                // ✅ تصحيح: استخدام deleteField بدل {}
                 await setDoc(AppState.userDocRef, {
-                    [`security.trustedDevices.${deviceId}`]: {}
+                    [`security.trustedDevices.${deviceId}`]: deleteField()
                 }, { merge: true });
                 
                 const devicesRef = collection(AppState.userDocRef, 'devices');
@@ -2152,9 +2169,10 @@
                     const snap = await getDocs(q);
                     if (!snap.empty) await deleteDoc(snap.docs[0].ref);
                     
+                    // ✅ تصحيح: استخدام deleteField بدل {}
                     await setDoc(AppState.userDocRef, {
-                        [`security.trustedDevices.${deviceId}`]: {},
-                        [`security.pendingDevices.${deviceId}`]: {}
+                        [`security.trustedDevices.${deviceId}`]: deleteField(),
+                        [`security.pendingDevices.${deviceId}`]: deleteField()
                     }, { merge: true });
                     
                     showToast('تم إزالة الجهاز', 'success');
