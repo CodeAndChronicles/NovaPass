@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>NovaPass • الحافظ الآمن</title>
     
     <!-- Iconify Icons -->
@@ -43,6 +43,7 @@
             --radius-xl: 28px;
             --transition-fast: 0.15s ease;
             --transition-normal: 0.25s ease;
+            --bottom-nav-height: 70px;
         }
         
         * {
@@ -57,6 +58,7 @@
             color: var(--text-primary);
             line-height: 1.5;
             min-height: 100vh;
+            padding-bottom: var(--bottom-nav-height);
         }
         
         /* ===== TYPOGRAPHY ===== */
@@ -107,7 +109,7 @@
             background-clip: text;
         }
         
-        /* ===== NAVBAR ===== */
+        /* ===== NAVBAR (Desktop) ===== */
         .navbar {
             position: sticky;
             top: 0;
@@ -154,6 +156,7 @@
             color: var(--purple-400);
         }
         
+        /* Desktop Navigation Tabs */
         .nav-tabs {
             display: flex;
             gap: 0.5rem;
@@ -187,6 +190,52 @@
             background: var(--purple-600);
             color: white;
             box-shadow: var(--shadow-purple);
+        }
+        
+        /* Mobile Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(10, 6, 20, 0.98);
+            backdrop-filter: blur(12px);
+            border-top: 1px solid var(--border-color);
+            display: none;
+            justify-content: space-around;
+            align-items: center;
+            padding: 0.5rem 0.75rem;
+            z-index: 100;
+            height: var(--bottom-nav-height);
+        }
+        
+        .bottom-nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.25rem;
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: var(--radius-md);
+            transition: var(--transition-fast);
+            font-size: 0.7rem;
+        }
+        
+        .bottom-nav-item iconify-icon {
+            font-size: 1.5rem;
+        }
+        
+        .bottom-nav-item.active {
+            color: var(--purple-400);
+            background: rgba(139, 92, 246, 0.1);
+        }
+        
+        .bottom-nav-item span {
+            font-size: 0.7rem;
+            font-weight: 500;
         }
         
         .profile-trigger {
@@ -306,64 +355,56 @@
         }
         
         .welcome-section {
-            margin-bottom: 2.5rem;
+            margin-bottom: 2rem;
         }
         
         .welcome-section .h1 {
-            font-size: 2.5rem;
+            font-size: 1.75rem;
         }
         
         .section-subtitle {
             color: var(--text-secondary);
             max-width: 600px;
+            font-size: 0.875rem;
         }
         
         /* ===== BOARDS GRID ===== */
         .boards-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.25rem;
         }
         
         .board-card {
             background: var(--dark-bg-card);
             border: 1px solid var(--border-color);
             border-radius: var(--radius-lg);
-            padding: 1.5rem;
+            padding: 1.25rem;
             transition: var(--transition-normal);
-            cursor: pointer;
         }
         
         .board-card:hover {
-            transform: translateY(-4px);
+            transform: translateY(-2px);
             border-color: var(--purple-500);
             box-shadow: var(--shadow-purple);
-            background: linear-gradient(135deg, var(--dark-bg-card), rgba(139, 92, 246, 0.08));
         }
         
         .card-header {
             display: flex;
             align-items: center;
-            gap: 1rem;
-            margin-bottom: 1.25rem;
+            gap: 0.875rem;
+            margin-bottom: 1rem;
         }
         
         .board-icon {
-            width: 52px;
-            height: 52px;
+            width: 44px;
+            height: 44px;
             background: linear-gradient(135deg, var(--purple-600), var(--purple-800));
             border-radius: var(--radius-md);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
-            transition: var(--transition-normal);
-            border: 1px solid rgba(139, 92, 246, 0.2);
-        }
-        
-        .board-card:hover .board-icon {
-            transform: scale(1.08) rotate(-3deg);
-            box-shadow: var(--shadow-purple);
+            font-size: 1.25rem;
         }
         
         .board-info {
@@ -372,49 +413,46 @@
         
         .board-name {
             font-weight: 600;
-            font-size: 1.125rem;
+            font-size: 1rem;
             color: var(--text-primary);
             margin-bottom: 0.25rem;
         }
         
         .board-username {
-            font-size: 0.8125rem;
+            font-size: 0.75rem;
             color: var(--text-muted);
+            word-break: break-all;
         }
         
         .password-field {
             background: rgba(0, 0, 0, 0.2);
             border-radius: var(--radius-md);
-            padding: 0.875rem 1rem;
+            padding: 0.75rem 1rem;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin: 1rem 0;
+            margin: 0.875rem 0;
             border: 1px solid rgba(139, 92, 246, 0.12);
-            transition: var(--transition-fast);
-        }
-        
-        .password-field:hover {
-            border-color: rgba(139, 92, 246, 0.3);
-            background: rgba(139, 92, 246, 0.05);
         }
         
         .password-value {
             font-family: 'Courier New', monospace;
-            font-size: 1.1rem;
-            letter-spacing: 3px;
+            font-size: 1rem;
+            letter-spacing: 2px;
             color: var(--purple-400);
+            word-break: break-all;
         }
         
         .card-actions {
             display: flex;
-            gap: 0.75rem;
-            margin-top: 1rem;
+            gap: 0.5rem;
+            margin-top: 0.875rem;
+            flex-wrap: wrap;
         }
         
         .action-btn {
             flex: 1;
-            padding: 0.75rem 0.5rem;
+            padding: 0.6rem 0.25rem;
             border-radius: var(--radius-md);
             background: rgba(139, 92, 246, 0.06);
             border: 1px solid rgba(139, 92, 246, 0.12);
@@ -424,8 +462,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 0.375rem;
-            font-size: 0.8125rem;
+            gap: 0.25rem;
+            font-size: 0.7rem;
             font-weight: 500;
         }
         
@@ -433,7 +471,6 @@
             border-color: var(--purple-500);
             color: var(--purple-400);
             background: rgba(139, 92, 246, 0.12);
-            transform: translateY(-1px);
         }
         
         .action-btn.delete:hover {
@@ -445,25 +482,25 @@
         /* ===== EMPTY STATE ===== */
         .empty-state {
             text-align: center;
-            padding: 4rem 2rem;
+            padding: 3rem 1.5rem;
             background: var(--dark-bg-card);
             border-radius: var(--radius-lg);
             border: 1px solid var(--border-color);
         }
         
         .empty-icon {
-            font-size: 4rem;
+            font-size: 3rem;
             margin-bottom: 1rem;
         }
         
         /* ===== DEVICES SECTION ===== */
         .devices-search {
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.25rem;
         }
         
         .devices-search input {
             width: 100%;
-            padding: 0.875rem 1rem;
+            padding: 0.75rem 1rem;
             background: var(--dark-bg-card);
             border: 1px solid var(--border-color);
             border-radius: var(--radius-md);
@@ -486,10 +523,7 @@
             background: var(--dark-bg-card);
             border: 1px solid var(--border-color);
             border-radius: var(--radius-lg);
-            padding: 1.25rem;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
+            padding: 1rem;
             transition: var(--transition-fast);
         }
         
@@ -503,15 +537,23 @@
             background: linear-gradient(135deg, var(--dark-bg-card), var(--warning-light));
         }
         
+        .device-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+        
         .device-icon {
-            width: 48px;
-            height: 48px;
+            width: 44px;
+            height: 44px;
             background: rgba(139, 92, 246, 0.15);
             border-radius: var(--radius-md);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
+            font-size: 1.25rem;
         }
         
         .device-info {
@@ -520,11 +562,12 @@
         
         .device-name {
             font-weight: 600;
+            font-size: 0.9375rem;
             margin-bottom: 0.25rem;
         }
         
         .device-details {
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             color: var(--text-muted);
         }
         
@@ -532,13 +575,13 @@
             display: flex;
             gap: 0.5rem;
             flex-wrap: wrap;
-            margin-top: 0.5rem;
+            margin: 0.5rem 0;
         }
         
         .device-badge {
-            padding: 0.25rem 0.625rem;
+            padding: 0.2rem 0.5rem;
             border-radius: 20px;
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             font-weight: 500;
         }
         
@@ -565,22 +608,30 @@
         .device-actions {
             display: flex;
             gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-top: 0.75rem;
         }
         
         .device-action-btn {
-            padding: 0.5rem 0.875rem;
+            padding: 0.4rem 0.75rem;
             border-radius: var(--radius-md);
             background: var(--dark-bg-secondary);
             border: 1px solid var(--border-color);
             color: var(--text-secondary);
             cursor: pointer;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             transition: var(--transition-fast);
         }
         
         .device-action-btn:hover {
             border-color: var(--purple-500);
             color: var(--purple-400);
+        }
+        
+        .device-last-active {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            margin-top: 0.5rem;
         }
         
         /* OTP Display */
@@ -592,16 +643,16 @@
         }
         
         .otp-label {
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             color: var(--text-muted);
             display: block;
             margin-bottom: 0.5rem;
         }
         
         .otp-code {
-            font-size: 1.75rem;
+            font-size: 1.5rem;
             font-weight: 700;
-            letter-spacing: 8px;
+            letter-spacing: 6px;
             color: var(--purple-400);
             text-align: center;
             font-family: monospace;
@@ -612,16 +663,16 @@
             background: var(--purple-600);
             border: none;
             color: white;
-            padding: 0.375rem 0.75rem;
+            padding: 0.3rem 0.6rem;
             border-radius: var(--radius-md);
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             cursor: pointer;
             width: 100%;
             margin-bottom: 0.5rem;
         }
         
         .otp-timer {
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             color: var(--warning);
             text-align: center;
             display: block;
@@ -651,8 +702,8 @@
             background: var(--dark-bg-card);
             border: 1px solid var(--border-color);
             border-radius: var(--radius-xl);
-            padding: 2rem;
-            max-width: 400px;
+            padding: 1.5rem;
+            max-width: 360px;
             width: 100%;
             text-align: center;
         }
@@ -661,17 +712,18 @@
             display: flex;
             gap: 0.5rem;
             justify-content: center;
-            margin: 2rem 0;
+            margin: 1.5rem 0;
+            flex-wrap: wrap;
         }
         
         .otp-digit {
-            width: 50px;
-            height: 60px;
+            width: 45px;
+            height: 55px;
             background: var(--dark-bg-secondary);
             border: 2px solid var(--border-color);
             border-radius: var(--radius-md);
             text-align: center;
-            font-size: 1.75rem;
+            font-size: 1.5rem;
             font-weight: 600;
             color: var(--text-primary);
             font-family: monospace;
@@ -683,34 +735,10 @@
         }
         
         /* ===== ACTIVITY LOGS ===== */
-        .activity-filters {
-            display: flex;
-            gap: 0.5rem;
-            margin-bottom: 1.5rem;
-            flex-wrap: wrap;
-        }
-        
-        .activity-filter {
-            padding: 0.5rem 1rem;
-            border-radius: 40px;
-            background: var(--dark-bg-card);
-            border: 1px solid var(--border-color);
-            color: var(--text-secondary);
-            cursor: pointer;
-            font-size: 0.8125rem;
-            transition: var(--transition-fast);
-        }
-        
-        .activity-filter.active {
-            background: var(--purple-600);
-            color: white;
-            border-color: var(--purple-600);
-        }
-        
         .activity-timeline {
             display: flex;
             flex-direction: column;
-            gap: 1.5rem;
+            gap: 1rem;
         }
         
         .activity-day-group {
@@ -727,6 +755,7 @@
             padding-bottom: 0.75rem;
             border-bottom: 1px solid var(--border-color);
             margin-bottom: 0.75rem;
+            flex-wrap: wrap;
         }
         
         .day-label {
@@ -743,11 +772,12 @@
         .activity-item {
             display: flex;
             align-items: center;
-            gap: 1rem;
+            gap: 0.75rem;
             padding: 0.75rem;
             border-radius: var(--radius-md);
             transition: var(--transition-fast);
             position: relative;
+            flex-wrap: wrap;
         }
         
         .activity-item:hover {
@@ -755,14 +785,14 @@
         }
         
         .activity-icon {
-            width: 36px;
-            height: 36px;
+            width: 32px;
+            height: 32px;
             background: rgba(139, 92, 246, 0.1);
             border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.125rem;
+            font-size: 1rem;
         }
         
         .activity-content {
@@ -770,12 +800,12 @@
         }
         
         .activity-description {
-            font-size: 0.875rem;
+            font-size: 0.8125rem;
             color: var(--text-primary);
         }
         
         .activity-time {
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             color: var(--text-muted);
         }
         
@@ -790,76 +820,6 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            opacity: 0;
-            transition: var(--transition-fast);
-            flex-shrink: 0;
-        }
-        
-        .activity-item:hover .delete-log-btn {
-            opacity: 1;
-            color: var(--danger);
-        }
-        
-        /* ===== SETTINGS ===== */
-        .settings-tabs {
-            display: flex;
-            gap: 0.5rem;
-            margin-bottom: 1.5rem;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 0.5rem;
-        }
-        
-        .settings-tab {
-            padding: 0.625rem 1.25rem;
-            border-radius: var(--radius-md);
-            background: transparent;
-            border: none;
-            color: var(--text-secondary);
-            cursor: pointer;
-            transition: var(--transition-fast);
-        }
-        
-        .settings-tab.active {
-            background: var(--purple-600);
-            color: white;
-        }
-        
-        .settings-tab-content {
-            display: none;
-        }
-        
-        .settings-tab-content.active {
-            display: block;
-            animation: fadeIn 0.3s ease;
-        }
-        
-        .settings-card {
-            background: var(--dark-bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-lg);
-            padding: 1.5rem;
-            margin-bottom: 1rem;
-        }
-        
-        .settings-card-header {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 1.25rem;
-            padding-bottom: 0.75rem;
-            border-bottom: 1px solid var(--border-color);
-        }
-        
-        .settings-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0.75rem 0;
-            border-bottom: 1px solid var(--border-color);
-        }
-        
-        .settings-item:last-child {
-            border-bottom: none;
         }
         
         /* ===== CHANGES SECTION ===== */
@@ -873,27 +833,27 @@
             background: var(--dark-bg-card);
             border: 1px solid var(--border-color);
             border-radius: var(--radius-lg);
-            padding: 1.25rem 1.5rem;
+            padding: 1rem;
             display: flex;
             align-items: flex-start;
-            gap: 1rem;
+            gap: 0.75rem;
             transition: var(--transition-fast);
             position: relative;
+            flex-wrap: wrap;
         }
         
         .change-item:hover {
             border-color: var(--purple-500);
-            background: rgba(139, 92, 246, 0.04);
         }
         
         .change-item-icon {
-            width: 40px;
-            height: 40px;
+            width: 36px;
+            height: 36px;
             border-radius: var(--radius-md);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.25rem;
+            font-size: 1rem;
             flex-shrink: 0;
         }
         
@@ -908,57 +868,94 @@
         }
         
         .change-item-title {
-            font-size: 0.9375rem;
+            font-size: 0.875rem;
             font-weight: 600;
             color: var(--text-primary);
             margin-bottom: 0.25rem;
         }
         
         .change-item-detail {
-            font-size: 0.8125rem;
+            font-size: 0.75rem;
             color: var(--text-muted);
-            line-height: 1.5;
         }
         
         .change-item-time {
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             color: var(--text-muted);
-            white-space: nowrap;
-            flex-shrink: 0;
         }
         
         .delete-change-btn {
-            position: absolute;
-            top: 0.75rem;
-            left: 0.75rem;
-            width: 28px;
-            height: 28px;
-            border-radius: 8px;
             background: transparent;
-            border: 1px solid transparent;
+            border: none;
             color: var(--text-muted);
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transition: var(--transition-fast);
+            padding: 0.25rem;
         }
         
-        .change-item:hover .delete-change-btn {
-            opacity: 1;
-            border-color: var(--danger-light);
-            background: var(--danger-light);
-            color: var(--danger);
+        /* ===== SETTINGS ===== */
+        .settings-tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .settings-tab {
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-md);
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: var(--transition-fast);
+            font-size: 0.8125rem;
+        }
+        
+        .settings-tab.active {
+            background: var(--purple-600);
+            color: white;
+        }
+        
+        .settings-card {
+            background: var(--dark-bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 1.25rem;
+            margin-bottom: 1rem;
+        }
+        
+        .settings-card-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .settings-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border-color);
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        
+        .settings-item:last-child {
+            border-bottom: none;
         }
         
         /* ===== FLOATING BUTTON ===== */
         .floating-btn {
             position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            width: 56px;
-            height: 56px;
+            bottom: calc(var(--bottom-nav-height) + 1rem);
+            right: 1.5rem;
+            width: 52px;
+            height: 52px;
             background: linear-gradient(135deg, var(--purple-500), var(--purple-700));
             border-radius: 50%;
             display: flex;
@@ -972,8 +969,7 @@
         }
         
         .floating-btn:hover {
-            transform: scale(1.1);
-            box-shadow: 0 0 25px rgba(139, 92, 246, 0.5);
+            transform: scale(1.05);
         }
         
         /* ===== MODALS ===== */
@@ -989,7 +985,7 @@
             display: none;
             align-items: center;
             justify-content: center;
-            padding: 1.5rem;
+            padding: 1rem;
         }
         
         .modal.active {
@@ -1000,8 +996,8 @@
             background: var(--dark-bg-card);
             border: 1px solid var(--border-color);
             border-radius: var(--radius-xl);
-            padding: 2rem;
-            max-width: 500px;
+            padding: 1.5rem;
+            max-width: 480px;
             width: 100%;
             max-height: 90vh;
             overflow-y: auto;
@@ -1011,14 +1007,14 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 1.5rem;
-            padding-bottom: 1rem;
+            margin-bottom: 1.25rem;
+            padding-bottom: 0.75rem;
             border-bottom: 1px solid var(--border-color);
         }
         
         .close-btn {
-            width: 36px;
-            height: 36px;
+            width: 32px;
+            height: 32px;
             border-radius: 10px;
             background: var(--dark-bg-secondary);
             border: 1px solid var(--border-color);
@@ -1030,20 +1026,20 @@
         }
         
         .form-group {
-            margin-bottom: 1.25rem;
+            margin-bottom: 1rem;
         }
         
         .form-label {
             display: block;
             margin-bottom: 0.5rem;
-            font-size: 0.875rem;
+            font-size: 0.8125rem;
             font-weight: 500;
             color: var(--text-secondary);
         }
         
         .form-control {
             width: 100%;
-            padding: 0.875rem 1rem;
+            padding: 0.75rem 1rem;
             background: var(--dark-bg-secondary);
             border: 1px solid var(--border-color);
             border-radius: var(--radius-md);
@@ -1064,23 +1060,18 @@
         
         .btn {
             flex: 1;
-            padding: 0.875rem;
+            padding: 0.75rem;
             border-radius: var(--radius-md);
             font-weight: 600;
             cursor: pointer;
             transition: var(--transition-fast);
             border: none;
-            font-size: 0.875rem;
+            font-size: 0.8125rem;
         }
         
         .btn-primary {
             background: linear-gradient(135deg, var(--purple-500), var(--purple-700));
             color: white;
-        }
-        
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-purple);
         }
         
         .btn-secondary {
@@ -1097,7 +1088,7 @@
         /* ===== TOAST ===== */
         .toast-container {
             position: fixed;
-            bottom: 2rem;
+            bottom: calc(var(--bottom-nav-height) + 1rem);
             left: 50%;
             transform: translateX(-50%);
             z-index: 1100;
@@ -1111,12 +1102,13 @@
             background: var(--dark-bg-card);
             border: 1px solid var(--border-color);
             border-radius: var(--radius-md);
-            padding: 0.75rem 1.25rem;
+            padding: 0.6rem 1rem;
             display: flex;
             align-items: center;
-            gap: 0.75rem;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+            gap: 0.5rem;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
             animation: slideUp 0.3s ease;
+            font-size: 0.8125rem;
         }
         
         @keyframes slideUp {
@@ -1130,50 +1122,112 @@
                 display: none;
             }
             
+            .bottom-nav {
+                display: flex;
+            }
+            
             .main-content {
                 padding: 1rem;
+                padding-bottom: 1rem;
             }
             
             .boards-grid {
                 grid-template-columns: 1fr;
             }
             
-            .device-card {
-                flex-direction: column;
-                text-align: center;
-            }
-            
-            .device-actions {
-                width: 100%;
-                justify-content: center;
-            }
-            
             .floating-btn {
-                bottom: 1rem;
+                bottom: calc(var(--bottom-nav-height) + 0.75rem);
                 right: 1rem;
                 width: 48px;
                 height: 48px;
             }
             
-            .otp-digit {
-                width: 40px;
-                height: 50px;
-                font-size: 1.5rem;
+            .floating-btn iconify-icon {
+                font-size: 1.25rem;
             }
             
-            .change-item {
+            .otp-digit {
+                width: 42px;
+                height: 50px;
+                font-size: 1.25rem;
+            }
+            
+            .device-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .device-badges {
+                justify-content: center;
+            }
+            
+            .device-actions {
+                justify-content: center;
+            }
+            
+            .card-actions {
                 flex-direction: column;
             }
             
-            .change-item-time {
-                align-self: flex-start;
+            .action-btn {
+                padding: 0.5rem;
             }
+            
+            .settings-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .toast-container {
+                bottom: calc(var(--bottom-nav-height) + 0.75rem);
+                width: 90%;
+            }
+            
+            .toast {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+        
+        @media (min-width: 769px) {
+            .bottom-nav {
+                display: none;
+            }
+            
+            .floating-btn {
+                bottom: 2rem;
+            }
+            
+            .toast-container {
+                bottom: 2rem;
+            }
+        }
+        
+        /* Loading Spinner */
+        .loading-spinner {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+        
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid var(--border-color);
+            border-top-color: var(--purple-500);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
         }
     </style>
 </head>
 <body>
 
-<!-- Navigation -->
+<!-- Navigation (Desktop) -->
 <nav class="navbar">
     <div class="nav-container">
         <div class="logo">
@@ -1183,7 +1237,7 @@
             <div class="logo-text">Nova<span>Pass</span></div>
         </div>
         
-        <div class="nav-tabs">
+        <div class="nav-tabs" id="desktopNavTabs">
             <button class="nav-tab active" data-section="dashboard">
                 <iconify-icon icon="mdi:view-dashboard"></iconify-icon>
                 <span>الرئيسية</span>
@@ -1235,6 +1289,30 @@
     </div>
 </nav>
 
+<!-- Bottom Navigation (Mobile) -->
+<div class="bottom-nav" id="bottomNav">
+    <button class="bottom-nav-item active" data-section="dashboard">
+        <iconify-icon icon="mdi:view-dashboard"></iconify-icon>
+        <span>الرئيسية</span>
+    </button>
+    <button class="bottom-nav-item" data-section="devices">
+        <iconify-icon icon="mdi:devices"></iconify-icon>
+        <span>الأجهزة</span>
+    </button>
+    <button class="bottom-nav-item" data-section="activity">
+        <iconify-icon icon="mdi:history"></iconify-icon>
+        <span>النشاط</span>
+    </button>
+    <button class="bottom-nav-item" data-section="changes">
+        <iconify-icon icon="mdi:clipboard-text-clock"></iconify-icon>
+        <span>التغييرات</span>
+    </button>
+    <button class="bottom-nav-item" data-section="settings">
+        <iconify-icon icon="mdi:cog"></iconify-icon>
+        <span>الإعدادات</span>
+    </button>
+</div>
+
 <!-- Main Content -->
 <main class="main-content">
     <!-- Dashboard Section -->
@@ -1257,7 +1335,7 @@
         </div>
         
         <div class="devices-search">
-            <input type="text" id="devicesSearch" placeholder="ابحث عن جهاز...">
+            <input type="text" id="devicesSearch" placeholder="🔍 ابحث عن جهاز...">
         </div>
         
         <div class="devices-list" id="devicesList">
@@ -1272,8 +1350,6 @@
             <p class="section-subtitle">تتبع جميع النشاطات على حسابك</p>
         </div>
         
-        <div class="activity-filters" id="activityFilters"></div>
-        
         <div class="activity-timeline" id="activityTimeline">
             <!-- Activities will be rendered here -->
         </div>
@@ -1286,9 +1362,9 @@
             <p class="section-subtitle">كل تعديل يحدث على حسابك يُسجَّل هنا تلقائياً للحماية القصوى</p>
         </div>
         
-        <div class="changes-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+        <div class="changes-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.5rem;">
             <span class="body-sm" id="changesCount">جاري التحميل...</span>
-            <button class="btn btn-danger" id="clearChangesBtn" style="padding: 0.5rem 1rem; width: auto;">
+            <button class="btn btn-danger" id="clearChangesBtn" style="padding: 0.4rem 0.8rem; width: auto; font-size: 0.75rem;">
                 <iconify-icon icon="mdi:delete-sweep"></iconify-icon>
                 حذف الكل
             </button>
@@ -1328,14 +1404,14 @@
 
 <!-- Floating Add Button -->
 <button class="floating-btn" id="floatingAddBtn">
-    <iconify-icon icon="mdi:plus" style="font-size: 1.5rem;"></iconify-icon>
+    <iconify-icon icon="mdi:plus" style="font-size: 1.25rem;"></iconify-icon>
 </button>
 
 <!-- OTP Entry Overlay -->
 <div class="otp-overlay" id="otpOverlay">
     <div class="otp-container">
         <div class="otp-icon">
-            <iconify-icon icon="mdi:shield-key" style="font-size: 3rem;"></iconify-icon>
+            <iconify-icon icon="mdi:shield-key" style="font-size: 2.5rem;"></iconify-icon>
         </div>
         <h2 class="h3">تأكيد الجهاز الجديد</h2>
         <p class="body-sm" style="margin: 0.5rem 0 1rem;">أدخل رمز التحقق المكون من 6 أرقام</p>
@@ -1349,7 +1425,7 @@
             <input type="text" maxlength="1" class="otp-digit" data-index="5">
         </div>
         
-        <div class="otp-status" id="otpStatus">في انتظار إدخال الرمز...</div>
+        <div class="otp-status" id="otpStatus" style="font-size: 0.8125rem;">في انتظار إدخال الرمز...</div>
         
         <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
             <button class="btn btn-secondary" id="cancelOtpBtn">إلغاء</button>
@@ -1396,7 +1472,7 @@
 
 <!-- Confirm Modal -->
 <div class="modal" id="confirmModal">
-    <div class="modal-content" style="max-width: 380px; text-align: center;">
+    <div class="modal-content" style="max-width: 360px; text-align: center;">
         <div class="modal-header">
             <h3 class="h3" id="confirmTitle">تأكيد الإجراء</h3>
             <button class="close-btn" id="closeConfirmModal">
@@ -1404,7 +1480,7 @@
             </button>
         </div>
         <div style="padding: 1rem 0;">
-            <div class="confirm-icon" id="confirmIcon" style="font-size: 3rem; margin-bottom: 1rem;"></div>
+            <div class="confirm-icon" id="confirmIcon" style="font-size: 2.5rem; margin-bottom: 1rem;"></div>
             <p id="confirmMessage" class="body" style="margin-bottom: 1.5rem;">هل أنت متأكد من هذا الإجراء؟</p>
         </div>
         <div class="modal-actions">
@@ -1441,7 +1517,8 @@
         serverTimestamp,
         signOut,
         onSnapshot,
-        deleteField
+        deleteField,
+        writeBatch
     } from './firebase-config.js';
 
     // ========================================
@@ -1458,16 +1535,11 @@
         currentDeviceId: null,
         ownerDeviceId: null,
         isOwner: false,
-        isPendingDevice: false,
-        pendingDeviceId: null,
-        otpCode: null,
-        pendingDevicesMap: {}  // من document.security.pendingDevices
+        pendingDevicesMap: {},
+        currentSection: 'dashboard'
     };
     
-    let boardsUnsubscribe = null;
-    let devicesUnsubscribe = null;
-    let activityUnsubscribe = null;
-    let changesUnsubscribe = null;
+    let unsubscribeListeners = [];
     
     // ========================================
     // UTILITY FUNCTIONS
@@ -1518,7 +1590,7 @@
         const modal = document.getElementById('confirmModal');
         document.getElementById('confirmTitle').textContent = title;
         document.getElementById('confirmMessage').textContent = message;
-        document.getElementById('confirmIcon').innerHTML = '<iconify-icon icon="mdi:alert" style="font-size: 3rem;"></iconify-icon>';
+        document.getElementById('confirmIcon').innerHTML = '<iconify-icon icon="mdi:alert" style="font-size: 2.5rem;"></iconify-icon>';
         
         const confirmBtn = document.getElementById('confirmActionBtn');
         const cancelBtn = document.getElementById('cancelConfirmBtn');
@@ -1556,60 +1628,37 @@
     }
     
     // ========================================
-    // ADD CHANGE FUNCTION
+    // ADD CHANGE & ACTIVITY
     // ========================================
     async function addChange(type, title, detail = '') {
         if (!AppState.userDocRef) return;
-        
-        const changesRef = collection(AppState.userDocRef, 'changes');
-        
-        // Check for duplicate within 5 minutes
-        const recentQuery = query(
-            changesRef, 
-            where('type', '==', type),
-            where('title', '==', title),
-            orderBy('timestamp', 'desc')
-        );
-        
-        const recentSnap = await getDocs(recentQuery);
-        const FIVE_MINUTES = 5 * 60 * 1000;
-        
-        if (!recentSnap.empty) {
-            const lastChange = recentSnap.docs[0].data();
-            const lastTime = lastChange.timestamp?.toMillis?.() || 0;
-            if (Date.now() - lastTime < FIVE_MINUTES) return;
-        }
-        
-        await addDoc(changesRef, {
-            type,
-            title,
-            detail,
-            deviceId: AppState.currentDeviceId,
-            timestamp: serverTimestamp()
-        });
+        try {
+            const changesRef = collection(AppState.userDocRef, 'changes');
+            await addDoc(changesRef, {
+                type, title, detail,
+                deviceId: AppState.currentDeviceId,
+                timestamp: serverTimestamp()
+            });
+        } catch (e) { console.error('addChange error:', e); }
+    }
+    
+    async function addActivityLog(action, details = {}) {
+        if (!AppState.userDocRef) return;
+        try {
+            const logsRef = collection(AppState.userDocRef, 'activity_logs');
+            await addDoc(logsRef, {
+                action, details,
+                deviceId: AppState.currentDeviceId,
+                timestamp: serverTimestamp()
+            });
+        } catch (e) { console.error('addActivityLog error:', e); }
     }
     
     // ========================================
-    // OTP FUNCTIONS (Realtime Database)
+    // OTP FUNCTIONS
     // ========================================
     async function generateAndStoreOTP(uid, deviceId) {
         const otpRef = rtdbRef(rtdb, `users/${uid}/otp_requests/${deviceId}`);
-        const existing = await rtdbGet(otpRef);
-        
-        if (existing.exists()) {
-            const data = existing.val();
-            const now = Date.now();
-            const ONE_MONTH = 30 * 24 * 60 * 60 * 1000;
-            
-            if (!data.used && now < data.expiresAt) {
-                return data.code;
-            }
-            
-            if (data.used && data.usedAt && (now - data.usedAt) < ONE_MONTH) {
-                throw new Error('OTP_COOLDOWN');
-            }
-        }
-        
         const otp = Math.floor(100000 + Math.random() * 900000).toString();
         
         await rtdbSet(otpRef, {
@@ -1646,17 +1695,12 @@
             return { valid: false, message: 'رمز غير صحيح' };
         }
         
-        await rtdbSet(otpRef, { 
-            ...otpData, 
-            used: true,
-            usedAt: Date.now()
-        });
-        
+        await rtdbSet(otpRef, { ...otpData, used: true, usedAt: Date.now() });
         return { valid: true, message: 'تم التحقق بنجاح' };
     }
     
     // ========================================
-    // AUTH INITIALIZATION
+    // INITIALIZATION
     // ========================================
     async function init() {
         onAuthStateChanged(auth, async (user) => {
@@ -1702,6 +1746,7 @@
             AppState.isOwner = true;
             AppState.ownerDeviceId = AppState.currentDeviceId;
             await registerDevice();
+            showToast('مرحباً بك! تم إنشاء حسابك بنجاح', 'success');
         } else {
             const data = docSnap.data();
             AppState.boards = data.vault?.boards || [];
@@ -1721,11 +1766,7 @@
             }
             
             if (!trustedDevices[AppState.currentDeviceId] && !AppState.isOwner) {
-                if (pendingDevices[AppState.currentDeviceId]) {
-                    AppState.isPendingDevice = true;
-                    AppState.pendingDeviceId = AppState.currentDeviceId;
-                    showOTPOverlay();
-                } else {
+                if (!pendingDevices[AppState.currentDeviceId]) {
                     await setDoc(AppState.userDocRef, {
                         [`security.pendingDevices.${AppState.currentDeviceId}`]: {
                             deviceId: AppState.currentDeviceId,
@@ -1733,14 +1774,8 @@
                             addedAt: serverTimestamp()
                         }
                     }, { merge: true });
-                    
-                    const otp = await generateAndStoreOTP(AppState.user.uid, AppState.currentDeviceId);
-                    AppState.otpCode = otp;
-                    
-                    AppState.isPendingDevice = true;
-                    AppState.pendingDeviceId = AppState.currentDeviceId;
-                    showOTPOverlay();
                 }
+                showOTPOverlay();
             }
             
             await registerDevice();
@@ -1760,7 +1795,7 @@
             os: deviceInfo.os,
             isCurrent: true,
             isOwner: AppState.isOwner,
-            trusted: AppState.isOwner,
+            trusted: AppState.isOwner || AppState.isOwner ? true : false,
             lastActive: serverTimestamp()
         };
         
@@ -1770,7 +1805,7 @@
             await updateDoc(deviceSnap.docs[0].ref, deviceData);
         }
         
-        // Update other devices' isCurrent flag (optimized with batch)
+        // تحديث حالة الأجهزة الأخرى
         const allDevices = await getDocs(devicesRef);
         for (const deviceDoc of allDevices.docs) {
             if (deviceDoc.data().deviceId !== AppState.currentDeviceId && deviceDoc.data().isCurrent === true) {
@@ -1789,16 +1824,16 @@
         const inputs = document.querySelectorAll('.otp-digit');
         inputs.forEach((input, idx) => {
             input.value = '';
-            input.addEventListener('input', (e) => {
+            input.oninput = (e) => {
                 if (e.target.value.length === 1 && idx < 5) {
                     inputs[idx + 1].focus();
                 }
-            });
-            input.addEventListener('keydown', (e) => {
+            };
+            input.onkeydown = (e) => {
                 if (e.key === 'Backspace' && !e.target.value && idx > 0) {
                     inputs[idx - 1].focus();
                 }
-            });
+            };
         });
         inputs[0].focus();
         
@@ -1827,13 +1862,11 @@
                     await updateDoc(deviceSnap.docs[0].ref, { trusted: true });
                 }
                 
-                AppState.isPendingDevice = false;
-                AppState.isOwner = false;
-                
                 overlay.classList.remove('active');
                 showToast('✅ تم تفعيل الجهاز بنجاح', 'success');
                 await addActivityLog('device_approved', { deviceId: AppState.currentDeviceId });
-                await addChange('security', 'تفعيل جهاز جديد', `تم تفعيل جهاز بالرمز السري`);
+                await addChange('security', 'تفعيل جهاز جديد', 'تم تفعيل جهاز جديد');
+                window.location.reload();
             } else {
                 document.getElementById('otpStatus').textContent = `❌ ${result.message}`;
             }
@@ -1852,69 +1885,54 @@
     function setupRealtimeListeners() {
         if (!AppState.userDocRef) return;
         
-        boardsUnsubscribe = onSnapshot(AppState.userDocRef, (doc) => {
+        // Account listener
+        const unsubscribeAccount = onSnapshot(AppState.userDocRef, (doc) => {
             if (doc.exists()) {
                 const data = doc.data();
                 AppState.boards = data.vault?.boards || [];
                 AppState.settings = data.settings || {};
                 AppState.pendingDevicesMap = data.security?.pendingDevices || {};
-                if (document.getElementById('dashboardSection').classList.contains('active')) {
-                    renderBoards();
-                }
+                if (AppState.currentSection === 'dashboard') renderBoards();
+                if (AppState.currentSection === 'devices') renderDevices();
             }
         });
+        unsubscribeListeners.push(unsubscribeAccount);
         
+        // Devices listener
         const devicesRef = collection(AppState.userDocRef, 'devices');
-        devicesUnsubscribe = onSnapshot(
+        const unsubscribeDevices = onSnapshot(
             query(devicesRef, orderBy('lastActive', 'desc')), 
             (snapshot) => {
                 AppState.devices = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
-                if (document.getElementById('devicesSection').classList.contains('active')) {
-                    renderDevices();
-                }
-            },
-            (error) => {
-                console.error('Devices listener error:', error);
+                if (AppState.currentSection === 'devices') renderDevices();
             }
         );
+        unsubscribeListeners.push(unsubscribeDevices);
         
+        // Activity logs listener
         const logsRef = collection(AppState.userDocRef, 'activity_logs');
-        activityUnsubscribe = onSnapshot(query(logsRef, orderBy('timestamp', 'desc')), (snapshot) => {
+        const unsubscribeActivity = onSnapshot(query(logsRef, orderBy('timestamp', 'desc')), (snapshot) => {
             AppState.activityLogs = snapshot.docs.map(d => ({ 
-                id: d.id, 
-                ...d.data(), 
+                id: d.id, ...d.data(), 
                 timestamp: d.data().timestamp?.toDate?.() || new Date() 
             }));
-            if (document.getElementById('activitySection').classList.contains('active')) {
-                renderActivityLogs();
-            }
+            if (AppState.currentSection === 'activity') renderActivityLogs();
         });
+        unsubscribeListeners.push(unsubscribeActivity);
         
+        // Changes listener
         const changesRef = collection(AppState.userDocRef, 'changes');
-        changesUnsubscribe = onSnapshot(
+        const unsubscribeChanges = onSnapshot(
             query(changesRef, orderBy('timestamp', 'desc')), 
             (snapshot) => {
                 AppState.changes = snapshot.docs.map(d => ({ 
-                    id: d.id, 
-                    ...d.data(), 
+                    id: d.id, ...d.data(), 
                     timestamp: d.data().timestamp?.toMillis?.() 
                 }));
-                if (document.getElementById('changesSection').classList.contains('active')) {
-                    renderChanges();
-                }
+                if (AppState.currentSection === 'changes') renderChanges();
             }
         );
-    }
-    
-    async function addActivityLog(action, details = {}) {
-        if (!AppState.userDocRef) return;
-        const logsRef = collection(AppState.userDocRef, 'activity_logs');
-        await addDoc(logsRef, {
-            action,
-            details,
-            deviceId: AppState.currentDeviceId,
-            timestamp: serverTimestamp()
-        });
+        unsubscribeListeners.push(unsubscribeChanges);
     }
     
     // ========================================
@@ -1923,7 +1941,7 @@
     function renderBoards() {
         const container = document.getElementById('boardsGrid');
         
-        if (AppState.boards.length === 0) {
+        if (!AppState.boards || AppState.boards.length === 0) {
             container.innerHTML = `
                 <div class="empty-state">
                     <div class="empty-icon">🔐</div>
@@ -1935,7 +1953,7 @@
         }
         
         container.innerHTML = AppState.boards.map(board => `
-            <div class="board-card" data-board-id="${board.id}">
+            <div class="board-card">
                 <div class="card-header">
                     <div class="board-icon">
                         <iconify-icon icon="${board.icon || 'mdi:web'}"></iconify-icon>
@@ -1948,7 +1966,7 @@
                 
                 <div class="password-field">
                     <span class="password-value">••••••••</span>
-                    <button class="action-btn toggle-pwd" data-id="${board.id}" style="padding: 0; background: none; border: none;">
+                    <button class="toggle-pwd" data-id="${board.id}" style="background: none; border: none; color: var(--text-muted); cursor: pointer;">
                         <iconify-icon icon="mdi:eye"></iconify-icon>
                     </button>
                 </div>
@@ -1975,8 +1993,9 @@
             </div>
         `).join('');
         
+        // Attach event listeners
         document.querySelectorAll('.toggle-pwd').forEach(btn => {
-            btn.addEventListener('click', (e) => {
+            btn.onclick = () => {
                 const card = btn.closest('.board-card');
                 const pwdField = card.querySelector('.password-value');
                 const hiddenPwd = card.querySelector('.pwd-value').value;
@@ -1987,49 +2006,54 @@
                     pwdField.textContent = '••••••••';
                     btn.innerHTML = '<iconify-icon icon="mdi:eye"></iconify-icon>';
                 }
-            });
+            };
         });
         
         document.querySelectorAll('.edit-board').forEach(btn => {
-            btn.addEventListener('click', () => {
+            btn.onclick = () => {
                 const board = AppState.boards.find(b => b.id === btn.dataset.id);
                 if (board) openBoardModal(true, board);
-            });
+            };
         });
         
         document.querySelectorAll('.copy-email').forEach(btn => {
-            btn.addEventListener('click', () => {
+            btn.onclick = () => {
                 navigator.clipboard.writeText(btn.dataset.email);
                 showToast('تم نسخ البريد الإلكتروني', 'success');
-            });
+            };
         });
         
         document.querySelectorAll('.copy-pwd').forEach(btn => {
-            btn.addEventListener('click', () => {
+            btn.onclick = () => {
                 navigator.clipboard.writeText(btn.dataset.pwd);
                 showToast('تم نسخ كلمة المرور', 'success');
                 addActivityLog('copy_password');
-            });
+            };
         });
         
         document.querySelectorAll('.delete-board').forEach(btn => {
-            btn.addEventListener('click', async () => {
+            btn.onclick = async () => {
                 const id = btn.dataset.id;
                 const boardName = AppState.boards.find(b => b.id === id)?.name || 'حساب';
                 showConfirm('حذف الحساب', 'هل أنت متأكد من حذف هذا الحساب؟', async () => {
                     const updatedBoards = AppState.boards.filter(b => b.id !== id);
                     await updateDoc(AppState.userDocRef, { 'vault.boards': updatedBoards });
                     showToast('تم حذف الحساب بنجاح', 'success');
-                    addActivityLog('delete_board');
-                    addChange('danger', 'حذف حساب', `تم حذف حساب: ${boardName}`);
+                    await addActivityLog('delete_board', { boardName });
+                    await addChange('danger', 'حذف حساب', `تم حذف حساب: ${boardName}`);
                 });
-            });
+            };
         });
     }
     
-    function renderDevices() {
+    async function renderDevices() {
         const container = document.getElementById('devicesList');
         const searchTerm = document.getElementById('devicesSearch')?.value.toLowerCase() || '';
+        
+        if (!AppState.devices || AppState.devices.length === 0) {
+            container.innerHTML = `<div class="empty-state"><div class="empty-icon">📱</div><p class="body-sm">لا توجد أجهزة مسجلة</p></div>`;
+            return;
+        }
         
         let filteredDevices = AppState.devices.filter(d => 
             (d.deviceName?.toLowerCase().includes(searchTerm) ||
@@ -2045,16 +2069,10 @@
             return 0;
         });
         
-        if (filteredDevices.length === 0) {
-            container.innerHTML = `<div class="empty-state"><div class="empty-icon">📱</div><p class="body-sm">لا توجد أجهزة</p></div>`;
-            return;
-        }
-        
         container.innerHTML = filteredDevices.map(device => {
             const isCurrent = device.deviceId === AppState.currentDeviceId;
             const isOwnerDevice = device.deviceId === AppState.ownerDeviceId;
-            // الصحيح: الجهاز pending إذا كان في pendingDevicesMap
-            const isPendingDevice = !isCurrent && !isOwnerDevice && !device.trusted && AppState.pendingDevicesMap[device.deviceId];
+            const isPendingDevice = !isCurrent && !isOwnerDevice && !device.trusted && AppState.pendingDevicesMap?.[device.deviceId];
             
             let statusClass = '';
             if (isCurrent) statusClass = 'current';
@@ -2063,26 +2081,29 @@
             
             const lastActive = device.lastActive?.toDate 
                 ? device.lastActive.toDate().toLocaleString('ar-SA') 
-                : device.lastActive 
-                    ? new Date(device.lastActive).toLocaleString('ar-SA')
-                    : 'غير معروف';
+                : 'غير معروف';
             
             return `
-                <div class="device-card ${statusClass}">
-                    <div class="device-icon">
-                        <iconify-icon icon="${device.deviceName === 'هاتف محمول' ? 'mdi:cellphone' : device.deviceName === 'جهاز لوحي' ? 'mdi:tablet' : 'mdi:laptop'}"></iconify-icon>
-                    </div>
-                    <div class="device-info">
-                        <div class="device-name">${escapeHtml(device.deviceName || 'جهاز غير معروف')}</div>
-                        <div class="device-details">${device.browser || ''} • ${device.os || ''}</div>
-                        <div class="device-badges">
-                            ${isCurrent ? '<span class="device-badge current">هذا الجهاز</span>' : ''}
-                            ${isOwnerDevice ? '<span class="device-badge owner">الجهاز الرئيسي</span>' : ''}
-                            ${device.trusted && !isCurrent && !isOwnerDevice ? '<span class="device-badge trusted">موثوق</span>' : ''}
-                            ${isPendingDevice ? '<span class="device-badge pending">في انتظار التفعيل</span>' : ''}
+                <div class="device-card ${statusClass}" data-device-id="${device.deviceId}">
+                    <div class="device-header">
+                        <div class="device-icon">
+                            <iconify-icon icon="${device.deviceName === 'هاتف محمول' ? 'mdi:cellphone' : device.deviceName === 'جهاز لوحي' ? 'mdi:tablet' : 'mdi:laptop'}"></iconify-icon>
                         </div>
-                        <div class="caption" style="margin-top: 0.5rem;">آخر نشاط: ${lastActive}</div>
+                        <div class="device-info">
+                            <div class="device-name">${escapeHtml(device.deviceName || 'جهاز غير معروف')}</div>
+                            <div class="device-details">${device.browser || ''} • ${device.os || ''}</div>
+                        </div>
                     </div>
+                    
+                    <div class="device-badges">
+                        ${isCurrent ? '<span class="device-badge current">هذا الجهاز</span>' : ''}
+                        ${isOwnerDevice ? '<span class="device-badge owner">الجهاز الرئيسي</span>' : ''}
+                        ${device.trusted && !isCurrent && !isOwnerDevice ? '<span class="device-badge trusted">موثوق</span>' : ''}
+                        ${isPendingDevice ? '<span class="device-badge pending">في انتظار التفعيل</span>' : ''}
+                    </div>
+                    
+                    <div class="device-last-active">🕐 آخر نشاط: ${lastActive}</div>
+                    
                     <div class="device-actions">
                         ${!isCurrent && AppState.isOwner ? `
                             ${!device.trusted && !isOwnerDevice ? `
@@ -2103,6 +2124,7 @@
                             </button>
                         ` : ''}
                     </div>
+                    
                     ${isPendingDevice && AppState.isOwner ? `
                         <div class="otp-display" id="otpDisplay-${device.deviceId}">
                             <span class="otp-label">🔑 رمز تفعيل الجهاز</span>
@@ -2115,15 +2137,19 @@
             `;
         }).join('');
         
+        // Load OTPs for pending devices
         for (const device of filteredDevices) {
-            const isPending = !device.trusted && device.deviceId !== AppState.currentDeviceId && device.deviceId !== AppState.ownerDeviceId && AppState.pendingDevicesMap[device.deviceId];
+            const isPending = !device.trusted && device.deviceId !== AppState.currentDeviceId && 
+                              device.deviceId !== AppState.ownerDeviceId && 
+                              AppState.pendingDevicesMap?.[device.deviceId];
             if (isPending && AppState.isOwner) {
                 loadOTPForDevice(device.deviceId);
             }
         }
         
+        // Attach device event listeners
         document.querySelectorAll('.trust-device').forEach(btn => {
-            btn.addEventListener('click', async () => {
+            btn.onclick = async () => {
                 const deviceId = btn.dataset.id;
                 await setDoc(AppState.userDocRef, {
                     [`security.trustedDevices.${deviceId}`]: true
@@ -2135,15 +2161,14 @@
                 if (!snap.empty) await updateDoc(snap.docs[0].ref, { trusted: true });
                 
                 showToast('تم توثيق الجهاز بنجاح', 'success');
-                addActivityLog('trust_device', { deviceId });
-                addChange('device', 'توثيق جهاز', `تم توثيق الجهاز: ${deviceId.substring(0, 8)}...`);
-            });
+                await addActivityLog('trust_device', { deviceId });
+                await addChange('device', 'توثيق جهاز', `تم توثيق الجهاز`);
+            };
         });
         
         document.querySelectorAll('.untrust-device').forEach(btn => {
-            btn.addEventListener('click', async () => {
+            btn.onclick = async () => {
                 const deviceId = btn.dataset.id;
-                // ✅ تصحيح: استخدام deleteField بدل {}
                 await setDoc(AppState.userDocRef, {
                     [`security.trustedDevices.${deviceId}`]: deleteField()
                 }, { merge: true });
@@ -2154,13 +2179,13 @@
                 if (!snap.empty) await updateDoc(snap.docs[0].ref, { trusted: false });
                 
                 showToast('تم إلغاء توثيق الجهاز', 'success');
-                addActivityLog('untrust_device', { deviceId });
-                addChange('device', 'إلغاء توثيق جهاز', `تم إلغاء توثيق الجهاز: ${deviceId.substring(0, 8)}...`);
-            });
+                await addActivityLog('untrust_device', { deviceId });
+                await addChange('device', 'إلغاء توثيق جهاز', `تم إلغاء توثيق الجهاز`);
+            };
         });
         
         document.querySelectorAll('.remove-device').forEach(btn => {
-            btn.addEventListener('click', async () => {
+            btn.onclick = async () => {
                 const deviceId = btn.dataset.id;
                 const deviceName = AppState.devices.find(d => d.deviceId === deviceId)?.deviceName || 'جهاز';
                 showConfirm('إزالة جهاز', 'هل أنت متأكد من إزالة هذا الجهاز؟', async () => {
@@ -2169,37 +2194,44 @@
                     const snap = await getDocs(q);
                     if (!snap.empty) await deleteDoc(snap.docs[0].ref);
                     
-                    // ✅ تصحيح: استخدام deleteField بدل {}
                     await setDoc(AppState.userDocRef, {
                         [`security.trustedDevices.${deviceId}`]: deleteField(),
                         [`security.pendingDevices.${deviceId}`]: deleteField()
                     }, { merge: true });
                     
                     showToast('تم إزالة الجهاز', 'success');
-                    addActivityLog('remove_device', { deviceId });
-                    addChange('device', 'إزالة جهاز', `تم إزالة الجهاز: ${deviceName}`);
+                    await addActivityLog('remove_device', { deviceId });
+                    await addChange('device', 'إزالة جهاز', `تم إزالة الجهاز: ${deviceName}`);
                 });
-            });
+            };
         });
         
         document.querySelectorAll('.copy-otp-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
+            btn.onclick = () => {
                 const deviceId = btn.dataset.device;
                 const otpElement = document.getElementById(`otpCode-${deviceId}`);
-                if (otpElement) {
+                if (otpElement && otpElement.textContent !== 'جاري التحميل...') {
                     navigator.clipboard.writeText(otpElement.textContent);
                     showToast('تم نسخ رمز التفعيل', 'success');
                 }
-            });
+            };
         });
     }
     
     async function loadOTPForDevice(deviceId) {
-        const otpRef = rtdbRef(rtdb, `users/${AppState.user.uid}/otp_requests/${deviceId}`);
-        const snapshot = await rtdbGet(otpRef);
+        if (!AppState.user?.uid) return;
         
-        if (snapshot.exists()) {
-            const data = snapshot.val();
+        const otpRef = rtdbRef(rtdb, `users/${AppState.user.uid}/otp_requests/${deviceId}`);
+        
+        // Generate OTP if not exists
+        const snapshot = await rtdbGet(otpRef);
+        if (!snapshot.exists()) {
+            await generateAndStoreOTP(AppState.user.uid, deviceId);
+        }
+        
+        const updatedSnapshot = await rtdbGet(otpRef);
+        if (updatedSnapshot.exists()) {
+            const data = updatedSnapshot.val();
             const otpCode = data.code;
             const expiresAt = data.expiresAt;
             
@@ -2213,22 +2245,23 @@
                 const minutes = Math.floor(remaining / 60000);
                 const seconds = Math.floor((remaining % 60000) / 1000);
                 if (timerElement) {
-                    timerElement.textContent = `⏱ ينتهي بعد ${minutes}:${seconds.toString().padStart(2, '0')}`;
-                }
-                if (remaining <= 0 && timerElement) {
-                    timerElement.textContent = '⏰ انتهت الصلاحية';
+                    if (remaining > 0) {
+                        timerElement.textContent = `⏱ ينتهي بعد ${minutes}:${seconds.toString().padStart(2, '0')}`;
+                    } else {
+                        timerElement.textContent = '⏰ انتهت الصلاحية';
+                    }
                 }
             };
             
             updateTimer();
             const interval = setInterval(updateTimer, 1000);
-            setTimeout(() => clearInterval(interval), expiresAt - Date.now() + 1000);
+            setTimeout(() => clearInterval(interval), Math.max(0, expiresAt - Date.now() + 1000));
         }
     }
     
     function renderActivityLogs() {
         const container = document.getElementById('activityTimeline');
-        const logs = AppState.activityLogs;
+        const logs = AppState.activityLogs || [];
         
         if (logs.length === 0) {
             container.innerHTML = `<div class="empty-state"><div class="empty-icon">📋</div><p class="body-sm">لا توجد سجلات نشاط</p></div>`;
@@ -2243,16 +2276,11 @@
         });
         
         const actionNames = {
-            login: 'تسجيل دخول',
-            logout: 'تسجيل خروج',
-            add_board: 'إضافة حساب',
-            edit_board: 'تعديل حساب',
-            delete_board: 'حذف حساب',
-            copy_password: 'نسخ كلمة مرور',
-            trust_device: 'توثيق جهاز',
-            untrust_device: 'إلغاء توثيق جهاز',
-            remove_device: 'إزالة جهاز',
-            device_approved: 'تفعيل جهاز',
+            login: 'تسجيل دخول', logout: 'تسجيل خروج',
+            add_board: 'إضافة حساب', edit_board: 'تعديل حساب',
+            delete_board: 'حذف حساب', copy_password: 'نسخ كلمة مرور',
+            trust_device: 'توثيق جهاز', untrust_device: 'إلغاء توثيق جهاز',
+            remove_device: 'إزالة جهاز', device_approved: 'تفعيل جهاز',
             import_data: 'استيراد بيانات'
         };
         
@@ -2264,7 +2292,7 @@
                 </div>
                 <div class="activity-items">
                     ${dayLogs.map(log => `
-                        <div class="activity-item" data-log-id="${log.id}">
+                        <div class="activity-item">
                             <div class="activity-icon">
                                 <iconify-icon icon="mdi:${log.action === 'login' ? 'login' : log.action === 'logout' ? 'logout' : 'information'}"></iconify-icon>
                             </div>
@@ -2272,7 +2300,7 @@
                                 <div class="activity-description">${actionNames[log.action] || log.action}</div>
                                 <div class="activity-time">${log.timestamp.toLocaleTimeString('ar-SA')}</div>
                             </div>
-                            <button class="delete-log-btn" data-id="${log.id}" title="حذف">
+                            <button class="delete-log-btn" data-id="${log.id}" style="background: none; border: none; cursor: pointer;">
                                 <iconify-icon icon="mdi:close"></iconify-icon>
                             </button>
                         </div>
@@ -2282,13 +2310,16 @@
         `).join('');
         
         document.querySelectorAll('.delete-log-btn').forEach(btn => {
-            btn.addEventListener('click', async (e) => {
+            btn.onclick = async (e) => {
                 e.stopPropagation();
                 const id = btn.dataset.id;
-                const logRef = doc(AppState.userDocRef, 'activity_logs', id);
-                await deleteDoc(logRef);
-                showToast('تم حذف السجل', 'success');
-            });
+                try {
+                    await deleteDoc(doc(AppState.userDocRef, 'activity_logs', id));
+                    showToast('تم حذف السجل', 'success');
+                } catch (e) {
+                    showToast('لا يمكن حذف هذا السجل', 'error');
+                }
+            };
         });
     }
     
@@ -2296,36 +2327,27 @@
         const container = document.getElementById('changesList');
         const changes = AppState.changes || [];
         
-        document.getElementById('changesCount').textContent = 
-            `${changes.length} تغيير مسجل`;
+        document.getElementById('changesCount').textContent = `${changes.length} تغيير مسجل`;
         
         if (changes.length === 0) {
-            container.innerHTML = `
-                <div class="empty-state">
-                    <div class="empty-icon">📋</div>
-                    <h3 class="h3">لا توجد تغييرات</h3>
-                    <p class="body-sm">أي تعديل يحدث على حسابك سيظهر هنا</p>
-                </div>
-            `;
+            container.innerHTML = `<div class="empty-state"><div class="empty-icon">📋</div><p class="body-sm">لا توجد تغييرات مسجلة</p></div>`;
             return;
         }
         
         const iconMap = {
-            setting:  { icon: 'mdi:cog-outline',       class: 'setting' },
-            security: { icon: 'mdi:shield-alert',       class: 'security' },
-            password: { icon: 'mdi:key-outline',        class: 'password' },
-            device:   { icon: 'mdi:devices',            class: 'device' },
-            danger:   { icon: 'mdi:alert-circle-outline', class: 'danger' }
+            setting: { icon: 'mdi:cog-outline', class: 'setting' },
+            security: { icon: 'mdi:shield-alert', class: 'security' },
+            password: { icon: 'mdi:key-outline', class: 'password' },
+            device: { icon: 'mdi:devices', class: 'device' },
+            danger: { icon: 'mdi:alert-circle-outline', class: 'danger' }
         };
         
         container.innerHTML = changes.map(change => {
             const meta = iconMap[change.type] || iconMap.setting;
-            const time = change.timestamp 
-                ? new Date(change.timestamp).toLocaleString('ar-SA')
-                : '';
+            const time = change.timestamp ? new Date(change.timestamp).toLocaleString('ar-SA') : '';
             
             return `
-                <div class="change-item" data-change-id="${change.id}">
+                <div class="change-item">
                     <div class="change-item-icon ${meta.class}">
                         <iconify-icon icon="${meta.icon}"></iconify-icon>
                     </div>
@@ -2334,7 +2356,7 @@
                         ${change.detail ? `<div class="change-item-detail">${escapeHtml(change.detail)}</div>` : ''}
                     </div>
                     <div class="change-item-time">${time}</div>
-                    <button class="delete-change-btn" data-id="${change.id}" title="حذف">
+                    <button class="delete-change-btn" data-id="${change.id}" style="background: none; border: none; cursor: pointer;">
                         <iconify-icon icon="mdi:close"></iconify-icon>
                     </button>
                 </div>
@@ -2342,13 +2364,12 @@
         }).join('');
         
         document.querySelectorAll('.delete-change-btn').forEach(btn => {
-            btn.addEventListener('click', async (e) => {
+            btn.onclick = async (e) => {
                 e.stopPropagation();
                 const id = btn.dataset.id;
-                const changeRef = doc(AppState.userDocRef, 'changes', id);
-                await deleteDoc(changeRef);
+                await deleteDoc(doc(AppState.userDocRef, 'changes', id));
                 showToast('تم حذف التغيير', 'success');
-            });
+            };
         });
     }
     
@@ -2357,12 +2378,12 @@
         profileTab.innerHTML = `
             <div class="settings-card">
                 <div class="settings-card-header">
-                    <iconify-icon icon="mdi:account-circle" style="font-size: 1.5rem;"></iconify-icon>
+                    <iconify-icon icon="mdi:account-circle" style="font-size: 1.25rem;"></iconify-icon>
                     <h3 class="h3">الملف الشخصي</h3>
                 </div>
                 <div class="settings-item">
                     <span>الاسم</span>
-                    <span><strong id="profileName">${AppState.user?.displayName || AppState.user?.email?.split('@')[0]}</strong></span>
+                    <span><strong>${AppState.user?.displayName || AppState.user?.email?.split('@')[0]}</strong></span>
                 </div>
                 <div class="settings-item">
                     <span>البريد الإلكتروني</span>
@@ -2379,7 +2400,7 @@
         securityTab.innerHTML = `
             <div class="settings-card">
                 <div class="settings-card-header">
-                    <iconify-icon icon="mdi:shield-lock" style="font-size: 1.5rem;"></iconify-icon>
+                    <iconify-icon icon="mdi:shield-lock" style="font-size: 1.25rem;"></iconify-icon>
                     <h3 class="h3">إعدادات الأمان</h3>
                 </div>
                 <div class="settings-item">
@@ -2390,34 +2411,30 @@
                         <option value="always" ${AppState.settings.passwordVisibility === 'always' ? 'selected' : ''}>دائماً ظاهر</option>
                     </select>
                 </div>
-                <div class="settings-item">
-                    <span>الوضع الليلي</span>
-                    <span>مفعل دائماً</span>
-                </div>
             </div>
         `;
         
         document.getElementById('passwordVisibility')?.addEventListener('change', async (e) => {
-            await setDoc(AppState.userDocRef, { 'settings.passwordVisibility': e.target.value }, { merge: true });
+            await updateDoc(AppState.userDocRef, { 'settings.passwordVisibility': e.target.value });
             showToast('تم حفظ الإعدادات', 'success');
-            addChange('setting', 'تغيير إعداد', `تم تغيير: طريقة إظهار كلمة المرور`);
+            await addChange('setting', 'تغيير إعداد', 'تم تغيير طريقة إظهار كلمة المرور');
         });
         
         const backupTab = document.getElementById('backupTab');
         backupTab.innerHTML = `
             <div class="settings-card">
                 <div class="settings-card-header">
-                    <iconify-icon icon="mdi:backup-restore" style="font-size: 1.5rem;"></iconify-icon>
+                    <iconify-icon icon="mdi:backup-restore" style="font-size: 1.25rem;"></iconify-icon>
                     <h3 class="h3">النسخ الاحتياطي</h3>
                 </div>
                 <div class="settings-item">
                     <span>تصدير البيانات</span>
-                    <button class="btn btn-secondary" id="exportDataBtn" style="padding: 0.5rem 1rem;">تصدير</button>
+                    <button class="btn btn-secondary" id="exportDataBtn" style="padding: 0.4rem 0.8rem;">تصدير</button>
                 </div>
                 <div class="settings-item">
                     <span>استيراد البيانات</span>
                     <input type="file" id="importFileInput" accept=".json" style="display: none;">
-                    <button class="btn btn-secondary" id="importDataBtn" style="padding: 0.5rem 1rem;">استيراد</button>
+                    <button class="btn btn-secondary" id="importDataBtn" style="padding: 0.4rem 0.8rem;">استيراد</button>
                 </div>
             </div>
         `;
@@ -2454,8 +2471,8 @@
                         }))];
                         await updateDoc(AppState.userDocRef, { 'vault.boards': newBoards });
                         showToast(`تم استيراد ${data.boards.length} حساب`, 'success');
-                        addActivityLog('import_data', { count: data.boards.length });
-                        addChange('password', 'استيراد بيانات', `تم استيراد ${data.boards.length} حساب`);
+                        await addActivityLog('import_data', { count: data.boards.length });
+                        await addChange('password', 'استيراد بيانات', `تم استيراد ${data.boards.length} حساب`);
                     }
                 } catch (err) {
                     showToast('ملف غير صالح', 'error');
@@ -2467,7 +2484,7 @@
     }
     
     // ========================================
-    // UI UPDATE
+    // UI UPDATE & NAVIGATION
     // ========================================
     function updateUI() {
         const name = AppState.user?.displayName || AppState.user?.email?.split('@')[0] || 'المستخدم';
@@ -2480,90 +2497,71 @@
         renderSettings();
     }
     
-    // ========================================
-    // BOARD MODAL
-    // ========================================
+    function showSection(sectionId) {
+        AppState.currentSection = sectionId;
+        
+        // Update sections
+        document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+        document.getElementById(`${sectionId}Section`).classList.add('active');
+        
+        // Update desktop tabs
+        document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+        document.querySelector(`.nav-tab[data-section="${sectionId}"]`)?.classList.add('active');
+        
+        // Update bottom nav
+        document.querySelectorAll('.bottom-nav-item').forEach(item => item.classList.remove('active'));
+        document.querySelector(`.bottom-nav-item[data-section="${sectionId}"]`)?.classList.add('active');
+        
+        // Render section content
+        if (sectionId === 'devices') renderDevices();
+        if (sectionId === 'activity') renderActivityLogs();
+        if (sectionId === 'changes') renderChanges();
+        if (sectionId === 'settings') renderSettings();
+        if (sectionId === 'dashboard') renderBoards();
+    }
+    
     function openBoardModal(editMode = false, board = null) {
         const modal = document.getElementById('boardModal');
-        const title = document.getElementById('boardModalTitle');
-        const form = document.getElementById('boardForm');
         
         if (editMode && board) {
-            title.textContent = 'تعديل الحساب';
+            document.getElementById('boardModalTitle').textContent = 'تعديل الحساب';
             document.getElementById('boardId').value = board.id;
             document.getElementById('boardName').value = board.name;
             document.getElementById('boardEmail').value = board.email;
             document.getElementById('boardPassword').value = board.password;
         } else {
-            title.textContent = 'إضافة حساب جديد';
-            form.reset();
+            document.getElementById('boardModalTitle').textContent = 'إضافة حساب جديد';
+            document.getElementById('boardForm').reset();
             document.getElementById('boardId').value = '';
         }
         
         modal.classList.add('active');
     }
     
-    document.getElementById('boardForm')?.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        
-        const id = document.getElementById('boardId').value || Date.now().toString(36) + Math.random().toString(36).substr(2, 5);
-        const name = document.getElementById('boardName').value.trim();
-        const email = document.getElementById('boardEmail').value.trim();
-        const password = document.getElementById('boardPassword').value;
-        
-        if (!name || !email || !password) {
-            showToast('الرجاء ملء جميع الحقول', 'error');
-            return;
-        }
-        
-        const isEditing = !!document.getElementById('boardId').value;
-        let newBoards;
-        
-        if (isEditing) {
-            newBoards = AppState.boards.map(b => b.id === id ? { ...b, name, email, password, updatedAt: new Date() } : b);
-        } else {
-            newBoards = [...AppState.boards, { id, name, email, password, icon: 'mdi:web', createdAt: new Date() }];
-        }
-        
-        await updateDoc(AppState.userDocRef, { 'vault.boards': newBoards });
-        showToast(isEditing ? 'تم التعديل بنجاح' : 'تمت الإضافة بنجاح', 'success');
-        addActivityLog(isEditing ? 'edit_board' : 'add_board', { boardName: name });
-        addChange(isEditing ? 'password' : 'password', 
-                  isEditing ? 'تعديل حساب' : 'إضافة حساب جديد', 
-                  `${isEditing ? 'تم تعديل' : 'تمت إضافة'} حساب: ${name}`);
-        closeAllModals();
-    });
-    
-    // ========================================
-    // SECTION NAVIGATION
-    // ========================================
-    function showSection(sectionId) {
-        document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-        document.getElementById(`${sectionId}Section`).classList.add('active');
-        
-        document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
-        document.querySelector(`.nav-tab[data-section="${sectionId}"]`).classList.add('active');
-        
-        if (sectionId === 'devices') renderDevices();
-        if (sectionId === 'activity') renderActivityLogs();
-        if (sectionId === 'changes') renderChanges();
-        if (sectionId === 'settings') renderSettings();
-    }
-    
     // ========================================
     // EVENT LISTENERS
     // ========================================
     function setupEventListeners() {
+        // Desktop navigation
         document.querySelectorAll('.nav-tab').forEach(tab => {
             tab.addEventListener('click', () => showSection(tab.dataset.section));
         });
         
+        // Bottom navigation
+        document.querySelectorAll('.bottom-nav-item').forEach(item => {
+            item.addEventListener('click', () => showSection(item.dataset.section));
+        });
+        
+        // Floating button
         document.getElementById('floatingAddBtn')?.addEventListener('click', () => openBoardModal(false));
+        
+        // Modals close
         document.getElementById('closeBoardModal')?.addEventListener('click', closeAllModals);
         document.getElementById('cancelBoardBtn')?.addEventListener('click', closeAllModals);
         document.getElementById('closeConfirmModal')?.addEventListener('click', closeAllModals);
         document.getElementById('cancelConfirmBtn')?.addEventListener('click', closeAllModals);
         
+        // Profile dropdown
         document.getElementById('profileTrigger')?.addEventListener('click', (e) => {
             e.stopPropagation();
             document.getElementById('profileDropdown').classList.toggle('active');
@@ -2573,27 +2571,61 @@
             document.getElementById('profileDropdown')?.classList.remove('active');
         });
         
+        // Lock session
         document.getElementById('lockSessionBtn')?.addEventListener('click', () => {
             localStorage.setItem('novapass_locked', 'true');
             window.location.href = 'auth.html?unlock=true';
         });
         
+        // Logout
         document.getElementById('logoutBtn')?.addEventListener('click', async () => {
             await signOut(auth);
             window.location.href = 'auth.html';
         });
         
+        // Search devices
         document.getElementById('devicesSearch')?.addEventListener('input', () => renderDevices());
         
+        // Clear all changes
         document.getElementById('clearChangesBtn')?.addEventListener('click', () => {
             showConfirm('حذف كل التغييرات', 'هل تريد حذف جميع سجلات التغييرات؟', async () => {
-                const batch = [];
+                const batch = writeBatch(db);
                 for (const change of AppState.changes) {
-                    batch.push(deleteDoc(doc(AppState.userDocRef, 'changes', change.id)));
+                    batch.delete(doc(AppState.userDocRef, 'changes', change.id));
                 }
-                await Promise.all(batch);
+                await batch.commit();
                 showToast('تم حذف كل التغييرات', 'success');
             });
+        });
+        
+        // Board form submit
+        document.getElementById('boardForm')?.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const id = document.getElementById('boardId').value || Date.now().toString(36) + Math.random().toString(36).substr(2, 5);
+            const name = document.getElementById('boardName').value.trim();
+            const email = document.getElementById('boardEmail').value.trim();
+            const password = document.getElementById('boardPassword').value;
+            
+            if (!name || !email || !password) {
+                showToast('الرجاء ملء جميع الحقول', 'error');
+                return;
+            }
+            
+            const isEditing = !!document.getElementById('boardId').value;
+            let newBoards;
+            
+            if (isEditing) {
+                newBoards = AppState.boards.map(b => b.id === id ? { ...b, name, email, password, updatedAt: new Date() } : b);
+            } else {
+                newBoards = [...AppState.boards, { id, name, email, password, icon: 'mdi:web', createdAt: new Date() }];
+            }
+            
+            await updateDoc(AppState.userDocRef, { 'vault.boards': newBoards });
+            showToast(isEditing ? 'تم التعديل بنجاح' : 'تمت الإضافة بنجاح', 'success');
+            await addActivityLog(isEditing ? 'edit_board' : 'add_board', { boardName: name });
+            await addChange('password', isEditing ? 'تعديل حساب' : 'إضافة حساب جديد', `${isEditing ? 'تم تعديل' : 'تمت إضافة'} حساب: ${name}`);
+            closeAllModals();
         });
     }
     
